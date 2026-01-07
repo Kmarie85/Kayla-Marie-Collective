@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Services – Kayla Marie Collective</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <!-- Reuse the same header -->
+  <header class="site-header">
+    <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <img src="Static/Images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">Kayla Marie Collective
+    </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html" class="active">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="btn-nav">Start a Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Services</h1>
+        <p>Websites, journals, and launch assets for wellness and spiritual creators.</p>
+      </div>
+    </section>
+
+    <section class="services-list container">
+      <article class="service-block">
+        <h2>Website Design Package</h2>
+        <p class="price">Starting at $1,500</p>
+        <p class="summary">
+          Done-for-you website for creators selling digital products, sessions, or programs.
+        </p>
+        <h3>What’s included</h3>
+        <ul>
+          <li>Custom design (Home / About / Shop / Contact)</li>
+          <li>Payment integration (Stripe, Gumroad, Beacons, or similar)</li>
+          <li>Branding basics (color palette + typography)</li>
+          <li>Mobile optimization</li>
+          <li>Launch setup training so you can edit it yourself</li>
+        </ul>
+      </article>
+
+      <article class="service-block">
+        <h2>Digital Journal / Workbook Design</h2>
+        <p class="price">Starting at $1,200</p>
+        <p class="summary">
+          Turn your teachings into a premium, structured journal or workbook your audience will actually use.
+        </p>
+        <h3>What’s included</h3>
+        <ul>
+          <li>Layout, structure, and page design</li>
+          <li>Cover design and product mockups</li>
+          <li>Amazon KDP / Etsy-ready files</li>
+          <li>Digital delivery setup support</li>
+        </ul>
+      </article>
+
+      <article class="service-block">
+        <h2>The Creator Launch Bundle</h2>
+        <p class="price">$3,500–$7,500</p>
+        <p class="summary">
+          Website, journal, and funnel all aligned to one clear launch plan.
+        </p>
+        <h3>What’s included</h3>
+        <ul>
+          <li>Custom brand-aligned website</li>
+          <li>Journal or workbook product</li>
+          <li>Lead magnet (e.g., 5-day challenge PDF)</li>
+          <li>Basic funnel setup (opt-in → product page → checkout)</li>
+          <li>Launch-week support for tweaks and refinements</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="services-cta">
+      <div class="container">
+        <h2>Not sure which option fits?</h2>
+        <p>Tell me what you trying to create and I’ll recommend a starting point.</p>
+        <p>I want to meet you where you are, so if none of these packages fit where you are, lets get in touch and see if we can work together!</p>
+        <a href="contact.html" class="btn-primary">Start a Project Inquiry</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Kayla Marie Collective</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Portfolio – Kayla Marie Collective</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <img src="Static/Images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">Kayla Marie Collective
+    </a>      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="btn-nav">Start a Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Portfolio</h1>
+        <p>A glimpse into the kind of work I create for wellness and spiritual brands.</p>
+      </div>
+    </section>
+
+    <!-- Websites Section -->
+    <section class="portfolio-section container">
+      <h2>Websites</h2>
+      <div class="portfolio-grid">
+    <!-- Card 1 -->
+        <article class="portfolio-item">
+          <img src="static/images/Screenshot 2025-12-30 at 9.50.20 AM.png" alt="Sample wellness website" />
+          <h3>Wellness Creator Site</h3>
+          <p>Simple, grounded site for transformation.</p>
+          <p class="tech">Tech: HTML, CSS, JavaScript, API</p>
+          <a href="https://live-site-url.com" target="_blank" class="text-link">View live site →</a>
+        </article>
+
+    <!-- Card 2 -->
+        <article class="portfolio-item">
+          <img src="assets/img/website-1.jpg" alt="Sample wellness website" />
+          <h3>Wellness Creator Site</h3>
+          <p>Simple, grounded site for a spiritual coach with clear offers and a shop.</p>
+          <p class="tech">Tech: HTML, CSS (or React/whatever you used)</p>
+          <a href="https://live-site-url.com" target="_blank" class="text-link">View live site →</a>
+        </article>
+
+    <!-- Card 3 -->
+        <!-- <article class="portfolio-item">
+          <img src="assets/img/website-1.jpg" alt="Sample wellness website" />
+          <h3>Wellness Creator Site</h3>
+          <p>Simple, grounded site for a spiritual coach with clear offers and a shop.</p>
+          <p class="tech">Tech: HTML, CSS (or React/whatever you used)</p>
+          <a href="https://live-site-url.com" target="_blank" class="text-link">View live site →</a>
+        </article> -->
+
+    <!-- Card 4 -->
+        <!-- <article class="portfolio-item">
+          <img src="assets/img/website-1.jpg" alt="Sample wellness website" />
+          <h3>Wellness Creator Site</h3>
+          <p>Simple, grounded site for a spiritual coach with clear offers and a shop.</p>
+          <p class="tech">Tech: HTML, CSS (or React/whatever you used)</p>
+          <a href="https://live-site-url.com" target="_blank" class="text-link">View live site →</a>
+        </article> -->
+      </div>
+    </section> 
+
+    <!-- Journals & Digital Products -->
+    <section class="portfolio-section container">
+      <h2>Journals & Digital Products</h2>
+      <div class="portfolio-grid">
+        <article class="portfolio-item">
+          <img src="Static/Images/Starsinherbones.png" alt="Stars In Her Bones journal" />
+          <h3>Stars In Her Bones – Ritual Journal</h3>
+          <p>Guided journal for deep self-remembering with ritual-style prompts and soft visuals.</p>
+          <a href="YOUR_BEACONS_OR_AMAZON_LINK" target="_blank" class="text-link">View product →</a>
+        </article>
+
+        <!-- Add more spreads/mockups -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Kayla Marie Collective</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

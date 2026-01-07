@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About – Kayla Marie Collective</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <img src="Static/Images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">Kayla Marie Collective
+    </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html" class="btn-nav">Start a Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>About</h1>
+        <p>Design rooted in ritual, nervous-system safety, and clarity.</p>
+      </div>
+    </section>
+
+    <section class="about-content container">
+      <h2>Who I Help</h2>
+      <p>Websites + digital products for creator-led brands.</p>
+      <p>Perfect for coaches, authors, wellness brands — and any creator building an online business.</p>
+
+      <h2>Why I Do This</h2>
+      <p>
+        I’ve lived on both sides: the inner work and the technical build. I know how hard it is to translate
+        a deep message into something structured, beautiful, and clear enough for a stranger to buy.
+      </p>
+
+      <h2>How My Work Stands Out</h2>
+      <ul>
+        <li>Soft, ritual-inspired visuals that still read clean and professional.</li>
+        <li>Calm, readable layouts that support reflection instead of overwhelming it.</li>
+        <li>A focus on both aesthetics and function: it has to feel good and work well.</li>
+      </ul>
+
+      <h2>What I Believe</h2>
+      <p>
+        Design should help people feel safer in their own body and story. A good website or journal doesn’t just look nice—
+        it guides someone into a deeper, clearer yes.
+      </p>
+
+      <div class="about-cta">
+        <a href="contact.html" class="btn-primary">Tell me about your project</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Kayla Marie Collective</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>

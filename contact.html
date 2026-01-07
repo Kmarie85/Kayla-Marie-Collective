@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Start a Project – Stars In Her Bones Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+    <a href="index.html" class="logo">
+      <img src="Static/Images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">Kayla Marie Collective
+    </a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="btn-nav active">Start a Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Start a Project</h1>
+        <p>Tell me what you’re building so we can see if we’re a fit.</p>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="container">
+        <!-- Replace the action with your Formspree / backend endpoint -->
+        <form class="project-form" method="POST" action="https://formspree.io/f/YOUR_ID">
+          <label>
+            Name *
+            <input type="text" name="name" required />
+          </label>
+
+          <label>
+            Business / Brand Name
+            <input type="text" name="brand" />
+          </label>
+
+          <label>
+            Email *
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            What do you want built? *
+            <textarea name="project_details" rows="4" placeholder="Website, journal, bundle, or something else?" required></textarea>
+          </label>
+
+          <label>
+            Budget Range (USD) *
+            <select name="budget" required>
+              <option value="">Select one</option>
+              <option value="1000-1500">$1,000 – $1,500</option>
+              <option value="1500-3000">$1,500 – $3,000</option>
+              <option value="3000-5000">$3,000 – $5,000</option>
+              <option value="5000+">$5,000+</option>
+            </select>
+          </label>
+
+          <label>
+            Ideal Timeline *
+            <input type="text" name="timeline" placeholder="For example: March launch, or ASAP" required />
+          </label>
+
+          <label>
+            Links to existing brand / socials
+            <textarea name="links" rows="2" placeholder="Instagram, website, TikTok, etc."></textarea>
+          </label>
+
+          <button type="submit" class="btn-primary">Submit Inquiry</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Kayla Marie Collective</p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </footer>
+</body>
+</html>
