@@ -2,21 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Kayla Marie Collective | Websites + Digital Products Built to Sell</title>
-  <link rel="stylesheet" href="style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary SEO -->
+  <title>Kayla Marie Collective | Websites + Digital Products Built to Sell</title>
+  <meta
+    name="description"
+    content="Done-for-you websites and digital products for creators and small businesses — calming design, clear messaging, mobile-ready builds, and simple funnels that convert."
+  />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Kayla Marie Collective" />
+  <link rel="canonical" href="https://kaylamariecollective.com/" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Performance: preload the logo used above-the-fold -->
+  <link rel="preload" as="image" href="images/Blacklogoone.png" />
+
+  <!-- Open Graph (Facebook/Instagram/iMessage) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kayla Marie Collective" />
+  <meta property="og:title" content="Kayla Marie Collective | Websites + Digital Products Built to Sell" />
+  <meta
+    property="og:description"
+    content="Launch-ready websites and digital products built to sell — so your offer looks premium and your next client knows exactly what to do."
+  />
+  <meta property="og:url" content="https://kaylamariecollective.com/" />
+  <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kayla Marie Collective — Websites and digital products built to sell" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kayla Marie Collective | Websites + Digital Products Built to Sell" />
+  <meta
+    name="twitter:description"
+    content="Done-for-you websites and digital products — calming design, clear messaging, mobile-ready builds, and simple funnels that convert."
+  />
+  <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
+  <link rel="apple-touch-icon" href="images/favicon-32.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- UI -->
+  <meta name="theme-color" content="#ffffff" />
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">
+      <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+        <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo" />
         Kayla Marie Collective
       </a>
-      <nav class="main-nav">
-        <a href="index.html" class="active">Home</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" class="active" aria-current="page">Home</a>
         <a href="services.html">Services</a>
         <a href="portfolio.html">Portfolio</a>
         <a href="about.html">About</a>
@@ -25,7 +74,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- Hero -->
     <section class="hero">
       <div class="container hero-inner">
@@ -80,13 +129,13 @@
         <h2>Featured Work</h2>
         <div class="featured-grid">
           <article class="featured-item">
-            <img src="images/Starsinherbones.png" alt="Stars In Her Bones journal spread" />
+            <img src="images/Starsinherbones.png" alt="Stars In Her Bones journal spread" loading="lazy" decoding="async" />
             <h3>Journal Design</h3>
             <p>Ritual-style guided journal for deep self-remembering and daily reflection.</p>
           </article>
 
           <article class="featured-item">
-            <img src="images/recscreen.png" alt="Reclamation website screenshot" />
+            <img src="images/recscreen.png" alt="Reclamation website screenshot" loading="lazy" decoding="async" />
             <h3>The Reclamation Co.</h3>
             <p>A grounded website built for burned-out women — clear message, clear next step.</p>
           </article>
@@ -202,14 +251,17 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© <span id="year"></span> Kayla Marie Collective</p>
+      <p>© <span id="year">2026</span> Kayla Marie Collective</p>
       <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
         kaylamariecollective@gmail.com
       </a>
     </div>
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      document.getElementById("year").textContent = new Date().getFullYear();
     </script>
+    <noscript>
+      <!-- Year will stay as the fallback value if JS is disabled -->
+    </noscript>
   </footer>
 </body>
 </html>
