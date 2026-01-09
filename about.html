@@ -1,256 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+  CLIENT SETTINGS:
+  - Site name:
+  - Canonical domain:
+  - Primary color:
+  - OG image path:
+  -->
 
-<!--
-CLIENT SETTINGS:
-- Site name:
-- Canonical domain:
-- Primary color:
-- OG image path:
--->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>About – Kayla Marie Collective</title>
-  
-  <link rel="stylesheet" href="/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary SEO -->
+    <title>About | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Meet Kayla — founder of Kayla Marie Collective. Calm, premium websites and digital products built for clarity and conversion."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link rel="canonical" href="https://kaylamariecollective.com/about.html" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-</head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/style.css" />
 
-<body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">
-        Kayla Marie Collective
-      </a>
+    <!-- Performance -->
+    <link rel="preload" as="image" href="/images/Blacklogoone.png" />
 
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="about.html" class="active">About</a>
-        <a href="contact.html" class="btn-nav">Start a Project</a>
-      </nav>
-    </div>
-  </header>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kayla Marie Collective" />
+    <meta property="og:title" content="About | Kayla Marie Collective" />
+    <meta
+      property="og:description"
+      content="Design rooted in clarity, nervous-system safety, and clean conversion."
+    />
+    <meta property="og:url" content="https://kaylamariecollective.com/about.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kayla Marie Collective — About" />
 
-  <main>
-    <!-- Upgraded hero -->
-    <section class="page-hero about-hero">
-      <div class="container">
-        <div class="kicker">Design • Clarity • Conversion</div>
-        <div class="hero-split">
-          <div>
-            <h1>About</h1>
-            <p class="about-lead">
-              Design rooted in clarity, nervous-system safety, and clean conversion.
-            </p>
-          </div>
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About | Kayla Marie Collective" />
+    <meta
+      name="twitter:description"
+      content="Design rooted in clarity, nervous-system safety, and clean conversion."
+    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-          <div class="hero-card">
-            <p>
-              If your work is deep, your website shouldn’t feel chaotic.
-              I build calm, premium spaces that make it easy for people to say yes.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32x32.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <section class="about-wrap">
-      <div class="container">
+    <!-- UI -->
+    <meta name="theme-color" content="#ffffff" />
 
-        <!-- Intro card -->
-        <div class="about-card about-section">
-          <h2>Hi, I’m Kayla</h2>
-
-          <div class="about-intro">
-            <img
-              src="images/kaylabiopic.png"
-              alt="Kayla — Founder of Kayla Marie Collective"
-              class="about-photo"
-            />
-
-            <div>
-              <p>
-                I build launch-ready websites and digital products for creators who have something real to say —
-                and want their online presence to match the depth of their work.
-              </p>
-
-              <div class="about-badges">
-                <span class="badge">Launch-ready</span>
-                <span class="badge">Calm layout</span>
-                <span class="badge">Clear CTA</span>
-                <span class="badge">Maintainable builds</span>
-              </div>
-
-              <div class="about-actions">
-                <a href="contact.html" class="btn-primary">Start a Project Inquiry</a>
-                <a href="portfolio.html" class="btn-secondary">View Portfolio</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Who + Why in a two-panel grid -->
-        <div class="about-grid-2 about-section">
-          <div class="about-card">
-            <h2>Who I Help</h2>
-            <p>
-              Coaches, authors, wellness brands, and creator-led businesses who need a clean, calm, professional
-              site (or product) that makes it easy for people to take the next step.
-            </p>
-
-            <div class="stats-row">
-              <div class="stat">
-                <p class="num">Fast</p>
-                <p class="label">Simple, clear builds</p>
-              </div>
-              <div class="stat">
-                <p class="num">Calm</p>
-                <p class="label">Less overwhelm by design</p>
-              </div>
-              <div class="stat">
-                <p class="num">Clean</p>
-                <p class="label">Conversion-friendly layout</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="about-card">
-            <h2>Why I Do This</h2>
-            <p>
-              I’ve lived on both sides: the inner work and the technical build. I know how hard it is to translate
-              a deep message into something structured, beautiful, and clear enough for a stranger to buy.
-            </p>
-
-            <div class="quote-card">
-              <p>
-                “Design should reduce overwhelm. A good site doesn’t just look nice —
-                it helps someone feel oriented, supported, and ready to say yes.”
-              </p>
-              <footer>— Kayla Marie Collective</footer>
-            </div>
-          </div>
-        </div>
-
-        <!-- Standout + Walk away with -->
-        <div class="about-card about-section">
-          <h2>How My Work Stands Out</h2>
-          <div class="about-grid-2">
-            <div class="soft-panel">
-              <p><strong>Soft visuals, still professional.</strong><br>
-                Ritual-inspired design that reads premium and clean.
-              </p>
-            </div>
-            <div class="soft-panel">
-              <p><strong>Calm, readable layouts.</strong><br>
-                Designed to support attention, not scatter it.
-              </p>
-            </div>
-            <div class="soft-panel">
-              <p><strong>Aesthetics + function.</strong><br>
-                It has to feel good and work well — both.
-              </p>
-            </div>
-            <div class="soft-panel">
-              <p><strong>Maintainable build.</strong><br>
-                You can update it without tech spirals.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Outcomes -->
-        <div class="about-card about-section">
-          <h2>What You’ll Walk Away With</h2>
-          <div class="about-grid-2">
-            <div class="soft-panel">
-              <p><strong>Premium + clear.</strong><br>
-                A website or product that looks elevated and reads easily.
-              </p>
-            </div>
-            <div class="soft-panel">
-              <p><strong>A simple path.</strong><br>
-                Inquire, book, or buy — without confusion.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- How it works timeline -->
-        <div class="about-card about-section">
-          <h2>How It Works</h2>
-          <ul class="timeline">
-            <li>
-              <div class="step">1</div>
-              <div>
-                <h3>Inquiry</h3>
-                <p>You tell me what you’re building and what you need.</p>
-              </div>
-            </li>
-            <li>
-              <div class="step">2</div>
-              <div>
-                <h3>Plan</h3>
-                <p>I map your pages, structure, and the clearest next steps.</p>
-              </div>
-            </li>
-            <li>
-              <div class="step">3</div>
-              <div>
-                <h3>Build</h3>
-                <p>Design + setup + revisions until it’s ready to launch.</p>
-              </div>
-            </li>
-            <li>
-              <div class="step">4</div>
-              <div>
-                <h3>Launch</h3>
-                <p>You go live with a clean system and clear CTA.</p>
-              </div>
-            </li>
-          </ul>
-
-          <div class="about-actions">
-            <a href="contact.html" class="btn-primary">Tell me about your project</a>
-            <a href="services.html" class="btn-outline">See Packages</a>
-          </div>
-        </div>
-
-        <!-- Recent work -->
-        <div class="about-card about-section">
-          <h2>Recent Work</h2>
-          <p>
-            Recent builds include paid client work for Kingdom Woodcraft and portfolio builds for The Reclamation Co.
-            and a wellness bootcamp site.
-          </p>
-          <p>
-            <a href="portfolio.html" class="text-link">View portfolio →</a>
-          </p>
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Kayla Marie Collective</p>
-    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
     </script>
-  </footer>
-</body>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="/index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="/images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+          />
+          Kayla Marie Collective
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/index.html">Home</a>
+          <a href="/services.html">Services</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html" class="active" aria-current="page">About</a>
+          <a href="/contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Upgraded hero -->
+      <section class="page-hero about-hero">
+        <div class="container">
+          <div class="kicker">Design • Clarity • Conversion</div>
+          <div class="hero-split">
+            <div>
+              <h1>About</h1>
+              <p class="about-lead">
+                Design rooted in clarity, nervous-system safety, and clean conversion.
+              </p>
+            </div>
+
+            <div class="hero-card">
+              <p>
+                If your work is deep, your website shouldn’t feel chaotic. I build calm,
+                premium spaces that make it easy for people to say yes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-wrap">
+        <div class="container">
+          <!-- Intro card -->
+          <div class="about-card about-section">
+            <h2>Hi, I’m Kayla</h2>
+
+            <div class="about-intro">
+              <img
+                src="/images/kaylabiopic.png"
+                alt="Kayla — Founder of Kayla Marie Collective"
+                class="about-photo"
+                loading="lazy"
+                decoding="async"
+              />
+
+              <div>
+                <p>
+                  I build launch-ready websites and digital products for creators who have
+                  something real to say — and want their online presence to match the depth
+                  of their work.
+                </p>
+
+                <div class="about-badges">
+                  <span class="badge">Launch-ready</span>
+                  <span class="badge">Calm layout</span>
+                  <span class="badge">Clear CTA</span>
+                  <span class="badge">Maintainable builds</span>
+                </div>
+
+                <div class="about-actions">
+                  <a href="/contact.html" class="btn-primary">Start a Project Inquiry</a>
+                  <a href="/portfolio.html" class="btn-secondary">View Portfolio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Who + Why in a two-panel grid -->
+          <div class="about-grid-2 about-section">
+            <div class="about-card">
+              <h2>Who I Help</h2>
+              <p>
+                Coaches, authors, wellness brands, and creator-led businesses who need a clean,
+                calm, professional site (or product) that makes it easy for people to take the
+                next step.
+              </p>
+
+              <div class="stats-row">
+                <div class="stat">
+                  <p class="num">Fast</p>
+                  <p class="label">Simple, clear builds</p>
+                </div>
+                <div class="stat">
+                  <p class="num">Calm</p>
+                  <p class="label">Less overwhelm by design</p>
+                </div>
+                <div class="stat">
+                  <p class="num">Clean</p>
+                  <p class="label">Conversion-friendly layout</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-card">
+              <h2>Why I Do This</h2>
+              <p>
+                I’ve lived on both sides: the inner work and the technical build. I know how hard
+                it is to translate a deep message into something structured, beautiful, and clear
+                enough for a stranger to buy.
+              </p>
+
+              <div class="quote-card">
+                <p>
+                  “Design should reduce overwhelm. A good site doesn’t just look nice — it helps
+                  someone feel oriented, supported, and ready to say yes.”
+                </p>
+                <footer>— Kayla Marie Collective</footer>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standout -->
+          <div class="about-card about-section">
+            <h2>How My Work Stands Out</h2>
+            <div class="about-grid-2">
+              <div class="soft-panel">
+                <p><strong>Soft visuals, still professional.</strong><br />
+                  Ritual-inspired design that reads premium and clean.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <p><strong>Calm, readable layouts.</strong><br />
+                  Designed to support attention, not scatter it.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <p><strong>Aesthetics + function.</strong><br />
+                  It has to feel good and work well — both.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <p><strong>Maintainable build.</strong><br />
+                  You can update it without tech spirals.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outcomes -->
+          <div class="about-card about-section">
+            <h2>What You’ll Walk Away With</h2>
+            <div class="about-grid-2">
+              <div class="soft-panel">
+                <p><strong>Premium + clear.</strong><br />
+                  A website or product that looks elevated and reads easily.
+                </p>
+              </div>
+              <div class="soft-panel">
+                <p><strong>A simple path.</strong><br />
+                  Inquire, book, or buy — without confusion.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- How it works timeline -->
+          <div class="about-card about-section">
+            <h2>How It Works</h2>
+            <ul class="timeline">
+              <li>
+                <div class="step">1</div>
+                <div>
+                  <h3>Inquiry</h3>
+                  <p>You tell me what you’re building and what you need.</p>
+                </div>
+              </li>
+              <li>
+                <div class="step">2</div>
+                <div>
+                  <h3>Plan</h3>
+                  <p>I map your pages, structure, and the clearest next steps.</p>
+                </div>
+              </li>
+              <li>
+                <div class="step">3</div>
+                <div>
+                  <h3>Build</h3>
+                  <p>Design + setup + revisions until it’s ready to launch.</p>
+                </div>
+              </li>
+              <li>
+                <div class="step">4</div>
+                <div>
+                  <h3>Launch</h3>
+                  <p>You go live with a clean system and clear CTA.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="about-actions">
+              <a href="/contact.html" class="btn-primary">Tell me about your project</a>
+              <a href="/services.html" class="btn-outline">See Packages</a>
+            </div>
+          </div>
+
+          <!-- Recent work -->
+          <div class="about-card about-section">
+            <h2>Recent Work</h2>
+            <p>
+              Recent builds include paid client work for Kingdom Woodcraft and portfolio builds for
+              The Reclamation Co. and a wellness bootcamp site.
+            </p>
+            <p>
+              <a href="/portfolio.html" class="text-link">View portfolio →</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
+      </div>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
+    </footer>
+  </body>
 </html>
