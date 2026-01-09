@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<!--
+CLIENT SETTINGS:
+- Site name:
+- Canonical domain:
+- Primary color:
+- OG image path:
+-->
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,14 +53,22 @@
   <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
   <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
-  <link rel="apple-touch-icon" href="images/favicon-32.png" />
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico?v=4" sizes="any">
+<link rel="shortcut icon" href="/favicon.ico?v=4">
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- UI -->
   <meta name="theme-color" content="#ffffff" />
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 </head>
 
 <body>
