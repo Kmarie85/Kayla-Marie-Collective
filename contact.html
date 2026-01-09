@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--
-  CLIENT SETTINGS:
-  - Site name:
-  - Canonical domain:
-  - Primary color:
-  - OG image path:
-  -->
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,10 +25,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kayla Marie Collective" />
     <meta property="og:title" content="Start a Project | Kayla Marie Collective" />
-    <meta
-      property="og:description"
-      content="Tell me what you’re building so we can see if we’re a fit."
-    />
+    <meta property="og:description" content="Tell me what you’re building so we can see if we’re a fit." />
     <meta property="og:url" content="https://kaylamariecollective.com/contact.html" />
     <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -46,10 +35,7 @@
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Start a Project | Kayla Marie Collective" />
-    <meta
-      name="twitter:description"
-      content="Tell me what you’re building so we can see if we’re a fit."
-    />
+    <meta name="twitter:description" content="Tell me what you’re building so we can see if we’re a fit." />
     <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
     <!-- Favicons -->
@@ -62,7 +48,7 @@
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics (replace ID when ready) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -96,7 +82,9 @@
           <a href="/services.html">Services</a>
           <a href="/portfolio.html">Portfolio</a>
           <a href="/about.html">About</a>
-          <a href="/contact.html" class="btn-nav active" aria-current="page">Start a Project</a>
+          <a href="/contact.html" class="btn-nav active" aria-current="page">
+            Start a Project
+          </a>
         </nav>
       </div>
     </header>
@@ -113,16 +101,26 @@
       <!-- Contact Form -->
       <section class="contact-section">
         <div class="container">
-          <form class="project-form" method="POST" action="https://formspree.io/f/xdakrvrv">
-            <!-- Helpful metadata for Formspree -->
-            <input type="hidden" name="_subject" value="New Project Inquiry — Kayla Marie Collective" />
-            <input type="hidden" name="_replyto" value="%email%" />
-            <!-- Optional: redirect after submit (create thank-you.html and point here) -->
-            <input type="hidden" name="_redirect" value="https://kaylamariecollective.com/thank-you.html" />
+          <form
+            class="project-form"
+            method="POST"
+            action="https://formspree.io/f/xdakrvrv"
+          >
+            <!-- Formspree metadata -->
+            <input
+              type="hidden"
+              name="_subject"
+              value="New Project Inquiry — Kayla Marie Collective"
+            />
+            <input
+              type="hidden"
+              name="_redirect"
+              value="https://kaylamariecollective.com/thank-you.html"
+            />
 
-            <!-- Honeypot (spam protection) -->
+            <!-- Honeypot -->
             <label
-              style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;"
+              style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;"
             >
               Do not fill this out
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
@@ -140,7 +138,12 @@
 
             <label>
               Email *
-              <input type="email" name="email" required autocomplete="email" />
+              <input
+                type="email"
+                name="_replyto"
+                required
+                autocomplete="email"
+              />
             </label>
 
             <label>
@@ -186,8 +189,6 @@
 
             <button type="submit" class="btn-primary">Submit Inquiry</button>
           </form>
-
-          <!-- If you do NOT want to create thank-you.html yet, delete the _redirect line above. -->
         </div>
       </section>
     </main>
@@ -195,13 +196,14 @@
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <p>© <span id="year"></span> Kayla Marie Collective</p>
         <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
           kaylamariecollective@gmail.com
         </a>
       </div>
       <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+        document.getElementById("year").textContent =
+          new Date().getFullYear();
       </script>
     </footer>
   </body>
