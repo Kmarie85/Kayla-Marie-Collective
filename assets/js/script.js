@@ -15,6 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       if (res.ok) {
+        // GA4 event tracking
+        if (window.gtag) {
+          gtag("event", "contact_form_submit", {
+            event_category: "engagement",
+            event_label: "start_project",
+          });
+        }
+
+        // Redirect to custom thank-you page
         window.location.assign("/thank-you.html");
       } else {
         alert("Something went wrong. Please check your entries and try again.");
