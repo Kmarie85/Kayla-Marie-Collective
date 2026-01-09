@@ -11,6 +11,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <!-- Primary SEO -->
     <title>Start a Project | Kayla Marie Collective</title>
@@ -84,6 +85,8 @@
             src="/images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
             id="logo"
+            width="160"
+            height="75"
           />
           Kayla Marie Collective
         </a>
@@ -110,16 +113,17 @@
       <!-- Contact Form -->
       <section class="contact-section">
         <div class="container">
-          <form
-            class="project-form"
-            method="POST"
-            action="https://formspree.io/f/xdakrvrv"
-          >
+          <form class="project-form" method="POST" action="https://formspree.io/f/xdakrvrv">
             <!-- Helpful metadata for Formspree -->
             <input type="hidden" name="_subject" value="New Project Inquiry — Kayla Marie Collective" />
+            <input type="hidden" name="_replyto" value="%email%" />
+            <!-- Optional: redirect after submit (create thank-you.html and point here) -->
+            <input type="hidden" name="_redirect" value="https://kaylamariecollective.com/thank-you.html" />
 
-            <!-- Honeypot (spam protection). Hide via CSS if you want. -->
-            <label style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+            <!-- Honeypot (spam protection) -->
+            <label
+              style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;"
+            >
               Do not fill this out
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
             </label>
@@ -182,6 +186,8 @@
 
             <button type="submit" class="btn-primary">Submit Inquiry</button>
           </form>
+
+          <!-- If you do NOT want to create thank-you.html yet, delete the _redirect line above. -->
         </div>
       </section>
     </main>
