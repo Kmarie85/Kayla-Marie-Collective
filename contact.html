@@ -1,112 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+  CLIENT SETTINGS:
+  - Site name:
+  - Canonical domain:
+  - Primary color:
+  - OG image path:
+  -->
 
-<!--
-CLIENT SETTINGS:
-- Site name:
-- Canonical domain:
-- Primary color:
-- OG image path:
--->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Start a Project – Stars In Her Bones Studio</title>
-  <link rel="stylesheet" href="/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary SEO -->
+    <title>Start a Project | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Start a project inquiry with Kayla Marie Collective. Tell me what you’re building and I’ll recommend the cleanest next step."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link rel="canonical" href="https://kaylamariecollective.com/contact.html" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-</head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/style.css" />
 
-<body>
-  <header class="site-header">
-    <div class="container nav-container">
-    <a href="index.html" class="logo">
-      <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">Kayla Marie Collective
-    </a>
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="btn-nav active">Start a Project</a>
-      </nav>
-    </div>
-  </header>
+    <!-- Performance -->
+    <link rel="preload" as="image" href="/images/Blacklogoone.png" />
 
-  <main>
-    <section class="page-hero">
-      <div class="container">
-        <h1>Start a Project</h1>
-        <p>Tell me what you’re building so we can see if we’re a fit.</p>
-      </div>
-    </section>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kayla Marie Collective" />
+    <meta property="og:title" content="Start a Project | Kayla Marie Collective" />
+    <meta
+      property="og:description"
+      content="Tell me what you’re building so we can see if we’re a fit."
+    />
+    <meta property="og:url" content="https://kaylamariecollective.com/contact.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kayla Marie Collective — Start a Project" />
 
-    <section class="contact-section">
-      <div class="container">
-        <!-- Replace the action with your Formspree / backend endpoint -->
-        <form class="project-form" method="POST" action="https://formspree.io/f/xdakrvrv">
-          <label>
-            Name *
-            <input type="text" name="name" required />
-          </label>
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Start a Project | Kayla Marie Collective" />
+    <meta
+      name="twitter:description"
+      content="Tell me what you’re building so we can see if we’re a fit."
+    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-          <label>
-            Business / Brand Name
-            <input type="text" name="brand" />
-          </label>
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32x32.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-          <label>
-            Email *
-            <input type="email" name="email" required />
-          </label>
+    <!-- UI -->
+    <meta name="theme-color" content="#ffffff" />
 
-          <label>
-            What do you want built? *
-            <textarea name="project_details" rows="4" placeholder="Website, journal, bundle, or something else?" required></textarea>
-          </label>
-
-          <label>
-            Budget Range (USD) *
-            <select name="budget" required>
-              <option value="">Select one</option>
-              <option value="1000-1500">$1,000 – $1,500</option>
-              <option value="1500-3000">$1,500 – $3,000</option>
-              <option value="3000-5000">$3,000 – $5,000</option>
-              <option value="5000+">$5,000+</option>
-            </select>
-          </label>
-
-          <label>
-            Ideal Timeline *
-            <input type="text" name="timeline" placeholder="For example: March launch, or ASAP" required />
-          </label>
-
-          <label>
-            Links to existing brand / socials
-            <textarea name="links" rows="2" placeholder="Instagram, website, TikTok, etc."></textarea>
-          </label>
-
-          <button type="submit" class="btn-primary">Submit Inquiry</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Kayla Marie Collective</p>
-    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
     </script>
-  </footer>
-</body>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="/index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="/images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+          />
+          Kayla Marie Collective
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/index.html">Home</a>
+          <a href="/services.html">Services</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html" class="btn-nav active" aria-current="page">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Page Hero -->
+      <section class="page-hero">
+        <div class="container">
+          <h1>Start a Project</h1>
+          <p>Tell me what you’re building so we can see if we’re a fit.</p>
+        </div>
+      </section>
+
+      <!-- Contact Form -->
+      <section class="contact-section">
+        <div class="container">
+          <form
+            class="project-form"
+            method="POST"
+            action="https://formspree.io/f/xdakrvrv"
+          >
+            <!-- Helpful metadata for Formspree -->
+            <input type="hidden" name="_subject" value="New Project Inquiry — Kayla Marie Collective" />
+
+            <!-- Honeypot (spam protection). Hide via CSS if you want. -->
+            <label style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">
+              Do not fill this out
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </label>
+
+            <label>
+              Name *
+              <input type="text" name="name" required autocomplete="name" />
+            </label>
+
+            <label>
+              Business / Brand Name
+              <input type="text" name="brand" autocomplete="organization" />
+            </label>
+
+            <label>
+              Email *
+              <input type="email" name="email" required autocomplete="email" />
+            </label>
+
+            <label>
+              What do you want built? *
+              <textarea
+                name="project_details"
+                rows="4"
+                placeholder="Website, journal, bundle, or something else?"
+                required
+              ></textarea>
+            </label>
+
+            <label>
+              Budget Range (USD) *
+              <select name="budget" required>
+                <option value="">Select one</option>
+                <option value="1000-1500">$1,000 – $1,500</option>
+                <option value="1500-3000">$1,500 – $3,000</option>
+                <option value="3000-5000">$3,000 – $5,000</option>
+                <option value="5000+">$5,000+</option>
+              </select>
+            </label>
+
+            <label>
+              Ideal Timeline *
+              <input
+                type="text"
+                name="timeline"
+                placeholder="For example: March launch, or ASAP"
+                required
+                autocomplete="off"
+              />
+            </label>
+
+            <label>
+              Links to existing brand / socials
+              <textarea
+                name="links"
+                rows="2"
+                placeholder="Instagram, website, TikTok, etc."
+              ></textarea>
+            </label>
+
+            <button type="submit" class="btn-primary">Submit Inquiry</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
+      </div>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
+    </footer>
+  </body>
 </html>
