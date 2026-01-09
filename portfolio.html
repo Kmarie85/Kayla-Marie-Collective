@@ -1,108 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+  CLIENT SETTINGS:
+  - Site name:
+  - Canonical domain:
+  - Primary color:
+  - OG image path:
+  -->
 
-<!--
-CLIENT SETTINGS:
-- Site name:
-- Canonical domain:
-- Primary color:
-- OG image path:
--->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Portfolio – Kayla Marie Collective</title>
-  <link rel="stylesheet" href="/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary SEO -->
+    <title>Portfolio | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link rel="canonical" href="https://kaylamariecollective.com/portfolio.html" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-</head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/style.css" />
 
-<body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">
-        Kayla Marie Collective
-      </a>
+    <!-- Performance -->
+    <link rel="preload" as="image" href="/images/Blacklogoone.png" />
 
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="portfolio.html" class="active">Portfolio</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="btn-nav">Start a Project</a>
-      </nav>
-    </div>
-  </header>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kayla Marie Collective" />
+    <meta property="og:title" content="Portfolio | Kayla Marie Collective" />
+    <meta
+      property="og:description"
+      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
+    />
+    <meta property="og:url" content="https://kaylamariecollective.com/portfolio.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kayla Marie Collective portfolio" />
 
-  <main>
-    <section class="page-hero">
-      <div class="container">
-        <h1>Portfolio</h1>
-        <p>Selected builds and product work — clean, calm, conversion-friendly.</p>
-      </div>
-    </section>
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio | Kayla Marie Collective" />
+    <meta
+      name="twitter:description"
+      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
+    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-    <section class="portfolio-section container">
-      <h2>Websites</h2>
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32x32.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-      <div class="portfolio-grid">
-        <article class="portfolio-item">
-          <img src="images/recscreen.png" alt="The Reclamation Co site screenshot" />
-          <h3>The Reclamation Co</h3>
-          <p>Clean structure and grounded layout built for clarity.</p>
-          <p class="tech">Tech: HTML, CSS</p>
+    <!-- UI -->
+    <meta name="theme-color" content="#ffffff" />
 
-          <!-- Replace with real live link when ready -->
-          <span class="text-link">Live link coming soon →</span>
-        </article>
-
-        <article class="portfolio-item">
-          <img src="images/recscreen.png" alt="Client site screenshot placeholder" />
-          <h3>Client Build</h3>
-          <p>Website structure + CTAs designed for simple conversion.</p>
-          <p class="tech">Tech: HTML, CSS, JavaScript</p>
-          <span class="text-link">Live link coming soon →</span>
-        </article>
-      </div>
-    </section>
-
-    <section class="portfolio-section container">
-      <h2>Digital Products</h2>
-
-      <div class="portfolio-grid">
-        <article class="portfolio-item">
-          <img src="images/Starsinherbones.png" alt="Stars in Her Bones journal cover" />
-          <h3>Stars in Her Bones</h3>
-          <p>Digital product presentation designed to feel premium and clear.</p>
-          <p class="tech">Deliverable: Sales page + product flow</p>
-        </article>
-
-        <article class="portfolio-item">
-          <img src="images/Starsinherbones.png" alt="Digital product work placeholder" />
-          <h3>Digital Product Layout</h3>
-          <p>Offer structure + readable flow for calm conversion.</p>
-          <p class="tech">Deliverable: Layout + funnel-ready sections</p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Kayla Marie Collective</p>
-    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
     </script>
-  </footer>
-</body>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="/index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="/images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+          />
+          Kayla Marie Collective
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/index.html">Home</a>
+          <a href="/services.html">Services</a>
+          <a href="/portfolio.html" class="active" aria-current="page">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Page Hero -->
+      <section class="page-hero">
+        <div class="container">
+          <h1>Portfolio</h1>
+          <p>Selected builds and product work — clean, calm, conversion-friendly.</p>
+        </div>
+      </section>
+
+      <!-- Websites -->
+      <section class="portfolio-section container">
+        <h2>Websites</h2>
+
+        <div class="portfolio-grid">
+          <article class="portfolio-item">
+            <img
+              src="/images/recscreen.png"
+              alt="The Reclamation Co website screenshot"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>The Reclamation Co.</h3>
+            <p>Grounded layout and clear structure built for calm conversion.</p>
+            <p class="tech">Tech: HTML, CSS</p>
+            <span class="text-link">Live link coming soon →</span>
+          </article>
+
+          <article class="portfolio-item">
+            <img
+              src="/images/recscreen.png"
+              alt="Client website build screenshot"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Client Website Build</h3>
+            <p>Clear CTAs and readable flow designed for ease.</p>
+            <p class="tech">Tech: HTML, CSS, JavaScript</p>
+            <span class="text-link">Live link coming soon →</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- Digital Products -->
+      <section class="portfolio-section container">
+        <h2>Digital Products</h2>
+
+        <div class="portfolio-grid">
+          <article class="portfolio-item">
+            <img
+              src="/images/Starsinherbones.png"
+              alt="Stars in Her Bones journal cover"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Stars in Her Bones</h3>
+            <p>Premium digital journal layout designed for depth and clarity.</p>
+            <p class="tech">Deliverable: Sales page + product flow</p>
+          </article>
+
+          <article class="portfolio-item">
+            <img
+              src="/images/Starsinherbones.png"
+              alt="Digital product layout example"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Digital Product Layout</h3>
+            <p>Offer structure and readable flow for calm conversion.</p>
+            <p class="tech">Deliverable: Layout + funnel-ready sections</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
+      </div>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
+    </footer>
+  </body>
 </html>
