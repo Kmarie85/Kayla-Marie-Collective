@@ -17,7 +17,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="/style.css" />
-    <link rel="thank-you" href="thank-you.html">
 
     <!-- Performance -->
     <link rel="preload" as="image" href="/images/Blacklogoone.png" />
@@ -103,6 +102,7 @@
       <section class="contact-section">
         <div class="container">
           <form
+            id="contactForm"
             class="project-form"
             method="POST"
             action="https://formspree.io/f/xdakrvrv"
@@ -112,11 +112,6 @@
               type="hidden"
               name="_subject"
               value="New Project Inquiry — Kayla Marie Collective"
-            />
-            <input
-              type="hidden"
-              name="_redirect"
-              value="https://kaylamariecollective.com/thank-you.html"
             />
 
             <!-- Honeypot -->
@@ -139,12 +134,7 @@
 
             <label>
               Email *
-              <input
-                type="email"
-                name="_replyto"
-                required
-                autocomplete="email"
-              />
+              <input type="email" name="email" required autocomplete="email" />
             </label>
 
             <label>
@@ -203,9 +193,35 @@
         </a>
       </div>
       <script>
-        document.getElementById("year").textContent =
-          new Date().getFullYear();
+        document.getElementById("year").textContent = new Date().getFullYear();
       </script>
     </footer>
+
+    <!-- Force redirect to your thank-you page after successful submit -->
+    <script>
+      const form = document.getElementById("contactForm");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" },
+          });
+
+          if (res.ok) {
+            window.location.href = "/thank-you.html";
+          } else {
+            alert("Something went wrong. Please check your entries and try again.");
+          }
+        } catch (err) {
+          alert("Network error. Please try again.");
+        }
+      });
+    </script>
   </body>
 </html>
