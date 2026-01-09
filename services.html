@@ -1,197 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+  CLIENT SETTINGS:
+  - Site name:
+  - Canonical domain:
+  - Primary color:
+  - OG image path:
+  -->
 
-<!--
-CLIENT SETTINGS:
-- Site name:
-- Canonical domain:
-- Primary color:
-- OG image path:
--->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Services – Kayla Marie Collective</title>
-  <link rel="stylesheet" href="/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Primary SEO -->
+    <title>Services | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Website builds, sales pages, and simple funnel setup — calm, premium design with clear messaging and conversion-friendly structure."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link rel="canonical" href="https://kaylamariecollective.com/services.html" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-</head>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/style.css" />
 
-<body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo">
-        Kayla Marie Collective
-      </a>
+    <!-- Performance: preload nav logo -->
+    <link rel="preload" as="image" href="/images/Blacklogoone.png" />
 
-      <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="services.html" class="active">Services</a>
-        <a href="portfolio.html">Portfolio</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="btn-nav">Start a Project</a>
-      </nav>
-    </div>
-  </header>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kayla Marie Collective" />
+    <meta property="og:title" content="Services | Kayla Marie Collective" />
+    <meta
+      property="og:description"
+      content="Clean, calm builds that make it easy for your people to say yes — websites, digital product pages, and funnels."
+    />
+    <meta property="og:url" content="https://kaylamariecollective.com/services.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Kayla Marie Collective — Services" />
 
-  <main>
-    <section class="page-hero">
-      <div class="container">
-        <h1>Services</h1>
-        <p>Clean, calm builds that make it easy for your people to say yes.</p>
-      </div>
-    </section>
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Services | Kayla Marie Collective" />
+    <meta
+      name="twitter:description"
+      content="Website builds, sales pages, and simple funnel setup — calm, premium design with clear conversion flow."
+    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-    <section class="services-list container">
+    <!-- Favicons (use these exact files at the repo root) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-32x32.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-      <!-- Service 1 -->
-      <article class="service-block">
-        <h2>Website Build</h2>
-        <p class="price">Starting at $1,200</p>
+    <!-- UI -->
+    <meta name="theme-color" content="#ffffff" />
 
-        <p class="meta"><strong>Timeline:</strong> ~2–3 weeks • <strong>Includes:</strong> structure, design, build, revisions</p>
-
-        <p class="summary">
-          A clean, conversion-friendly site that feels premium and reads clearly — built for creators with real work.
-        </p>
-
-        <ul>
-          <li>Homepage + 3–5 pages</li>
-          <li>Clear CTAs + inquiry or booking flow</li>
-          <li>Mobile responsive</li>
-          <li>Basic SEO setup (titles/meta)</li>
-          <li>Simple handoff so you can edit it yourself</li>
-        </ul>
-
-        <h3>Deliverables preview</h3>
-        <p class="small-note">These are placeholder images currently in your zip. Replace anytime with your real screenshots.</p>
-
-        <div class="deliverables-grid">
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Website example screenshot">
-            <figcaption>Homepage layout + CTA</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Services page example screenshot">
-            <figcaption>Services page layout</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Mobile example screenshot">
-            <figcaption>Mobile layout</figcaption>
-          </figure>
-        </div>
-
-        <p class="cta-note">
-          Want this built on your own domain (GitHub Pages / Netlify)? I’ll set it up clean and show you how to maintain it.
-        </p>
-      </article>
-
-      <!-- Service 2 -->
-      <article class="service-block">
-        <h2>Digital Product Page</h2>
-        <p class="price">Starting at $650</p>
-
-        <p class="meta"><strong>Timeline:</strong> ~1–2 weeks • <strong>Includes:</strong> page design, copy layout, checkout link integration</p>
-
-        <p class="summary">
-          A product page that’s calm, clear, and built to convert — without feeling salesy.
-        </p>
-
-        <ul>
-          <li>Sales page layout (sections + flow)</li>
-          <li>Offer clarity + benefit-forward structure</li>
-          <li>Checkout integration (Gumroad / Beacons / Stripe link)</li>
-          <li>Mobile responsive</li>
-        </ul>
-
-        <h3>Deliverables preview</h3>
-        <p class="small-note">Placeholder images currently in your zip.</p>
-
-        <div class="deliverables-grid">
-          <figure class="deliverable">
-            <img src="images/Starsinherbones.png" alt="Digital product cover">
-            <figcaption>Product hero + offer clarity</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/Starsinherbones.png" alt="Digital product details">
-            <figcaption>What’s inside + outcomes</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/Starsinherbones.png" alt="Digital product checkout">
-            <figcaption>CTA + checkout section</figcaption>
-          </figure>
-        </div>
-      </article>
-
-      <!-- Service 3 -->
-      <article class="service-block">
-        <h2>Bundle + Funnel Setup</h2>
-        <p class="price">Starting at $900</p>
-
-        <p class="meta"><strong>Timeline:</strong> ~2 weeks • <strong>Includes:</strong> lead magnet page + email delivery setup guidance</p>
-
-        <p class="summary">
-          A simple funnel that captures leads and routes people to your offer without overwhelm.
-        </p>
-
-        <ul>
-          <li>Landing page + thank-you page</li>
-          <li>Lead magnet delivery flow (tool-dependent)</li>
-          <li>Clear next steps into your offer</li>
-        </ul>
-
-        <h3>Deliverables preview</h3>
-        <p class="small-note">Placeholder images currently in your zip.</p>
-
-        <div class="deliverables-grid">
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Landing page example">
-            <figcaption>Lead magnet landing page</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Thank you page example">
-            <figcaption>Thank-you page + next steps</figcaption>
-          </figure>
-
-          <figure class="deliverable">
-            <img src="images/recscreen.png" alt="Flow example">
-            <figcaption>Simple funnel flow</figcaption>
-          </figure>
-        </div>
-      </article>
-
-    </section>
-
-    <section class="services-cta">
-      <div class="container">
-        <h2>Ready to build?</h2>
-        <p>Tell me what you’re creating and I’ll help you choose the cleanest path.</p>
-        <a href="contact.html" class="btn-primary">Start a Project Inquiry</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Kayla Marie Collective</p>
-    </div>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX");
     </script>
-  </footer>
-</body>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="/index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img src="/images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo" />
+          Kayla Marie Collective
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/index.html">Home</a>
+          <a href="/services.html" class="active" aria-current="page">Services</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container">
+          <h1>Services</h1>
+          <p>Clean, calm builds that make it easy for your people to say yes.</p>
+        </div>
+      </section>
+
+      <section class="services-list container">
+        <!-- Service 1 -->
+        <article class="service-block">
+          <h2>Website Build</h2>
+          <p class="price">Starting at $1,200</p>
+
+          <p class="meta">
+            <strong>Timeline:</strong> ~2–3 weeks • <strong>Includes:</strong> structure, design, build, revisions
+          </p>
+
+          <p class="summary">
+            A clean, conversion-friendly site that feels premium and reads clearly — built for creators with real work.
+          </p>
+
+          <ul>
+            <li>Homepage + 3–5 pages</li>
+            <li>Clear CTAs + inquiry or booking flow</li>
+            <li>Mobile responsive</li>
+            <li>Basic SEO setup (titles/meta)</li>
+            <li>Simple handoff so you can edit it yourself</li>
+          </ul>
+
+          <h3>Deliverables preview</h3>
+          <p class="small-note">
+            These are placeholder images currently in your files. Replace anytime with your real screenshots.
+          </p>
+
+          <div class="deliverables-grid">
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Website example screenshot" loading="lazy" decoding="async" />
+              <figcaption>Homepage layout + CTA</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Services page example screenshot" loading="lazy" decoding="async" />
+              <figcaption>Services page layout</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Mobile example screenshot" loading="lazy" decoding="async" />
+              <figcaption>Mobile layout</figcaption>
+            </figure>
+          </div>
+
+          <p class="cta-note">
+            Want this built on your own domain (GitHub Pages / Netlify)? I’ll set it up clean and show you how to maintain
+            it.
+          </p>
+        </article>
+
+        <!-- Service 2 -->
+        <article class="service-block">
+          <h2>Digital Product Page</h2>
+          <p class="price">Starting at $650</p>
+
+          <p class="meta">
+            <strong>Timeline:</strong> ~1–2 weeks • <strong>Includes:</strong> page design, copy layout, checkout link
+            integration
+          </p>
+
+          <p class="summary">A product page that’s calm, clear, and built to convert — without feeling salesy.</p>
+
+          <ul>
+            <li>Sales page layout (sections + flow)</li>
+            <li>Offer clarity + benefit-forward structure</li>
+            <li>Checkout integration (Gumroad / Beacons / Stripe link)</li>
+            <li>Mobile responsive</li>
+          </ul>
+
+          <h3>Deliverables preview</h3>
+          <p class="small-note>Placeholder images currently in your files.</p>
+
+          <div class="deliverables-grid">
+            <figure class="deliverable">
+              <img src="/images/Starsinherbones.png" alt="Digital product cover" loading="lazy" decoding="async" />
+              <figcaption>Product hero + offer clarity</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/Starsinherbones.png" alt="Digital product details" loading="lazy" decoding="async" />
+              <figcaption>What’s inside + outcomes</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/Starsinherbones.png" alt="Digital product checkout" loading="lazy" decoding="async" />
+              <figcaption>CTA + checkout section</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- Service 3 -->
+        <article class="service-block">
+          <h2>Bundle + Funnel Setup</h2>
+          <p class="price">Starting at $900</p>
+
+          <p class="meta">
+            <strong>Timeline:</strong> ~2 weeks • <strong>Includes:</strong> lead magnet page + email delivery setup
+            guidance
+          </p>
+
+          <p class="summary">A simple funnel that captures leads and routes people to your offer without overwhelm.</p>
+
+          <ul>
+            <li>Landing page + thank-you page</li>
+            <li>Lead magnet delivery flow (tool-dependent)</li>
+            <li>Clear next steps into your offer</li>
+          </ul>
+
+          <h3>Deliverables preview</h3>
+          <p class="small-note">Placeholder images currently in your files.</p>
+
+          <div class="deliverables-grid">
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Landing page example" loading="lazy" decoding="async" />
+              <figcaption>Lead magnet landing page</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Thank you page example" loading="lazy" decoding="async" />
+              <figcaption>Thank-you page + next steps</figcaption>
+            </figure>
+
+            <figure class="deliverable">
+              <img src="/images/recscreen.png" alt="Flow example" loading="lazy" decoding="async" />
+              <figcaption>Simple funnel flow</figcaption>
+            </figure>
+          </div>
+        </article>
+      </section>
+
+      <section class="services-cta">
+        <div class="container">
+          <h2>Ready to build?</h2>
+          <p>Tell me what you’re creating and I’ll help you choose the cleanest path.</p>
+          <a href="/contact.html" class="btn-primary">Start a Project Inquiry</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">kaylamariecollective@gmail.com</a>
+      </div>
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      </script>
+    </footer>
+  </body>
 </html>
