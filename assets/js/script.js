@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Redirect to custom thank-you page
-        window.location.assign("/thank-you.html");
+        window.location.assign("thank-you.html");
       } else {
         alert("Something went wrong. Please check your entries and try again.");
       }
