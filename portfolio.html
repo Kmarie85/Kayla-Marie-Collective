@@ -21,59 +21,19 @@
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Scripts (global) -->
+    <!-- Scripts -->
     <script defer src="assets/js/script.js"></script>
 
-    <!-- Performance -->
-    <link rel="preload" as="image" href="images/Blacklogoone.png" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Kayla Marie Collective" />
-    <meta property="og:title" content="Portfolio | Kayla Marie Collective" />
-    <meta
-      property="og:description"
-      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
-    />
-    <meta
-      property="og:url"
-      content="https://kaylamariecollective.com/portfolio.html"
-    />
-    <meta
-      property="og:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Kayla Marie Collective portfolio" />
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Portfolio | Kayla Marie Collective" />
-    <meta
-      name="twitter:description"
-      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
-    />
-    <meta
-      name="twitter:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
-
-    <!-- Favicons (root-safe) -->
+    <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -87,14 +47,10 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Header / Nav -->
+    <!-- Header -->
     <header class="site-header">
       <div class="container nav-container">
-        <a
-          href="index.html"
-          class="logo"
-          aria-label="Kayla Marie Collective home"
-        >
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
           <img
             src="images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
@@ -114,17 +70,10 @@
           Menu
         </button>
 
-        <nav
-          class="main-nav"
-          id="primary-nav"
-          aria-label="Main navigation"
-          data-nav
-        >
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
-          <a href="portfolio.html" class="active" aria-current="page"
-            >Portfolio</a
-          >
+          <a href="portfolio.html" class="active" aria-current="page">Portfolio</a>
           <a href="about.html">About</a>
           <a href="contact.html" class="btn-nav">Start a Project</a>
         </nav>
@@ -132,7 +81,7 @@
     </header>
 
     <main id="main">
-      <!-- Page Hero -->
+      <!-- Hero -->
       <section class="page-hero">
         <div class="container">
           <h1>Portfolio</h1>
@@ -142,11 +91,12 @@
         </div>
       </section>
 
-      <!-- Featured Case Studies -->
+      <!-- CASE STUDIES -->
       <section class="portfolio-section container">
         <h2>Case Studies</h2>
 
         <div class="portfolio-grid">
+          <!-- Kingdom Woodcraft -->
           <article class="portfolio-item">
             <img
               src="images/portfoliopic-2.png"
@@ -156,49 +106,52 @@
             />
             <h3>Kingdom Woodcraft</h3>
             <p>
-              Full rebuild with domain, SEO foundations, GA4, and event
-              tracking.
+              Full rebuild: custom HTML/CSS/JS, domain setup, SEO foundations,
+              GA4, and event tracking.
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
             <p class="text-link">
-              <a href="case-studies/kingdom-woodcraft.html"
-                >Featured case study →</a
-              >
+              <a href="case-studies/kingdom-woodcraft.html">
+                View case study →
+              </a>
               &nbsp;•&nbsp;
               <a
                 href="https://www.kingdomwoodcrafttn.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Live link →</a
               >
+                Live site →
+              </a>
             </p>
           </article>
 
+          <!-- Kayla Marie Collective -->
           <article class="portfolio-item">
             <img
               src="images/Blacklogoone.png"
               alt="Kayla Marie Collective brand mark"
               loading="lazy"
               decoding="async"
+              style="object-fit: contain; background: #ffffff;"
             />
             <h3>Kayla Marie Collective</h3>
             <p>
-              Internal studio build — services site designed to filter for
-              aligned clients.
+              Internal studio build designed to filter for aligned clients and
+              demonstrate technical execution.
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
             <p class="text-link">
-              <a href="case-studies/kayla-marie-collective.html"
-                >View case study →</a
-              >
+              <a href="case-studies/kayla-marie-collective.html">
+                View case study →
+              </a>
             </p>
           </article>
         </div>
       </section>
 
-      <!-- Websites (keep as your broader gallery) -->
+      <!-- WEBSITES -->
       <section class="portfolio-section container">
         <h2>Websites</h2>
 
@@ -215,54 +168,12 @@
               Grounded layout and clear structure built for calm conversion.
             </p>
             <p class="tech">Tech: HTML, CSS</p>
-            <p class="tech">Live link: coming soon →</p>
-          </article>
-
-          <article class="portfolio-item">
-            <img
-              src="images/portfoliopic-2.png"
-              alt="Kingdom Woodcraft website screenshot"
-              loading="lazy"
-              decoding="async"
-            />
-            <h3>Kingdom Woodcraft</h3>
-            <p>Clear CTAs and readable flow designed for ease.</p>
-            <p class="tech">Tech: HTML, CSS, JavaScript</p>
-            <p class="text-link">
-              <a href="case-studies/kingdom-woodcraft.html"
-                >View case study →</a
-              >
-              &nbsp;•&nbsp;
-              <a
-                href="https://www.kingdomwoodcrafttn.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Live link →
-              </a>
-            </p>
-          </article>
-
-          <article class="portfolio-item">
-            <img
-              src="images/Starsinherbones.png"
-              alt="Soul Stone brand preview"
-              loading="lazy"
-              decoding="async"
-            />
-            <h3>Soul Stone</h3>
-            <p>
-              Founder-led product brand — live and iterating. Case study
-              publishing after early performance data.
-            </p>
-            <p class="tech">
-              Category: Product ecosystem • Web + funnel + digital/print
-            </p>
+            <p class="text-link">Live link coming soon →</p>
           </article>
         </div>
       </section>
 
-      <!-- Digital Products -->
+      <!-- DIGITAL PRODUCTS -->
       <section class="portfolio-section container">
         <h2>Digital Products</h2>
 
@@ -276,21 +187,9 @@
             />
             <h3>Stars in Her Bones</h3>
             <p>
-              Premium digital journal layout designed for depth and clarity.
+              Premium digital journal designed for depth, clarity, and ritual-level engagement.
             </p>
-            <p class="tech">Deliverable: Sales page + product flow</p>
-          </article>
-
-          <article class="portfolio-item">
-            <img
-              src="images/Starsinherbones.png"
-              alt="Digital product layout example"
-              loading="lazy"
-              decoding="async"
-            />
-            <h3>Digital Product Layout</h3>
-            <p>Offer structure and readable flow for calm conversion.</p>
-            <p class="tech">Deliverable: Layout + funnel-ready sections</p>
+            <p class="tech">Deliverable: Product + sales flow</p>
           </article>
         </div>
       </section>
