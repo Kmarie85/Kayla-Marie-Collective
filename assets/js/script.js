@@ -1,15 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
 
   /* =========================
      FOOTER YEAR (global)
   ========================= */
   const yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* =========================
-     CONTACT FORM SUBMIT
+     CONTACT FORM SUBMIT (contact.html only)
   ========================= */
   const form = document.getElementById("contactForm");
 
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok) {
           // GA4 event tracking
           if (window.gtag) {
-            gtag("event", "contact_form_submit", {
+            window.gtag("event", "contact_form_submit", {
               event_category: "engagement",
               event_label: "start_project",
             });
@@ -49,51 +48,59 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      LIGHTBOX (click-to-zoom)
      - Add data-lightbox to any <img>
+     - Requires:
+       #lightbox, #lightboxImg, [data-close]
   ========================= */
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lightboxImg");
 
-  if (lb && lbImg) {
+  if (!lb || !lbImg) return;
 
-    const open = (imgEl) => {
-      lbImg.src = imgEl.src;
-      lbImg.alt = imgEl.alt || "Preview image";
+  const open = (imgEl) => {
+    // Prefer the real file, not a responsive srcset candidate
+    const src = imgEl.getAttribute("src");
+    const alt = imgEl.getAttribute("alt") || "Preview image";
 
-      lb.classList.add("is-open");
-      lb.setAttribute("aria-hidden", "false");
+    lbImg.src = src;
+    lbImg.alt = alt;
 
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
-    };
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
 
-    const close = () => {
-      lb.classList.remove("is-open");
-      lb.setAttribute("aria-hidden", "true");
+    // prevent background scroll
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  };
 
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
+  const close = () => {
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
 
-      lbImg.src = "";
-      lbImg.alt = "";
-    };
+    // restore scroll
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
 
-    // Open lightbox
-    document.addEventListener("click", (e) => {
-      const img = e.target.closest("img[data-lightbox]");
-      if (img) open(img);
-    });
+    // clear image
+    lbImg.src = "";
+    lbImg.alt = "";
+  };
 
-    // Close lightbox (backdrop or ✕)
-    lb.addEventListener("click", (e) => {
-      if (e.target.matches("[data-close]")) close();
-    });
+  // Open when clicking any image with data-lightbox
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest("img[data-lightbox]");
+    if (!img) return;
 
-    // Close on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lb.classList.contains("is-open")) {
-        close();
-      }
-    });
-  }
+    // If something is blocking clicks, this will still only fire when the IMG is actually clicked
+    open(img);
+  });
 
+  // Close when clicking backdrop or close button
+  lb.addEventListener("click", (e) => {
+    if (e.target.closest("[data-close]")) close();
+  });
+
+  // Close on ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+  });
 });
