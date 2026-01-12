@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--
-  CLIENT SETTINGS:
-  - Site name:
-  - Canonical domain:
-  - Primary color:
-  - OG image path:
-  -->
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,6 +20,9 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
 
     <!-- Performance -->
     <link rel="preload" as="image" href="images/Blacklogoone.png" />
@@ -64,12 +59,12 @@
       content="https://kaylamariecollective.com/images/og-image.jpg"
     />
 
-    <!-- Favicons -->
-    <link rel="icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon-32x32.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <!-- Favicons (root-safe) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
@@ -85,41 +80,56 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-DWTK6PGS0W");
     </script>
   </head>
+
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Header -->
-<header class="site-header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
-      <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo" />
-      Kayla Marie Collective
-    </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a
+          href="index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
+          <img
+            src="images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+            decoding="async"
+          />
+          Kayla Marie Collective
+        </a>
 
-    <!-- Mobile menu button -->
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-      data-nav-toggle
-    >
-      Menu
-    </button>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
 
-    <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
-      <a href="index.html" class="active" aria-current="page">Home</a>
-      <a href="services.html">Services</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="btn-nav">Start a Project</a>
-    </nav>
-  </div>
-</header>
+        <nav
+          class="main-nav"
+          id="primary-nav"
+          aria-label="Main navigation"
+          data-nav
+        >
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html" class="active" aria-current="page"
+            >Portfolio</a
+          >
+          <a href="about.html">About</a>
+          <a href="contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
 
     <main id="main">
       <!-- Page Hero -->
@@ -132,7 +142,63 @@
         </div>
       </section>
 
-      <!-- Websites -->
+      <!-- Featured Case Studies -->
+      <section class="portfolio-section container">
+        <h2>Case Studies</h2>
+
+        <div class="portfolio-grid">
+          <article class="portfolio-item">
+            <img
+              src="images/portfoliopic-2.png"
+              alt="Kingdom Woodcraft website screenshot"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Kingdom Woodcraft</h3>
+            <p>
+              Full rebuild with domain, SEO foundations, GA4, and event
+              tracking.
+            </p>
+            <p class="tech">Tech: HTML, CSS, JavaScript</p>
+
+            <p class="text-link">
+              <a href="case-studies/kingdom-woodcraft.html"
+                >Featured case study →</a
+              >
+              &nbsp;•&nbsp;
+              <a
+                href="https://www.kingdomwoodcrafttn.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Live link →</a
+              >
+            </p>
+          </article>
+
+          <article class="portfolio-item">
+            <img
+              src="images/Blacklogoone.png"
+              alt="Kayla Marie Collective brand mark"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Kayla Marie Collective</h3>
+            <p>
+              Internal studio build — services site designed to filter for
+              aligned clients.
+            </p>
+            <p class="tech">Tech: HTML, CSS, JavaScript</p>
+
+            <p class="text-link">
+              <a href="case-studies/kayla-marie-collective.html"
+                >View case study →</a
+              >
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Websites (keep as your broader gallery) -->
       <section class="portfolio-section container">
         <h2>Websites</h2>
 
@@ -149,20 +215,24 @@
               Grounded layout and clear structure built for calm conversion.
             </p>
             <p class="tech">Tech: HTML, CSS</p>
-            <p class="text-link">Live link coming soon →</p>
+            <p class="tech">Live link: coming soon →</p>
           </article>
 
           <article class="portfolio-item">
             <img
               src="images/portfoliopic-2.png"
-              alt="Client website build screenshot"
+              alt="Kingdom Woodcraft website screenshot"
               loading="lazy"
               decoding="async"
             />
-            <h3>Client Website Build</h3>
+            <h3>Kingdom Woodcraft</h3>
             <p>Clear CTAs and readable flow designed for ease.</p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
             <p class="text-link">
+              <a href="case-studies/kingdom-woodcraft.html"
+                >View case study →</a
+              >
+              &nbsp;•&nbsp;
               <a
                 href="https://www.kingdomwoodcrafttn.com"
                 target="_blank"
@@ -172,12 +242,30 @@
               </a>
             </p>
           </article>
+
+          <article class="portfolio-item">
+            <img
+              src="images/Starsinherbones.png"
+              alt="Soul Stone brand preview"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3>Soul Stone</h3>
+            <p>
+              Founder-led product brand — live and iterating. Case study
+              publishing after early performance data.
+            </p>
+            <p class="tech">
+              Category: Product ecosystem • Web + funnel + digital/print
+            </p>
+          </article>
         </div>
       </section>
 
       <!-- Digital Products -->
       <section class="portfolio-section container">
         <h2>Digital Products</h2>
+
         <div class="portfolio-grid">
           <article class="portfolio-item">
             <img
@@ -216,9 +304,6 @@
           kaylamariecollective@gmail.com
         </a>
       </div>
-      <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-      </script>
     </footer>
   </body>
 </html>

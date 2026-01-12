@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <title>Case Study: Kingdom Woodcraft | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Case study: a full rebuild for Kingdom Woodcraft — custom HTML/CSS/JS, domain + DNS, SEO foundations, GA4, and event tracking."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link
+      rel="canonical"
+      href="https://kaylamariecollective.com/case-studies/kingdom-woodcraft.html"
+    />
+
+    <link rel="stylesheet" href="../style.css" />
+    <script defer src="../assets/js/script.js"></script>
+
+    <!-- Favicons (root-safe) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- GA4 -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
+  </head>
+
+  <body class="case-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a
+          href="../index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
+          <img
+            src="../images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+            decoding="async"
+          />
+          Kayla Marie Collective
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
+
+        <nav
+          class="main-nav"
+          id="primary-nav"
+          aria-label="Main navigation"
+          data-nav
+        >
+          <a href="../index.html">Home</a>
+          <a href="../services.html">Services</a>
+          <a href="../portfolio.html">Portfolio</a>
+          <a href="../about.html">About</a>
+          <a href="../contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Page Hero -->
+      <section class="page-hero">
+        <div class="container">
+          <span class="case-kicker">Client Project</span>
+          <h1>Kingdom Woodcraft</h1>
+          <p>
+            Full website rebuild with domain, SEO foundations, GA4, and event
+            tracking.
+          </p>
+
+          <div class="case-nav">
+            <a
+                href="../portfolio.html"
+                data-track="click"
+                data-label="case_kw_back_portfolio">← Portfolio</a>
+
+              href="https://www.kingdomwoodcrafttn.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="click"
+              data-label="case_kw_hero_live_site"
+            >
+              Live Site →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-wrap">
+        <div class="container">
+          <div class="portfolio-grid">
+            <!-- Left card -->
+            <article class="portfolio-item case-card">
+              <img
+                src="../images/portfoliopic-2.png"
+                alt="Kingdom Woodcraft website screenshot"
+                loading="lazy"
+                decoding="async"
+                data-lightbox
+              />
+
+              <h2>Project Snapshot</h2>
+              <div class="case-meta">
+                <div>
+                  <strong>Industry:</strong> Custom Woodworking & Renovations
+                </div>
+                <div>
+                  <strong>Role:</strong> Strategy, Design, Front-End
+                  Development, SEO, Analytics
+                </div>
+                <div><strong>Status:</strong> Live, paid delivery</div>
+              </div>
+
+              <div class="case-cta">
+                <a
+                  class="btn-primary"
+                  href="https://www.kingdomwoodcrafttn.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="click"
+                  data-label="case_kw_live_site"
+                >
+                  View Live Site
+                </a>
+
+                <a
+                  class="btn-secondary"
+                  href="../contact.html"
+                  data-track="click"
+                  data-label="case_kw_start_project"
+                >
+                  Start a Project
+                </a>
+              </div>
+            </article>
+
+            <!-- Right card -->
+            <article class="portfolio-item case-card">
+              <h2>The Problem</h2>
+              <p>
+                The business was relying on an outdated WordPress site that
+                didn’t reflect the quality of their work and offered limited
+                control over performance, structure, and tracking. The site
+                needed to feel professional, load quickly, and be easy to
+                maintain without plugin bloat.
+              </p>
+
+              <h2>The Solution</h2>
+              <ul>
+                <li>
+                  Rebuilt from scratch using semantic HTML/CSS/JS (no page
+                  builders)
+                </li>
+                <li>Migrated off WordPress and deployed via GitHub Pages</li>
+                <li>
+                  Connected custom domain and handled DNS/propagation
+                  troubleshooting
+                </li>
+                <li>
+                  Implemented SEO foundations: metadata, sitemap, robots.txt,
+                  canonical URLs
+                </li>
+                <li>
+                  Installed GA4 correctly in the <code>&lt;head&gt;</code>
+                </li>
+                <li>
+                  Added event tracking for key actions (calls + form
+                  submissions)
+                </li>
+                <li>
+                  Optimized mobile spacing, navigation behavior, and gallery
+                  structure
+                </li>
+              </ul>
+
+              <h2>The Result</h2>
+              <ul>
+                <li>
+                  Fast, clean site that matches the craftsmanship of the
+                  business
+                </li>
+                <li>Fully owned infrastructure — no template lock-in</li>
+                <li>Mobile-friendly layout with clear navigation</li>
+                <li>Analytics and SEO in place for growth and measurement</li>
+              </ul>
+
+              <h2>Why This Approach</h2>
+              <p>
+                This build prioritized long-term ownership and performance over
+                convenience — so the site can scale without breaking or needing
+                a rebuild every year.
+              </p>
+
+              <p class="text-link">
+                Next case study:
+                <a href="kayla-marie-collective.html"
+                  >Kayla Marie Collective →</a
+                >
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-close></div>
+      <figure
+        class="lightbox-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image preview"
+      >
+        <button
+          class="lightbox-close"
+          type="button"
+          aria-label="Close preview"
+          data-close
+        >
+          ×
+        </button>
+        <img class="lightbox-img" id="lightboxImg" alt="" />
+      </figure>
+    </div>
+  </body>
+</html>

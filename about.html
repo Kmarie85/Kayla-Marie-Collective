@@ -1,16 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--
-  CLIENT SETTINGS:
-  - Site name:
-  - Canonical domain:
-  - Primary color:
-  - OG image path:
-  -->
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <!-- Primary SEO -->
     <title>About | Kayla Marie Collective</title>
@@ -24,6 +17,9 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
 
     <!-- Performance -->
     <link rel="preload" as="image" href="images/Blacklogoone.png" />
@@ -51,62 +47,70 @@
     />
     <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-    <!-- Favicons -->
-    <link rel="icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon-32x32.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <!-- Favicons (root-safe) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-DWTK6PGS0W');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
+  </head>
 
-</head><body>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
-      <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo" />
-      Kayla Marie Collective
-    </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+            decoding="async"
+          />
+          Kayla Marie Collective
+        </a>
 
-    <!-- Mobile menu button -->
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-      data-nav-toggle
-    >
-      Menu
-    </button>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
 
-    <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
-      <a href="index.html" class="active" aria-current="page">Home</a>
-      <a href="services.html">Services</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="btn-nav">Start a Project</a>
-    </nav>
-  </div>
-</header>
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="about.html" class="active" aria-current="page">About</a>
+          <a href="contact.html" class="btn-nav">Start a Project</a>
+        </nav>
+      </div>
+    </header>
 
     <main id="main">
-      <!-- Upgraded hero -->
+      <!-- Hero -->
       <section class="page-hero about-hero">
         <div class="container">
           <div class="kicker">Design • Clarity • Conversion</div>
+
           <div class="hero-split">
             <div>
               <h1>About</h1>
@@ -162,7 +166,7 @@
             </div>
           </div>
 
-          <!-- Who + Why in a two-panel grid -->
+          <!-- Who + Why -->
           <div class="about-grid-2 about-section">
             <div class="about-card">
               <h2>Who I Help</h2>
@@ -211,22 +215,26 @@
             <h2>How My Work Stands Out</h2>
             <div class="about-grid-2">
               <div class="soft-panel">
-                <p><strong>Soft visuals, still professional.</strong><br />
+                <p>
+                  <strong>Soft visuals, still professional.</strong><br />
                   Ritual-inspired design that reads premium and clean.
                 </p>
               </div>
               <div class="soft-panel">
-                <p><strong>Calm, readable layouts.</strong><br />
+                <p>
+                  <strong>Calm, readable layouts.</strong><br />
                   Designed to support attention, not scatter it.
                 </p>
               </div>
               <div class="soft-panel">
-                <p><strong>Aesthetics + function.</strong><br />
+                <p>
+                  <strong>Aesthetics + function.</strong><br />
                   It has to feel good and work well — both.
                 </p>
               </div>
               <div class="soft-panel">
-                <p><strong>Maintainable build.</strong><br />
+                <p>
+                  <strong>Maintainable build.</strong><br />
                   You can update it without tech spirals.
                 </p>
               </div>
@@ -238,19 +246,21 @@
             <h2>What You’ll Walk Away With</h2>
             <div class="about-grid-2">
               <div class="soft-panel">
-                <p><strong>Premium + clear.</strong><br />
+                <p>
+                  <strong>Premium + clear.</strong><br />
                   A website or product that looks elevated and reads easily.
                 </p>
               </div>
               <div class="soft-panel">
-                <p><strong>A simple path.</strong><br />
+                <p>
+                  <strong>A simple path.</strong><br />
                   Inquire, book, or buy — without confusion.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- How it works timeline -->
+          <!-- How it works -->
           <div class="about-card about-section">
             <h2>How It Works</h2>
             <ul class="timeline">
@@ -312,9 +322,6 @@
           kaylamariecollective@gmail.com
         </a>
       </div>
-      <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-      </script>
     </footer>
   </body>
 </html>

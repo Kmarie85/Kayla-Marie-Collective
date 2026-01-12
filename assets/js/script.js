@@ -8,17 +8,72 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* =========================
-     PREFILL CONTACT SELECT (Option A)
-     - contact.html?type=strategy  -> selects "strategy"
-     - contact.html?type=standard  -> selects "website" (default)
-     - Safe on pages without the select
+     OPTIONAL: GA CLICK TRACKING
+     - Add data-track + data-label to links/buttons
+  ========================= */
+  (() => {
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-track]");
+      if (!el) return;
+
+      const action = el.getAttribute("data-track") || "click";
+      const label = el.getAttribute("data-label") || el.textContent.trim().slice(0, 80);
+
+      if (window.gtag) {
+        window.gtag("event", action, {
+          event_category: "engagement",
+          event_label: label,
+        });
+      }
+    });
+  })();
+
+  /* =========================
+     MOBILE NAV TOGGLE (KMC)
+  ========================= */
+  (() => {
+    const toggle = document.querySelector("[data-nav-toggle]");
+    const nav = document.querySelector("[data-nav]");
+    if (!toggle || !nav) return;
+
+    const isOpen = () => nav.classList.contains("is-open");
+
+    const setOpen = (open) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    toggle.addEventListener("click", () => setOpen(!isOpen()));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    nav.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (link) setOpen(false);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!isOpen()) return;
+      const clickedToggle = e.target.closest("[data-nav-toggle]");
+      const clickedNav = e.target.closest("[data-nav]");
+      if (!clickedToggle && !clickedNav) setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 768px)").matches) setOpen(false);
+    });
+  })();
+
+  /* =========================
+     PREFILL CONTACT SELECT
   ========================= */
   (() => {
     const params = new URLSearchParams(window.location.search);
     const typeRaw = (params.get("type") || "").trim().toLowerCase();
     if (!typeRaw) return;
 
-    // Prefer the actual contact select you added
     const select =
       document.querySelector("#project_type") ||
       document.querySelector("select[name='project_type']") ||
@@ -31,15 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!select || select.tagName !== "SELECT") return;
 
-    // Set desired value based on type
     const desired =
       typeRaw === "strategy" ? "strategy" :
       typeRaw === "standard" ? "website" :
-      ""; // ignore unknowns
+      "";
 
     if (!desired) return;
 
-    // Only set if that option exists
     const options = Array.from(select.options);
     const found = options.find((o) => (o.value || "").toLowerCase() === desired);
 
@@ -51,9 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      STRATEGY FOLLOW-UP TOGGLE
-     - Shows #strategyFollowup only when project_type === "strategy"
-     - Makes #strategy_focus required only when visible
-     - Clears strategy fields when switching away
   ========================= */
   (() => {
     const projectType =
@@ -70,7 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const isStrategy = (projectType.value || "").toLowerCase() === "strategy";
 
       followup.hidden = !isStrategy;
-
       if (focus) focus.required = isStrategy;
 
       if (!isStrategy) {
@@ -79,20 +128,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Initialize (important when prefill sets strategy via query param)
     setState();
-
     projectType.addEventListener("change", setState);
   })();
 
   /* =========================
-     CONTACT FORM SUBMIT (contact.html only)
+     CONTACT FORM SUBMIT
   ========================= */
   const form = document.getElementById("contactForm");
-
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      if (!form.action) {
+        alert("Form action is missing. Please set your form endpoint and try again.");
+        return;
+      }
 
       const formData = new FormData(form);
 
@@ -104,20 +155,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (res.ok) {
-          // GA4 event tracking
           if (window.gtag) {
             window.gtag("event", "contact_form_submit", {
               event_category: "engagement",
               event_label: "start_project",
             });
           }
-
-          // Redirect to custom thank-you page
           window.location.assign("thank-you.html");
         } else {
           alert("Something went wrong. Please check your entries and try again.");
         }
-      } catch (err) {
+      } catch {
         alert("Network error. Please try again.");
       }
     });
@@ -125,16 +173,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      LIGHTBOX (click-to-zoom)
-     - Add data-lightbox to any <img>
-     - Requires:
-       #lightbox, #lightboxImg, [data-close]
-     - Safe on pages without lightbox
   ========================= */
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lightboxImg");
 
   if (lb && lbImg) {
+    let lastActiveEl = null;
+
     const open = (imgEl) => {
+      lastActiveEl = document.activeElement;
+
       const src = imgEl.getAttribute("src");
       const alt = imgEl.getAttribute("alt") || "Preview image";
 
@@ -144,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
       lb.classList.add("is-open");
       lb.setAttribute("aria-hidden", "false");
 
-      // prevent background scroll
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     };
@@ -153,28 +200,34 @@ document.addEventListener("DOMContentLoaded", () => {
       lb.classList.remove("is-open");
       lb.setAttribute("aria-hidden", "true");
 
-      // restore scroll
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
 
-      // clear image
       lbImg.src = "";
       lbImg.alt = "";
+
+      if (lastActiveEl && typeof lastActiveEl.focus === "function") {
+        lastActiveEl.focus();
+      }
+      lastActiveEl = null;
     };
 
-    // Open when clicking any image with data-lightbox
     document.addEventListener("click", (e) => {
       const img = e.target.closest("img[data-lightbox]");
       if (!img) return;
+
+      // If image is inside a link, let the link behave normally
+      if (e.target.closest("a")) return;
+
       open(img);
     });
 
-    // Close when clicking backdrop or close button
     lb.addEventListener("click", (e) => {
-      if (e.target.closest("[data-close]")) close();
+      if (e.target.closest("[data-close]")) {
+        close();
+      }
     });
 
-    // Close on ESC
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && lb.classList.contains("is-open")) close();
     });

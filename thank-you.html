@@ -1,39 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>Inquiry Received | Kayla Marie Collective</title>
-  <meta name="robots" content="noindex" />
+    <!-- Primary SEO -->
+    <title>Inquiry Received | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="Thanks for reaching out. Your project inquiry has been received."
+    />
+    <meta name="robots" content="noindex,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link rel="canonical" href="https://kaylamariecollective.com/thank-you.html" />
 
-  <link rel="stylesheet" href="style.css" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
 
-  gtag('config', 'G-DWTK6PGS0W');
-</script>
+    <!-- Favicons (root-safe) -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-</head><body>
-  <main class="page-hero">
-    <div class="container" style="text-align:center;">
-      <h1>Thank you — I’ve got it.</h1>
-      <p>Your inquiry was submitted successfully.</p>
-      <p>I’ll review it and respond within <strong>1–2 business days</strong>.</p>
-      <p style="margin-top:2rem; font-size:0.9rem; opacity:0.8;">
-  Want to move faster? You can reply directly to the confirmation email.
-</p>
+    <!-- UI -->
+    <meta name="theme-color" content="#ffffff" />
 
-      <div style="margin-top:2rem;">
-        <a href="index.html" class="btn-primary">Return to Home</a>
-        <a href="portfolio.html" class="btn-secondary">View Portfolio</a>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
+
+    <!-- Optional: track thank-you page view as a conversion-ish event -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (!window.gtag) return;
+        window.gtag("event", "inquiry_thank_you_view", {
+          event_category: "engagement",
+          event_label: "thank_you",
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+            decoding="async"
+          />
+          Kayla Marie Collective
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
+
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" class="btn-nav">Start a Project</a>
+        </nav>
       </div>
-    </div>
-  </main>
-</body>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container" style="text-align: center;">
+          <h1>Thank you — I’ve got it.</h1>
+          <p>Your inquiry was submitted successfully.</p>
+          <p>I’ll review it and respond within <strong>1–2 business days</strong>.</p>
+
+          <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.85;">
+            Want to move faster? You can reply directly to the confirmation email.
+          </p>
+
+          <div style="margin-top: 2rem;">
+            <a href="index.html" class="btn-primary">Return to Home</a>
+            <a href="portfolio.html" class="btn-secondary">View Portfolio</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
+      </div>
+    </footer>
+  </body>
 </html>

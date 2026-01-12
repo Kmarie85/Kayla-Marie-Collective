@@ -13,13 +13,13 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
-    <link
-      rel="canonical"
-      href="https://kaylamariecollective.com/contact.html"
-    />
+    <link rel="canonical" href="https://kaylamariecollective.com/contact.html" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
 
     <!-- Performance -->
     <link rel="preload" as="image" href="images/Blacklogoone.png" />
@@ -27,59 +27,38 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kayla Marie Collective" />
-    <meta
-      property="og:title"
-      content="Start a Project | Kayla Marie Collective"
-    />
+    <meta property="og:title" content="Start a Project | Kayla Marie Collective" />
     <meta
       property="og:description"
       content="Tell me what you’re building so we can see if we’re a fit."
     />
-    <meta
-      property="og:url"
-      content="https://kaylamariecollective.com/contact.html"
-    />
-    <meta
-      property="og:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta property="og:url" content="https://kaylamariecollective.com/contact.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Kayla Marie Collective — Start a Project"
-    />
+    <meta property="og:image:alt" content="Kayla Marie Collective — Start a Project" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Start a Project | Kayla Marie Collective"
-    />
+    <meta name="twitter:title" content="Start a Project | Kayla Marie Collective" />
     <meta
       name="twitter:description"
       content="Tell me what you’re building so we can see if we’re a fit."
     />
-    <meta
-      name="twitter:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
     <!-- Favicons -->
-    <link rel="icon" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon-32x32.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -93,34 +72,38 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Header -->
-<header class="site-header">
-  <div class="container nav-container">
-    <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
-      <img src="images/Blacklogoone.png" alt="Kayla Marie Collective Logo" id="logo" />
-      Kayla Marie Collective
-    </a>
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+          <img
+            src="images/Blacklogoone.png"
+            alt="Kayla Marie Collective Logo"
+            id="logo"
+            decoding="async"
+          />
+          Kayla Marie Collective
+        </a>
 
-    <!-- Mobile menu button -->
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-      data-nav-toggle
-    >
-      Menu
-    </button>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
 
-    <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
-      <a href="index.html" class="active" aria-current="page">Home</a>
-      <a href="services.html">Services</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="btn-nav">Start a Project</a>
-    </nav>
-  </div>
-</header>
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" class="btn-nav active" aria-current="page">Start a Project</a>
+        </nav>
+      </div>
+    </header>
 
     <main id="main">
       <!-- Page Hero -->
@@ -139,6 +122,7 @@
             class="project-form"
             method="POST"
             action="https://formspree.io/f/maqqwqje"
+            novalidate
           >
             <!-- Formspree metadata -->
             <input
@@ -147,27 +131,19 @@
               value="New Project Inquiry — Kayla Marie Collective"
             />
 
-            <!-- Honeypot -->
-            <label
-              style="
-                position: absolute;
-                left: -9999px;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-              "
+            <!-- Honeypot (spam trap) -->
+            <div
+              aria-hidden="true"
+              style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"
             >
-              Do not fill this out
-              <input
-                type="text"
-                name="_gotcha"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </label>
+              <label>
+                Do not fill this out
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
 
             <label>
-              Name *
+              Name <span aria-hidden="true">*</span>
               <input type="text" name="name" required autocomplete="name" />
             </label>
 
@@ -177,12 +153,12 @@
             </label>
 
             <label>
-              Email *
-              <input type="email" name="email" required autocomplete="email" />
+              Email <span aria-hidden="true">*</span>
+              <input type="email" name="email" required autocomplete="email" inputmode="email" />
             </label>
 
             <label>
-              What do you want built? *
+              What do you want built? <span aria-hidden="true">*</span>
               <textarea
                 name="project_details"
                 rows="4"
@@ -191,9 +167,9 @@
               ></textarea>
             </label>
 
-            <!-- ✅ Option A target: this gets preselected from ?type=strategy -->
+            <!-- Prefill target: contact.html?type=strategy or ?type=standard -->
             <label>
-              What type of support are you looking for? *
+              What type of support are you looking for? <span aria-hidden="true">*</span>
               <select id="project_type" name="project_type" required>
                 <option value="">Select one</option>
                 <option value="website">Website Build</option>
@@ -206,24 +182,15 @@
             <!-- Strategy-led follow-up (shows only when Strategy is selected) -->
             <div id="strategyFollowup" hidden>
               <label>
-                For strategy-led work, what do you need most right now? *
+                For strategy-led work, what do you need most right now?
+                <span aria-hidden="true">*</span>
                 <select name="strategy_focus" id="strategy_focus">
                   <option value="">Select one</option>
-                  <option value="offer_messaging">
-                    Offer clarity + messaging
-                  </option>
-                  <option value="funnel_architecture">
-                    Funnel + launch structure
-                  </option>
-                  <option value="positioning_pricing">
-                    Positioning + pricing
-                  </option>
-                  <option value="full_strategy_execution">
-                    Strategy + execution (full build)
-                  </option>
-                  <option value="not_sure">
-                    Not sure — I want your recommendation
-                  </option>
+                  <option value="offer_messaging">Offer clarity + messaging</option>
+                  <option value="funnel_architecture">Funnel + launch structure</option>
+                  <option value="positioning_pricing">Positioning + pricing</option>
+                  <option value="full_strategy_execution">Strategy + execution (full build)</option>
+                  <option value="not_sure">Not sure — I want your recommendation</option>
                 </select>
               </label>
 
@@ -241,7 +208,7 @@
             </div>
 
             <label>
-              Budget Range (USD) *
+              Budget Range (USD) <span aria-hidden="true">*</span>
               <select name="budget" required>
                 <option value="">Select one</option>
                 <option value="1000-1500">$1,000 – $1,500</option>
@@ -252,13 +219,12 @@
             </label>
 
             <label>
-              Ideal Timeline *
+              Ideal Timeline <span aria-hidden="true">*</span>
               <input
                 type="text"
                 name="timeline"
                 placeholder="For example: March launch, or ASAP"
                 required
-                autocomplete="off"
               />
             </label>
 
@@ -272,6 +238,11 @@
             </label>
 
             <button type="submit" class="btn-primary">Submit Inquiry</button>
+
+            <!-- Optional note (helps users trust the form) -->
+            <p class="form-note">
+              By submitting, you agree to be contacted about your inquiry. No spam — just next steps.
+            </p>
           </form>
         </div>
       </section>
@@ -280,13 +251,19 @@
     <!-- Footer -->
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© <span id="year"></span> Kayla Marie Collective</p>
-        <a href="mailto:contact@kaylamariecollective.com" class="footer-link">
-          contact@kaylamariecollective.com
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+
+        <!-- Use the email you actually check -->
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
         </a>
       </div>
     </footer>
 
-    <script defer src="assets/js/script.js"></script>
+    <noscript>
+      <p style="padding: 1rem; text-align: center;">
+        JavaScript is disabled — the menu and form enhancements may not work as expected.
+      </p>
+    </noscript>
   </body>
 </html>
