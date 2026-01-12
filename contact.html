@@ -13,7 +13,10 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
-    <link rel="canonical" href="https://kaylamariecollective.com/contact.html" />
+    <link
+      rel="canonical"
+      href="https://kaylamariecollective.com/contact.html"
+    />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
@@ -24,19 +27,43 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kayla Marie Collective" />
-    <meta property="og:title" content="Start a Project | Kayla Marie Collective" />
-    <meta property="og:description" content="Tell me what you’re building so we can see if we’re a fit." />
-    <meta property="og:url" content="https://kaylamariecollective.com/contact.html" />
-    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta
+      property="og:title"
+      content="Start a Project | Kayla Marie Collective"
+    />
+    <meta
+      property="og:description"
+      content="Tell me what you’re building so we can see if we’re a fit."
+    />
+    <meta
+      property="og:url"
+      content="https://kaylamariecollective.com/contact.html"
+    />
+    <meta
+      property="og:image"
+      content="https://kaylamariecollective.com/images/og-image.jpg"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Kayla Marie Collective — Start a Project" />
+    <meta
+      property="og:image:alt"
+      content="Kayla Marie Collective — Start a Project"
+    />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Start a Project | Kayla Marie Collective" />
-    <meta name="twitter:description" content="Tell me what you’re building so we can see if we’re a fit." />
-    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+    <meta
+      name="twitter:title"
+      content="Start a Project | Kayla Marie Collective"
+    />
+    <meta
+      name="twitter:description"
+      content="Tell me what you’re building so we can see if we’re a fit."
+    />
+    <meta
+      name="twitter:image"
+      content="https://kaylamariecollective.com/images/og-image.jpg"
+    />
 
     <!-- Favicons -->
     <link rel="icon" href="favicon.ico" />
@@ -49,10 +76,15 @@
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag("js", new Date());
       gtag("config", "G-DWTK6PGS0W");
     </script>
@@ -64,7 +96,11 @@
     <!-- Header -->
     <header class="site-header">
       <div class="container nav-container">
-        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+        <a
+          href="index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
           <img
             src="images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
@@ -114,10 +150,21 @@
 
             <!-- Honeypot -->
             <label
-              style="position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;"
+              style="
+                position: absolute;
+                left: -9999px;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+              "
             >
               Do not fill this out
-              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+              <input
+                type="text"
+                name="_gotcha"
+                tabindex="-1"
+                autocomplete="off"
+              />
             </label>
 
             <label>
@@ -156,6 +203,43 @@
                 <option value="strategy">Strategy-Led Build</option>
               </select>
             </label>
+
+            <!-- Strategy-led follow-up (shows only when Strategy is selected) -->
+            <div id="strategyFollowup" hidden>
+              <label>
+                For strategy-led work, what do you need most right now? *
+                <select name="strategy_focus" id="strategy_focus">
+                  <option value="">Select one</option>
+                  <option value="offer_messaging">
+                    Offer clarity + messaging
+                  </option>
+                  <option value="funnel_architecture">
+                    Funnel + launch structure
+                  </option>
+                  <option value="positioning_pricing">
+                    Positioning + pricing
+                  </option>
+                  <option value="full_strategy_execution">
+                    Strategy + execution (full build)
+                  </option>
+                  <option value="not_sure">
+                    Not sure — I want your recommendation
+                  </option>
+                </select>
+              </label>
+
+              <label>
+                Optional: link to your offer / draft / notes
+                <input
+                  type="url"
+                  id="strategy_link"
+                  name="strategy_link"
+                  placeholder="Google Doc, Notion, website, etc."
+                  inputmode="url"
+                  autocomplete="off"
+                />
+              </label>
+            </div>
 
             <label>
               Budget Range (USD) *

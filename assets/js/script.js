@@ -9,65 +9,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      PREFILL CONTACT SELECT (Option A)
-     - Supports: contact.html?type=strategy or ?type=standard
-     - Tries common select ids/names
-     - Matches by option value first, then by option text
+     - contact.html?type=strategy  -> selects "strategy"
+     - contact.html?type=standard  -> selects "website" (default)
+     - Safe on pages without the select
   ========================= */
   (() => {
     const params = new URLSearchParams(window.location.search);
     const typeRaw = (params.get("type") || "").trim().toLowerCase();
     if (!typeRaw) return;
 
-    // Common select field targets (adjust your form IDs/names if needed)
+    // Prefer the actual contact select you added
     const select =
+      document.querySelector("#project_type") ||
+      document.querySelector("select[name='project_type']") ||
       document.querySelector("#service") ||
       document.querySelector("select[name='service']") ||
       document.querySelector("#support_level") ||
       document.querySelector("select[name='support_level']") ||
-      document.querySelector("#project_type") ||
-      document.querySelector("select[name='project_type']") ||
       document.querySelector("#inquiry_type") ||
       document.querySelector("select[name='inquiry_type']");
 
     if (!select || select.tagName !== "SELECT") return;
 
-    // Map query -> likely option values (you can customize these anytime)
-    const valueMap = {
-      strategy: ["strategy", "strategy-led", "strategyled", "vip", "premium"],
-      standard: ["website", "standard", "implementation", "general"],
-    };
+    // Set desired value based on type
+    const desired =
+      typeRaw === "strategy" ? "strategy" :
+      typeRaw === "standard" ? "website" :
+      ""; // ignore unknowns
 
-    const desiredValues = valueMap[typeRaw];
+    if (!desired) return;
+
+    // Only set if that option exists
     const options = Array.from(select.options);
+    const found = options.find((o) => (o.value || "").toLowerCase() === desired);
 
-    // 1) Try match by value
-    if (desiredValues && desiredValues.length) {
-      const foundByValue = options.find((o) =>
-        desiredValues.includes((o.value || "").trim().toLowerCase())
-      );
-      if (foundByValue) {
-        select.value = foundByValue.value;
-        // trigger change in case you have conditional UI tied to it
-        select.dispatchEvent(new Event("change", { bubbles: true }));
-        return;
-      }
-    }
-
-    // 2) Fallback: match by label/text
-    const labelNeedle =
-      typeRaw === "strategy"
-        ? ["strategy", "strategy-led", "strategic", "vip", "premium"]
-        : ["website", "standard", "implementation", "general"];
-
-    const foundByText = options.find((o) => {
-      const text = (o.textContent || "").trim().toLowerCase();
-      return labelNeedle.some((n) => text.includes(n));
-    });
-
-    if (foundByText) {
-      select.value = foundByText.value;
+    if (found) {
+      select.value = found.value;
       select.dispatchEvent(new Event("change", { bubbles: true }));
     }
+  })();
+
+  /* =========================
+     STRATEGY FOLLOW-UP TOGGLE
+     - Shows #strategyFollowup only when project_type === "strategy"
+     - Makes #strategy_focus required only when visible
+     - Clears strategy fields when switching away
+  ========================= */
+  (() => {
+    const projectType =
+      document.querySelector("#project_type") ||
+      document.querySelector("select[name='project_type']");
+
+    const followup = document.getElementById("strategyFollowup");
+    const focus = document.getElementById("strategy_focus");
+    const link = document.getElementById("strategy_link");
+
+    if (!projectType || !followup) return;
+
+    const setState = () => {
+      const isStrategy = (projectType.value || "").toLowerCase() === "strategy";
+
+      followup.hidden = !isStrategy;
+
+      if (focus) focus.required = isStrategy;
+
+      if (!isStrategy) {
+        if (focus) focus.value = "";
+        if (link) link.value = "";
+      }
+    };
+
+    // Initialize (important when prefill sets strategy via query param)
+    setState();
+
+    projectType.addEventListener("change", setState);
   })();
 
   /* =========================
@@ -113,55 +128,55 @@ document.addEventListener("DOMContentLoaded", () => {
      - Add data-lightbox to any <img>
      - Requires:
        #lightbox, #lightboxImg, [data-close]
+     - Safe on pages without lightbox
   ========================= */
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lightboxImg");
 
-  // If the page doesn't have a lightbox, stop here (everything else above still ran)
-  if (!lb || !lbImg) return;
+  if (lb && lbImg) {
+    const open = (imgEl) => {
+      const src = imgEl.getAttribute("src");
+      const alt = imgEl.getAttribute("alt") || "Preview image";
 
-  const open = (imgEl) => {
-    const src = imgEl.getAttribute("src");
-    const alt = imgEl.getAttribute("alt") || "Preview image";
+      lbImg.src = src;
+      lbImg.alt = alt;
 
-    lbImg.src = src;
-    lbImg.alt = alt;
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
 
-    lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
+      // prevent background scroll
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    };
 
-    // prevent background scroll
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-  };
+    const close = () => {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
 
-  const close = () => {
-    lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
+      // restore scroll
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
 
-    // restore scroll
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+      // clear image
+      lbImg.src = "";
+      lbImg.alt = "";
+    };
 
-    // clear image
-    lbImg.src = "";
-    lbImg.alt = "";
-  };
+    // Open when clicking any image with data-lightbox
+    document.addEventListener("click", (e) => {
+      const img = e.target.closest("img[data-lightbox]");
+      if (!img) return;
+      open(img);
+    });
 
-  // Open when clicking any image with data-lightbox
-  document.addEventListener("click", (e) => {
-    const img = e.target.closest("img[data-lightbox]");
-    if (!img) return;
-    open(img);
-  });
+    // Close when clicking backdrop or close button
+    lb.addEventListener("click", (e) => {
+      if (e.target.closest("[data-close]")) close();
+    });
 
-  // Close when clicking backdrop or close button
-  lb.addEventListener("click", (e) => {
-    if (e.target.closest("[data-close]")) close();
-  });
-
-  // Close on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
-  });
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+    });
+  }
 });
