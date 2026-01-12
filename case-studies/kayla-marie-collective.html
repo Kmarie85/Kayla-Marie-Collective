@@ -8,7 +8,7 @@
     <title>Case Study: Kayla Marie Collective | Kayla Marie Collective</title>
     <meta
       name="description"
-      content="Case study: internal studio build for Kayla Marie Collective — custom HTML/CSS, service positioning, SEO foundations, and conversion-focused CTAs."
+      content="Case study: Kayla Marie Collective — a conversion-first services site built with custom HTML/CSS, clear positioning, SEO foundations, and tracked CTAs to drive qualified inquiries."
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
@@ -83,7 +83,13 @@
           <a href="../services.html">Services</a>
           <a href="../portfolio.html">Portfolio</a>
           <a href="../about.html">About</a>
-          <a href="../contact.html" class="btn-nav">Start a Project</a>
+          <a
+            href="../contact.html"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="kmc_case_header_start_project"
+            >Start a Project</a
+          >
         </nav>
       </div>
     </header>
@@ -93,15 +99,26 @@
       <section class="page-hero">
         <div class="container">
           <span class="case-kicker">Internal Studio Build</span>
-          <h1>Kayla Marie Collective</h1>
+          <h1>A services site built to attract the right clients — and filter out the wrong ones.</h1>
           <p>
-            Services site designed to filter for aligned clients and demonstrate
-            capability.
+            Kayla Marie Collective was built as a conversion-first studio site:
+            clear positioning, outcome-led services, and tracked CTAs that guide
+            serious inquiries to the next step.
           </p>
 
           <div class="case-nav">
-            <a href="../portfolio.html">← Portfolio</a>
-            <a href="../services.html">Services →</a>
+            <a
+              href="../portfolio.html"
+              data-track="case_nav_click"
+              data-label="kmc_case_back_to_portfolio"
+              >← Portfolio</a
+            >
+            <a
+              href="../services.html"
+              data-track="case_nav_click"
+              data-label="kmc_case_to_services"
+              >Services →</a
+            >
           </div>
         </div>
       </section>
@@ -118,81 +135,122 @@
                 decoding="async"
                 class="case-logo"
                 data-lightbox
+                data-track="case_image_click"
+                data-label="kmc_case_logo_lightbox"
               />
 
               <h2>Project Snapshot</h2>
               <div class="case-meta">
                 <div><strong>Project Type:</strong> Internal Studio Build</div>
                 <div>
-                  <strong>Role:</strong> Strategy, Brand Positioning, Design,
-                  Front-End Development
+                  <strong>Role:</strong> Strategy, Positioning, Copy, Design, Front-End Development
                 </div>
-                <div><strong>Status:</strong> Live, fully QA’d</div>
+                <div><strong>Status:</strong> Live, QA’d, and tracked (GA4)</div>
               </div>
 
+              <h2>What This Site Needed To Do</h2>
+              <ul>
+                <li><strong>Clarify the offer</strong> so visitors know what to choose</li>
+                <li><strong>Build trust fast</strong> with clean design + real execution</li>
+                <li><strong>Drive the next step</strong> with one primary CTA</li>
+                <li><strong>Measure behavior</strong> so improvements aren’t guesswork</li>
+              </ul>
+
               <div class="case-cta">
-                <a class="btn-primary" href="../contact.html"
+                <a
+                  class="btn-primary"
+                  href="../contact.html?source=case_kmc"
+                  data-track="case_cta_click"
+                  data-label="kmc_case_start_project_primary"
                   >Start a Project</a
                 >
-                <a class="btn-secondary" href="../services.html"
+                <a
+                  class="btn-secondary"
+                  href="../services.html"
+                  data-track="case_cta_click"
+                  data-label="kmc_case_view_services_secondary"
                   >View Services</a
                 >
               </div>
+
+              <p class="text-link">
+                Prefer to browse first?
+                <a
+                  href="../portfolio.html"
+                  data-track="case_secondary_click"
+                  data-label="kmc_case_browse_portfolio"
+                  >See more work →</a
+                >
+              </p>
             </article>
 
             <!-- Right card -->
             <article class="portfolio-item case-card">
-              <h2>The Objective</h2>
+              <h2>The Problem (Before)</h2>
               <p>
-                The goal was to build a credible services platform — not just a
-                portfolio. This site needed to communicate who I help, what I
-                do, and how to start, while filtering out misaligned inquiries
-                and demonstrating real technical execution.
+                I didn’t need “a pretty site.” I needed a platform that works like a filter:
+                it should attract aligned founders and quietly repel the wrong-fit inquiries.
+                The risk with most services sites is that they sound broad, vague, and interchangeable —
+                which leads to low-quality leads and constant back-and-forth.
               </p>
 
-              <h2>The Approach</h2>
-              <ul>
-                <li>
-                  Defined a clear service structure with outcome-driven copy
-                </li>
-                <li>Built from scratch using semantic HTML and custom CSS</li>
-                <li>Made mobile-first layout decisions for readable flow</li>
-                <li>
-                  Used conversion-focused CTAs (“Start a Project”) to guide
-                  qualified leads
-                </li>
-                <li>
-                  Added SEO foundations: metadata, canonical URLs, clean
-                  structure
-                </li>
-                <li>
-                  Kept the build lightweight for speed and maintainability
-                </li>
-              </ul>
-
-              <h2>The Result</h2>
-              <ul>
-                <li>
-                  A polished services brand that reads professional and grounded
-                </li>
-                <li>Clear positioning for web and digital product clients</li>
-                <li>
-                  A portfolio asset that demonstrates both creative and
-                  technical skill
-                </li>
-                <li>A foundation designed to scale with future case studies</li>
-              </ul>
-
-              <h2>Why This Matters</h2>
+              <h2>The Goal</h2>
               <p>
-                Kayla Marie Collective was built as an internal studio project
-                to define standards and systems before applying them to client
-                work — the same approach I bring to every build.
+                Build a credible services platform that communicates:
+                <strong>who I help, what outcomes I deliver, and exactly how to start</strong> —
+                while staying lightweight, fast, and easy to maintain.
               </p>
+
+              <h2>The Build (What I Implemented)</h2>
+              <ul>
+                <li><strong>Outcome-first service copy</strong> to reduce decision friction</li>
+                <li><strong>Conversion path</strong> designed around one clear next step: “Start a Project”</li>
+                <li><strong>Custom semantic HTML + CSS</strong> (no builder bloat)</li>
+                <li><strong>Mobile-first layout</strong> for readable, calm scanning</li>
+                <li><strong>SEO foundations</strong>: metadata, canonical URLs, clean structure</li>
+                <li><strong>GA4 tracking</strong> wired to CTAs so I can see what converts</li>
+              </ul>
+
+              <h2>Results (After)</h2>
+              <ul>
+                <li><strong>Clear positioning</strong> for web + digital product builds</li>
+                <li><strong>Stronger qualification</strong>: the copy sets expectations up front</li>
+                <li><strong>A real conversion asset</strong> (not just a gallery page)</li>
+                <li><strong>Measurement in place</strong>: I can attribute clicks and inquiries to specific pages</li>
+              </ul>
+
+              <h2>Why This Matters (For Clients)</h2>
+              <p>
+                This is the same build philosophy I bring to client work:
+                start with clarity, design for decision-making, and track what people actually do.
+                A site should do more than “look good” — it should move the right people forward.
+              </p>
+
+              <div class="case-cta">
+                <a
+                  class="btn-primary"
+                  href="../contact.html?source=case_kmc"
+                  data-track="case_cta_click"
+                  data-label="kmc_case_start_project_bridge"
+                  >Start a Project</a
+                >
+                <a
+                  class="btn-secondary"
+                  href="../services.html"
+                  data-track="case_cta_click"
+                  data-label="kmc_case_services_bridge"
+                  >See Packages</a
+                >
+              </div>
 
               <p class="text-link">
                 Next case study:
-                <a href="kingdom-woodcraft.html">Kingdom Woodcraft →</a>
+                <a
+                  href="kingdom-woodcraft.html"
+                  data-track="case_next_click"
+                  data-label="kmc_case_next_kw"
+                  >Kingdom Woodcraft →</a
+                >
               </p>
             </article>
           </div>
@@ -204,7 +262,12 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+        <a
+          href="mailto:kaylamariecollective@gmail.com"
+          class="footer-link"
+          data-track="footer_email_click"
+          data-label="kmc_case_footer_email"
+        >
           kaylamariecollective@gmail.com
         </a>
       </div>
