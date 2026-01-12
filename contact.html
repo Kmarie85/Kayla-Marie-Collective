@@ -100,7 +100,14 @@
           <a href="services.html">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="about.html">About</a>
-          <a href="contact.html" class="btn-nav active" aria-current="page">Start a Project</a>
+          <a
+            href="contact.html?source=nav_contact"
+            class="btn-nav active"
+            aria-current="page"
+            data-track="nav_cta_click"
+            data-label="nav_contact_start_project"
+            >Start a Project</a
+          >
         </nav>
       </div>
     </header>
@@ -131,10 +138,15 @@
               value="New Project Inquiry — Kayla Marie Collective"
             />
 
+            <!-- Attribution / tracking -->
+            <input type="hidden" id="source" name="source" value="" />
+            <input type="hidden" id="source_page" name="source_page" value="" />
+            <input type="hidden" id="referrer" name="referrer" value="" />
+
             <!-- Honeypot (spam trap) -->
             <div
               aria-hidden="true"
-              style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"
+              style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden"
             >
               <label>
                 Do not fill this out
@@ -154,7 +166,13 @@
 
             <label>
               Email <span aria-hidden="true">*</span>
-              <input type="email" name="email" required autocomplete="email" inputmode="email" />
+              <input
+                type="email"
+                name="email"
+                required
+                autocomplete="email"
+                inputmode="email"
+              />
             </label>
 
             <label>
@@ -167,7 +185,6 @@
               ></textarea>
             </label>
 
-            <!-- Prefill target: contact.html?type=strategy or ?type=standard -->
             <label>
               What type of support are you looking for? <span aria-hidden="true">*</span>
               <select id="project_type" name="project_type" required>
@@ -230,16 +247,18 @@
 
             <label>
               Links to existing brand / socials
-              <textarea
-                name="links"
-                rows="2"
-                placeholder="Instagram, website, TikTok, etc."
-              ></textarea>
+              <textarea name="links" rows="2" placeholder="Instagram, website, TikTok, etc."></textarea>
             </label>
 
-            <button type="submit" class="btn-primary">Submit Inquiry</button>
+            <button
+              type="submit"
+              class="btn-primary"
+              data-track="contact_submit_click"
+              data-label="contact_submit_inquiry"
+            >
+              Submit Inquiry
+            </button>
 
-            <!-- Optional note (helps users trust the form) -->
             <p class="form-note">
               By submitting, you agree to be contacted about your inquiry. No spam — just next steps.
             </p>
@@ -253,15 +272,19 @@
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
 
-        <!-- Use the email you actually check -->
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+        <a
+          href="mailto:kaylamariecollective@gmail.com"
+          class="footer-link"
+          data-track="footer_email_click"
+          data-label="contact_footer_email"
+        >
           kaylamariecollective@gmail.com
         </a>
       </div>
     </footer>
 
     <noscript>
-      <p style="padding: 1rem; text-align: center;">
+      <p style="padding: 1rem; text-align: center">
         JavaScript is disabled — the menu and form enhancements may not work as expected.
       </p>
     </noscript>

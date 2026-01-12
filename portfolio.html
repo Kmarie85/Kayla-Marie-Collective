@@ -13,10 +13,7 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
-    <link
-      rel="canonical"
-      href="https://kaylamariecollective.com/portfolio.html"
-    />
+    <link rel="canonical" href="https://kaylamariecollective.com/portfolio.html" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
@@ -33,10 +30,7 @@
     <meta name="theme-color" content="#ffffff" />
 
     <!-- GA4 -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -53,11 +47,7 @@
     <!-- Header -->
     <header class="site-header">
       <div class="container nav-container">
-        <a
-          href="index.html"
-          class="logo"
-          aria-label="Kayla Marie Collective home"
-        >
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
           <img
             src="images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
@@ -77,19 +67,18 @@
           Menu
         </button>
 
-        <nav
-          class="main-nav"
-          id="primary-nav"
-          aria-label="Main navigation"
-          data-nav
-        >
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
-          <a href="portfolio.html" class="active" aria-current="page"
-            >Portfolio</a
-          >
+          <a href="portfolio.html" class="active" aria-current="page">Portfolio</a>
           <a href="about.html">About</a>
-          <a href="contact.html" class="btn-nav">Start a Project</a>
+          <a
+            href="contact.html?source=nav_portfolio&service=website"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="nav_portfolio_start_project"
+            >Start a Project</a
+          >
         </nav>
       </div>
     </header>
@@ -99,9 +88,7 @@
       <section class="page-hero">
         <div class="container">
           <h1>Portfolio</h1>
-          <p>
-            Selected builds and product work — clean, calm, conversion-friendly.
-          </p>
+          <p>Selected builds and product work — clean, calm, conversion-friendly.</p>
         </div>
       </section>
 
@@ -118,15 +105,20 @@
               loading="lazy"
               decoding="async"
             />
-            <h3>Kingdom Woodcraft</h3>
+
+            <h3>From outdated WordPress to a fast, trackable site that drives quotes</h3>
             <p>
-              Full rebuild: custom HTML/CSS/JS, domain setup, SEO foundations,
-              GA4, and event tracking.
+              Full rebuild for a trades business: clean structure, mobile-first layout, SEO foundations,
+              GA4 events, and domain go-live.
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
             <p class="text-link">
-              <a href="case-studies/kingdom-woodcraft.html">
+              <a
+                href="case-studies/kingdom-woodcraft.html"
+                data-track="portfolio_case_click"
+                data-label="portfolio_case_kw"
+              >
                 View case study →
               </a>
               &nbsp;•&nbsp;
@@ -134,8 +126,18 @@
                 href="https://www.kingdomwoodcrafttn.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-track="portfolio_live_click"
+                data-label="portfolio_live_kw"
               >
                 Live site →
+              </a>
+              &nbsp;•&nbsp;
+              <a
+                href="contact.html?source=portfolio_kw&service=website"
+                data-track="portfolio_cta_click"
+                data-label="portfolio_kw_start_project"
+              >
+                Start a project →
               </a>
             </p>
           </article>
@@ -149,16 +151,28 @@
               decoding="async"
               style="object-fit: contain; background: #ffffff"
             />
-            <h3>Kayla Marie Collective</h3>
+
+            <h3>A services site built to attract aligned clients — and filter out the wrong ones</h3>
             <p>
-              Internal studio build designed to filter for aligned clients and
-              demonstrate technical execution.
+              Internal studio build: outcome-led services, clean UX, SEO setup, and conversion tracking so the funnel can be improved with real data.
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
             <p class="text-link">
-              <a href="case-studies/kayla-marie-collective.html">
+              <a
+                href="case-studies/kayla-marie-collective.html"
+                data-track="portfolio_case_click"
+                data-label="portfolio_case_kmc"
+              >
                 View case study →
+              </a>
+              &nbsp;•&nbsp;
+              <a
+                href="contact.html?source=portfolio_kmc&service=website"
+                data-track="portfolio_cta_click"
+                data-label="portfolio_kmc_start_project"
+              >
+                Start a project →
               </a>
             </p>
           </article>
@@ -177,12 +191,13 @@
               loading="lazy"
               decoding="async"
             />
-            <h3>The Reclamation Co.</h3>
-            <p>
-              Grounded layout and clear structure built for calm conversion.
-            </p>
+            <h3>Calm conversion layout for a story-driven brand</h3>
+            <p>Grounded layout and clear structure built for readable flow and confident next steps.</p>
             <p class="tech">Tech: HTML, CSS</p>
-            <p class="text-link">Live link coming soon →</p>
+
+            <p class="text-link">
+              <span>Live link coming soon →</span>
+            </p>
           </article>
         </div>
       </section>
@@ -199,12 +214,20 @@
               loading="lazy"
               decoding="async"
             />
-            <h3>Stars in Her Bones</h3>
-            <p>
-              Premium digital journal designed for depth, clarity, and
-              ritual-level engagement.
-            </p>
+            <h3>A premium ritual journal designed for depth + repeat use</h3>
+            <p>Digital journal built for clarity, engagement, and a product-led sales flow.</p>
             <p class="tech">Deliverable: Product + sales flow</p>
+
+            <!-- OPTIONAL: if you want this to drive product-page inquiries -->
+            <p class="text-link">
+              <a
+                href="contact.html?source=portfolio_sihb&service=product"
+                data-track="portfolio_cta_click"
+                data-label="portfolio_sihb_start_project"
+              >
+                Build my product page →
+              </a>
+            </p>
           </article>
         </div>
       </section>
@@ -214,7 +237,12 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+        <a
+          href="mailto:kaylamariecollective@gmail.com"
+          class="footer-link"
+          data-track="footer_email_click"
+          data-label="portfolio_footer_email"
+        >
           kaylamariecollective@gmail.com
         </a>
       </div>

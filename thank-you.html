@@ -42,16 +42,10 @@
       gtag("config", "G-DWTK6PGS0W");
     </script>
 
-    <!-- Optional: track thank-you page view as a conversion-ish event -->
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        if (!window.gtag) return;
-        window.gtag("event", "inquiry_thank_you_view", {
-          event_category: "engagement",
-          event_label: "thank_you",
-        });
-      });
-    </script>
+    <!-- IMPORTANT:
+      Do NOT add a separate thank-you tracking script here.
+      script.js fires inquiry_thank_you_view with attribution.
+    -->
   </head>
 
   <body>
@@ -85,25 +79,50 @@
           <a href="services.html">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="about.html">About</a>
-          <a href="contact.html" class="btn-nav">Start a Project</a>
+          <a
+            href="contact.html?source=nav_thankyou"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="nav_thankyou_start_project"
+          >
+            Start a Project
+          </a>
         </nav>
       </div>
     </header>
 
     <main id="main">
       <section class="page-hero">
-        <div class="container" style="text-align: center;">
+        <div class="container" style="text-align: center">
           <h1>Thank you — I’ve got it.</h1>
           <p>Your inquiry was submitted successfully.</p>
-          <p>I’ll review it and respond within <strong>1–2 business days</strong>.</p>
 
-          <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.85;">
+          <p>
+            I’ll review it and respond within <strong>1–2 business days</strong>.
+          </p>
+
+          <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.85">
             Want to move faster? You can reply directly to the confirmation email.
           </p>
 
-          <div style="margin-top: 2rem;">
-            <a href="index.html" class="btn-primary">Return to Home</a>
-            <a href="portfolio.html" class="btn-secondary">View Portfolio</a>
+          <div style="margin-top: 2rem">
+            <a
+              href="index.html"
+              class="btn-primary"
+              data-track="thankyou_click"
+              data-label="thankyou_return_home"
+            >
+              Return to Home
+            </a>
+
+            <a
+              href="portfolio.html"
+              class="btn-secondary"
+              data-track="thankyou_click"
+              data-label="thankyou_view_portfolio"
+            >
+              View Portfolio
+            </a>
           </div>
         </div>
       </section>
@@ -112,7 +131,12 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+        <a
+          href="mailto:kaylamariecollective@gmail.com"
+          class="footer-link"
+          data-track="footer_email_click"
+          data-label="thankyou_footer_email"
+        >
           kaylamariecollective@gmail.com
         </a>
       </div>

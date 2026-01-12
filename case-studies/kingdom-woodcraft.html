@@ -8,7 +8,7 @@
     <title>Case Study: Kingdom Woodcraft | Kayla Marie Collective</title>
     <meta
       name="description"
-      content="Case study: a full rebuild for Kingdom Woodcraft — custom HTML/CSS/JS, domain + DNS, SEO foundations, GA4, and event tracking."
+      content="Case study: Kingdom Woodcraft — rebuilt from WordPress to a fast, trackable custom site with domain/DNS, SEO foundations, GA4, and conversion events."
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
@@ -29,10 +29,7 @@
     <meta name="theme-color" content="#ffffff" />
 
     <!-- GA4 -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -49,11 +46,7 @@
     <!-- Header / Nav -->
     <header class="site-header">
       <div class="container nav-container">
-        <a
-          href="../index.html"
-          class="logo"
-          aria-label="Kayla Marie Collective home"
-        >
+        <a href="../index.html" class="logo" aria-label="Kayla Marie Collective home">
           <img
             src="../images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
@@ -73,17 +66,18 @@
           Menu
         </button>
 
-        <nav
-          class="main-nav"
-          id="primary-nav"
-          aria-label="Main navigation"
-          data-nav
-        >
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
           <a href="../index.html">Home</a>
           <a href="../services.html">Services</a>
           <a href="../portfolio.html">Portfolio</a>
           <a href="../about.html">About</a>
-          <a href="../contact.html" class="btn-nav">Start a Project</a>
+          <a
+            href="../contact.html?source=nav_case_kw&service=website"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="nav_case_kw_start_project"
+            >Start a Project</a
+          >
         </nav>
       </div>
     </header>
@@ -93,28 +87,31 @@
       <section class="page-hero">
         <div class="container">
           <span class="case-kicker">Client Project</span>
-          <h1>Kingdom Woodcraft</h1>
+          <h1>From outdated WordPress to a fast, trackable site that supports quote-ready leads</h1>
           <p>
-            Full website rebuild with domain, SEO foundations, GA4, and event
-            tracking.
+            Kingdom Woodcraft needed a site that matched their craftsmanship:
+            clean structure, quick load, clear navigation, and measurable actions (calls + inquiries).
           </p>
 
-        <div class="case-nav">
+          <div class="case-nav">
             <a
-            href="../portfolio.html"
-            data-track="click"
-            data-label="case_kw_back_portfolio"
-            >← Portfolio</a>
+              href="../portfolio.html"
+              data-track="case_nav_click"
+              data-label="case_kw_back_portfolio"
+              >← Portfolio</a
+            >
 
             <a
-            href="https://www.kingdomwoodcrafttn.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track="click"
-            data-label="case_kw_hero_live_site"
-            >Live Site →
-            </a>
+              href="https://www.kingdomwoodcrafttn.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="case_live_click"
+              data-label="case_kw_hero_live_site"
+              >Live Site →</a
+            >
+          </div>
         </div>
+      </section>
 
       <section class="case-wrap">
         <div class="container">
@@ -127,19 +124,26 @@
                 loading="lazy"
                 decoding="async"
                 data-lightbox
+                data-track="case_image_click"
+                data-label="case_kw_screenshot_lightbox"
               />
 
               <h2>Project Snapshot</h2>
               <div class="case-meta">
+                <div><strong>Industry:</strong> Custom Woodworking & Renovations</div>
                 <div>
-                  <strong>Industry:</strong> Custom Woodworking & Renovations
-                </div>
-                <div>
-                  <strong>Role:</strong> Strategy, Design, Front-End
-                  Development, SEO, Analytics
+                  <strong>Role:</strong> Strategy, Design, Front-End Development, SEO, Analytics
                 </div>
                 <div><strong>Status:</strong> Live, paid delivery</div>
               </div>
+
+              <h2>Primary Outcomes</h2>
+              <ul>
+                <li><strong>Ownership:</strong> migrated off WordPress + plugin bloat</li>
+                <li><strong>Performance:</strong> lightweight custom build for faster load</li>
+                <li><strong>Clarity:</strong> cleaner structure and navigation on mobile</li>
+                <li><strong>Measurement:</strong> GA4 + conversion events installed correctly</li>
+              </ul>
 
               <div class="case-cta">
                 <a
@@ -147,17 +151,17 @@
                   href="https://www.kingdomwoodcrafttn.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  data-track="click"
-                  data-label="case_kw_live_site"
+                  data-track="case_live_click"
+                  data-label="case_kw_left_live_site"
                 >
                   View Live Site
                 </a>
 
                 <a
                   class="btn-secondary"
-                  href="../contact.html"
-                  data-track="click"
-                  data-label="case_kw_start_project"
+                  href="../contact.html?source=case_kw&service=website"
+                  data-track="case_cta_click"
+                  data-label="case_kw_start_project_left"
                 >
                   Start a Project
                 </a>
@@ -166,64 +170,68 @@
 
             <!-- Right card -->
             <article class="portfolio-item case-card">
-              <h2>The Problem</h2>
+              <h2>The Problem (Before)</h2>
               <p>
-                The business was relying on an outdated WordPress site that
-                didn’t reflect the quality of their work and offered limited
-                control over performance, structure, and tracking. The site
-                needed to feel professional, load quickly, and be easy to
-                maintain without plugin bloat.
+                The business was relying on an outdated WordPress site that didn’t reflect the quality
+                of their work. It was harder to control structure, performance, and tracking — and the
+                overall experience didn’t feel as professional as the craftsmanship being delivered in real life.
               </p>
 
-              <h2>The Solution</h2>
+              <h2>The Goal</h2>
+              <p>
+                Create a site that’s fast, clean, and easy to maintain — with solid SEO foundations and
+                real tracking in place so the business can measure growth and inbound actions over time.
+              </p>
+
+              <h2>The Build (What Was Implemented)</h2>
               <ul>
-                <li>
-                  Rebuilt from scratch using semantic HTML/CSS/JS (no page
-                  builders)
-                </li>
-                <li>Migrated off WordPress and deployed via GitHub Pages</li>
-                <li>
-                  Connected custom domain and handled DNS/propagation
-                  troubleshooting
-                </li>
-                <li>
-                  Implemented SEO foundations: metadata, sitemap, robots.txt,
-                  canonical URLs
-                </li>
-                <li>
-                  Installed GA4 correctly in the <code>&lt;head&gt;</code>
-                </li>
-                <li>
-                  Added event tracking for key actions (calls + form
-                  submissions)
-                </li>
-                <li>
-                  Optimized mobile spacing, navigation behavior, and gallery
-                  structure
-                </li>
+                <li><strong>Rebuild from scratch</strong> using semantic HTML/CSS/JS (no page builders)</li>
+                <li><strong>Migration + deployment</strong> via GitHub Pages</li>
+                <li><strong>Domain + DNS</strong> setup + propagation troubleshooting</li>
+                <li><strong>SEO foundations</strong>: metadata, sitemap, robots.txt, canonical URLs</li>
+                <li><strong>Analytics</strong>: GA4 installed in the <code>&lt;head&gt;</code> correctly</li>
+                <li><strong>Event tracking</strong> for key actions (calls + form submissions)</li>
+                <li><strong>Mobile UX</strong>: spacing, nav behavior, and gallery structure improvements</li>
               </ul>
 
-              <h2>The Result</h2>
+              <h2>Results (After)</h2>
               <ul>
-                <li>
-                  Fast, clean site that matches the craftsmanship of the
-                  business
-                </li>
-                <li>Fully owned infrastructure — no template lock-in</li>
-                <li>Mobile-friendly layout with clear navigation</li>
-                <li>Analytics and SEO in place for growth and measurement</li>
+                <li><strong>A site that matches the brand</strong>: clean, modern, craftsmanship-forward</li>
+                <li><strong>Full ownership</strong>: no template lock-in or plugin maintenance</li>
+                <li><strong>Clear navigation</strong> and mobile-friendly browsing</li>
+                <li><strong>Measurement installed</strong> so future improvements are data-driven</li>
               </ul>
 
               <h2>Why This Approach</h2>
               <p>
-                This build prioritized long-term ownership and performance over
-                convenience — so the site can scale without breaking or needing
-                a rebuild every year.
+                This build prioritized long-term ownership and performance over convenience.
+                Instead of stacking plugins, the site is structured to scale cleanly — without breaking
+                every time an update rolls through.
               </p>
+
+              <div class="case-cta">
+                <a
+                  class="btn-primary"
+                  href="../contact.html?source=case_kw&service=website"
+                  data-track="case_cta_click"
+                  data-label="case_kw_start_project_bridge"
+                  >Start a Project</a
+                >
+                <a
+                  class="btn-secondary"
+                  href="../services.html"
+                  data-track="case_cta_click"
+                  data-label="case_kw_view_services_bridge"
+                  >View Services</a
+                >
+              </div>
 
               <p class="text-link">
                 Next case study:
-                <a href="kayla-marie-collective.html"
+                <a
+                  href="kayla-marie-collective.html"
+                  data-track="case_next_click"
+                  data-label="case_kw_next_kmc"
                   >Kayla Marie Collective →</a
                 >
               </p>
@@ -237,7 +245,12 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+        <a
+          href="mailto:kaylamariecollective@gmail.com"
+          class="footer-link"
+          data-track="footer_email_click"
+          data-label="case_kw_footer_email"
+        >
           kaylamariecollective@gmail.com
         </a>
       </div>
@@ -252,12 +265,7 @@
         aria-modal="true"
         aria-label="Image preview"
       >
-        <button
-          class="lightbox-close"
-          type="button"
-          aria-label="Close preview"
-          data-close
-        >
+        <button class="lightbox-close" type="button" aria-label="Close preview" data-close>
           ×
         </button>
         <img class="lightbox-img" id="lightboxImg" alt="" />
