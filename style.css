@@ -925,6 +925,31 @@ img[data-lightbox]:hover {
   margin-top: auto;
 }
 
+/* Portfolio editorial note */
+.portfolio-note {
+  background: rgba(0, 0, 0, 0.02); /* very light contrast */
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  padding: 1.5rem;
+}
+
+.portfolio-note h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-note p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .portfolio-note {
+    align-self: stretch;
+  }
+}
+
 /* =========================
    Contact Page
    ========================= */
