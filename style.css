@@ -751,6 +751,38 @@ p {
 }
 
 /* =========================
+   Services: Strategy Note (Premium / Strategy-led)
+   ========================= */
+
+.strategy-note {
+  background: radial-gradient(circle at center, #ffffff, #f8f4f1);
+  border-top: 1px solid #ddd0c7;
+  border-bottom: 1px solid #ddd0c7;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.strategy-note .container {
+  max-width: 900px;
+}
+
+.strategy-note h2 {
+  margin: 0 0 0.9rem;
+}
+
+.strategy-note p {
+  color: #6b5a53;
+  margin: 0 auto 1rem;
+  max-width: 760px;
+}
+
+.strategy-note .btn-secondary {
+  margin-top: 0.8rem;
+  border-color: #b77b5f; /* matches your About upgrade accent */
+}
+
+
+/* =========================
    Lightbox
 ========================= */
 .lightbox {
