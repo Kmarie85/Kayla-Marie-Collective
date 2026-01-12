@@ -1,13 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--
-  CLIENT SETTINGS:
-  - Site name:
-  - Canonical domain:
-  - Primary color:
-  - OG image path:
-  -->
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,15 +13,12 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
-    <link
-      rel="canonical"
-      href="https://kaylamariecollective.com/services.html"
-    />
+    <link rel="canonical" href="https://kaylamariecollective.com/services.html" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Performance: preload nav logo -->
+    <!-- Performance -->
     <link rel="preload" as="image" href="images/Blacklogoone.png" />
 
     <!-- Open Graph -->
@@ -40,14 +29,8 @@
       property="og:description"
       content="Clean, calm builds that make it easy for your people to say yes — websites, digital product pages, and funnels."
     />
-    <meta
-      property="og:url"
-      content="https://kaylamariecollective.com/services.html"
-    />
-    <meta
-      property="og:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta property="og:url" content="https://kaylamariecollective.com/services.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Kayla Marie Collective — Services" />
@@ -59,12 +42,9 @@
       name="twitter:description"
       content="Website builds, sales pages, and simple funnel setup — calm, premium design with clear conversion flow."
     />
-    <meta
-      name="twitter:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
-    <!-- Favicons (use these exact files at the repo root) -->
+    <!-- Favicons -->
     <link rel="icon" href="favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -75,47 +55,29 @@
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-DWTK6PGS0W");
     </script>
+
+    <!-- Site JS -->
+    <script defer src="script.js"></script>
   </head>
-
-  <!-- Lightbox Modal (add once per page) -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="lightbox-backdrop" data-close></div>
-
-  <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button class="lightbox-close" type="button" aria-label="Close preview" data-close>
-      ✕
-    </button>
-
-    <img class="lightbox-img" id="lightboxImg" alt="" />
-  </div>
-</div>
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
       <div class="container nav-container">
-        <a
-          href="index.html"
-          class="logo"
-          aria-label="Kayla Marie Collective home"
-        >
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
           <img
             src="images/Blacklogoone.png"
-            alt="Kayla Marie Collective Logo"
+            alt="Kayla Marie Collective logo"
             id="logo"
           />
           Kayla Marie Collective
@@ -123,9 +85,7 @@
 
         <nav class="main-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
-          <a href="services.html" class="active" aria-current="page"
-            >Services</a
-          >
+          <a href="services.html" class="active" aria-current="page">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="about.html">About</a>
           <a href="contact.html" class="btn-nav">Start a Project</a>
@@ -137,9 +97,7 @@
       <section class="page-hero">
         <div class="container">
           <h1>Services</h1>
-          <p>
-            Clean, calm builds that make it easy for your audience to say yes.
-          </p>
+          <p>Clean, calm builds that make it easy for your audience to say yes.</p>
         </div>
       </section>
 
@@ -155,8 +113,8 @@
           </p>
 
           <p class="summary">
-            A clean, conversion-friendly site that feels premium and reads
-            clearly — built for creators with real work.
+            A clean, conversion-friendly site that feels premium and reads clearly —
+            built for creators with real work.
           </p>
 
           <ul>
@@ -173,7 +131,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicespic1.png"
-                alt="Homepage layout + CTA preview"
+                alt="Website build homepage layout with primary CTA"
                 data-lightbox
                 loading="lazy"
               />
@@ -183,7 +141,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic2.png"
-                alt="Homepage layout + CTA preview"
+                alt="Website build services page layout example"
                 data-lightbox
                 loading="lazy"
               />
@@ -193,7 +151,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic3.jpeg"
-                alt="Homepage layout + CTA preview"
+                alt="Website build mobile layout example"
                 data-lightbox
                 loading="lazy"
               />
@@ -202,8 +160,8 @@
           </div>
 
           <p class="cta-note">
-            Want this built on your own domain (GitHub Pages / Netlify)? I’ll
-            set it up clean and show you how to maintain it.
+            Want this built on your own domain (GitHub Pages / Netlify)? I’ll set it up clean
+            and show you how to maintain it.
           </p>
         </article>
 
@@ -214,13 +172,11 @@
 
           <p class="meta">
             <strong>Timeline:</strong> ~1–2 weeks •
-            <strong>Includes:</strong> page design, copy layout, checkout link
-            integration
+            <strong>Includes:</strong> page design, copy layout, checkout link integration
           </p>
 
           <p class="summary">
-            A product page that’s calm, clear, and built to convert — without
-            feeling salesy.
+            A product page that’s calm, clear, and built to convert — without feeling salesy.
           </p>
 
           <ul>
@@ -236,7 +192,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic4.png"
-                alt="Homepage layout + CTA preview"
+                alt="Digital product page hero and offer clarity example"
                 data-lightbox
                 loading="lazy"
               />
@@ -246,7 +202,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicespic5.png"
-                alt="Homepage layout + CTA preview"
+                alt="Back cover section used to explain what is inside and outcomes"
                 data-lightbox
                 loading="lazy"
               />
@@ -256,7 +212,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic6.png"
-                alt="Homepage layout + CTA preview"
+                alt="Checkout area with buy now call to action"
                 data-lightbox
                 loading="lazy"
               />
@@ -272,13 +228,11 @@
 
           <p class="meta">
             <strong>Timeline:</strong> ~2 weeks •
-            <strong>Includes:</strong> lead magnet page + email delivery setup
-            guidance
+            <strong>Includes:</strong> lead magnet page + email delivery setup guidance
           </p>
 
           <p class="summary">
-            A simple funnel that captures leads and routes people to your offer
-            without overwhelm.
+            A simple funnel that captures leads and routes people to your offer without overwhelm.
           </p>
 
           <ul>
@@ -293,7 +247,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic7.png"
-                alt="Homepage layout + CTA preview"
+                alt="Lead magnet landing page with opt-in form"
                 data-lightbox
                 loading="lazy"
               />
@@ -303,7 +257,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic8.png"
-                alt="Homepage layout + CTA preview"
+                alt="Thank-you page confirmation and next steps"
                 data-lightbox
                 loading="lazy"
               />
@@ -313,7 +267,7 @@
             <figure class="deliverable">
               <img
                 src="images/servicepic9.png"
-                alt="Homepage layout + CTA preview"
+                alt="Simple funnel flow: inquiry to confirmation to next steps"
                 data-lightbox
                 loading="lazy"
               />
@@ -326,10 +280,7 @@
       <section class="services-cta">
         <div class="container">
           <h2>Ready to build?</h2>
-          <p>
-            Tell me what you’re creating and I’ll help you choose the cleanest
-            path.
-          </p>
+          <p>Tell me what you’re creating and I’ll help you choose the cleanest path.</p>
           <a href="contact.html" class="btn-primary">Start a Project Inquiry</a>
         </div>
       </section>
@@ -337,14 +288,24 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
-        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link"
-          >kaylamariecollective@gmail.com</a
-        >
+        <p>© <span id="year"></span> Kayla Marie Collective</p>
+        <a href="mailto:kaylamariecollective@gmail.com" class="footer-link">
+          kaylamariecollective@gmail.com
+        </a>
       </div>
-      <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-      </script>
     </footer>
+
+    <!-- Lightbox Modal (add once per page) -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-backdrop" data-close></div>
+
+      <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Image preview">
+        <button class="lightbox-close" type="button" aria-label="Close preview" data-close>
+          ✕
+        </button>
+
+        <img class="lightbox-img" id="lightboxImg" alt="" />
+      </div>
+    </div>
   </body>
 </html>

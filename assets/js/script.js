@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
+     FOOTER YEAR (global)
+  ========================= */
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+  /* =========================
      CONTACT FORM SUBMIT
   ========================= */
   const form = document.getElementById("contactForm");
@@ -45,46 +53,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lightboxImg");
 
-  if (!lb || !lbImg) return;
+  if (lb && lbImg) {
 
-  const open = (imgEl) => {
-    lbImg.src = imgEl.src;
-    lbImg.alt = imgEl.alt || "Preview image";
+    const open = (imgEl) => {
+      lbImg.src = imgEl.src;
+      lbImg.alt = imgEl.alt || "Preview image";
 
-    lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
 
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-  };
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    };
 
-  const close = () => {
-    lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
+    const close = () => {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
 
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
 
-    lbImg.src = "";
-    lbImg.alt = "";
-  };
+      lbImg.src = "";
+      lbImg.alt = "";
+    };
 
-  // Open lightbox
-  document.addEventListener("click", (e) => {
-    const img = e.target.closest("img[data-lightbox]");
-    if (img) open(img);
-  });
+    // Open lightbox
+    document.addEventListener("click", (e) => {
+      const img = e.target.closest("img[data-lightbox]");
+      if (img) open(img);
+    });
 
-  // Close lightbox (backdrop or ✕)
-  lb.addEventListener("click", (e) => {
-    if (e.target.matches("[data-close]")) close();
-  });
+    // Close lightbox (backdrop or ✕)
+    lb.addEventListener("click", (e) => {
+      if (e.target.matches("[data-close]")) close();
+    });
 
-  // Close on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) {
-      close();
-    }
-  });
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.classList.contains("is-open")) {
+        close();
+      }
+    });
+  }
 
 });
