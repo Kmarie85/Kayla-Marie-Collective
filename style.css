@@ -751,6 +751,73 @@ p {
 }
 
 /* =========================
+   Lightbox
+========================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.lightbox.is-open {
+  display: block;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.lightbox-panel {
+  position: relative;
+  max-width: min(1000px, 92vw);
+  max-height: 88vh;
+  margin: 6vh auto 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  background: #111;
+}
+
+.lightbox-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 88vh;
+  object-fit: contain;
+  background: #111;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Optional: make clickable previews feel intentional */
+img[data-lightbox] {
+  cursor: zoom-in;
+}
+img[data-lightbox]:hover {
+  filter: brightness(0.98);
+}
+
+/* =========================
    Portfolio Page
    ========================= */
 
