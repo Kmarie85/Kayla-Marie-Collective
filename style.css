@@ -761,20 +761,24 @@ p {
 }
 
 .lightbox.is-open {
-  display: block;
+  display: grid;
+  place-items: center;
+  padding: 24px;
 }
 
 .lightbox-backdrop {
   position: absolute;
   inset: 0;
+  cursor: zoom-out;
   background: rgba(0, 0, 0, 0.75);
 }
 
 .lightbox-panel {
   position: relative;
+  width: 100%;
   max-width: min(1000px, 92vw);
   max-height: 88vh;
-  margin: 6vh auto 0;
+  margin: 0;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.45);
@@ -815,6 +819,17 @@ img[data-lightbox] {
 }
 img[data-lightbox]:hover {
   filter: brightness(0.98);
+}
+
+/* If your deliverable cards use hover overlays (pseudo elements),
+   make sure they DON'T block clicks */
+.deliverable::before,
+.deliverable::after,
+.deliverable-card::before,
+.deliverable-card::after,
+.deliverables-grid figure::before,
+.deliverables-grid figure::after {
+  pointer-events: none;
 }
 
 /* =========================
