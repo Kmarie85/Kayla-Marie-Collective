@@ -47,19 +47,18 @@
 
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-DWTK6PGS0W');
-</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
+  </head>
 
-</head>
-<body>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Header -->
@@ -146,6 +145,18 @@
               ></textarea>
             </label>
 
+            <!-- ✅ Option A target: this gets preselected from ?type=strategy -->
+            <label>
+              What type of support are you looking for? *
+              <select id="project_type" name="project_type" required>
+                <option value="">Select one</option>
+                <option value="website">Website Build</option>
+                <option value="product">Digital Product Page</option>
+                <option value="funnel">Bundle + Funnel Setup</option>
+                <option value="strategy">Strategy-Led Build</option>
+              </select>
+            </label>
+
             <label>
               Budget Range (USD) *
               <select name="budget" required>
@@ -191,10 +202,8 @@
           contact@kaylamariecollective.com
         </a>
       </div>
-      <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-      </script>
     </footer>
-<script defer src="assets/js/script.js"></script>
-</body>
+
+    <script defer src="assets/js/script.js"></script>
+  </body>
 </html>
