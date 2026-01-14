@@ -877,6 +877,88 @@ img[data-lightbox]:hover {
 }
 
 /* =========================
+   Services: Package Bridge + Fit Filter
+   ========================= */
+
+.package-bridge {
+  padding: 2.25rem 0 1rem;
+}
+
+.package-bridge p {
+  margin: 0 auto;
+  max-width: 760px; /* matches strategy-note paragraph width */
+  color: #6b5a53;   /* same tone as strategy-note text */
+  line-height: 1.6;
+  text-align: left; /* keep it grounded and readable */
+}
+
+/* Fit Filter */
+.fit-filter {
+  padding: 1rem 0 2.5rem;
+}
+
+.fit-filter .container {
+  max-width: 900px; /* matches strategy-note container width */
+}
+
+.fit-filter h3 {
+  margin: 0 0 1rem;
+  text-align: left;
+}
+
+.fit-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.fit-col h4 {
+  margin: 0 0 0.6rem;
+  color: #2a2523;
+  font-weight: 600;
+  text-align: left;
+}
+
+.fit-col ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #6b5a53; /* same as strategy-note text */
+  text-align: left;
+  line-height: 1.6;
+}
+
+.fit-col li + li {
+  margin-top: 0.35rem;
+}
+
+.fit-note {
+  margin: 1.25rem auto 0;
+  max-width: 760px;
+  color: #6b5a53;
+  opacity: 0.95;
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .fit-columns {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .package-bridge {
+    padding: 2rem 0 0.75rem;
+  }
+
+  .fit-filter {
+    padding: 0.75rem 0 2rem;
+  }
+}
+
+
+/* =========================
    Portfolio Page
    ========================= */
 
@@ -1000,6 +1082,49 @@ img[data-lightbox]:hover {
   border-color: #b77b5f;
   box-shadow: 0 0 0 1px rgba(183, 123, 95, 0.2);
 }
+
+.contact-boundary {
+  margin: 1.25rem 0 2rem;
+}
+
+.contact-boundary .container {
+  max-width: 900px; /* match your other sections */
+}
+
+.contact-boundary p {
+  margin: 0 0 0.5rem;
+  color: #6b5a53;
+  line-height: 1.6;
+}
+
+/* Contact expectations preview */
+.contact-expectations {
+  margin: 2rem 0 0;
+  max-width: 760px;
+}
+
+.contact-expectations h4 {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.contact-expectations ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #6b5a53;
+  line-height: 1.6;
+}
+
+.contact-expectations li + li {
+  margin-top: 0.35rem;
+}
+
+.expectations-note {
+  margin-top: 0.75rem;
+  color: #6b5a53;
+  opacity: 0.9;
+}
+
 
 /* =========================
    Footer
