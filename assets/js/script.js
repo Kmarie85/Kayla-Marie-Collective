@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (new URLSearchParams(window.location.search).get(key) || "").trim();
+      return (
+        new URLSearchParams(window.location.search).get(key) || ""
+      ).trim();
     } catch {
       return "";
     }
@@ -66,9 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const label = explicitLabel || textFallback || hrefFallback || "unknown";
 
       const isOutbound =
-        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
+        href &&
+        /^https?:\/\//i.test(href) &&
+        !href.includes(window.location.hostname);
 
-      gtagEvent(action, label, isOutbound ? { outbound: true, link_url: href } : {});
+      gtagEvent(
+        action,
+        label,
+        isOutbound ? { outbound: true, link_url: href } : {}
+      );
     });
   })();
 
@@ -84,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setOpen = (open) => {
       nav.classList.toggle("is-open", open);
+      toggle.classList.toggle("is-open", open); // <-- ADD THIS
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     };
 
@@ -145,9 +154,11 @@ document.addEventListener("DOMContentLoaded", () => {
       desired = serviceMap[serviceRaw];
     } else {
       desired =
-        typeRaw === "strategy" ? "strategy" :
-        typeRaw === "standard" ? "website" :
-        "";
+        typeRaw === "strategy"
+          ? "strategy"
+          : typeRaw === "standard"
+          ? "website"
+          : "";
     }
 
     if (!desired) return;
@@ -166,7 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
      STRATEGY FOLLOW-UP TOGGLE
   ========================= */
   (() => {
-    const projectType = qs("#project_type") || qs("select[name='project_type']");
+    const projectType =
+      qs("#project_type") || qs("select[name='project_type']");
     const followup = qs("#strategyFollowup");
     const focus = qs("#strategy_focus");
     const link = qs("#strategy_link");
@@ -200,18 +212,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const projectType = qs("#project_type", form) || qs("select[name='project_type']", form);
+    const projectType =
+      qs("#project_type", form) || qs("select[name='project_type']", form);
 
     // Service hint priority:
     // 1) ?service=
     // 2) dropdown value
     // 3) unknown
-    let serviceHint = safeLower(getParam("service")) || safeLower(projectType && projectType.value) || "unknown";
+    let serviceHint =
+      safeLower(getParam("service")) ||
+      safeLower(projectType && projectType.value) ||
+      "unknown";
 
     // Keep serviceHint updated if user changes selection
     if (projectType) {
       projectType.addEventListener("change", () => {
-        serviceHint = safeLower(getParam("service")) || safeLower(projectType.value) || "unknown";
+        serviceHint =
+          safeLower(getParam("service")) ||
+          safeLower(projectType.value) ||
+          "unknown";
       });
     }
 
@@ -239,21 +258,29 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea")) markStarted();
+      if (e.target && e.target.matches("input, select, textarea"))
+        markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       if (!form.action) {
-        alert("Form action is missing. Please set your form endpoint and try again.");
+        alert(
+          "Form action is missing. Please set your form endpoint and try again."
+        );
         return;
       }
 
       // Update one last time at submit
-      serviceHint = safeLower(getParam("service")) || safeLower(projectType && projectType.value) || "unknown";
+      serviceHint =
+        safeLower(getParam("service")) ||
+        safeLower(projectType && projectType.value) ||
+        "unknown";
 
-      gtagEvent("contact_form_submit_attempt", sourceLabel, { service: serviceHint });
+      gtagEvent("contact_form_submit_attempt", sourceLabel, {
+        service: serviceHint,
+      });
 
       const formData = new FormData(form);
 
@@ -265,7 +292,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (res.ok) {
-          gtagEvent("contact_form_submit_success", sourceLabel, { service: serviceHint });
+          gtagEvent("contact_form_submit_success", sourceLabel, {
+            service: serviceHint,
+          });
 
           // Store attribution so thank-you can fire a reliable conversion event
           try {
@@ -275,14 +304,18 @@ document.addEventListener("DOMContentLoaded", () => {
           } catch {}
 
           // Add query params as fallback attribution/debugging
-          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(sourceLabel)}&service=${encodeURIComponent(serviceHint)}`;
+          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(
+            sourceLabel
+          )}&service=${encodeURIComponent(serviceHint)}`;
           window.location.assign(thankYouUrl);
         } else {
           gtagEvent("contact_form_submit_error", sourceLabel, {
             service: serviceHint,
             status: res.status || 0,
           });
-          alert("Something went wrong. Please check your entries and try again.");
+          alert(
+            "Something went wrong. Please check your entries and try again."
+          );
         }
       } catch {
         gtagEvent("contact_form_submit_error", sourceLabel, {
