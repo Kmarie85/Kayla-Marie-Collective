@@ -1099,20 +1099,21 @@ img[data-lightbox]:hover {
 
 /* Contact expectations preview */
 .contact-expectations {
-  margin: 2rem 0 0;
-  max-width: 760px;
+  margin: 2rem auto 0;          /* <-- centers the block */
+  max-width: 640px;             /* <-- match the form width (your form is 640px) */
+  width: 100%;
+  padding: 0 0.25rem;           /* tiny breathing room if needed */
 }
 
 .contact-expectations h4 {
-  margin: 0 0 0.5rem;
-  font-weight: 600;
+  text-align: center;           /* keep header centered */
 }
 
+/* Keep list readable (left-aligned text inside a centered block) */
 .contact-expectations ul {
-  margin: 0;
+  margin: 0.5rem 0 0;
   padding-left: 1.25rem;
-  color: #6b5a53;
-  line-height: 1.6;
+  text-align: left;
 }
 
 .contact-expectations li + li {
