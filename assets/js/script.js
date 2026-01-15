@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (
-        new URLSearchParams(window.location.search).get(key) || ""
-      ).trim();
+      return (new URLSearchParams(window.location.search).get(key) || "").trim();
     } catch {
       return "";
     }
@@ -92,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setOpen = (open) => {
       nav.classList.toggle("is-open", open);
-      toggle.classList.toggle("is-open", open); // <-- ADD THIS
+      toggle.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     };
 
@@ -121,8 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================
      PREFILL CONTACT SELECT
-     - Preferred: ?service=website|product|funnel|strategy
-     - Fallback: ?type=strategy or ?type=standard
+     - Priority:
+       1) ?project_type=wellness_essentials|wellness_growth|website|...
+       2) ?service=website|product|funnel|strategy (legacy)
+       3) ?type=strategy|standard (legacy fallback)
      - Targets: #project_type (your contact page)
   ========================= */
   (() => {
@@ -138,19 +138,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!select || select.tagName !== "SELECT") return;
 
-    const serviceRaw = safeLower(getParam("service")); // website/product/funnel/strategy
-    const typeRaw = safeLower(getParam("type")); // strategy/standard (legacy)
+    const projectTypeRaw = safeLower(getParam("project_type"));
+    const serviceRaw = safeLower(getParam("service"));
+    const typeRaw = safeLower(getParam("type"));
 
     const serviceMap = {
       website: "website",
       product: "product",
       funnel: "funnel",
       strategy: "strategy",
+      wellness_essentials: "wellness_essentials",
+      wellness_growth: "wellness_growth",
     };
 
     let desired = "";
 
-    if (serviceRaw && serviceMap[serviceRaw]) {
+    if (projectTypeRaw && serviceMap[projectTypeRaw]) {
+      desired = serviceMap[projectTypeRaw];
+    } else if (serviceRaw && serviceMap[serviceRaw]) {
       desired = serviceMap[serviceRaw];
     } else {
       desired =
@@ -206,7 +211,11 @@ document.addEventListener("DOMContentLoaded", () => {
        #source, #source_page, #referrer
      - Tracks view/start/attempt/success/error
      - Stores attribution for thank-you page
-     - FIX: service comes from URL OR dropdown value (not just URL)
+     - Service hint priority:
+       1) ?project_type=
+       2) ?service= (legacy)
+       3) dropdown value
+       4) unknown
   ========================= */
   (() => {
     const form = qs("#contactForm");
@@ -215,19 +224,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectType =
       qs("#project_type", form) || qs("select[name='project_type']", form);
 
-    // Service hint priority:
-    // 1) ?service=
-    // 2) dropdown value
-    // 3) unknown
     let serviceHint =
+      safeLower(getParam("project_type")) ||
       safeLower(getParam("service")) ||
       safeLower(projectType && projectType.value) ||
       "unknown";
 
-    // Keep serviceHint updated if user changes selection
     if (projectType) {
       projectType.addEventListener("change", () => {
         serviceHint =
+          safeLower(getParam("project_type")) ||
           safeLower(getParam("service")) ||
           safeLower(projectType.value) ||
           "unknown";
@@ -258,29 +264,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea"))
-        markStarted();
+      if (e.target && e.target.matches("input, select, textarea")) markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       if (!form.action) {
-        alert(
-          "Form action is missing. Please set your form endpoint and try again."
-        );
+        alert("Form action is missing. Please set your form endpoint and try again.");
         return;
       }
 
       // Update one last time at submit
       serviceHint =
+        safeLower(getParam("project_type")) ||
         safeLower(getParam("service")) ||
         safeLower(projectType && projectType.value) ||
         "unknown";
 
-      gtagEvent("contact_form_submit_attempt", sourceLabel, {
-        service: serviceHint,
-      });
+      gtagEvent("contact_form_submit_attempt", sourceLabel, { service: serviceHint });
 
       const formData = new FormData(form);
 
@@ -292,9 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (res.ok) {
-          gtagEvent("contact_form_submit_success", sourceLabel, {
-            service: serviceHint,
-          });
+          gtagEvent("contact_form_submit_success", sourceLabel, { service: serviceHint });
 
           // Store attribution so thank-you can fire a reliable conversion event
           try {
@@ -306,16 +306,15 @@ document.addEventListener("DOMContentLoaded", () => {
           // Add query params as fallback attribution/debugging
           const thankYouUrl = `thank-you.html?source=${encodeURIComponent(
             sourceLabel
-          )}&service=${encodeURIComponent(serviceHint)}`;
+          )}&project_type=${encodeURIComponent(serviceHint)}`;
+
           window.location.assign(thankYouUrl);
         } else {
           gtagEvent("contact_form_submit_error", sourceLabel, {
             service: serviceHint,
             status: res.status || 0,
           });
-          alert(
-            "Something went wrong. Please check your entries and try again."
-          );
+          alert("Something went wrong. Please check your entries and try again.");
         }
       } catch {
         gtagEvent("contact_form_submit_error", sourceLabel, {
@@ -351,7 +350,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fallback to URL params if needed
     src = src || getParam("source") || "unknown";
-    svc = svc || safeLower(getParam("service")) || "unknown";
+    svc =
+      svc ||
+      safeLower(getParam("project_type")) ||
+      safeLower(getParam("service")) ||
+      "unknown";
 
     const ageMs = ts ? Date.now() - ts : Infinity;
     const recentEnough = ageMs >= 0 && ageMs < 10 * 60 * 1000; // 10 minutes

@@ -402,6 +402,7 @@ p {
   color: #8c5740;
   font-weight: 500;
   margin-left: 0;
+  text-decoration: underline;
 }
 .text-link:hover {
   text-decoration: underline;
@@ -657,6 +658,7 @@ p {
   margin: 0.25rem 0 1rem;
   color: #6b5a53;
   font-size: 0.92rem;
+  opacity: 0.8;
 }
 
 /* Deliverables preview grid */
@@ -800,6 +802,13 @@ p {
   border-color: #b77b5f;
 }
 
+.center-content {
+  text-align: center;
+}
+
+.center-content .btn-outline {
+  display: inline-block;
+}
 /* =========================
    Lightbox
    ========================= */
@@ -958,6 +967,106 @@ img[data-lightbox]:hover {
   .fit-filter {
     padding: 0.75rem 0 2rem;
   }
+}
+
+/* =========================
+   Wellness Brands Page
+   ========================= */
+
+.wellness-hero {
+  text-align: center;
+}
+
+.wellness-hero .lead {
+  max-width: 48ch;
+  margin: 0.75rem auto 1.25rem;
+}
+
+.wellness-hero .cta-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.wellness-hero .micro {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.wellness-brands .package-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.wellness-brands .container.narrow {
+  max-width: 640px;
+}
+
+.wellness-brands .checklist,
+.wellness-brands .bullets {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+}
+
+.wellness-brands .checklist li,
+.wellness-brands .bullets li {
+  margin-bottom: 0.5rem;
+}
+
+
+@media (min-width: 768px) {
+  .wellness-brands .package-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wellness-brands .package-card {
+  padding: 1.5rem;
+}
+
+.wellness-brands .package-card .price {
+  font-weight: 600;
+}
+
+.wellness-brands .package-card .small {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.wellness-brands .package-card.featured {
+  border-width: 2px;
+}
+
+.wellness-brands .package-card .tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.wellness-brands details.faq {
+  margin-bottom: 0.75rem;
+}
+
+.wellness-brands details summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.wellness-brands details p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.wellness-brands .cta {
+  text-align: center;
+}
+
+.wellness-brands .cta p {
+  max-width: 50ch;
+  margin: 0.75rem auto 1.25rem;
 }
 
 /* =========================
@@ -1722,4 +1831,94 @@ img[data-lightbox]:hover {
   background: #ffffff;
   padding: 24px;
   border-bottom: 1px solid #f1e7df;
+}
+
+/* =========================
+   Wellness Brands Page – Tighten + Align
+   ========================= */
+
+/* Make sections feel closer together on this page */
+.wellness-brands section {
+  padding: 2.25rem 0; /* was 3.5rem globally */
+}
+
+/* Keep hero a touch more spacious than the rest */
+.wellness-brands .hero {
+  padding: 3.25rem 0 2.75rem;
+}
+
+/* Make the top CTA row align nicely (same baseline/height feel) */
+.wellness-brands .cta-row {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* IMPORTANT */
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  line-height: 1;
+}
+
+/* Your HTML uses class="btn" — give it real button styling */
+.wellness-brands .btn {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+
+  background: #b77b5f;
+  color: #ffffff;
+  border: 1px solid #b77b5f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.wellness-brands .btn:hover {
+  background: #8c5740;
+  border-color: #8c5740;
+  transform: translateY(-1px);
+}
+
+/* Center that specific intro headline (and it won't mess with lists) */
+.wellness-brands .section .container.narrow > h2 {
+  text-align: center;
+}
+
+/* If grid-2 isn't defined elsewhere, define it for this page */
+.wellness-brands .grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start; /* pulls content up */
+  margin-top: -0.25rem;
+}
+
+@media (min-width: 900px) {
+  .wellness-brands .grid-2 {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2rem;
+  }
+}
+
+/* Pull “What this work focuses on” section content upward a bit */
+.wellness-brands .section.alt .grid-2 > div:first-child h2 {
+  margin-top: 0; /* prevents it from feeling dropped */
+}
+
+/* Pull “Support options” section upward a bit */
+.wellness-brands #packages {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* Slightly tighten headings and paragraphs on this page */
+.wellness-brands h2 {
+  margin-bottom: 0.9rem;
+}
+
+.wellness-brands p {
+  margin-bottom: 0.85rem;
 }
