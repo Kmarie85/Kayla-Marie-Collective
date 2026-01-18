@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
      HELPERS
   ========================================================= */
   const qs = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const getParam = (key) => {
     try {
@@ -14,45 +15,74 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const gtagEvent = (action, label, extra = {}) => {
-    if (!window.gtag) return;
-    window.gtag("event", action || "click", {
-      event_category: "engagement",
-      event_label: label || "unknown",
-      ...extra,
-    });
-  };
-
   const safeLower = (v) => (v == null ? "" : String(v)).trim().toLowerCase();
 
-  /* =========================
+  // Unified tracking wrapper (doesn't throw if GA blocked)
+  const track = (eventName, params = {}) => {
+    try {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, {
+          page_location: window.location.href,
+          page_path: window.location.pathname,
+          ...params,
+        });
+      }
+    } catch {
+      // fail silent
+    }
+  };
+
+  /* =========================================================
      SOURCE LABEL (attribution)
      Priority:
-     1) ?source=...
-     2) ?type=... -> type_strategy/type_standard
+     1) ?source=
+     2) ?type= -> type_strategy/type_standard
      3) direct
-  ========================= */
+  ========================================================= */
   const sourceLabel =
     getParam("source") ||
     (getParam("type") ? `type_${safeLower(getParam("type"))}` : "") ||
     "direct";
 
-  /* =========================
+  /* =========================================================
      FOOTER YEAR (global)
-  ========================= */
+  ========================================================= */
   const yearEl = qs("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* =========================
+  /* =========================================================
+     NAV ACTIVE STATES (global)
+     - Adds .active + aria-current automatically based on path
+     - Removes the need to hardcode class="active" in HTML
+  ========================================================= */
+  (() => {
+    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const nav = qs("[data-nav]");
+    if (!nav) return;
+
+    qsa("a[href]", nav).forEach((a) => {
+      const href = (a.getAttribute("href") || "").trim();
+      if (!href || href.startsWith("http") || href.startsWith("#")) return;
+
+      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+      const isMatch = file === path;
+
+      a.classList.toggle("active", isMatch);
+      if (isMatch) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+  })();
+
+  /* =========================================================
      GA CLICK TRACKING (global)
      - Add data-track + data-label to links/buttons
-  ========================= */
+  ========================================================= */
   (() => {
     document.addEventListener("click", (e) => {
       const el = e.target.closest("[data-track]");
       if (!el) return;
 
-      const action = el.getAttribute("data-track") || "click";
+      const eventName = (el.getAttribute("data-track") || "click").trim();
       const explicitLabel = (el.getAttribute("data-label") || "").trim();
 
       const textFallback = (el.textContent || "")
@@ -61,26 +91,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .slice(0, 80);
 
       const href = (el.getAttribute("href") || "").trim();
-      const hrefFallback = href ? `href:${href}` : "";
-
-      const label = explicitLabel || textFallback || hrefFallback || "unknown";
+      const label = explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
 
       const isOutbound =
-        href &&
-        /^https?:\/\//i.test(href) &&
-        !href.includes(window.location.hostname);
+        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
 
-      gtagEvent(
-        action,
+      track(eventName, {
         label,
-        isOutbound ? { outbound: true, link_url: href } : {}
-      );
+        outbound: !!isOutbound,
+        link_url: isOutbound ? href : undefined,
+        source: sourceLabel,
+      });
     });
   })();
 
-  /* =========================
-     MOBILE NAV TOGGLE (KMC)
-  ========================= */
+  /* =========================================================
+     MOBILE NAV TOGGLE (global)
+     Requires:
+     - button[data-nav-toggle]
+     - nav[data-nav]
+  ========================================================= */
   (() => {
     const toggle = qs("[data-nav-toggle]");
     const nav = qs("[data-nav]");
@@ -117,73 +147,88 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
-  /* =========================
-     PREFILL CONTACT SELECT
-     - Priority:
-       1) ?project_type=wellness_essentials|wellness_growth|website|...
-       2) ?service=website|product|funnel|strategy (legacy)
-       3) ?type=strategy|standard (legacy fallback)
-     - Targets: #project_type (your contact page)
-  ========================= */
+  /* =========================================================
+     SERVICES: ADD-ON ACCORDION TRACKING
+     - Tracks <details class="addon"> opens (services + FAQ accordions)
+  ========================================================= */
   (() => {
-    const select =
-      qs("#project_type") ||
-      qs("select[name='project_type']") ||
-      qs("#service") ||
-      qs("select[name='service']") ||
-      qs("#support_level") ||
-      qs("select[name='support_level']") ||
-      qs("#inquiry_type") ||
-      qs("select[name='inquiry_type']");
+    const hasAddons = qs("details.addon");
+    if (!hasAddons) return;
 
-    if (!select || select.tagName !== "SELECT") return;
+    qsa("details.addon").forEach((d) => {
+      d.addEventListener("toggle", () => {
+        if (!d.open) return;
 
+        const summary = d.querySelector("summary");
+        const label = (summary?.textContent || "addon_open")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 80);
+
+        track("addon_open", {
+          label,
+          source: sourceLabel,
+        });
+      });
+    });
+  })();
+
+  /* =========================================================
+     CONTACT: PREFILL SELECT
+     Standard: ?project_type=website|product|funnel|photography|strategy|wellness_essentials|wellness_growth
+     Legacy:   ?service=website|product|funnel|photography|strategy
+     Legacy:   ?type=strategy|standard -> strategy OR website
+     Target:   #project_type (preferred)
+  ========================================================= */
+  const resolveDesiredProjectType = () => {
     const projectTypeRaw = safeLower(getParam("project_type"));
     const serviceRaw = safeLower(getParam("service"));
     const typeRaw = safeLower(getParam("type"));
 
-    const serviceMap = {
-      website: "website",
-      product: "product",
-      funnel: "funnel",
-      strategy: "strategy",
-      wellness_essentials: "wellness_essentials",
-      wellness_growth: "wellness_growth",
-    };
+    const allowed = new Set([
+      "website",
+      "product",
+      "funnel",
+      "photography",
+      "strategy",
+      "wellness_essentials",
+      "wellness_growth",
+    ]);
 
-    let desired = "";
+    if (projectTypeRaw && allowed.has(projectTypeRaw)) return projectTypeRaw;
+    if (serviceRaw && allowed.has(serviceRaw)) return serviceRaw;
 
-    if (projectTypeRaw && serviceMap[projectTypeRaw]) {
-      desired = serviceMap[projectTypeRaw];
-    } else if (serviceRaw && serviceMap[serviceRaw]) {
-      desired = serviceMap[serviceRaw];
-    } else {
-      desired =
-        typeRaw === "strategy"
-          ? "strategy"
-          : typeRaw === "standard"
-          ? "website"
-          : "";
-    }
+    if (typeRaw === "strategy") return "strategy";
+    if (typeRaw === "standard") return "website";
 
+    return "";
+  };
+
+  (() => {
+    const form = qs("#contactForm");
+    if (!form) return;
+
+    const select = qs("#project_type", form) || qs("select[name='project_type']", form);
+    if (!select || select.tagName !== "SELECT") return;
+
+    const desired = resolveDesiredProjectType();
     if (!desired) return;
 
-    const found = Array.from(select.options).find(
-      (o) => safeLower(o.value) === desired
-    );
+    const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
+    if (!opt) return;
 
-    if (found) {
-      select.value = found.value;
-      select.dispatchEvent(new Event("change", { bubbles: true }));
-    }
+    select.value = opt.value;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
   })();
 
-  /* =========================
-     STRATEGY FOLLOW-UP TOGGLE
-  ========================= */
+  /* =========================================================
+     CONTACT: STRATEGY FOLLOW-UP TOGGLE
+  ========================================================= */
   (() => {
-    const projectType =
-      qs("#project_type") || qs("select[name='project_type']");
+    const form = qs("#contactForm");
+    if (!form) return;
+
+    const projectType = qs("#project_type", form) || qs("select[name='project_type']", form);
     const followup = qs("#strategyFollowup");
     const focus = qs("#strategy_focus");
     const link = qs("#strategy_link");
@@ -205,68 +250,103 @@ document.addEventListener("DOMContentLoaded", () => {
     projectType.addEventListener("change", setState);
   })();
 
-  /* =========================
-     CONTACT ATTRIBUTION + GA EVENTS
-     - Fills hidden fields if present:
-       #source, #source_page, #referrer
-     - Tracks view/start/attempt/success/error
-     - Stores attribution for thank-you page
-     - Service hint priority:
-       1) ?project_type=
-       2) ?service= (legacy)
-       3) dropdown value
-       4) unknown
-  ========================= */
+  /* =========================================================
+     CONTACT: ADD-ONS (always visible, gated until project selected)
+     - Disables all add-ons until a project type is chosen
+     - If Photography selected: shows only photo_* add-ons
+  ========================================================= */
   (() => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const projectType =
-      qs("#project_type", form) || qs("select[name='project_type']", form);
+    const projectType = qs("#project_type", form);
+    const fieldset = qs("#addonsFieldset", form);
+    if (!projectType || !fieldset) return;
 
-    let serviceHint =
-      safeLower(getParam("project_type")) ||
-      safeLower(getParam("service")) ||
-      safeLower(projectType && projectType.value) ||
-      "unknown";
+    const checks = qsa("input[type='checkbox'][name='addons']", fieldset);
 
-    if (projectType) {
-      projectType.addEventListener("change", () => {
-        serviceHint =
-          safeLower(getParam("project_type")) ||
-          safeLower(getParam("service")) ||
-          safeLower(projectType.value) ||
-          "unknown";
+    const setVisibility = () => {
+      const t = safeLower(projectType.value);
+
+      // Always visible fieldset
+      fieldset.hidden = false;
+
+      // Reset: show + enable everything
+      checks.forEach((cb) => {
+        const row = cb.closest("label");
+        if (row) row.hidden = false;
+        cb.disabled = false;
       });
-    }
+
+      // No selection yet: disable all (still visible)
+      if (!t) {
+        checks.forEach((cb) => {
+          cb.checked = false;
+          cb.disabled = true;
+        });
+        return;
+      }
+
+      // Photography: only show photo_* checkboxes
+      if (t === "photography") {
+        checks.forEach((cb) => {
+          const isPhoto = safeLower(cb.value).startsWith("photo_");
+          const row = cb.closest("label");
+          if (row) row.hidden = !isPhoto;
+          if (!isPhoto) cb.checked = false;
+        });
+      }
+    };
+
+    setVisibility();
+    projectType.addEventListener("change", setVisibility);
+  })();
+
+  /* =========================================================
+     CONTACT: ATTRIBUTION + GA EVENTS + SUBMIT HANDLING
+     - Fills hidden fields if present: #source, #source_page, #referrer
+     - Tracks: contact_form_view/start/submit_attempt/success/error
+     - Stores attribution for thank-you page conversion event
+  ========================================================= */
+  (() => {
+    const form = qs("#contactForm");
+    if (!form) return;
+
+    const projectType = qs("#project_type", form);
+
+    const getServiceHint = () => {
+      return (
+        resolveDesiredProjectType() ||
+        safeLower(projectType && projectType.value) ||
+        "unknown"
+      );
+    };
 
     // Fill hidden attribution fields
     const sourceInput = qs("#source", form);
     const sourcePageInput = qs("#source_page", form);
     const referrerInput = qs("#referrer", form);
 
-    const pageUrl = window.location.href;
-    const ref = document.referrer || "";
-
     if (sourceInput) sourceInput.value = sourceLabel;
-    if (sourcePageInput) sourcePageInput.value = pageUrl;
-    if (referrerInput) referrerInput.value = ref;
+    if (sourcePageInput) sourcePageInput.value = window.location.href;
+    if (referrerInput) referrerInput.value = document.referrer || "";
 
-    // View (once)
-    gtagEvent("contact_form_view", sourceLabel, { service: serviceHint });
+    // View
+    track("contact_form_view", { source: sourceLabel, service: getServiceHint() });
 
     // Start (once)
     let started = false;
     const markStarted = () => {
       if (started) return;
       started = true;
-      gtagEvent("contact_form_start", sourceLabel, { service: serviceHint });
+      track("contact_form_start", { source: sourceLabel, service: getServiceHint() });
     };
 
     form.addEventListener("focusin", (e) => {
       if (e.target && e.target.matches("input, select, textarea")) markStarted();
     });
 
+    // Submit (Formspree via fetch)
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -275,14 +355,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Update one last time at submit
-      serviceHint =
-        safeLower(getParam("project_type")) ||
-        safeLower(getParam("service")) ||
-        safeLower(projectType && projectType.value) ||
-        "unknown";
+      const serviceHint = getServiceHint();
 
-      gtagEvent("contact_form_submit_attempt", sourceLabel, { service: serviceHint });
+      // Collect selected add-ons (for analytics)
+      const addons = qsa("input[name='addons']:checked", form).map((cb) => cb.value);
+
+      track("contact_form_submit_attempt", {
+        source: sourceLabel,
+        service: serviceHint,
+        addons_count: addons.length,
+      });
 
       const formData = new FormData(form);
 
@@ -294,30 +376,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (res.ok) {
-          gtagEvent("contact_form_submit_success", sourceLabel, { service: serviceHint });
+          track("contact_form_submit_success", {
+            source: sourceLabel,
+            service: serviceHint,
+            addons_count: addons.length,
+          });
 
-          // Store attribution so thank-you can fire a reliable conversion event
+          // Store attribution for thank-you page conversion event
           try {
             sessionStorage.setItem("kmc_last_source", sourceLabel);
             sessionStorage.setItem("kmc_last_service", serviceHint);
             sessionStorage.setItem("kmc_last_ts", String(Date.now()));
           } catch {}
 
-          // Add query params as fallback attribution/debugging
-          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(
-            sourceLabel
-          )}&project_type=${encodeURIComponent(serviceHint)}`;
-
+          // Pass minimal params for debugging fallback
+          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(sourceLabel)}&project_type=${encodeURIComponent(serviceHint)}`;
           window.location.assign(thankYouUrl);
         } else {
-          gtagEvent("contact_form_submit_error", sourceLabel, {
+          track("contact_form_submit_error", {
+            source: sourceLabel,
             service: serviceHint,
             status: res.status || 0,
           });
           alert("Something went wrong. Please check your entries and try again.");
         }
       } catch {
-        gtagEvent("contact_form_submit_error", sourceLabel, {
+        track("contact_form_submit_error", {
+          source: sourceLabel,
           service: serviceHint,
           status: "network_error",
         });
@@ -326,11 +411,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })();
 
-  /* =========================
+  /* =========================================================
      THANK-YOU PAGE: FINAL CONVERSION EVENT
      - Fires once using sessionStorage attribution from submit
      - Fallback: uses query params if sessionStorage missing
-  ========================= */
+  ========================================================= */
   (() => {
     const isThankYou =
       /\/thank-you\.html(\?|#|$)/i.test(window.location.pathname) ||
@@ -338,8 +423,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!isThankYou) return;
 
-    let src = "unknown";
-    let svc = "unknown";
+    let src = "";
+    let svc = "";
     let ts = 0;
 
     try {
@@ -348,32 +433,27 @@ document.addEventListener("DOMContentLoaded", () => {
       ts = Number(sessionStorage.getItem("kmc_last_ts") || "0");
     } catch {}
 
-    // Fallback to URL params if needed
     src = src || getParam("source") || "unknown";
-    svc =
-      svc ||
-      safeLower(getParam("project_type")) ||
-      safeLower(getParam("service")) ||
-      "unknown";
+    svc = svc || safeLower(getParam("project_type")) || safeLower(getParam("service")) || "unknown";
 
     const ageMs = ts ? Date.now() - ts : Infinity;
     const recentEnough = ageMs >= 0 && ageMs < 10 * 60 * 1000; // 10 minutes
 
     if (recentEnough) {
-      gtagEvent("inquiry_thank_you_view", src, { service: svc });
+      track("inquiry_thank_you_view", { source: src, service: svc });
       try {
         sessionStorage.removeItem("kmc_last_source");
         sessionStorage.removeItem("kmc_last_service");
         sessionStorage.removeItem("kmc_last_ts");
       } catch {}
     } else {
-      gtagEvent("thank_you_view", "thank_you", { service: svc });
+      track("thank_you_view", { source: src, service: svc });
     }
   })();
 
-  /* =========================
+  /* =========================================================
      LIGHTBOX (click-to-zoom)
-  ========================= */
+  ========================================================= */
   (() => {
     const lb = qs("#lightbox");
     const lbImg = qs("#lightboxImg");
@@ -407,16 +487,14 @@ document.addEventListener("DOMContentLoaded", () => {
       lbImg.src = "";
       lbImg.alt = "";
 
-      if (lastActiveEl && typeof lastActiveEl.focus === "function") {
-        lastActiveEl.focus();
-      }
+      if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
       lastActiveEl = null;
     };
 
     document.addEventListener("click", (e) => {
       const img = e.target.closest("img[data-lightbox]");
       if (!img) return;
-      if (e.target.closest("a")) return;
+      if (e.target.closest("a")) return; // don't hijack linked images
       open(img);
     });
 

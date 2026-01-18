@@ -13,16 +13,10 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
-    <link
-      rel="canonical"
-      href="https://kaylamariecollective.com/contact.html"
-    />
+    <link rel="canonical" href="https://kaylamariecollective.com/contact.html" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Scripts (global) -->
-    <script defer src="assets/js/script.js"></script>
 
     <!-- Performance -->
     <link rel="preload" as="image" href="images/Blacklogoone.png" />
@@ -30,43 +24,19 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kayla Marie Collective" />
-    <meta
-      property="og:title"
-      content="Start a Project | Kayla Marie Collective"
-    />
-    <meta
-      property="og:description"
-      content="Tell me what you’re building so we can see if we’re a fit."
-    />
-    <meta
-      property="og:url"
-      content="https://kaylamariecollective.com/contact.html"
-    />
-    <meta
-      property="og:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta property="og:title" content="Start a Project | Kayla Marie Collective" />
+    <meta property="og:description" content="Tell me what you’re building so we can see if we’re a fit." />
+    <meta property="og:url" content="https://kaylamariecollective.com/contact.html" />
+    <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Kayla Marie Collective — Start a Project"
-    />
+    <meta property="og:image:alt" content="Kayla Marie Collective — Start a Project" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Start a Project | Kayla Marie Collective"
-    />
-    <meta
-      name="twitter:description"
-      content="Tell me what you’re building so we can see if we’re a fit."
-    />
-    <meta
-      name="twitter:image"
-      content="https://kaylamariecollective.com/images/og-image.jpg"
-    />
+    <meta name="twitter:title" content="Start a Project | Kayla Marie Collective" />
+    <meta name="twitter:description" content="Tell me what you’re building so we can see if we’re a fit." />
+    <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
 
     <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" />
@@ -79,18 +49,16 @@
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      function gtag(){ dataLayer.push(arguments); }
       gtag("js", new Date());
       gtag("config", "G-DWTK6PGS0W");
     </script>
+
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
   </head>
 
   <body>
@@ -99,11 +67,7 @@
     <!-- Header / Nav -->
     <header class="site-header">
       <div class="container nav-container">
-        <a
-          href="index.html"
-          class="logo"
-          aria-label="Kayla Marie Collective home"
-        >
+        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
           <img
             src="images/Blacklogoone.png"
             alt="Kayla Marie Collective Logo"
@@ -124,24 +88,19 @@
           <span class="nav-toggle__label">Menu</span>
         </button>
 
-        <nav
-          class="main-nav"
-          id="primary-nav"
-          aria-label="Main navigation"
-          data-nav
-        >
+        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
           <a href="index.html">Home</a>
           <a href="services.html">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="about.html">About</a>
           <a
             href="contact.html?source=nav_contact"
-            class="btn-nav active"
-            aria-current="page"
+            class="btn-nav"
             data-track="nav_cta_click"
             data-label="nav_contact_start_project"
-            >Start a Project</a
           >
+            Start a Project
+          </a>
         </nav>
       </div>
     </header>
@@ -154,15 +113,14 @@
           <p>Tell me what you’re building so we can see if we’re a fit.</p>
         </div>
       </section>
+
       <div class="contact-boundary">
         <div class="container">
           <p>
-            I take on a limited number of projects at a time to ensure each
-            build gets the attention it deserves.
+            I take on a limited number of projects at a time to ensure each build gets the attention it deserves.
           </p>
           <p>
-            Project timelines and availability depend on scope clarity and
-            client responsiveness.
+            Project timelines and availability depend on scope clarity and client responsiveness.
           </p>
         </div>
       </div>
@@ -177,37 +135,21 @@
             action="https://formspree.io/f/maqqwqje"
             novalidate
           >
-            <!-- Formspree metadata -->
-            <input
-              type="hidden"
-              name="_subject"
-              value="New Project Inquiry — Kayla Marie Collective"
-            />
+            <input type="hidden" name="_subject" value="New Project Inquiry — Kayla Marie Collective" />
 
             <!-- Attribution / tracking -->
             <input type="hidden" id="source" name="source" value="" />
             <input type="hidden" id="source_page" name="source_page" value="" />
             <input type="hidden" id="referrer" name="referrer" value="" />
 
-            <!-- Honeypot (spam trap) -->
+            <!-- Honeypot -->
             <div
               aria-hidden="true"
-              style="
-                position: absolute;
-                left: -9999px;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-              "
+              style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"
             >
               <label>
                 Do not fill this out
-                <input
-                  type="text"
-                  name="_gotcha"
-                  tabindex="-1"
-                  autocomplete="off"
-                />
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
               </label>
             </div>
 
@@ -223,13 +165,7 @@
 
             <label>
               Email <span aria-hidden="true">*</span>
-              <input
-                type="email"
-                name="email"
-                required
-                autocomplete="email"
-                inputmode="email"
-              />
+              <input type="email" name="email" required autocomplete="email" inputmode="email" />
             </label>
 
             <label>
@@ -243,45 +179,29 @@
             </label>
 
             <label>
-              What type of support are you looking for?
-              <span aria-hidden="true">*</span>
+              What type of support are you looking for? <span aria-hidden="true">*</span>
               <select id="project_type" name="project_type" required>
                 <option value="">Select one</option>
-
-                <!-- Core services -->
                 <option value="website">Website Build</option>
                 <option value="product">Digital Product Page</option>
                 <option value="funnel">Bundle + Funnel Setup</option>
+                <option value="photography">Photography</option>
                 <option value="strategy">Strategy-Led Build</option>
-
-                <!-- Wellness-specific -->
                 <option value="wellness_essentials">Wellness Essentials</option>
                 <option value="wellness_growth">Wellness Growth</option>
               </select>
             </label>
 
-            <!-- Strategy-led follow-up (shows only when Strategy is selected) -->
             <div id="strategyFollowup" hidden>
               <label>
-                For strategy-led work, what do you need most right now?
-                <span aria-hidden="true">*</span>
+                For strategy-led work, what do you need most right now? <span aria-hidden="true">*</span>
                 <select name="strategy_focus" id="strategy_focus">
                   <option value="">Select one</option>
-                  <option value="offer_messaging">
-                    Offer clarity + messaging
-                  </option>
-                  <option value="funnel_architecture">
-                    Funnel + launch structure
-                  </option>
-                  <option value="positioning_pricing">
-                    Positioning + pricing
-                  </option>
-                  <option value="full_strategy_execution">
-                    Strategy + execution (full build)
-                  </option>
-                  <option value="not_sure">
-                    Not sure — I want your recommendation
-                  </option>
+                  <option value="offer_messaging">Offer clarity + messaging</option>
+                  <option value="funnel_architecture">Funnel + launch structure</option>
+                  <option value="positioning_pricing">Positioning + pricing</option>
+                  <option value="full_strategy_execution">Strategy + execution (full build)</option>
+                  <option value="not_sure">Not sure — I want your recommendation</option>
                 </select>
               </label>
 
@@ -298,6 +218,52 @@
               </label>
             </div>
 
+            <fieldset class="addons-fieldset" id="addonsFieldset">
+              <legend>Optional add-ons (select any)</legend>
+              <p class="form-note" style="margin-top: 0.35rem;">
+                Select a project type above to enable relevant add-ons.
+              </p>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="copy_clarity" />
+                Copy structure + clarity support
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="email_capture" />
+                Email capture / waitlist setup
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="digital_product_integration" />
+                Digital product integration (checkout + delivery)
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="extra_funnel_page" />
+                Additional funnel page(s)
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="post_launch_review" />
+                Post-launch funnel review
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="photo_micro" />
+                Photography: micro session
+              </label>
+
+              <label class="check">
+                <input type="checkbox" name="addons" value="photo_half_day" />
+                Photography: half-day session
+              </label>
+
+              <p class="form-note" style="margin-top: 0.5rem;">
+                Add-ons extend scope intentionally. If you’re not sure, leave this blank — I’ll recommend the cleanest next step.
+              </p>
+            </fieldset>
+
             <label>
               Budget Range (USD) <span aria-hidden="true">*</span>
               <select name="budget" required>
@@ -312,22 +278,17 @@
 
             <label>
               Ideal Timeline <span aria-hidden="true">*</span>
-              <input
-                type="text"
-                name="timeline"
-                placeholder="For example: March launch, or ASAP"
-                required
-              />
+              <input type="text" name="timeline" placeholder="For example: March launch, or ASAP" required />
             </label>
 
             <label>
               Links to existing brand / socials
-              <textarea
-                name="links"
-                rows="2"
-                placeholder="Instagram, website, TikTok, etc."
-              ></textarea>
+              <textarea name="links" rows="2" placeholder="Instagram, website, TikTok, etc."></textarea>
             </label>
+
+            <p class="form-note" style="margin: 0.75rem 0 0.25rem;">
+              I reply within <strong>1–2 business days</strong> with next steps or a clear “not a fit.”
+            </p>
 
             <button
               type="submit"
@@ -339,16 +300,14 @@
             </button>
 
             <p class="form-note">
-              By submitting, you agree to be contacted about your inquiry. No
-              spam — just next steps.
+              By submitting, you agree to be contacted about your inquiry. No spam — just next steps.
             </p>
           </form>
         </div>
       </section>
-    </main>
-    <div class="contact-expectations">
-      <div class="container">
-        <div class="contact-expectations">
+
+      <section class="contact-expectations">
+        <div class="container">
           <h4>Before reaching out, please note:</h4>
           <ul>
             <li>Projects begin with a non-refundable deposit</li>
@@ -357,14 +316,12 @@
             <li>Final files and launch occur after full payment</li>
           </ul>
           <p class="expectations-note">
-            These details are here to keep projects clear, focused, and
-            respectful of everyone’s time.
+            These details are here to keep projects clear, focused, and respectful of everyone’s time.
           </p>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>© <span id="year">2026</span> Kayla Marie Collective</p>
@@ -382,8 +339,7 @@
 
     <noscript>
       <p style="padding: 1rem; text-align: center">
-        JavaScript is disabled — the menu and form enhancements may not work as
-        expected.
+        JavaScript is disabled — the menu and form enhancements may not work as expected.
       </p>
     </noscript>
   </body>
