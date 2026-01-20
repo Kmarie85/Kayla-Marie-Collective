@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="style.css" />
 
     <!-- Performance -->
-    <link rel="preload" as="image" href="images/Blacklogoone.png" />
+    <link rel="preload" as="image" href="images/primaryanchor-wordmark.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -56,12 +56,14 @@
       content="https://kaylamariecollective.com/images/og-image.jpg"
     />
 
-    <!-- Favicons (root-safe) -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+<!-- Favicons -->
+<link rel="icon" href="blackfavicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="blackfavicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="blackfavicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#000000" />
+
 
     <!-- UI -->
     <meta name="theme-color" content="#ffffff" />
@@ -96,12 +98,13 @@
           aria-label="Kayla Marie Collective home"
         >
           <img
-            src="images/Blacklogoone.png"
-            alt="Kayla Marie Collective Logo"
+            src="images/primaryanchor-wordmark.png"
+            alt="Kayla Marie Collective"
             id="logo"
             decoding="async"
+            width="520"
+            height="120"
           />
-          Kayla Marie Collective
         </a>
 
         <button
@@ -122,7 +125,7 @@
           data-nav
         >
           <a href="index.html">Home</a>
-          <a href="services.html">Services</a>
+          <a href="services.html" class="active">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="about.html">About</a>
           <a
@@ -137,7 +140,8 @@
       </div>
     </header>
 
-    <main id="main">
+    <!-- NOTE: header is fixed; padding prevents overlap -->
+    <main id="main" style="padding-top: 96px">
       <section class="page-hero">
         <div class="container">
           <h1>Services</h1>
@@ -155,6 +159,89 @@
       </section>
 
       <section class="services-list container">
+        <!-- Choose your path -->
+        <!-- Choose your path -->
+        <article class="service-block" id="choose-your-path">
+          <h2>Choose your path</h2>
+          <p class="summary">
+            Start with the category that matches what you’re building. Each one
+            includes tier options.
+          </p>
+
+          <div class="package-grid">
+            <article class="package-card">
+              <h3>Website Build</h3>
+              <p class="price">Tiers: $800–$2,200</p>
+              <ul>
+                <li>Credible, conversion-friendly website</li>
+                <li>Clear structure + page flow</li>
+                <li>Built to drive inquiries</li>
+              </ul>
+              <a class="btn-outline" href="#website-build"
+                >View Website Build →</a
+              >
+            </article>
+
+            <article class="package-card">
+              <h3>Digital Product Page</h3>
+              <p class="price">Tiers: $650–$1,800</p>
+              <ul>
+                <li>Calm, clear sales page structure</li>
+                <li>Checkout integration</li>
+                <li>Built to convert without feeling salesy</li>
+              </ul>
+              <a class="btn-outline" href="#product-page"
+                >View Product Page →</a
+              >
+            </article>
+
+            <article class="package-card">
+              <h3>Bundle + Funnel Setup</h3>
+              <p class="price">Tiers: $900–$2,400</p>
+              <ul>
+                <li>Multi-page funnel system</li>
+                <li>Lead capture + routing</li>
+                <li>Tracking + QA included</li>
+              </ul>
+              <a class="btn-primary" href="#bundle-funnel"
+                >View Funnel Setup →</a
+              >
+            </article>
+
+            <article class="package-card">
+              <h3>Add-Ons</h3>
+              <p class="price">Optional scope support</p>
+              <ul>
+                <li>Brand foundation + logo cleanup</li>
+                <li>Copy clarity + opt-ins</li>
+                <li>Integrations + reviews</li>
+              </ul>
+              <a class="btn-outline" href="#add-ons">View Add-Ons →</a>
+            </article>
+          </div>
+        </article>
+
+        <!-- Not sure CTA (early) -->
+        <article class="service-block" id="not-sure">
+          <h2>Not sure what you need?</h2>
+          <p class="summary">
+            That’s normal. Most clients don’t come in knowing the exact tier. If
+            you tell me what you’re building and what you want it to do, I’ll
+            point you to the right fit.
+          </p>
+
+          <p class="text-link">
+            <a
+              href="contact.html?project_type=strategy&source=services_not_sure"
+              class="btn-secondary"
+              data-track="services_cta_click"
+              data-label="services_not_sure_guidance"
+            >
+              Help me choose the right fit →
+            </a>
+          </p>
+        </article>
+
         <!-- Service 1 -->
         <article class="service-block" id="website-build">
           <h2>Website Build</h2>
@@ -180,58 +267,75 @@
           </p>
 
           <h3>Website Design Tiers</h3>
+          <p class="small-note">
+            Click a tier to expand details. (Everything is here — just collapsed
+            by default.)
+          </p>
 
-          <div class="package-grid service-tiers">
-            <article class="package-card">
-              <h3>Foundation Website</h3>
-              <p class="price">$800–$1,000</p>
-              <p class="small-note">
-                For small businesses that need a clear, professional online
-                presence — done right the first time.
-              </p>
-              <ul>
-                <li>Up to 3 custom pages (Home + one core page + Contact)</li>
-                <li>Mobile-first layout</li>
-                <li>Contact form + basic inquiry routing</li>
-                <li>On-page SEO setup (titles/meta + clean structure)</li>
-                <li>Domain + hosting connection support</li>
-                <li>Launch-ready handoff</li>
-              </ul>
-            </article>
+          <div class="addons-grid service-tiers">
+            <details class="addon">
+              <summary>
+                Foundation Website
+                <span class="addon-price">$800–$1,000</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  For small businesses that need a clear, professional online
+                  presence — done right the first time.
+                </p>
+                <ul>
+                  <li>Up to 3 custom pages (Home + one core page + Contact)</li>
+                  <li>Mobile-first layout</li>
+                  <li>Contact form + basic inquiry routing</li>
+                  <li>On-page SEO setup (titles/meta + clean structure)</li>
+                  <li>Domain + hosting connection support</li>
+                  <li>Launch-ready handoff</li>
+                </ul>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Strategic Website</h3>
-              <p class="price">$1,200–$1,400</p>
-              <p class="small-note">
-                For businesses that want their site to guide visitors — not just
-                exist.
-              </p>
-              <ul>
-                <li>4–5 custom pages</li>
-                <li>Strategic layout + page flow</li>
-                <li>Brand refinement (fonts, color use, consistency)</li>
-                <li>Google Analytics + basic conversion tracking</li>
-                <li>SEO enhancements + social sharing previews</li>
-                <li>Light content support and structural recommendations</li>
-              </ul>
-            </article>
+            <details class="addon">
+              <summary>
+                Strategic Website
+                <span class="addon-price">$1,200–$1,400</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  <strong>Recommended:</strong> For businesses that want their
+                  site to guide visitors — not just exist.
+                </p>
+                <ul>
+                  <li>4–5 custom pages</li>
+                  <li>Strategic layout + page flow</li>
+                  <li>Brand refinement (fonts, color use, consistency)</li>
+                  <li>Google Analytics + basic conversion tracking</li>
+                  <li>SEO enhancements + social sharing previews</li>
+                  <li>Light content support and structural recommendations</li>
+                </ul>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Conversion-Led Website</h3>
-              <p class="price">$1,800–$2,200</p>
-              <p class="small-note">
-                For services, programs, or digital products where the website
-                needs to do real work.
-              </p>
-              <ul>
-                <li>Conversion-focused structure and site architecture</li>
-                <li>Lead capture, booking, or funnel setup</li>
-                <li>Advanced analytics + event tracking</li>
-                <li>Full SEO setup (technical + on-page)</li>
-                <li>Performance + accessibility review</li>
-                <li>Pre-launch QA + short post-launch support window</li>
-              </ul>
-            </article>
+            <details class="addon">
+              <summary>
+                Conversion-Led Website
+                <span class="addon-price">$1,800–$2,200</span>
+              </summary>
+              <br />
+              <div class="addon-body">
+                <p class="small-note">
+                  For services, programs, or digital products where the website
+                  needs to do real work.
+                </p>
+                <ul>
+                  <li>Conversion-focused structure and site architecture</li>
+                  <li>Lead capture, booking, or funnel setup</li>
+                  <li>Advanced analytics + event tracking</li>
+                  <li>Full SEO setup (technical + on-page)</li>
+                  <li>Performance + accessibility review</li>
+                  <li>Pre-launch QA + short post-launch support window</li>
+                </ul>
+              </div>
+            </details>
           </div>
 
           <p class="cta-note service-photo-line">
@@ -245,8 +349,9 @@
               class="btn-secondary"
               data-track="services_cta_click"
               data-label="services_website_inquiry"
-              >Request a Website Build →</a
             >
+              Request a Website Build →
+            </a>
           </p>
 
           <h3>Deliverables preview</h3>
@@ -291,7 +396,7 @@
               <figcaption>Mobile layout</figcaption>
             </figure>
           </div>
-
+          <br />
           <p class="cta-note">
             Want this built on your own domain (GitHub Pages / Netlify)? I’ll
             set it up clean and show you how to maintain it.
@@ -309,6 +414,31 @@
             </p>
 
             <div class="addons-grid">
+              <!-- NEW: Brand Foundation add-on -->
+              <details class="addon">
+                <summary>
+                  Brand Foundation (Logo + Visual System)
+                  <span class="addon-price">$350–$800</span>
+                </summary>
+                <div class="addon-body">
+                  <p class="small-note">
+                    For projects where the existing logo or visuals are unclear,
+                    outdated, or working against clarity and conversion. This is
+                    a focused cleanup for digital use — not a full rebrand.
+                  </p>
+                  <ul>
+                    <li>
+                      Logo refinement or simplification (using your existing
+                      brand as a base)
+                    </li>
+                    <li>Color palette alignment</li>
+                    <li>Font selection or cleanup</li>
+                    <li>Visual consistency pass across the build</li>
+                    <li>Web-ready logo files</li>
+                  </ul>
+                </div>
+              </details>
+
               <details class="addon">
                 <summary>
                   Copy Structure &amp; Clarity Support
@@ -422,7 +552,7 @@
                 </ul>
               </article>
             </div>
-
+            <br />
             <p class="cta-note">
               Travel outside the immediate area may require additional fees.
             </p>
@@ -485,57 +615,75 @@
           </p>
 
           <h3>Digital Product Tiers</h3>
+          <p class="small-note">Click a tier to expand details.</p>
 
-          <div class="package-grid service-tiers">
-            <article class="package-card">
-              <h3>Product Page (Essential)</h3>
-              <p class="price">$650–$900</p>
-              <p class="small-note">
-                For one offer that needs a clean page and a clear “buy now”
-                flow.
-              </p>
-              <ul>
-                <li>Sales page layout (sections + flow)</li>
-                <li>Offer clarity + benefit-forward structure</li>
-                <li>Checkout integration (Gumroad / Beacons / Stripe link)</li>
-                <li>Mobile responsive</li>
-                <li>Basic SEO + social previews</li>
-              </ul>
-            </article>
+          <div class="addons-grid service-tiers">
+            <details class="addon">
+              <summary>
+                Product Page (Essential)
+                <span class="addon-price">$650–$900</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  For one offer that needs a clean page and a clear “buy now”
+                  flow.
+                </p>
+                <ul>
+                  <li>Sales page layout (sections + flow)</li>
+                  <li>Offer clarity + benefit-forward structure</li>
+                  <li>
+                    Checkout integration (Gumroad / Beacons / Stripe link)
+                  </li>
+                  <li>Mobile responsive</li>
+                  <li>Basic SEO + social previews</li>
+                </ul>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Product Page (Conversion-Led)</h3>
-              <p class="price">$1,000–$1,300</p>
-              <p class="small-note">
-                For creators who want stronger structure, better pacing, and
-                fewer drop-offs.
-              </p>
-              <ul>
-                <li>Conversion-focused page structure + hierarchy</li>
-                <li>Copy polish + CTA refinement (light rewrite)</li>
-                <li>FAQ + objection handling section</li>
-                <li>
-                  Tracking: key clicks (buy button / scroll depth if needed)
-                </li>
-                <li>Performance + mobile UX pass</li>
-              </ul>
-            </article>
+            <details class="addon">
+              <summary>
+                Product Page (Conversion-Led)
+                <span class="addon-price">$1,000–$1,300</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  <strong>Recommended:</strong> For creators who want stronger
+                  structure, better pacing, and fewer drop-offs.
+                </p>
+                <ul>
+                  <li>Conversion-focused page structure + hierarchy</li>
+                  <li>Copy polish + CTA refinement (light rewrite)</li>
+                  <li>FAQ + objection handling section</li>
+                  <li>
+                    Tracking: key clicks (buy button / scroll depth if needed)
+                  </li>
+                  <li>Performance + mobile UX pass</li>
+                </ul>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Product Page + Mini Launch</h3>
-              <p class="price">$1,400–$1,800</p>
-              <p class="small-note">
-                For a product that needs a simple funnel, not just a page.
-              </p>
-              <ul>
-                <li>Sales page + thank-you page</li>
-                <li>Email capture or waitlist section (tool-dependent)</li>
-                <li>Simple delivery guidance (what happens after purchase)</li>
-                <li>Event tracking for conversions</li>
-                <li>Pre-launch QA + clean handoff</li>
-              </ul>
-            </article>
+            <details class="addon">
+              <summary>
+                Product Page + Mini Launch
+                <span class="addon-price">$1,400–$1,800</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  For a product that needs a simple funnel, not just a page.
+                </p>
+                <ul>
+                  <li>Sales page + thank-you page</li>
+                  <li>Email capture or waitlist section (tool-dependent)</li>
+                  <li>
+                    Simple delivery guidance (what happens after purchase)
+                  </li>
+                  <li>Event tracking for conversions</li>
+                  <li>Pre-launch QA + clean handoff</li>
+                </ul>
+              </div>
+            </details>
           </div>
+
           <br />
           <p class="text-link">
             <a
@@ -543,8 +691,9 @@
               class="btn-secondary"
               data-track="services_cta_click"
               data-label="services_product_inquiry"
-              >Request a Product Page →</a
             >
+              Request a Product Page →
+            </a>
           </p>
 
           <h3>Deliverables preview</h3>
@@ -594,6 +743,7 @@
         <!-- Service 3 -->
         <article class="service-block" id="bundle-funnel">
           <h2>Bundle + Funnel Setup</h2>
+
           <p>
             <strong
               >This service builds a focused, multi-page funnel system — not a
@@ -631,73 +781,88 @@
 
           <h3>Funnel Setup Tiers</h3>
           <p class="small-note">
-            Each tier includes the same calm design approach — the difference is
-            the number of pages, routing complexity, and tracking depth.
+            Click a tier to expand details. The difference is the number of
+            pages, routing complexity, and tracking depth.
           </p>
 
-          <div class="package-grid service-tiers">
-            <article class="package-card">
-              <h3>Essential Funnel</h3>
-              <p class="price">$900–$1,100</p>
-              <p class="small-note">
-                One clear path. Best when you need a clean opt-in or inquiry
-                flow without branching or automation complexity.
-              </p>
-              <ul>
-                <li>1 landing page + 1 thank-you/confirmation page</li>
-                <li>Opt-in or inquiry form integration</li>
-                <li>Basic delivery guidance (tool-dependent)</li>
-                <li>Mobile responsive + clean CTA hierarchy</li>
-                <li>Light tracking: key clicks/submissions</li>
-              </ul>
-              <p class="small-note">
-                <strong>Typical use:</strong> lead magnet opt-in, simple service
-                inquiry, waitlist capture.
-              </p>
-            </article>
+          <div class="addons-grid service-tiers">
+            <details class="addon">
+              <summary>
+                Essential Funnel
+                <span class="addon-price">$900–$1,100</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  One clear path. Best when you need a clean opt-in or inquiry
+                  flow without branching or automation complexity.
+                </p>
+                <ul>
+                  <li>1 landing page + 1 thank-you/confirmation page</li>
+                  <li>Opt-in or inquiry form integration</li>
+                  <li>Basic delivery guidance (tool-dependent)</li>
+                  <li>Mobile responsive + clean CTA hierarchy</li>
+                  <li>Light tracking: key clicks/submissions</li>
+                </ul>
+                <p class="small-note">
+                  <strong>Typical use:</strong> lead magnet opt-in, simple
+                  service inquiry, waitlist capture.
+                </p>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Guided Funnel</h3>
-              <p class="price">$1,300–$1,600</p>
-              <p class="small-note">
-                More guidance + stronger flow. Best when you want visitors to
-                move through a few intentional steps before the ask.
-              </p>
-              <ul>
-                <li>
-                  2–3 connected pages (example: opt-in → thank-you → next step)
-                </li>
-                <li>Simple routing (send people to the right next step)</li>
-                <li>Email platform or delivery tool integration</li>
-                <li>FAQ/objection-handling section support</li>
-                <li>Event tracking for key funnel actions</li>
-              </ul>
-              <p class="small-note">
-                <strong>Typical use:</strong> lead magnet → offer bridge,
-                service inquiry qualification, creator launch warm-up.
-              </p>
-            </article>
+            <details class="addon">
+              <summary>
+                Guided Funnel
+                <span class="addon-price">$1,300–$1,600</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  <strong>Recommended:</strong> More guidance + stronger flow.
+                  Best when you want visitors to move through a few intentional
+                  steps before the ask.
+                </p>
+                <ul>
+                  <li>
+                    2–3 connected pages (example: opt-in → thank-you → next
+                    step)
+                  </li>
+                  <li>Simple routing (send people to the right next step)</li>
+                  <li>Email platform or delivery tool integration</li>
+                  <li>FAQ/objection-handling section support</li>
+                  <li>Event tracking for key funnel actions</li>
+                </ul>
+                <p class="small-note">
+                  <strong>Typical use:</strong> lead magnet → offer bridge,
+                  service inquiry qualification, creator launch warm-up.
+                </p>
+              </div>
+            </details>
 
-            <article class="package-card">
-              <h3>Conversion-Led Funnel</h3>
-              <p class="price">$1,900–$2,400</p>
-              <p class="small-note">
-                Built to do real work. Best when the funnel is tied directly to
-                revenue and needs stronger tracking, clarity, and routing.
-              </p>
-              <ul>
-                <li>3–5 page funnel system</li>
-                <li>Decision-point routing (basic branching)</li>
-                <li>Checkout/booking flow integration</li>
-                <li>Advanced event tracking + conversion signals</li>
-                <li>Performance + accessibility review + pre-launch QA</li>
-              </ul>
-              <p class="small-note">
-                <strong>Typical use:</strong> paid offer funnel, program
-                enrollment flow, bundle launch with multiple next steps.
-              </p>
-            </article>
+            <details class="addon">
+              <summary>
+                Conversion-Led Funnel
+                <span class="addon-price">$1,900–$2,400</span>
+              </summary>
+              <div class="addon-body">
+                <p class="small-note">
+                  Built to do real work. Best when the funnel is tied directly
+                  to revenue and needs stronger tracking, clarity, and routing.
+                </p>
+                <ul>
+                  <li>3–5 page funnel system</li>
+                  <li>Decision-point routing (basic branching)</li>
+                  <li>Checkout/booking flow integration</li>
+                  <li>Advanced event tracking + conversion signals</li>
+                  <li>Performance + accessibility review + pre-launch QA</li>
+                </ul>
+                <p class="small-note">
+                  <strong>Typical use:</strong> paid offer funnel, program
+                  enrollment flow, bundle launch with multiple next steps.
+                </p>
+              </div>
+            </details>
           </div>
+
           <br />
           <p class="text-link">
             <a
@@ -705,8 +870,9 @@
               class="btn-secondary"
               data-track="services_cta_click"
               data-label="services_funnel_inquiry"
-              >Request a Funnel Setup →</a
             >
+              Request a Funnel Setup →
+            </a>
           </p>
 
           <h3>Deliverables preview</h3>

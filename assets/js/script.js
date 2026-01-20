@@ -52,8 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      NAV ACTIVE STATES (global)
-     - Adds .active + aria-current automatically based on path
-     - Removes the need to hardcode class="active" in HTML
   ========================================================= */
   (() => {
     const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
@@ -75,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      GA CLICK TRACKING (global)
-     - Add data-track + data-label to links/buttons
   ========================================================= */
   (() => {
     document.addEventListener("click", (e) => {
@@ -107,9 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      MOBILE NAV TOGGLE (global)
-     Requires:
-     - button[data-nav-toggle]
-     - nav[data-nav]
   ========================================================= */
   (() => {
     const toggle = qs("[data-nav-toggle]");
@@ -149,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================================
      SERVICES: ADD-ON ACCORDION TRACKING
-     - Tracks <details class="addon"> opens (services + FAQ accordions)
   ========================================================= */
   (() => {
     const hasAddons = qs("details.addon");
@@ -165,20 +158,13 @@ document.addEventListener("DOMContentLoaded", () => {
           .trim()
           .slice(0, 80);
 
-        track("addon_open", {
-          label,
-          source: sourceLabel,
-        });
+        track("addon_open", { label, source: sourceLabel });
       });
     });
   })();
 
   /* =========================================================
      CONTACT: PREFILL SELECT
-     Standard: ?project_type=website|product|funnel|photography|strategy|wellness_essentials|wellness_growth
-     Legacy:   ?service=website|product|funnel|photography|strategy
-     Legacy:   ?type=strategy|standard -> strategy OR website
-     Target:   #project_type (preferred)
   ========================================================= */
   const resolveDesiredProjectType = () => {
     const projectTypeRaw = safeLower(getParam("project_type"));
@@ -251,9 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: ADD-ONS (always visible, gated until project selected)
-     - Disables all add-ons until a project type is chosen
-     - If Photography selected: shows only photo_* add-ons
+     CONTACT: ADD-ONS gating
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -268,17 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const setVisibility = () => {
       const t = safeLower(projectType.value);
 
-      // Always visible fieldset
       fieldset.hidden = false;
 
-      // Reset: show + enable everything
       checks.forEach((cb) => {
         const row = cb.closest("label");
         if (row) row.hidden = false;
         cb.disabled = false;
       });
 
-      // No selection yet: disable all (still visible)
       if (!t) {
         checks.forEach((cb) => {
           cb.checked = false;
@@ -287,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Photography: only show photo_* checkboxes
       if (t === "photography") {
         checks.forEach((cb) => {
           const isPhoto = safeLower(cb.value).startsWith("photo_");
@@ -303,10 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: ATTRIBUTION + GA EVENTS + SUBMIT HANDLING
-     - Fills hidden fields if present: #source, #source_page, #referrer
-     - Tracks: contact_form_view/start/submit_attempt/success/error
-     - Stores attribution for thank-you page conversion event
+     CONTACT: submit handling + attribution
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -314,15 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const projectType = qs("#project_type", form);
 
-    const getServiceHint = () => {
-      return (
-        resolveDesiredProjectType() ||
-        safeLower(projectType && projectType.value) ||
-        "unknown"
-      );
-    };
+    const getServiceHint = () =>
+      resolveDesiredProjectType() || safeLower(projectType && projectType.value) || "unknown";
 
-    // Fill hidden attribution fields
     const sourceInput = qs("#source", form);
     const sourcePageInput = qs("#source_page", form);
     const referrerInput = qs("#referrer", form);
@@ -331,10 +302,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sourcePageInput) sourcePageInput.value = window.location.href;
     if (referrerInput) referrerInput.value = document.referrer || "";
 
-    // View
     track("contact_form_view", { source: sourceLabel, service: getServiceHint() });
 
-    // Start (once)
     let started = false;
     const markStarted = () => {
       if (started) return;
@@ -346,7 +315,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target && e.target.matches("input, select, textarea")) markStarted();
     });
 
-    // Submit (Formspree via fetch)
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -356,8 +324,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const serviceHint = getServiceHint();
-
-      // Collect selected add-ons (for analytics)
       const addons = qsa("input[name='addons']:checked", form).map((cb) => cb.value);
 
       track("contact_form_submit_attempt", {
@@ -382,15 +348,15 @@ document.addEventListener("DOMContentLoaded", () => {
             addons_count: addons.length,
           });
 
-          // Store attribution for thank-you page conversion event
           try {
             sessionStorage.setItem("kmc_last_source", sourceLabel);
             sessionStorage.setItem("kmc_last_service", serviceHint);
             sessionStorage.setItem("kmc_last_ts", String(Date.now()));
           } catch {}
 
-          // Pass minimal params for debugging fallback
-          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(sourceLabel)}&project_type=${encodeURIComponent(serviceHint)}`;
+          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(
+            sourceLabel
+          )}&project_type=${encodeURIComponent(serviceHint)}`;
           window.location.assign(thankYouUrl);
         } else {
           track("contact_form_submit_error", {
@@ -412,9 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     THANK-YOU PAGE: FINAL CONVERSION EVENT
-     - Fires once using sessionStorage attribution from submit
-     - Fallback: uses query params if sessionStorage missing
+     THANK-YOU PAGE conversion event
   ========================================================= */
   (() => {
     const isThankYou =
@@ -434,10 +398,14 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch {}
 
     src = src || getParam("source") || "unknown";
-    svc = svc || safeLower(getParam("project_type")) || safeLower(getParam("service")) || "unknown";
+    svc =
+      svc ||
+      safeLower(getParam("project_type")) ||
+      safeLower(getParam("service")) ||
+      "unknown";
 
     const ageMs = ts ? Date.now() - ts : Infinity;
-    const recentEnough = ageMs >= 0 && ageMs < 10 * 60 * 1000; // 10 minutes
+    const recentEnough = ageMs >= 0 && ageMs < 10 * 60 * 1000;
 
     if (recentEnough) {
       track("inquiry_thank_you_view", { source: src, service: svc });
@@ -494,7 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", (e) => {
       const img = e.target.closest("img[data-lightbox]");
       if (!img) return;
-      if (e.target.closest("a")) return; // don't hijack linked images
+      if (e.target.closest("a")) return;
       open(img);
     });
 
@@ -504,6 +472,106 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+    });
+  })();
+
+  /* =========================================================
+     KMC — Motion: hero scroll response + reveal-on-scroll
+  ========================================================= */
+  (() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const hero = qs(".hero");
+
+    // ---- Hero scroll response (desktop stronger, mobile softer) ----
+    if (hero && !reduceMotion.matches) {
+      let ticking = false;
+      let scrollTimer = null;
+
+      const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+      const updateHero = () => {
+        ticking = false;
+
+        const rect = hero.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+
+        const progress = clamp((0 - rect.top) / (vh * 0.9), 0, 1);
+
+        const isDesktop = window.matchMedia("(min-width: 900px)").matches;
+
+        const shift = Math.round(progress * (isDesktop ? 44 : 18)); // px
+        const tilt = (progress * (isDesktop ? 0.35 : 0.18)).toFixed(3); // deg
+        const opacity = (1 - progress * 0.12).toFixed(3);
+
+        document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
+        document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
+        document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
+      };
+
+      const requestTick = () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateHero);
+        }
+      };
+
+      const markScrolling = () => {
+        hero.classList.add("is-scrolling");
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => hero.classList.remove("is-scrolling"), 140);
+      };
+
+      updateHero();
+      window.addEventListener("scroll", () => {
+        requestTick();
+        markScrolling();
+      }, { passive: true });
+
+      window.addEventListener("resize", requestTick);
+    }
+
+    // ---- Reveal on scroll (no HTML edits needed) ----
+    const addReveal = (selector, soft = false) => {
+      qsa(selector).forEach((el) => {
+        el.classList.add("reveal");
+        if (soft) el.classList.add("reveal--soft");
+      });
+    };
+
+    addReveal(".proof-item", true);
+    addReveal(".bullet-grid li", true);
+    addReveal(".featured-item");
+    addReveal(".mid-cta-inner");
+    addReveal(".package-card");
+    addReveal(".faq-item");
+    addReveal(".final-cta .container");
+
+    if (reduceMotion.matches) {
+      qsa(".reveal").forEach((el) => el.classList.add("is-inview"));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-inview");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    qsa(".reveal").forEach((el) => io.observe(el));
+
+    reduceMotion.addEventListener?.("change", (e) => {
+      if (e.matches) {
+        qsa(".reveal").forEach((el) => el.classList.add("is-inview"));
+        document.documentElement.style.setProperty("--hero-shift", "0px");
+        document.documentElement.style.setProperty("--hero-tilt", "0deg");
+        document.documentElement.style.setProperty("--hero-opacity", "1");
+      }
     });
   })();
 });

@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-    <!-- Primary SEO -->
-    <title>Portfolio | Kayla Marie Collective</title>
-    <meta
-      name="description"
-      content="Selected website builds and digital products — clean structure, calm design, and conversion-ready layouts."
-    />
-    <meta name="robots" content="index,follow" />
-    <meta name="author" content="Kayla Marie Collective" />
-    <link rel="canonical" href="https://kaylamariecollective.com/portfolio.html" />
+  <!-- Primary SEO -->
+  <title>Portfolio | Kayla Marie Collective</title>
+  <meta
+    name="description"
+    content="Selected website builds and digital products — calm design, clean structure, and conversion-ready layouts."
+  />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Kayla Marie Collective" />
+  <link rel="canonical" href="https://kaylamariecollective.com/portfolio.html" />
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="assets/js/script.js"></script>
 
-    <!-- Scripts -->
-    <script defer src="assets/js/script.js"></script>
+  <link rel="preload" as="image" href="images/primaryanchor-wordmark.png" />
 
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#ffffff" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kayla Marie Collective" />
+  <meta property="og:title" content="Portfolio | Kayla Marie Collective" />
+  <meta
+    property="og:description"
+    content="Selected website builds and digital products — calm design, clean structure, and conversion-ready layouts."
+  />
+  <meta property="og:url" content="https://kaylamariecollective.com/portfolio.html" />
+  <meta property="og:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Kayla Marie Collective — Portfolio" />
 
-    <!-- GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-DWTK6PGS0W");
-    </script>
-  </head>
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Portfolio | Kayla Marie Collective" />
+  <meta
+    name="twitter:description"
+    content="Selected website builds and digital products — calm design, clean structure, and conversion-ready layouts."
+  />
+  <meta name="twitter:image" content="https://kaylamariecollective.com/images/og-image.jpg" />
+
+<!-- Favicons -->
+<link rel="icon" href="blackfavicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="blackfavicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="blackfavicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="theme-color" content="#000000" />
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-DWTK6PGS0W");
+  </script>
+</head>
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -47,15 +68,16 @@
     <!-- Header -->
     <header class="site-header">
       <div class="container nav-container">
-        <a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
-          <img
-            src="images/Blacklogoone.png"
-            alt="Kayla Marie Collective Logo"
-            id="logo"
-            decoding="async"
-          />
-          Kayla Marie Collective
-        </a>
+<a href="index.html" class="logo" aria-label="Kayla Marie Collective home">
+  <img
+    src="images/primaryanchor-wordmark.png"
+    alt="Kayla Marie Collective"
+    id="logo"
+    decoding="async"
+    width="520"
+    height="120"
+  />
+</a>
 
         <button
           class="nav-toggle"
@@ -145,7 +167,7 @@
           <!-- Kayla Marie Collective -->
           <article class="portfolio-item">
             <img
-              src="images/Blacklogoone.png"
+              src="images/brandbadge.png"
               alt="Kayla Marie Collective brand mark"
               loading="lazy"
               decoding="async"
@@ -201,10 +223,18 @@
         next steps.
       </p>
       <p class="tech">Tech: HTML, CSS</p>
-
       <p class="text-link">
-        <span>Live link coming soon →</span>
-      </p>
+        <a
+                href="https://www.soulstoneinc.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="portfolio_live_click"
+                data-label="portfolio_live_rco"
+              >
+                Live site →
+              </a>
+      </p>  
+
     </article>
 
     <!-- Portfolio note (non-project card) -->

@@ -31,9 +31,21 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kaylamariecollective.com/thank-you.html</loc>
-    <lastmod>2026-01-11</lastmod>
+    <loc>https://kaylamariecollective.com/wellness-brands.html</loc>
+    <lastmod>2026-01-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kaylamariecollective.com/case-studies/kayla-marie-collective.html</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://kaylamariecollective.com/case-studies/kingdom-woodcraft.html</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
