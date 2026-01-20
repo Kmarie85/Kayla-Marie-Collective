@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Primary SEO -->
+    <title>Website Package Quiz | Kayla Marie Collective</title>
+    <meta
+      name="description"
+      content="A short decision helper to recommend the right website package based on scope, priorities, and support needs."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="author" content="Kayla Marie Collective" />
+    <link
+      rel="canonical"
+      href="https://kaylamariecollective.com/package-quiz.html"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Performance -->
+    <link rel="preload" as="image" href="images/primaryanchor-wordmark.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kayla Marie Collective" />
+    <meta
+      property="og:title"
+      content="Website Package Quiz | Kayla Marie Collective"
+    />
+    <meta
+      property="og:description"
+      content="Answer a few short questions and get a package recommendation based on scope, priorities, and support needs."
+    />
+    <meta
+      property="og:url"
+      content="https://kaylamariecollective.com/package-quiz.html"
+    />
+    <meta
+      property="og:image"
+      content="https://kaylamariecollective.com/images/og-image.jpg"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" href="blackfavicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="blackfavicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="blackfavicon-16x16.png"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- GA -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
+
+    <!-- Scripts (global) -->
+    <script defer src="assets/js/script.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Header / Nav -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <a
+          href="index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
+          <img
+            src="images/primaryanchor-wordmark.png"
+            alt="Kayla Marie Collective"
+            id="logo"
+            decoding="async"
+            width="520"
+            height="120"
+          />
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          <span class="nav-toggle__icon" aria-hidden="true"></span>
+          <span class="nav-toggle__label">Menu</span>
+        </button>
+
+        <nav
+          class="main-nav"
+          id="primary-nav"
+          aria-label="Main navigation"
+          data-nav
+        >
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="about.html">About</a>
+          <a
+            href="contact.html?source=nav_quiz"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="nav_quiz_start_project"
+          >
+            Start a Project
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="container">
+          <h1>Website Package Quiz</h1>
+          <p>
+            Answer a few short questions to clarify scope and priorities. Based
+            on your responses, I’ll recommend the most appropriate website
+            package.
+          </p>
+          <p class="small-note">
+            This decision helper is for <strong>Website Builds</strong>. For
+            digital products or funnels, view the full services overview:
+            <a href="services.html#choose-your-path">Services</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="container">
+          <form id="packageQuiz" class="project-form" novalidate>
+            <p class="form-note" style="margin-top: 0">
+              Choose the option that most closely reflects your current needs.
+              There are no right or wrong answers.
+            </p>
+
+            <!-- Q1: Scope / Pages -->
+            <label>
+              1) How many pages do you realistically need right now?
+              <select name="q_pages" required>
+                <option value="">Select one</option>
+                <option value="1_3">1–3 pages (simple + clear)</option>
+                <option value="4_6">
+                  4–6 pages (full site with structure)
+                </option>
+                <option value="7_10">
+                  7–10 pages (multi-offer / deeper content)
+                </option>
+              </select>
+            </label>
+
+            <!-- Q2: Primary goal -->
+            <label>
+              2) What is the primary role your website needs to play?
+              <select name="q_goal" required>
+                <option value="">Select one</option>
+                <option value="credibility">
+                  Credibility and a clear contact path
+                </option>
+                <option value="leads">
+                  Consistent inquiries with guided calls to action
+                </option>
+                <option value="revenue">
+                  Directly supporting revenue (bookings, sales, enrollment)
+                </option>
+              </select>
+            </label>
+
+            <!-- Q3: Tracking -->
+            <label>
+              3) How important is measurement and insight for this site?
+              <select name="q_tracking" required>
+                <option value="">Select one</option>
+                <option value="basic">Not a priority right now</option>
+                <option value="ga4">
+                  Basic visibility (analytics installed)
+                </option>
+                <option value="events">
+                  Conversion-level insight (events and actions tracked)
+                </option>
+              </select>
+            </label>
+
+            <!-- Q4: Email capture -->
+            <label>
+              4) Do you need email capture built into the site?
+              <select name="q_email" required>
+                <option value="">Select one</option>
+                <option value="no">No</option>
+                <option value="yes_basic">Yes (a simple integration)</option>
+                <option value="yes_strategic">
+                  Yes, as part of a guided flow
+                </option>
+              </select>
+            </label>
+
+            <!-- Q5: Support style -->
+            <label>
+              5) Which level of guidance would be most helpful?
+              <select name="q_support" required>
+                <option value="">Select one</option>
+                <option value="hands_off">
+                  I want a clean, guided build with minimal back-and-forth
+                </option>
+                <option value="guided">
+                  I want structure and light collaboration
+                </option>
+                <option value="strategic">
+                  I want strategic input on flow, decisions, and conversions
+                </option>
+              </select>
+            </label>
+
+            <p class="text-link" style="margin-top: 1rem">
+              <button
+                type="submit"
+                class="btn-primary"
+                data-track="quiz_submit_click"
+                data-label="package_quiz_submit"
+              >
+                Get my recommendation →
+              </button>
+            </p>
+
+            <p class="form-note">
+              You’ll receive a recommendation and a direct link to continue to
+              the project inquiry with the tier preselected.
+            </p>
+          </form>
+
+          <!-- Result (hidden until submit) -->
+          <div
+            id="quizResult"
+            class="service-block"
+            hidden
+            style="margin-top: 1.25rem"
+          >
+            <h2 id="resultTitle">Your recommendation</h2>
+            <p class="summary" id="resultSummary"></p>
+
+            <div class="addons-grid" id="resultDetails"></div>
+
+            <p class="text-link" style="margin-top: 1rem">
+              <a
+                id="resultCta"
+                class="btn-secondary"
+                href="contact.html?project_type=website&source=quiz_result"
+                data-track="services_cta_click"
+                data-label="quiz_result_start_inquiry"
+              >
+                Continue to Project Inquiry →
+              </a>
+            </p>
+
+            <p class="form-note" style="margin-top: 0.25rem">
+              You’ll have a chance to confirm scope and ask questions before
+              anything is finalized.
+            </p>
+
+            <p class="small-note" id="resultNote"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+        <a href="mailto:contact@kaylamariecollective.com" class="footer-link">
+          contact@kaylamariecollective.com
+        </a>
+      </div>
+    </footer>
+
+    <!-- Inline script: quiz logic only -->
+    <script>
+      (function () {
+        const form = document.getElementById("packageQuiz");
+        const result = document.getElementById("quizResult");
+        const title = document.getElementById("resultTitle");
+        const summary = document.getElementById("resultSummary");
+        const details = document.getElementById("resultDetails");
+        const cta = document.getElementById("resultCta");
+        const note = document.getElementById("resultNote");
+
+        if (!form || !result || !title || !summary || !details || !cta || !note)
+          return;
+
+        const scoreMap = { foundation: 0, growth: 0, strategic: 0 };
+
+        const resetScores = () => {
+          scoreMap.foundation = 0;
+          scoreMap.growth = 0;
+          scoreMap.strategic = 0;
+        };
+
+        const addPoints = (tier, pts) => {
+          scoreMap[tier] += pts;
+        };
+
+        const pickWinner = () => {
+          const entries = Object.entries(scoreMap).sort((a, b) => b[1] - a[1]);
+          return entries[0][0];
+        };
+        const card = (h, price, items) => {
+          const el = document.createElement("details");
+          el.className = "addon";
+          el.open = true; // shows the contents by default (still uses the same styling)
+
+          el.innerHTML = `
+            <summary>
+            ${h}
+            <span class="addon-price">${price}</span>
+            </summary>
+            <div class="addon-body">
+            <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+            </div>
+          `;
+
+          return el;
+        };
+
+        const whyNote = (items) => {
+          const el = document.createElement("details");
+          el.className = "addon";
+          el.innerHTML = `
+            <summary>Why this recommendation</summary>
+            <div class="addon-body">
+            <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+            </div>
+          `;
+          return el;
+        };
+
+        const render = (tier) => {
+          details.innerHTML = "";
+
+          if (tier === "foundation") {
+            title.textContent = "Recommendation: Foundation Website";
+            summary.textContent =
+              "Based on your responses, a Foundation Website is likely the best fit. This tier is designed for clarity, credibility, and a clean path to contact — without unnecessary complexity.";
+
+            details.appendChild(
+              card("Foundation Website", "$900–$1,100", [
+                "1–3 custom pages",
+                "Mobile-responsive build",
+                "Basic SEO + contact form",
+                "Domain + hosting connection",
+                "Launch-ready handoff",
+              ]),
+            );
+
+            details.appendChild(
+              whyNote([
+                "You indicated a smaller page count and a need for clarity over complexity.",
+                "Your primary goal centers on credibility and a clear contact path.",
+                "Advanced tracking and multi-step flows were not a priority based on your responses.",
+                "This tier avoids unnecessary layers while keeping the site professional and usable.",
+              ]),
+            );
+
+            cta.href =
+              "contact.html?project_type=website&tier=foundation&source=package_quiz";
+            note.textContent =
+              "If your offer becomes more complex or you need stronger conversion flow, the Growth tier may be a better next step.";
+          }
+
+          if (tier === "growth") {
+            title.textContent = "Recommendation: Growth Website (Most Popular)";
+            summary.textContent =
+              "Based on your responses, a Growth Website is likely the best fit. This tier provides stronger structure, clearer calls to action, and light conversion strategy to support consistent inquiries.";
+
+            details.appendChild(
+              card("Growth Website", "$1,350–$1,550", [
+                "4–6 custom pages",
+                "Strategic page flow + CTAs",
+                "GA4 analytics setup",
+                "Email signup integration",
+                "On-page SEO enhancements",
+              ]),
+            );
+
+            details.appendChild(
+              whyNote([
+                "You indicated a need for stronger structure and guided calls to action.",
+                "Your site needs to support consistent inquiries, not just exist.",
+                "Analytics and email capture mattered, without full funnel complexity.",
+                "This tier balances strategy and simplicity without overbuilding.",
+              ]),
+            );
+
+            cta.href =
+              "contact.html?project_type=website&tier=growth&source=package_quiz";
+            note.textContent =
+              "If your website needs to directly support revenue or more advanced tracking, a Strategic build may be appropriate.";
+          }
+
+          if (tier === "strategic") {
+            title.textContent =
+              "Recommendation: Strategic / Conversion-Led Website";
+            summary.textContent =
+              "Based on your responses, a Strategic / Conversion-Led Website is likely the best fit. This tier is designed for businesses where the website plays an active role in revenue, decision-making, and performance.";
+
+            details.appendChild(
+              card("Strategic / Conversion-Led", "$2,100–$2,400", [
+                "7–10 custom pages",
+                "Conversion mapping + lead flow",
+                "Advanced analytics + event tracking",
+                "Performance + accessibility pass",
+                "Priority planning + support",
+              ]),
+            );
+
+            details.appendChild(
+              whyNote([
+                "Your responses indicate the website plays an active role in revenue or enrollment.",
+                "Conversion flow, decision points, and tracking are important for this build.",
+                "You selected options that require deeper guidance and performance decisions.",
+                "This tier supports intentional optimization rather than guesswork.",
+              ]),
+            );
+
+            cta.href =
+              "contact.html?project_type=website&tier=strategic&source=package_quiz";
+            note.textContent =
+              "Final scope is always confirmed before work begins to ensure the right level of support.";
+          }
+
+          result.hidden = false;
+          result.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const data = new FormData(form);
+          const pages = data.get("q_pages");
+          const goal = data.get("q_goal");
+          const tracking = data.get("q_tracking");
+          const email = data.get("q_email");
+          const support = data.get("q_support");
+
+          if (!pages || !goal || !tracking || !email || !support) {
+            alert("Please answer all questions to get a recommendation.");
+            return;
+          }
+
+          resetScores();
+
+          // Q1 pages
+          if (pages === "1_3") addPoints("foundation", 3);
+          if (pages === "4_6") addPoints("growth", 3);
+          if (pages === "7_10") addPoints("strategic", 3);
+
+          // Q2 goal
+          if (goal === "credibility") addPoints("foundation", 3);
+          if (goal === "leads") addPoints("growth", 3);
+          if (goal === "revenue") addPoints("strategic", 3);
+
+          // Q3 tracking
+          if (tracking === "basic") addPoints("foundation", 2);
+          if (tracking === "ga4") addPoints("growth", 2);
+          if (tracking === "events") addPoints("strategic", 2);
+
+          // Q4 email
+          if (email === "no") addPoints("foundation", 1);
+          if (email === "yes_basic") addPoints("growth", 2);
+          if (email === "yes_strategic") addPoints("strategic", 2);
+
+          // Q5 support
+          if (support === "hands_off") addPoints("foundation", 1);
+          if (support === "guided") addPoints("growth", 2);
+          if (support === "strategic") addPoints("strategic", 3);
+
+          const winner = pickWinner();
+          render(winner);
+
+          try {
+            if (typeof window.gtag === "function") {
+              window.gtag("event", "package_quiz_result", {
+                label: winner,
+                page_path: window.location.pathname,
+                page_location: window.location.href,
+              });
+            }
+          } catch {}
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -100,7 +100,7 @@ body {
 
 main {
   flex: 1;
-  padding-top: 88px; /* keep in sync with fixed header height */
+  padding-top: 96px; /* keep in sync with fixed header height */
 }
 
 img {
@@ -1543,6 +1543,52 @@ details.addon[open] summary::after {
   background: rgba(243, 238, 233, 0.6);
 }
 
+
+/* Optional helper text used in contact form */
+.form-note {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Add-ons: text left, checkbox pinned right (accessible + stable)
+   Requires: <label class="check"><span class="check__text">…</span><input …></label>
+   (or input first + span second; CSS will place them correctly) */
+.addons-fieldset .check {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 0.9rem;
+  width: 100%;
+  padding: 0.55rem 0.5rem;
+  margin: 0.15rem 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.addons-fieldset .check:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.addons-fieldset .check:focus-within {
+  outline: 3px solid rgba(183, 123, 95, 0.35);
+  outline-offset: 2px;
+}
+
+.addons-fieldset .check__text {
+  grid-column: 1;
+  text-align: left;
+}
+
+.addons-fieldset .check input[type="checkbox"] {
+  grid-column: 2;
+  justify-self: end;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
 /* =========================
    Add-ons fieldset (continue)
    ========================= */
@@ -1823,60 +1869,84 @@ details.addon[open] summary::after {
 }
 
 /* =========================================================
-   MOBILE FIX PACK — drop at END of style.css
-   Purpose: make every page actually responsive again
+   Responsive (single source of truth)
+   Breakpoint: 900px
+   - Removes conflicting mobile fix packs
+   - Centers logo + menu button on small screens
+   - Consistent dropdown panel nav
    ========================================================= */
 
-/* 1) Stop sneaky horizontal overflow (common with grids/flex + padding) */
+/* Prevent horizontal scroll from grids/padding */
 html,
 body {
   overflow-x: hidden;
 }
 
-/* 2) Containers: slightly tighter padding on small screens */
+/* Slightly tighter rhythm on small screens */
 @media (max-width: 720px) {
   .container {
     padding: 0 1rem;
   }
+
   section {
     padding: 2.5rem 0;
   }
-  main {
-    padding-top: 78px;
-  } /* header is visually shorter on mobile */
 }
 
-/* 3) NAV: enable mobile toggle + convert nav into a dropdown panel */
+/* Mobile header + dropdown nav */
 @media (max-width: 900px) {
+  /* fixed header feels shorter on mobile */
+  main {
+    padding-top: 84px;
+  }
+
   .nav-toggle {
     display: inline-flex;
   }
 
-  /* make header row wrap nicely */
+  /* Center logo + button (stacked, stable) */
   .nav-container {
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
   }
 
-  /* default: hide nav links on mobile until opened */
+  .logo {
+    justify-content: center;
+  }
+
+  #logo {
+    height: 48px;
+    width: auto;
+  }
+
+  .nav-toggle {
+    margin: 0;
+  }
+
+  /* Dropdown panel nav */
   .main-nav {
     display: none;
-    width: 100%;
+    width: min(520px, 100%);
+    margin: 0.25rem auto 0;
+
     flex-direction: column;
     align-items: stretch;
     gap: 0.65rem;
 
     padding: 0.9rem;
-    margin-top: 0.35rem;
     border: 1px solid rgba(231, 212, 200, 0.9);
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.92);
     box-shadow: var(--shadow-soft);
     backdrop-filter: blur(10px);
+    text-align: center;
   }
 
-  /* when JS toggles .is-open on button, also toggle this class on nav
-     if you already do it differently, keep your JS and swap selector here */
   .main-nav.is-open {
     display: flex;
   }
@@ -1884,182 +1954,24 @@ body {
   .main-nav a {
     padding: 0.7rem 0.75rem;
     border-radius: 12px;
+    text-align: center;
   }
 
   .main-nav a.active {
-    padding: 0.7rem 0.75rem; /* keep it consistent in the dropdown */
-  }
-
-  .main-nav .btn-nav {
-    text-align: center;
-  }
-
-  /* logo sizing: prevent it from forcing layout width */
-  #logo {
-    height: 52px;
-  }
-}
-
-/* 4) GLOBAL GRID COLLAPSES (this is what’s killing you) */
-@media (max-width: 900px) {
-  .featured-grid {
-    grid-template-columns: 1fr;
-  }
-  .package-grid {
-    grid-template-columns: 1fr;
-  }
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-  .proof-inner {
-    grid-template-columns: 1fr;
-  }
-  .deliverables-grid {
-    grid-template-columns: 1fr;
-  }
-  .fit-columns {
-    grid-template-columns: 1fr;
-  }
-  .about-grid-2 {
-    grid-template-columns: 1fr;
-  }
-  .stats-row {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* 5) “SPLIT” SECTIONS: force stack */
-@media (max-width: 900px) {
-  .hero-split {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .about-intro {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .about-photo {
-    max-width: 320px; /* keeps it from feeling huge */
-    margin: 0 auto;
-  }
-}
-
-/* 6) Mid-CTA: your flex row needs to stack */
-@media (max-width: 900px) {
-  .mid-cta-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .mid-cta-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-}
-
-/* 7) Tighten card padding a bit on phones */
-@media (max-width: 520px) {
-  .service-block {
-    padding: 1.25rem 1.1rem;
-  }
-  .package-card {
-    padding: 1.25rem 1.1rem;
-  }
-  .portfolio-item h3,
-  .portfolio-item p,
-  .portfolio-item .tech {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-  .project-form {
-    padding: 1.4rem 1.1rem;
-  }
-}
-
-/* 8) Media heights: reduce fixed image heights on tiny screens */
-@media (max-width: 520px) {
-  .featured-item img {
-    height: 180px;
-  }
-  .portfolio-item img {
-    height: 190px;
-  }
-  .deliverable img {
-    height: 170px;
-  }
-}
-
-/* 9) Footer: already stacks at 768, keep spacing clean */
-@media (max-width: 768px) {
-  .footer-inner {
-    gap: 0.6rem;
-  }
-}
-
-/* =========================================================
-   MOBILE NAV + RESPONSIVE GRID FIX (drop at END)
-   ========================================================= */
-
-html,
-body {
-  overflow-x: hidden;
-}
-
-@media (max-width: 900px) {
-  /* show the toggle */
-  .nav-toggle {
-    display: inline-flex;
-  }
-
-  /* wrap header row */
-  .nav-container {
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  /* dropdown panel nav */
-  .main-nav {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.65rem;
-
-    padding: 0.9rem;
-    margin-top: 0.35rem;
-    border: 1px solid rgba(231, 212, 200, 0.9);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(10px);
-  }
-
-  .main-nav.is-open {
-    display: flex;
-  }
-
-  .main-nav a {
     padding: 0.7rem 0.75rem;
-    border-radius: 12px;
   }
 
   .main-nav .btn-nav {
     text-align: center;
   }
-
-  /* logo: stop it from forcing width */
-  #logo {
-    height: 52px;
-    width: auto;
-  }
 }
 
+/* Global grid collapses */
 @media (max-width: 900px) {
-  .proof-inner,
   .featured-grid,
   .package-grid,
   .portfolio-grid,
+  .proof-inner,
   .deliverables-grid,
   .fit-columns,
   .about-grid-2,
@@ -2070,6 +1982,12 @@ body {
   .hero-split,
   .about-intro {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about-photo {
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .mid-cta-inner {
@@ -2084,23 +2002,25 @@ body {
 }
 
 @media (max-width: 520px) {
-  .featured-item img {
-    height: 180px;
-  }
-  .portfolio-item img {
-    height: 190px;
-  }
-  .deliverable img {
-    height: 170px;
-  }
-
-  .service-block {
-    padding: 1.25rem 1.1rem;
-  }
+  .service-block,
   .package-card {
     padding: 1.25rem 1.1rem;
   }
+
   .project-form {
     padding: 1.4rem 1.1rem;
   }
+
+  .featured-item img {
+    height: 180px;
+  }
+
+  .portfolio-item img {
+    height: 190px;
+  }
+
+  .deliverable img {
+    height: 170px;
+  }
 }
+

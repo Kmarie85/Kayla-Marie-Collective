@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (new URLSearchParams(window.location.search).get(key) || "").trim();
+      return (
+        new URLSearchParams(window.location.search).get(key) || ""
+      ).trim();
     } catch {
       return "";
     }
@@ -54,7 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
      NAV ACTIVE STATES (global)
   ========================================================= */
   (() => {
-    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const path = (
+      window.location.pathname.split("/").pop() || "index.html"
+    ).toLowerCase();
     const nav = qs("[data-nav]");
     if (!nav) return;
 
@@ -62,7 +66,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const href = (a.getAttribute("href") || "").trim();
       if (!href || href.startsWith("http") || href.startsWith("#")) return;
 
-      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+      const file = href
+        .split("?")[0]
+        .split("#")[0]
+        .split("/")
+        .pop()
+        .toLowerCase();
       const isMatch = file === path;
 
       a.classList.toggle("active", isMatch);
@@ -88,10 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
         .slice(0, 80);
 
       const href = (el.getAttribute("href") || "").trim();
-      const label = explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
+      const label =
+        explicitLabel ||
+        textFallback ||
+        (href ? `href:${href}` : "") ||
+        "unknown";
 
       const isOutbound =
-        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
+        href &&
+        /^https?:\/\//i.test(href) &&
+        !href.includes(window.location.hostname);
 
       track(eventName, {
         label,
@@ -137,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", () => {
-      if (window.matchMedia("(min-width: 768px)").matches) setOpen(false);
+      if (window.matchMedia("(min-width: 900px)").matches) setOpen(false);
     });
   })();
 
@@ -194,18 +209,71 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const select = qs("#project_type", form) || qs("select[name='project_type']", form);
+    const select =
+      qs("#project_type", form) || qs("select[name='project_type']", form);
     if (!select || select.tagName !== "SELECT") return;
 
     const desired = resolveDesiredProjectType();
     if (!desired) return;
 
-    const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
+    const opt = Array.from(select.options).find(
+      (o) => safeLower(o.value) === desired,
+    );
     if (!opt) return;
 
     select.value = opt.value;
     select.dispatchEvent(new Event("change", { bubbles: true }));
   })();
+
+  /* =========================================================
+     CONTACT: PREFILL TIER (hidden input)
+     Reads ?tier=foundation|growth|strategic and submits with the form
+  ========================================================= */
+  (() => {
+    const form = qs("#contactForm");
+    if (!form) return;
+
+    const tierInput = qs("#tier", form);
+    if (!tierInput) return;
+
+    const tierRaw = safeLower(getParam("tier"));
+
+    const allowed = new Set(["foundation", "growth", "strategic"]);
+    if (!tierRaw || !allowed.has(tierRaw)) return;
+
+    tierInput.value = tierRaw;
+  })();
+
+/* =========================================================
+   CONTACT: show selected tier note (from quiz)
+========================================================= */
+(() => {
+  const form = qs("#contactForm");
+  if (!form) return;
+
+  const note = qs("#selectionNote");
+  const text = qs("#selectionText");
+  if (!note || !text) return;
+
+  const tier =
+    safeLower(getParam("tier")) ||
+    safeLower(qs("#tier", form)?.value);
+
+  if (!tier) return;
+
+  const labelMap = {
+    foundation: "Foundation Website",
+    growth: "Growth Website",
+    strategic: "Strategic / Conversion-Led Website",
+  };
+
+  const label = labelMap[tier];
+  if (!label) return;
+
+  text.textContent = label;
+  note.hidden = false;
+})();
+
 
   /* =========================================================
      CONTACT: STRATEGY FOLLOW-UP TOGGLE
@@ -214,7 +282,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const projectType = qs("#project_type", form) || qs("select[name='project_type']", form);
+    const projectType =
+      qs("#project_type", form) || qs("select[name='project_type']", form);
     const followup = qs("#strategyFollowup");
     const focus = qs("#strategy_focus");
     const link = qs("#strategy_link");
@@ -283,8 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: submit handling + attribution
-  ========================================================= */
+   CONTACT: submit handling + attribution
+========================================================= */
   (() => {
     const form = qs("#contactForm");
     if (!form) return;
@@ -292,7 +361,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectType = qs("#project_type", form);
 
     const getServiceHint = () =>
-      resolveDesiredProjectType() || safeLower(projectType && projectType.value) || "unknown";
+      resolveDesiredProjectType() ||
+      safeLower(projectType && projectType.value) ||
+      "unknown";
 
     const sourceInput = qs("#source", form);
     const sourcePageInput = qs("#source_page", form);
@@ -302,33 +373,48 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sourcePageInput) sourcePageInput.value = window.location.href;
     if (referrerInput) referrerInput.value = document.referrer || "";
 
-    track("contact_form_view", { source: sourceLabel, service: getServiceHint() });
+    track("contact_form_view", {
+      source: sourceLabel,
+      service: getServiceHint(),
+    });
 
     let started = false;
     const markStarted = () => {
       if (started) return;
       started = true;
-      track("contact_form_start", { source: sourceLabel, service: getServiceHint() });
+      track("contact_form_start", {
+        source: sourceLabel,
+        service: getServiceHint(),
+      });
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea")) markStarted();
+      if (e.target && e.target.matches("input, select, textarea"))
+        markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       if (!form.action) {
-        alert("Form action is missing. Please set your form endpoint and try again.");
+        alert(
+          "Form action is missing. Please set your form endpoint and try again.",
+        );
         return;
       }
 
       const serviceHint = getServiceHint();
-      const addons = qsa("input[name='addons']:checked", form).map((cb) => cb.value);
+      const addons = qsa("input[name='addons']:checked", form).map(
+        (cb) => cb.value,
+      );
+
+      // ✅ Capture tier value if present (set earlier from ?tier=... or manually)
+      const tierVal = (qs("#tier", form)?.value || "").trim();
 
       track("contact_form_submit_attempt", {
         source: sourceLabel,
         service: serviceHint,
+        tier: tierVal || undefined,
         addons_count: addons.length,
       });
 
@@ -345,31 +431,40 @@ document.addEventListener("DOMContentLoaded", () => {
           track("contact_form_submit_success", {
             source: sourceLabel,
             service: serviceHint,
+            tier: tierVal || undefined,
             addons_count: addons.length,
           });
 
           try {
             sessionStorage.setItem("kmc_last_source", sourceLabel);
             sessionStorage.setItem("kmc_last_service", serviceHint);
+            sessionStorage.setItem("kmc_last_tier", tierVal || "");
             sessionStorage.setItem("kmc_last_ts", String(Date.now()));
           } catch {}
 
-          const thankYouUrl = `thank-you.html?source=${encodeURIComponent(
-            sourceLabel
-          )}&project_type=${encodeURIComponent(serviceHint)}`;
+          // ✅ Carry tier through to thank-you (so it’s not lost)
+          const thankYouUrl =
+            `thank-you.html?source=${encodeURIComponent(sourceLabel)}` +
+            `&project_type=${encodeURIComponent(serviceHint)}` +
+            (tierVal ? `&tier=${encodeURIComponent(tierVal)}` : "");
+
           window.location.assign(thankYouUrl);
         } else {
           track("contact_form_submit_error", {
             source: sourceLabel,
             service: serviceHint,
+            tier: tierVal || undefined,
             status: res.status || 0,
           });
-          alert("Something went wrong. Please check your entries and try again.");
+          alert(
+            "Something went wrong. Please check your entries and try again.",
+          );
         }
       } catch {
         track("contact_form_submit_error", {
           source: sourceLabel,
           service: serviceHint,
+          tier: tierVal || undefined,
           status: "network_error",
         });
         alert("Network error. Please try again.");
@@ -378,8 +473,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     THANK-YOU PAGE conversion event
-  ========================================================= */
+   THANK-YOU PAGE conversion event
+========================================================= */
   (() => {
     const isThankYou =
       /\/thank-you\.html(\?|#|$)/i.test(window.location.pathname) ||
@@ -389,11 +484,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let src = "";
     let svc = "";
+    let tier = "";
     let ts = 0;
 
     try {
       src = sessionStorage.getItem("kmc_last_source") || "";
       svc = sessionStorage.getItem("kmc_last_service") || "";
+      tier = sessionStorage.getItem("kmc_last_tier") || "";
       ts = Number(sessionStorage.getItem("kmc_last_ts") || "0");
     } catch {}
 
@@ -404,18 +501,29 @@ document.addEventListener("DOMContentLoaded", () => {
       safeLower(getParam("service")) ||
       "unknown";
 
+    tier = tier || safeLower(getParam("tier")) || "";
+
     const ageMs = ts ? Date.now() - ts : Infinity;
     const recentEnough = ageMs >= 0 && ageMs < 10 * 60 * 1000;
 
     if (recentEnough) {
-      track("inquiry_thank_you_view", { source: src, service: svc });
+      track("inquiry_thank_you_view", {
+        source: src,
+        service: svc,
+        tier: tier || undefined,
+      });
       try {
         sessionStorage.removeItem("kmc_last_source");
         sessionStorage.removeItem("kmc_last_service");
+        sessionStorage.removeItem("kmc_last_tier");
         sessionStorage.removeItem("kmc_last_ts");
       } catch {}
     } else {
-      track("thank_you_view", { source: src, service: svc });
+      track("thank_you_view", {
+        source: src,
+        service: svc,
+        tier: tier || undefined,
+      });
     }
   })();
 
@@ -455,7 +563,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lbImg.src = "";
       lbImg.alt = "";
 
-      if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
+      if (lastActiveEl && typeof lastActiveEl.focus === "function")
+        lastActiveEl.focus();
       lastActiveEl = null;
     };
 
@@ -503,9 +612,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const tilt = (progress * (isDesktop ? 0.35 : 0.18)).toFixed(3); // deg
         const opacity = (1 - progress * 0.12).toFixed(3);
 
-        document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
+        document.documentElement.style.setProperty(
+          "--hero-shift",
+          `${shift}px`,
+        );
         document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
-        document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
+        document.documentElement.style.setProperty(
+          "--hero-opacity",
+          `${opacity}`,
+        );
       };
 
       const requestTick = () => {
@@ -518,14 +633,21 @@ document.addEventListener("DOMContentLoaded", () => {
       const markScrolling = () => {
         hero.classList.add("is-scrolling");
         clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => hero.classList.remove("is-scrolling"), 140);
+        scrollTimer = setTimeout(
+          () => hero.classList.remove("is-scrolling"),
+          140,
+        );
       };
 
       updateHero();
-      window.addEventListener("scroll", () => {
-        requestTick();
-        markScrolling();
-      }, { passive: true });
+      window.addEventListener(
+        "scroll",
+        () => {
+          requestTick();
+          markScrolling();
+        },
+        { passive: true },
+      );
 
       window.addEventListener("resize", requestTick);
     }
@@ -560,7 +682,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
     );
 
     qsa(".reveal").forEach((el) => io.observe(el));
