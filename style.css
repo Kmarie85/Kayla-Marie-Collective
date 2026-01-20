@@ -164,7 +164,7 @@ section h2 {
    ========================= */
 
 .site-header {
-  background: #d5beb6;
+  background: #E6D3BF ;
   border-bottom: 1px solid var(--line);
   position: fixed;
   top: 0;
@@ -1583,7 +1583,7 @@ details.addon[open] summary::after {
    ========================= */
 
 .site-footer {
-  background: #d5beb6;
+  background: #756f6b;
   border-top: 1px solid rgba(0,0,0,0.08);
   padding: 1.4rem 0;
   font-size: 0.9rem;
@@ -1592,20 +1592,30 @@ details.addon[open] summary::after {
 
 .footer-inner {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
+
+  color: #efe9e2;
+  line-height: 1.2;
+}
+
+.site-footer p,
+.site-footer a {
+  display: inline-block;
+  vertical-align: baseline;
 }
 
 .footer-link {
-  color: var(--accent-2);
+  color: #d6c7b5;
+  line-height: inherit;
+  font-weight: inherit;
 }
-
-
 
 .footer-link:hover {
   text-decoration: underline;
 }
+
 
 /* =========================
    Motion + hover polish (2026 feel)
