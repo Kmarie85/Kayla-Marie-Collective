@@ -1708,3 +1708,223 @@ details.addon[open] summary::after {
     transition: none !important;
   }
 }
+
+/* =========================================================
+   MOBILE FIX PACK — drop at END of style.css
+   Purpose: make every page actually responsive again
+   ========================================================= */
+
+/* 1) Stop sneaky horizontal overflow (common with grids/flex + padding) */
+html, body { overflow-x: hidden; }
+
+/* 2) Containers: slightly tighter padding on small screens */
+@media (max-width: 720px){
+  .container { padding: 0 1rem; }
+  section { padding: 2.5rem 0; }
+  main { padding-top: 78px; } /* header is visually shorter on mobile */
+}
+
+/* 3) NAV: enable mobile toggle + convert nav into a dropdown panel */
+@media (max-width: 900px){
+  .nav-toggle{
+    display: inline-flex;
+  }
+
+  /* make header row wrap nicely */
+  .nav-container{
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* default: hide nav links on mobile until opened */
+  .main-nav{
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+
+    padding: 0.9rem;
+    margin-top: 0.35rem;
+    border: 1px solid rgba(231, 212, 200, 0.9);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+  }
+
+  /* when JS toggles .is-open on button, also toggle this class on nav
+     if you already do it differently, keep your JS and swap selector here */
+  .main-nav.is-open{
+    display: flex;
+  }
+
+  .main-nav a{
+    padding: 0.7rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  .main-nav a.active{
+    padding: 0.7rem 0.75rem; /* keep it consistent in the dropdown */
+  }
+
+  .main-nav .btn-nav{
+    text-align: center;
+  }
+
+  /* logo sizing: prevent it from forcing layout width */
+  #logo{ height: 52px; }
+}
+
+/* 4) GLOBAL GRID COLLAPSES (this is what’s killing you) */
+@media (max-width: 900px){
+  .featured-grid{ grid-template-columns: 1fr; }
+  .package-grid{ grid-template-columns: 1fr; }
+  .portfolio-grid{ grid-template-columns: 1fr; }
+  .proof-inner{ grid-template-columns: 1fr; }
+  .deliverables-grid{ grid-template-columns: 1fr; }
+  .fit-columns{ grid-template-columns: 1fr; }
+  .about-grid-2{ grid-template-columns: 1fr; }
+  .stats-row{ grid-template-columns: 1fr; }
+}
+
+/* 5) “SPLIT” SECTIONS: force stack */
+@media (max-width: 900px){
+  .hero-split{
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .about-intro{
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .about-photo{
+    max-width: 320px; /* keeps it from feeling huge */
+    margin: 0 auto;
+  }
+}
+
+/* 6) Mid-CTA: your flex row needs to stack */
+@media (max-width: 900px){
+  .mid-cta-inner{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mid-cta-actions{
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* 7) Tighten card padding a bit on phones */
+@media (max-width: 520px){
+  .service-block{ padding: 1.25rem 1.1rem; }
+  .package-card{ padding: 1.25rem 1.1rem; }
+  .portfolio-item h3,
+  .portfolio-item p,
+  .portfolio-item .tech{
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  .project-form{ padding: 1.4rem 1.1rem; }
+}
+
+/* 8) Media heights: reduce fixed image heights on tiny screens */
+@media (max-width: 520px){
+  .featured-item img{ height: 180px; }
+  .portfolio-item img{ height: 190px; }
+  .deliverable img{ height: 170px; }
+}
+
+/* 9) Footer: already stacks at 768, keep spacing clean */
+@media (max-width: 768px){
+  .footer-inner{ gap: 0.6rem; }
+}
+
+/* =========================================================
+   MOBILE NAV + RESPONSIVE GRID FIX (drop at END)
+   ========================================================= */
+
+html, body { overflow-x: hidden; }
+
+@media (max-width: 900px){
+  /* show the toggle */
+  .nav-toggle{ display: inline-flex; }
+
+  /* wrap header row */
+  .nav-container{
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* dropdown panel nav */
+  .main-nav{
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+
+    padding: 0.9rem;
+    margin-top: 0.35rem;
+    border: 1px solid rgba(231, 212, 200, 0.9);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.92);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+  }
+
+  .main-nav.is-open{ display: flex; }
+
+  .main-nav a{
+    padding: 0.7rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  .main-nav .btn-nav{
+    text-align: center;
+  }
+
+  /* logo: stop it from forcing width */
+  #logo{ height: 52px; width: auto; }
+}
+
+@media (max-width: 900px){
+  .proof-inner,
+  .featured-grid,
+  .package-grid,
+  .portfolio-grid,
+  .deliverables-grid,
+  .fit-columns,
+  .about-grid-2,
+  .stats-row{
+    grid-template-columns: 1fr;
+  }
+
+  .hero-split,
+  .about-intro{
+    grid-template-columns: 1fr;
+  }
+
+  .mid-cta-inner{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mid-cta-actions{
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px){
+  .featured-item img{ height: 180px; }
+  .portfolio-item img{ height: 190px; }
+  .deliverable img{ height: 170px; }
+
+  .service-block{ padding: 1.25rem 1.1rem; }
+  .package-card{ padding: 1.25rem 1.1rem; }
+  .project-form{ padding: 1.4rem 1.1rem; }
+}
