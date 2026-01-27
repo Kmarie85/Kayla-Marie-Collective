@@ -341,6 +341,7 @@ section h2 {
   padding: 0.7rem 1.6rem;
   border-radius: 999px;
   cursor: pointer;
+  align-items: center;
   transition:
     transform 250ms var(--ease),
     box-shadow 250ms var(--ease),
@@ -366,7 +367,7 @@ section h2 {
 .btn-secondary {
   background: transparent;
   color: var(--accent-2);
-  border: 1px solid rgba(231, 212, 200, 0.95);
+  border: 2px solid rgba(231, 212, 200, 0.95);
 }
 
 .btn-secondary:hover {
@@ -617,12 +618,13 @@ section h2 {
 .text-link {
   color: var(--accent-2);
   font-weight: 650;
-  margin-left: 0;
   text-decoration: none;
   position: relative;
   display: inline-block;
-  padding-bottom: 2px;
+  margin-left: 1.25rem; /* adjust */
+  padding-bottom: 10px;
 }
+
 .text-link::after {
   content: "";
   position: absolute;
@@ -748,6 +750,48 @@ section h2 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 } */
+
+/* Homepage: Website Packages 3-up preview */
+.package-grid-3 {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .package-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.package-card .package-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--line, rgba(0,0,0,0.15));
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+}
+
+.package-card .package-desc {
+  margin: 8px 0 12px;
+  color: var(--muted, #6b5a53);
+}
+
+.package-card.featured {
+  border-width: 2px;
+  transform: translateY(-2px);
+}
+
+.packages-actions {
+  display: flex;
+  justify-content: center;
+}
+
 
 /* =========================
    Home: FAQ
@@ -2024,3 +2068,51 @@ body {
   }
 }
 
+
+.card,
+.project-card,
+.work-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   Services/Add-ons card CTA centering (override)
+   Paste at END of style.css
+   ========================= */
+
+/* Ensure the card is a column */
+.package-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kill the global text-link "right shift" and underline behavior when it's used as a CTA wrapper */
+.package-card .text-link {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+  /* IMPORTANT: override the inline style="margin-top: 12px" */
+  margin-top: auto !important;
+
+  /* Center the CTA at the bottom */
+  display: flex;
+  justify-content: center;
+  padding-top: 18px;
+  padding-bottom: 0;
+}
+
+/* Remove the default <p> bottom margin so it doesn't push things weirdly */
+.package-card p.text-link {
+  margin-bottom: 0 !important;
+}
+
+/* Make the button itself center nicely and not behave like a weird flex row */
+.package-card .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 240px;
+  text-align: center;
+}
