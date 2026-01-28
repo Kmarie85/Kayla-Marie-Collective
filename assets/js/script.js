@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (new URLSearchParams(window.location.search).get(key) || "").trim();
+      return (
+        new URLSearchParams(window.location.search).get(key) || ""
+      ).trim();
     } catch {
       return "";
     }
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.gtag("event", eventName, {
           page_location: window.location.href,
           page_path: window.location.pathname,
-          ...params
+          ...params,
         });
       }
     } catch {
@@ -54,7 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
      NAV ACTIVE STATES (global)
   ========================================================= */
   (() => {
-    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const path = (
+      window.location.pathname.split("/").pop() || "index.html"
+    ).toLowerCase();
     const nav = qs("[data-nav]");
     if (!nav) return;
 
@@ -94,7 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
         .slice(0, 80);
 
       const href = (el.getAttribute("href") || "").trim();
-      const label = explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
+      const label =
+        explicitLabel ||
+        textFallback ||
+        (href ? `href:${href}` : "") ||
+        "unknown";
 
       const isOutbound =
         href &&
@@ -105,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         label,
         outbound: !!isOutbound,
         link_url: isOutbound ? href : undefined,
-        source: sourceLabel
+        source: sourceLabel,
       });
     });
   })();
@@ -161,7 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!d.open) return;
 
         const summary = d.querySelector("summary");
-        const label = (summary && summary.textContent ? summary.textContent : "addon_open")
+        const label = (
+          summary && summary.textContent ? summary.textContent : "addon_open"
+        )
           .replace(/\s+/g, " ")
           .trim()
           .slice(0, 80);
@@ -187,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "photography",
       "strategy",
       "wellness_essentials",
-      "wellness_growth"
+      "wellness_growth",
     ]);
 
     if (projectTypeRaw && allowed.has(projectTypeRaw)) return projectTypeRaw;
@@ -210,7 +220,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const desired = resolveDesiredProjectType();
     if (!desired) return;
 
-    const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
+    const opt = Array.from(select.options).find(
+      (o) => safeLower(o.value) === desired,
+    );
     if (!opt) return;
 
     select.value = opt.value;
@@ -255,14 +267,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = qs("#selectionText");
     if (!note || !text) return;
 
-    const tier = safeLower(getParam("tier")) || safeLower((qs("#tier", form) || {}).value);
+    const tier =
+      safeLower(getParam("tier")) || safeLower((qs("#tier", form) || {}).value);
 
     if (!tier) return;
 
     const labelMap = {
       foundation: "Foundation Website",
       growth: "Growth Website",
-      strategic: "Premium Website"
+      strategic: "Premium Website",
     };
 
     const label = labelMap[tier];
@@ -381,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     track("contact_form_view", {
       source: sourceLabel,
-      service: getServiceHint()
+      service: getServiceHint(),
     });
 
     let started = false;
@@ -390,12 +403,13 @@ document.addEventListener("DOMContentLoaded", () => {
       started = true;
       track("contact_form_start", {
         source: sourceLabel,
-        service: getServiceHint()
+        service: getServiceHint(),
       });
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea")) markStarted();
+      if (e.target && e.target.matches("input, select, textarea"))
+        markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
@@ -404,17 +418,24 @@ document.addEventListener("DOMContentLoaded", () => {
       // Browser-native validation (required fields, email format, etc.)
       if (!form.checkValidity()) {
         form.reportValidity();
-        track("contact_form_invalid", { source: sourceLabel, service: getServiceHint() });
+        track("contact_form_invalid", {
+          source: sourceLabel,
+          service: getServiceHint(),
+        });
         return;
       }
 
       if (!form.action) {
-        alert("Form action is missing. Please set your form endpoint and try again.");
+        alert(
+          "Form action is missing. Please set your form endpoint and try again.",
+        );
         return;
       }
 
       const serviceHint = getServiceHint();
-      const addons = qsa("input[name='addons']:checked", form).map((cb) => cb.value);
+      const addons = qsa("input[name='addons']:checked", form).map(
+        (cb) => cb.value,
+      );
 
       const tierVal = ((qs("#tier", form) || {}).value || "").trim();
 
@@ -422,7 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
         source: sourceLabel,
         service: serviceHint,
         tier: tierVal || undefined,
-        addons_count: addons.length
+        addons_count: addons.length,
       });
 
       const formData = new FormData(form);
@@ -431,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch(form.action, {
           method: "POST",
           body: formData,
-          headers: { Accept: "application/json" }
+          headers: { Accept: "application/json" },
         });
 
         if (res.ok) {
@@ -439,7 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
             source: sourceLabel,
             service: serviceHint,
             tier: tierVal || undefined,
-            addons_count: addons.length
+            addons_count: addons.length,
           });
 
           try {
@@ -452,7 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           const thankYouUrl =
-            `thank-you.html?source=${encodeURIComponent(sourceLabel)}` +
+            `/thank-you.html?source=${encodeURIComponent(sourceLabel)}` +
             `&project_type=${encodeURIComponent(serviceHint)}` +
             (tierVal ? `&tier=${encodeURIComponent(tierVal)}` : "");
 
@@ -462,16 +483,18 @@ document.addEventListener("DOMContentLoaded", () => {
             source: sourceLabel,
             service: serviceHint,
             tier: tierVal || undefined,
-            status: res.status || 0
+            status: res.status || 0,
           });
-          alert("Something went wrong. Please check your entries and try again.");
+          alert(
+            "Something went wrong. Please check your entries and try again.",
+          );
         }
       } catch {
         track("contact_form_submit_error", {
           source: sourceLabel,
           service: serviceHint,
           tier: tierVal || undefined,
-          status: "network_error"
+          status: "network_error",
         });
         alert("Network error. Please try again.");
       }
@@ -525,13 +548,13 @@ document.addEventListener("DOMContentLoaded", () => {
         photography: "Photography",
         strategy: "Strategy-Led Build",
         wellness_essentials: "Wellness Essentials",
-        wellness_growth: "Wellness Growth"
+        wellness_growth: "Wellness Growth",
       };
 
       const tierMap = {
         foundation: "Foundation Website",
         growth: "Growth Website",
-        strategic: "Premium Website"
+        strategic: "Premium Website",
       };
 
       const svcText = svcMap[svc] || (svc ? svc : "Project inquiry");
@@ -550,7 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
       track("inquiry_thank_you_view", {
         source: src,
         service: svc,
-        tier: tier || undefined
+        tier: tier || undefined,
       });
       try {
         sessionStorage.removeItem("kmc_last_source");
@@ -564,7 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
       track("thank_you_view", {
         source: src,
         service: svc,
-        tier: tier || undefined
+        tier: tier || undefined,
       });
     }
   })();
@@ -605,7 +628,8 @@ document.addEventListener("DOMContentLoaded", () => {
       lbImg.src = "";
       lbImg.alt = "";
 
-      if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
+      if (lastActiveEl && typeof lastActiveEl.focus === "function")
+        lastActiveEl.focus();
       lastActiveEl = null;
     };
 
@@ -652,9 +676,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const tilt = (progress * (isDesktop ? 0.35 : 0.18)).toFixed(3); // deg
         const opacity = (1 - progress * 0.12).toFixed(3);
 
-        document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
+        document.documentElement.style.setProperty(
+          "--hero-shift",
+          `${shift}px`,
+        );
         document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
-        document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
+        document.documentElement.style.setProperty(
+          "--hero-opacity",
+          `${opacity}`,
+        );
       };
 
       const requestTick = () => {
@@ -667,7 +697,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const markScrolling = () => {
         hero.classList.add("is-scrolling");
         clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => hero.classList.remove("is-scrolling"), 140);
+        scrollTimer = setTimeout(
+          () => hero.classList.remove("is-scrolling"),
+          140,
+        );
       };
 
       updateHero();
@@ -677,7 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
           requestTick();
           markScrolling();
         },
-        { passive: true }
+        { passive: true },
       );
 
       window.addEventListener("resize", requestTick);
@@ -713,7 +746,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
     );
 
     qsa(".reveal").forEach((el) => io.observe(el));

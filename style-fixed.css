@@ -1930,7 +1930,7 @@ details.addon[open] summary::after {
 }
 
 /* =========================
-   Responsive cleanups (remove conflicting duplicates)
+   Responsive cleanups 
    ========================= */
 
 @media (max-width: 720px) {
@@ -1970,139 +1970,101 @@ details.addon[open] summary::after {
   }
 }
 
-/* =========================
-   Card CTAs — single consistent behavior
-   - No scattered buttons
-   - CTA pins to bottom inside cards
-   - No global .text-link weirdness inside cards
-   ========================= */
+/* =========================================================
+   FOOTER — tighten + center + breathe (final override)
+   Paste at VERY END of style.css
+   ========================================================= */
 
-/* 1) Any “card-like” component can use this pattern */
-.package-card,
-.service-block,
-.portfolio-item,
-.featured-item,
-.case-card,
-.card,
-.project-card,
-.work-card {
-  display: flex;
-  flex-direction: column;
+.site-footer{
+  padding: 44px 0;                 /* was 64px: too tall in screenshot */
 }
 
-/* 2) The CTA wrapper gets pinned to bottom */
-.package-card .card-cta,
-.service-block .card-cta,
-.portfolio-item .card-cta,
-.featured-item .card-cta,
-.case-card .card-cta {
-  margin-top: auto;
-  padding-top: 16px;
+.footer-inner{
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+
+  gap: 18px;                       /* was 28px: tighter rhythm */
+}
+
+.footer-brand{
+  text-align: center;
+  max-width: 720px;
+}
+
+.footer-logo{
+  margin: 0 auto 10px;
+}
+
+.footer-tagline{
+  max-width: 60ch;
+}
+
+/* Card: make it feel like a real panel, not a tiny floating tile */
+.footer-card{
+  max-width: 820px;                /* wider = less “floating” */
+  width: min(820px, 100%);
+  padding: 20px 22px;              /* a bit more internal breathing */
+  border-radius: 20px;
+}
+
+/* Kicker: keep crisp and readable */
+.footer-kicker{
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+}
+
+/* Links row: align baseline + spacing so it looks intentional */
+.footer-links{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  gap: 10px 14px;
+  margin: 2px 0 0;
+  padding: 0;
 }
 
-/* 3) You currently use <p class="text-link"> as a wrapper.
-      Neutralize ONLY inside cards so the global .text-link can still exist elsewhere. */
-.package-card p.text-link,
-.service-block p.text-link,
-.portfolio-item p.text-link,
-.featured-item p.text-link,
-.case-card p.text-link {
-  margin-top: auto !important;
-  margin-bottom: 0 !important;
-  margin-left: 0 !important;
-  padding-bottom: 0 !important;
-  display: flex;
-  justify-content: center;
-  padding-top: 16px;
-}
-
-/* Remove underline pseudo-element ONLY inside cards */
-.package-card .text-link::after,
-.service-block .text-link::after,
-.portfolio-item .text-link::after,
-.featured-item .text-link::after,
-.case-card .text-link::after {
-  display: none !important;
-}
-
-/* 4) Button sizing consistency inside cards */
-.package-card .btn-primary,
-.package-card .btn-secondary,
-.package-card .btn-outline,
-.service-block .btn-primary,
-.service-block .btn-secondary,
-.service-block .btn-outline,
-.portfolio-item .btn-primary,
-.portfolio-item .btn-secondary,
-.portfolio-item .btn-outline,
-.featured-item .btn-primary,
-.featured-item .btn-secondary,
-.featured-item .btn-outline,
-.case-card .btn-primary,
-.case-card .btn-secondary,
-.case-card .btn-outline {
+/* Normal links */
+.footer-links a{
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 240px;
-  text-align: center;
+  line-height: 1;
+  padding: 6px 2px;
 }
 
-/* 5) On tiny screens, let buttons be full width */
-@media (max-width: 520px) {
-  .package-card .btn-primary,
-  .package-card .btn-secondary,
-  .package-card .btn-outline,
-  .service-block .btn-primary,
-  .service-block .btn-secondary,
-  .service-block .btn-outline,
-  .portfolio-item .btn-primary,
-  .portfolio-item .btn-secondary,
-  .portfolio-item .btn-outline,
-  .featured-item .btn-primary,
-  .featured-item .btn-secondary,
-  .featured-item .btn-outline,
-  .case-card .btn-primary,
-  .case-card .btn-secondary,
-  .case-card .btn-outline {
-    width: 100%;
-    min-width: 0;
-  }
+/* CTA pill in footer uses ONE consistent style */
+.footer-links a.footer-cta{
+  padding: 9px 12px;               /* matches your global button rhythm */
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--accent-2);
+  color: #fff !important;
+  text-decoration: none;
 }
 
-/* =========================
-   Motion + hover polish (keep once)
-   ========================= */
+.footer-links a.footer-cta:hover,
+.footer-links a.footer-cta:focus-visible{
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
+  text-decoration: none;
+}
 
-@media (prefers-reduced-motion: no-preference) {
-  .package-card,
-  .featured-item,
-  .portfolio-item,
-  .service-block,
-  .faq-item,
-  .proof-item,
-  .about-card,
-  .soft-panel,
-  .stat {
-    transition:
-      transform 350ms var(--ease-out),
-      box-shadow 350ms var(--ease-out);
-  }
+/* Meta spacing: reduce dead space */
+.footer-meta{
+  padding-top: 10px;
+  gap: 5px;
+}
 
-  .package-card:hover,
-  .featured-item:hover,
-  .portfolio-item:hover,
-  .service-block:hover,
-  .faq-item:hover,
-  .proof-item:hover,
-  .about-card:hover,
-  .soft-panel:hover,
-  .stat:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-float);
-  }
+/* Mobile: keep it clean */
+@media (max-width: 720px){
+  .site-footer{ padding: 40px 0; }
+  .footer-card{ padding: 18px 16px; }
 }
 
 /* =========================================================
@@ -2116,6 +2078,11 @@ details.addon[open] summary::after {
   padding: 56px 0;
 }
 
+/* IMPORTANT: undo earlier footer centering rules */
+.site-footer .container{
+  display: block;
+}
+
 .footer-inner{
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
@@ -2123,7 +2090,6 @@ details.addon[open] summary::after {
   align-items: start;
   justify-items: start;
 }
-
 /* Brand column */
 .footer-brand{
   max-width: 520px;
@@ -2236,14 +2202,14 @@ a.footer-contact-value:hover{
 .footer-meta p{ margin: 0; }
 
 /* Responsive */
-@media (max-width: 900px){
+@media (max-width: 980px){
   .footer-inner{
     grid-template-columns: 1fr 1fr;
     gap: 32px;
   }
 }
 
-@media (max-width: 520px){
+@media (max-width: 640px){
   .footer-inner{
     grid-template-columns: 1fr;
     gap: 22px;
@@ -2251,4 +2217,26 @@ a.footer-contact-value:hover{
   .footer-brand{
     max-width: 100%;
   }
+}
+
+
+/* =========================================================
+   FOOTER — hard override (4-col wins)
+   Fixes earlier centered-footer rules that were still applying.
+   ========================================================= */
+
+.site-footer .container{
+  display: block;              /* undo earlier grid centering */
+}
+
+.footer-inner{
+  justify-items: start;        /* undo earlier justify-items:center */
+}
+
+.footer-brand{
+  text-align: left;            /* undo earlier centered brand */
+}
+
+@media (max-width: 640px){
+  .footer-brand{ text-align: left; }
 }
