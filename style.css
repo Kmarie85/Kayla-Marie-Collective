@@ -1329,6 +1329,12 @@ section h2 {
   line-height: 1.6;
 }
 
+.micro-line {
+  font-size: 12px;
+  padding-top: 10px;
+  text-align: center;
+}
+
 /* =========================
    Add-ons accordion + chevron
    ========================= */
@@ -1695,6 +1701,9 @@ details.addon[open] summary::after {
   opacity: 0.9;
 }
 
+.start-container {
+  margin-top: -100px;
+}
 /* =========================
    Wellness Brands (kept)
    ========================= */

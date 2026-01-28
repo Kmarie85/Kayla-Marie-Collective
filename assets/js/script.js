@@ -184,30 +184,57 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
      CONTACT: PREFILL SELECT
   ========================================================= */
-  const resolveDesiredProjectType = () => {
-    const projectTypeRaw = safeLower(getParam("project_type"));
-    const serviceRaw = safeLower(getParam("service"));
-    const typeRaw = safeLower(getParam("type"));
+const resolveDesiredProjectType = () => {
+  const projectTypeRaw = safeLower(getParam("project_type"));
+  const serviceRaw = safeLower(getParam("service")); // legacy support
+  const typeRaw = safeLower(getParam("type"));       // legacy support
+  const tierRaw = safeLower(getParam("tier"));       // optional helper
 
-    const allowed = new Set([
-      "clarity_call",
-      "website",
-      "product",
-      "funnel",
-      "photography",
-      "strategy",
-      "wellness_essentials",
-      "wellness_growth",
-    ]);
-
-    if (projectTypeRaw && allowed.has(projectTypeRaw)) return projectTypeRaw;
-    if (serviceRaw && allowed.has(serviceRaw)) return serviceRaw;
-
-    if (typeRaw === "strategy") return "strategy";
-    if (typeRaw === "standard") return "website";
-
-    return "";
+  // If tier is provided, let it drive the dropdown
+  const tierToProjectType = {
+    foundation: "foundation-website",
+    growth: "growth-website",
+    strategic: "strategy",
   };
+  if (tierRaw && tierToProjectType[tierRaw]) return tierToProjectType[tierRaw];
+
+  // Current allowed dropdown values
+  const allowed = new Set([
+    "foundation-website",
+    "growth-website",
+    "strategy",
+    "product",
+    "funnel",
+    "brand",
+    "photography",
+    "wellness_essentials",
+    "wellness_growth",
+    "not_sure",
+  ]);
+
+  // Direct project_type match
+  if (projectTypeRaw && allowed.has(projectTypeRaw)) return projectTypeRaw;
+
+  // Legacy mappings (old links still work)
+  const legacyMap = {
+    website: "foundation-website",   // default old "website" to foundation
+    standard: "foundation-website",
+    clarity_call: "not_sure",        // if you still have old clarity links, route to guidance
+    strategy: "strategy",
+    product: "product",
+    funnel: "funnel",
+    brand: "brand",
+    photography: "photography",
+    wellness_essentials: "wellness_essentials",
+    wellness_growth: "wellness_growth",
+  };
+
+  if (serviceRaw && legacyMap[serviceRaw]) return legacyMap[serviceRaw];
+  if (typeRaw && legacyMap[typeRaw]) return legacyMap[typeRaw];
+
+  return "";
+};
+
 
   (() => {
     const form = qs("#contactForm");

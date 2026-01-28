@@ -96,73 +96,73 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Header / Nav -->
-<header class="site-header">
-  <div class="container nav-container">
-    <a
-      href="/index.html"
-      class="logo"
-      aria-label="Kayla Marie Collective home"
-    >
-      <img
-        src="/images/primaryanchor-wordmark.png"
-        alt="Kayla Marie Collective"
-        id="logo"
-        decoding="async"
-        width="520"
-        height="120"
-      />
-    </a>
+    <header class="site-header">
+      <div class="container nav-container">
+        <a
+          href="/index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
+          <img
+            src="/images/primaryanchor-wordmark.png"
+            alt="Kayla Marie Collective"
+            id="logo"
+            decoding="async"
+            width="520"
+            height="120"
+          />
+        </a>
 
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-      data-nav-toggle
-    >
-      Menu
-    </button>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          data-nav-toggle
+        >
+          Menu
+        </button>
 
-    <nav
-      class="main-nav"
-      id="primary-nav"
-      aria-label="Main navigation"
-      data-nav
-    >
-      <a href="/index.html">Home</a>
-      <a href="/services.html">Services</a>
-      <a href="/portfolio.html">Portfolio</a>
-      <a href="/about.html">About</a>
-      <a
-        href="/contact.html?source=nav_portfolio&service=website"
-        class="btn-nav"
-        data-track="nav_cta_click"
-        data-label="nav_portfolio_start_project"
-      >
-        Start a Project
-      </a>
-    </nav>
-  </div>
-</header>
+        <nav
+          class="main-nav"
+          id="primary-nav"
+          aria-label="Main navigation"
+          data-nav
+        >
+          <a href="/index.html">Home</a>
+          <a href="/services.html">Services</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/about.html">About</a>
+          <a
+            href="/contact.html?source=nav_portfolio&project_type=website"
+            class="btn-nav"
+            data-track="nav_cta_click"
+            data-label="nav_portfolio_start_project"
+          >
+            Start a Project
+          </a>
+        </nav>
+      </div>
+    </header>
 
     <main id="main">
       <!-- Page Hero -->
       <section class="page-hero">
         <div class="container">
-          <h1>Start a Project</h1>
-          <p>Tell me what you’re building so we can see if we’re a fit.</p>
+          <h1>Start a Website Project</h1>
+          <p>
+            Share a few details about what you’re building. I’ll review your
+            goals, confirm fit, and follow up with next steps or a quote.
+          </p>
         </div>
       </section>
 
       <div class="contact-boundary">
         <div class="container">
           <p>
-            I take on a limited number of projects at a time to ensure each
-            build gets the attention it deserves.
-          </p>
-          <p>
-            Project timelines and availability depend on scope clarity and
-            client responsiveness.
+            I take on a limited number of builds at a time to keep the process
+            focused and the work high-quality. Availability depends on scope and
+            timeline.
           </p>
         </div>
       </div>
@@ -245,7 +245,7 @@
             </label>
 
             <label>
-              What do you want built? <span aria-hidden="true">*</span>
+              What are you looking to build or improve? <span aria-hidden="true">*</span>
               <textarea
                 name="project_details"
                 rows="4"
@@ -255,18 +255,20 @@
             </label>
 
             <label>
-              What type of support are you looking for?
+              Which type of build best matches your needs?
               <span aria-hidden="true">*</span>
               <select id="project_type" name="project_type" required>
                 <option value="">Select one</option>
-                <option value="clarity_call">Free 15-Minute Clarity Call</option>
-                <option value="website">Website Build</option>
-                <option value="product">Digital Product Page</option>
-                <option value="funnel">Bundle + Funnel Setup</option>
-                <option value="photography">Photography</option>
+                <option value="foundation-website">Foundation Website</option>
+                <option value="growth-website">Growth Website</option>
                 <option value="strategy">Strategy-Led Build</option>
+                <option value="product">Digital Product Page</option>
+                <option value="funnel">Funnel + Bundle Setup</option>
+                <option value="brand">Brand Foundation Support</option>
+                <option value="photography">Photography</option>
                 <option value="wellness_essentials">Wellness Essentials</option>
                 <option value="wellness_growth">Wellness Growth</option>
+                <option value="not_sure">Not sure yet — I’d like guidance</option>
               </select>
             </label>
 
@@ -374,9 +376,8 @@
               Budget Range (USD) <span aria-hidden="true">*</span>
               <select name="budget" required>
                 <option value="">Select one</option>
-                <option value="500-1000">$500 – $1,000</option>
-                <option value="1000-1500">$1,000 – $1,500</option>
-                <option value="1500-3000">$1,500 – $3,000</option>
+                <option value="1000-1500">$1,200 – $1,800</option>
+                <option value="1500-3000">$1,800 – $3,000</option>
                 <option value="3000-5000">$3,000 – $5,000</option>
                 <option value="5000+">$5,000+</option>
               </select>
@@ -403,7 +404,7 @@
 
             <p class="form-note" style="margin: 0.75rem 0 0.25rem">
               I reply within <strong>1–2 business days</strong> with next steps
-              or a clear “not a fit.”
+              or I'll let you know if it's not a good fit.”
             </p>
 
             <button
@@ -412,7 +413,7 @@
               data-track="contact_submit_click"
               data-label="contact_submit_inquiry"
             >
-              Submit Inquiry
+              Submit Project Details
             </button>
 
             <p class="form-note">
@@ -424,8 +425,8 @@
       </section>
 
       <section class="contact-expectations">
-        <div class="container">
-          <h4>Before reaching out, please note:</h4>
+        <div class="start-container">
+          <h4>A few project standards:</h4>
           <ul>
             <li>Projects begin with a non-refundable deposit</li>
             <li>Timelines depend on timely content and feedback</li>
