@@ -277,6 +277,91 @@ section h2 {
   padding: 0.45rem 0.65rem;
 }
 
+/* =========================================================
+   Referrals page (uses existing KMC tokens)
+   ========================================================= */
+
+.referral-page{
+  background: var(--bg);
+  padding: clamp(28px, 4vw, 56px) 0;
+}
+
+.container.narrow{
+  max-width: 860px; /* keeps it calm + readable */
+}
+
+.referral-page h1{
+  margin: 0 0 12px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-size: clamp(28px, 3.2vw, 40px);
+}
+
+.referral-page h2{
+  margin: 26px 0 10px;
+  color: var(--text);
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+.referral-page p{
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+.referral-page p em{
+  color: var(--text);
+  font-style: italic;
+}
+
+.referral-page ul{
+  margin: 0 0 14px;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.referral-page li{
+  margin: 6px 0;
+}
+
+.referral-page a{
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(183, 123, 95, 0.35); /* fallback */
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.referral-page a:hover{
+  color: var(--accent-2);
+  border-bottom-color: rgba(140, 87, 64, 0.45); /* fallback */
+  border-bottom-color: color-mix(in srgb, var(--accent-2) 45%, transparent);
+}
+
+/* Optional: soft “card” feel if you want it */
+.referral-page .referral-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+/* Contact block */
+.referral-page .contact{
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.referral-card {
+  margin-top: 75px;
+}
+
 /* =========================
    Buttons (ONE system)
    ========================= */
@@ -863,7 +948,6 @@ body.portfolio-page .portfolio-item .link-row a:hover{
 .project-form {
   max-width: 640px;
   margin: 0 auto;
-  margin-top: -35px;
   background: rgba(255, 255, 255, 0.92);
   border-radius: var(--radius);
   padding: 2rem 1.8rem;
@@ -1087,6 +1171,24 @@ a.footer-contact-value:hover {
   margin: 0;
 }
 
+/* =========================================================
+   Footer — subtle referral link handling
+   ========================================================= */
+
+
+/* Keep CTA visually distinct */
+.footer-cta{
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Optional: make Referrals feel quieter */
+.footer-subtle{
+  font-size: 0.95em;
+  opacity: 0.9;
+}
 /* =========================
    RESPONSIVE BREAKPOINTS
    ========================= */
@@ -1767,9 +1869,6 @@ a.footer-contact-value:hover {
     border-radius: 16px;
   }
 
-  .page-hero container {
-    margin-top: 50px;
-  } 
 }
 @media (max-width: 520px) {
   .about-page .about-photo {
