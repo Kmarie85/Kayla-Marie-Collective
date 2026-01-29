@@ -1882,13 +1882,6 @@ a.footer-contact-value:hover {
   }
 }
 
-/* Extra safety for very small phones */
-@media (max-width: 520px) {
-  main {
-    padding-top: 100px !important;
-  }
-}
-
 /* Optional: make anchor jumps (and internal section headings) land below header */
 section,
 .hero,
@@ -2134,4 +2127,43 @@ body.contact .contact-card {
   border-bottom-color: currentColor;
 }
 
+/* =========================================================
+   CONTACT page — prevent hero hiding under sticky header
+   ========================================================= */
+
+.contact-page {
+  --header-offset: 92px; /* adjust if needed */
+}
+
+.contact-page #main {
+  padding-top: var(--header-offset);
+}
+
+/* Mobile header is usually taller */
+@media (max-width: 640px) {
+  .contact-page {
+    --header-offset: 112px;
+  }
+}
+
+/* =========================================================
+   FIX: Contact page offset for fixed header
+   (Targets the SAME element: main#main.contact-page)
+   ========================================================= */
+
+main#main.contact-page{
+  padding-top: 140px; /* desktop/tablet safe */
+}
+
+@media (max-width: 900px){
+  main#main.contact-page{
+    padding-top: 170px; /* stacked header = taller */
+  }
+}
+
+@media (max-width: 520px){
+  main#main.contact-page{
+    padding-top: 185px; /* small phones need the most space */
+  }
+}
 
