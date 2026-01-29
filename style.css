@@ -843,12 +843,27 @@ body.portfolio-page .portfolio-item .link-row a:hover{
   text-align: center;
 }
 
+.services-hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255,255,255,.6);
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin: 0 0 12px;
+}
+
 /* =========================
    Contact (form)
    ========================= */
 .project-form {
   max-width: 640px;
   margin: 0 auto;
+  margin-top: -35px;
   background: rgba(255, 255, 255, 0.92);
   border-radius: var(--radius);
   padding: 2rem 1.8rem;
@@ -1540,7 +1555,7 @@ a.footer-contact-value:hover {
 }
 
 .portfolio-hero h1{
-  margin: 0 0 10px;
+  margin: 15px 0 10px;
   font-size: clamp(1.8rem, 2.6vw, 2.4rem);
   line-height: 1.12;
   justify-content: center;
@@ -1558,8 +1573,8 @@ a.footer-contact-value:hover {
 .portfolio-hero .hero-actions{
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 35px;
   justify-content: center;
 }
 
@@ -1881,4 +1896,177 @@ section,
 .services-hero,
 .about-page .about-hero {
   scroll-margin-top: 170px;
+}
+
+/* =========================================================
+   CONTACT PAGE — tighten hero + reduce empty space
+   ========================================================= */
+
+/* If you can add this to <main>: class="contact-page" (recommended) */
+.contact-page .page-hero,
+body.contact .page-hero,
+.page-hero.contact-hero {
+  padding: 28px 0 14px; /* was too tall */
+  text-align: center;
+}
+
+.contact-page .page-hero h1,
+body.contact .page-hero h1,
+.page-hero.contact-hero h1 {
+  margin: 0 0 10px;
+  line-height: 1.12;
+}
+
+.contact-page .page-hero p,
+body.contact .page-hero p,
+.page-hero.contact-hero p {
+  max-width: 70ch;      /* stops “floating sentence across the whole page” */
+  margin: 0 0 10px;
+  color: var(--muted);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Make the availability line feel like a note, not another paragraph */
+.contact-page .page-hero p:last-of-type,
+body.contact .page-hero p:last-of-type,
+.page-hero.contact-hero p:last-of-type {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* Pull the form section UP */
+.contact-page .contact-wrap,
+body.contact .contact-wrap,
+.contact-page .form-wrap,
+body.contact .form-wrap {
+  margin-top: -12px;
+}
+
+/* If your form is inside a card/container, make it feel intentional */
+.contact-page .contact-card,
+body.contact .contact-card,
+.contact-page form,
+body.contact form {
+  border-radius: 18px;
+}
+
+/* Optional: center the form card and reduce dead space */
+.contact-page .contact-card,
+body.contact .contact-card {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-boundary p {
+  text-align: center;
+}
+
+/* =========================================================
+   Contact expectations — centered block, left-aligned text
+   ========================================================= */
+
+.contact-expectations {
+  max-width: 720px;          /* controls line length */
+  margin: 40px auto 0;       /* centers the block */
+  padding: 0 16px;           /* safe breathing room on small screens */
+  text-align: left;          /* ensures bullets + text stay left */
+}
+
+.contact-expectations h3,
+.contact-expectations h4 {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.contact-expectations ul {
+  padding-left: 1.2rem;      /* clean bullet indent */
+  margin: 12px 0;
+}
+
+.contact-expectations li {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+.contact-expectations p {
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+
+/* Mobile: avoid negative margin weirdness */
+@media (max-width: 640px) {
+  .contact-page .contact-wrap,
+  body.contact .contact-wrap,
+  .contact-page .form-wrap,
+  body.contact .form-wrap {
+    margin-top: 0;
+  }
+
+  .contact-page .page-hero,
+  body.contact .page-hero,
+  .page-hero.contact-hero {
+    padding: 22px 0 12px;
+  }
+}
+
+/* =========================================================
+   CONTACT PAGE — center the top section cleanly
+   ========================================================= */
+
+.contact-page .page-hero {
+  text-align: center;
+}
+
+.contact-page .page-hero h1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-page .page-hero p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 60ch; /* keeps it readable, not stretched */
+}
+
+/* Subtle visual separation between intro + availability note */
+.contact-page .page-hero p:last-of-type {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* =========================================================
+   NAV CTA — Start a Project (white text + elevated hover)
+   ========================================================= */
+
+/* Base state */
+.site-header .btn-nav {
+  color: #ffffff;                  /* force white text */
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Hover / focus state */
+.site-header .btn-nav:hover,
+.site-header .btn-nav:focus-visible {
+  color: #ffffff;                  /* keep text white */
+  background: var(--accent-2);     /* subtle tonal shift */
+  border-color: var(--accent-2);
+  transform: translateY(-1px);     /* lift, not just color */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Active (click) state — optional polish */
+.site-header .btn-nav:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
