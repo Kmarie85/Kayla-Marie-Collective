@@ -2078,3 +2078,60 @@ body.contact .contact-card {
     0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
+/* =========================================================
+   CTA SYSTEM — consistent hover/focus across buttons + links
+   ========================================================= */
+
+/* Base button behavior (covers your .btn-primary/.btn-secondary/.btn-outline/.btn-nav) */
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-nav {
+  transition:
+    transform 180ms var(--ease, ease),
+    box-shadow 180ms var(--ease, ease),
+    background-color 180ms var(--ease, ease),
+    border-color 180ms var(--ease, ease),
+    color 180ms var(--ease, ease);
+  will-change: transform;
+}
+
+/* Unified hover = lift + shadow (not just color) */
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-outline:hover,
+.btn-nav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Click */
+.btn-primary:active,
+.btn-secondary:active,
+.btn-outline:active,
+.btn-nav:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Keyboard focus: visible, calm, consistent */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-outline:focus-visible,
+.btn-nav:focus-visible,
+.text-link:focus-visible {
+  outline: 3px solid rgba(183, 123, 95, 0.35);
+  outline-offset: 3px;
+}
+
+/* Text links: give them a consistent hover "underline reveal" */
+.text-link {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms var(--ease, ease), color 180ms var(--ease, ease);
+}
+.text-link:hover {
+  border-bottom-color: currentColor;
+}
+
+
