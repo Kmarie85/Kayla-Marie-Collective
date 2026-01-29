@@ -1,16 +1,6 @@
-/* =========================================================
-   Kayla Marie Collective — style.css (FULL REWRITE)
-   Goals:
-   - Single consistent CTA behavior inside cards (pinned + centered)
-   - No “scattered buttons”
-   - Footer aligned, centered, breathable
-   - NO global .text-link side effects inside cards
-   ========================================================= */
-
 /* =========================
    Base + Tokens
    ========================= */
-
 *,
 *::before,
 *::after {
@@ -64,7 +54,7 @@ body {
   --hero-tilt: 0deg;
   --hero-opacity: 1;
 
-  /* aliases (some pages referenced these names) */
+  /* aliases */
   --text-main: var(--text);
   --text-muted: var(--muted);
 }
@@ -87,7 +77,7 @@ body {
 
 main {
   flex: 1;
-  padding-top: 96px; /* keep aligned to fixed header */
+  padding-top: 96px; /* aligned to fixed header */
 }
 
 img {
@@ -110,7 +100,7 @@ section {
 
 section h2 {
   font-size: 1.6rem;
-  margin: 0 0 1.2rem;
+  margin: 0 0 0;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -124,7 +114,6 @@ section h2 {
 /* =========================
    Accessibility: Skip link + Focus
    ========================= */
-
 .skip-link {
   position: absolute;
   left: 1rem;
@@ -133,10 +122,12 @@ section h2 {
   padding: 0.65rem 1rem;
   border-radius: 999px;
   background: var(--card);
-  border: 1px solid rgba(231, 212, 200, 0.9);
+  border: 2px solid #8c5740;
   color: var(--text);
   z-index: 2000;
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 .skip-link:focus,
@@ -154,7 +145,6 @@ section h2 {
 /* =========================
    Header / Nav
    ========================= */
-
 .site-header {
   background: #e6d3bf;
   border-bottom: 1px solid var(--line);
@@ -170,7 +160,9 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 14px;
   padding: 1.1rem 1.5rem;
+  position: relative; /* for dropdown positioning on mobile */
 }
 
 .logo {
@@ -180,6 +172,7 @@ section h2 {
   padding: 2px 0;
   line-height: 0;
   font-size: 0;
+  flex: 0 0 auto;
 }
 
 #logo {
@@ -193,22 +186,71 @@ section h2 {
 .nav-toggle {
   display: none;
 
+  position: relative;
   border: 1px solid rgba(231, 212, 200, 0.95);
   background: rgba(255, 255, 255, 0.9);
   color: var(--accent-2);
   border-radius: 999px;
-  padding: 0.55rem 1rem;
+
+  /* room for hamburger icon */
+  padding: 0.55rem 1rem 0.55rem 3rem;
+
   font-size: 0.9rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-
-  gap: 0.6rem;
-  align-items: center;
 }
 
 .nav-toggle:hover {
   background: rgba(241, 231, 223, 0.9);
+}
+
+/* ✅ Hamburger icon (works with your current HTML) */
+.nav-toggle::before {
+  content: "";
+  position: absolute;
+  left: 1.05rem;
+  top: 50%;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+  transform: translateY(-9px);
+  box-shadow:
+    0 8px 0 currentColor,
+    0 16px 0 currentColor;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+/* second line for X state */
+.nav-toggle::after {
+  content: "";
+  position: absolute;
+  left: 1.05rem;
+  top: 50%;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(0) rotate(0deg);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+/* turn into X when open */
+.nav-toggle.is-open::before {
+  transform: translateY(0) rotate(45deg);
+  box-shadow: none;
+}
+
+.nav-toggle.is-open::after {
+  opacity: 1;
+  transform: translateY(0) rotate(-45deg);
 }
 
 .main-nav {
@@ -236,54 +278,8 @@ section h2 {
 }
 
 /* =========================
-   Hamburger -> X
-   ========================= */
-
-.nav-toggle__icon {
-  position: relative;
-  width: 26px;
-  height: 2px;
-  background: currentColor;
-  border-radius: 999px;
-  display: inline-block;
-  transition: background 150ms ease;
-}
-
-.nav-toggle__icon::before,
-.nav-toggle__icon::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: currentColor;
-  border-radius: 999px;
-  transition: transform 200ms ease, top 200ms ease;
-}
-
-.nav-toggle__icon::before {
-  top: -7px;
-}
-.nav-toggle__icon::after {
-  top: 7px;
-}
-
-.nav-toggle.is-open .nav-toggle__icon {
-  background: transparent;
-}
-.nav-toggle.is-open .nav-toggle__icon::before {
-  top: 0;
-  transform: rotate(45deg);
-}
-.nav-toggle.is-open .nav-toggle__icon::after {
-  top: 0;
-  transform: rotate(-45deg);
-}
-
-/* =========================
    Buttons (ONE system)
    ========================= */
-
 .btn-primary,
 .btn-secondary,
 .btn-outline,
@@ -314,7 +310,6 @@ section h2 {
   border: 1px solid var(--accent);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.1);
 }
-
 .btn-primary:hover {
   background: var(--accent-2);
   border-color: var(--accent-2);
@@ -325,9 +320,8 @@ section h2 {
 .btn-secondary {
   background: transparent;
   color: var(--accent-2);
-  border: 2px solid rgba(231, 212, 200, 0.95);
+  border: 2px solid rgba(217, 196, 182, 0.95);
 }
-
 .btn-secondary:hover {
   background: rgba(231, 212, 200, 0.55);
   color: var(--text);
@@ -337,9 +331,8 @@ section h2 {
 .btn-outline {
   background: transparent;
   color: var(--accent-2);
-  border: 1px solid var(--accent);
+  border: 1.5px solid var(--accent);
 }
-
 .btn-outline:hover {
   background: var(--accent);
   color: #ffffff;
@@ -353,7 +346,6 @@ section h2 {
   font-weight: 600;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
 }
-
 .btn-nav:hover,
 .btn-nav.active {
   background: var(--accent-2);
@@ -361,20 +353,9 @@ section h2 {
   color: #ffffff;
 }
 
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible,
-.btn-outline:focus-visible,
-.btn-nav:focus-visible {
-  outline-offset: 4px;
-}
-
 /* =========================
    Links
-   IMPORTANT:
-   - .text-link is now a CLEAN inline link (no margins, no underline gimmicks).
-   - The fancy underline is scoped to .featured-link and .case-page only.
    ========================= */
-
 .text-link {
   color: var(--accent-2);
   font-weight: 650;
@@ -382,13 +363,13 @@ section h2 {
   margin: 0;
   padding: 0;
   text-decoration: none;
+  margin-left: 18px;
 }
-
 .text-link:hover {
   text-decoration: underline;
 }
 
-/* Fancy “editorial” underline ONLY where intended */
+/* Fancy underline ONLY where intended */
 .featured-link .text-link,
 .case-page .text-link {
   position: relative;
@@ -396,7 +377,6 @@ section h2 {
   text-decoration: none;
   padding-bottom: 10px;
 }
-
 .featured-link .text-link::after,
 .case-page .text-link::after {
   content: "";
@@ -411,7 +391,6 @@ section h2 {
   transform-origin: left;
   transition: transform 240ms var(--ease-out), opacity 240ms var(--ease-out);
 }
-
 .featured-link .text-link:hover::after,
 .case-page .text-link:hover::after {
   transform: scaleX(1);
@@ -421,13 +400,11 @@ section h2 {
 /* =========================
    Motion + Hover Lift
    ========================= */
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 }
-
 @media (prefers-reduced-motion: no-preference) {
   .featured-item,
   .package-card,
@@ -441,7 +418,6 @@ section h2 {
   .about-card {
     transition: transform 350ms var(--ease), box-shadow 350ms var(--ease);
   }
-
   .featured-item:hover,
   .package-card:hover,
   .faq-item:hover,
@@ -455,9 +431,8 @@ section h2 {
 }
 
 /* =========================
-   Hero (Home) — glow
+   Hero (Home)
    ========================= */
-
 .hero {
   padding: 4.5rem 0 3.5rem;
   background: transparent;
@@ -465,7 +440,6 @@ section h2 {
   overflow: hidden;
   isolation: isolate;
 }
-
 .hero::before {
   content: "";
   position: absolute;
@@ -486,7 +460,6 @@ section h2 {
   will-change: transform, opacity;
   transition: opacity 240ms var(--ease-soft);
 }
-
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -495,97 +468,49 @@ section h2 {
   justify-content: center;
   min-height: 260px;
 }
-
 .hero-text {
   max-width: 680px;
   text-align: center;
 }
-
 .hero h1 {
   font-size: clamp(2.05rem, 3.4vw, 2.9rem);
   line-height: 1.12;
   letter-spacing: -0.02em;
   margin: 0 0 1rem;
 }
-
 .hero-sub {
   font-size: 1.05rem;
   color: var(--muted);
   margin: 0 0 1.8rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero::before {
-    transform: none !important;
-    transition: none !important;
-  }
-}
-
-/* Services hero tweaks (kept) */
-.services-hero .hero-kicker {
-  display: inline-block;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.services-hero .hero-sub {
-  max-width: 62ch;
-}
-
-.services-hero .hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 12px;
-  align-items: center;
-  margin-top: 14px;
-}
-
-.services-hero .btn-outline {
-  opacity: 0.92;
-}
-
-.services-hero .hero-secondary {
-  color: var(--muted);
-  text-decoration: none;
-}
-.services-hero .hero-secondary:hover {
-  text-decoration: underline;
-}
-
-.services-hero .hero-proof {
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 0.95rem;
+.what-i-do h2 {
+  margin-top: -75px;
 }
 
 /* =========================
    Home: Proof Strip
    ========================= */
-
 .proof-strip {
   padding: 1.6rem 0;
   background: rgba(255, 255, 255, 0.75);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
 }
-
 .proof-inner {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.2rem;
 }
-
 .proof-item {
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(231, 212, 200, 0.9);
   border-radius: var(--radius);
   padding: 1rem 1.1rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
 }
-
 .proof-kicker {
   margin: 0 0 0.4rem;
   font-size: 0.85rem;
@@ -594,7 +519,6 @@ section h2 {
   color: var(--accent-2);
   font-weight: 700;
 }
-
 .proof-main {
   margin: 0;
   color: var(--text);
@@ -604,11 +528,6 @@ section h2 {
 /* =========================
    Home: What You Do
    ========================= */
-
-.what-you-do {
-  background: transparent;
-}
-
 .bullet-grid {
   list-style: none;
   padding: 0;
@@ -617,7 +536,6 @@ section h2 {
   grid-template-columns: 1fr;
   gap: 0.9rem;
 }
-
 .bullet-grid li {
   padding: 0.95rem 1rem;
   border-radius: var(--radius);
@@ -628,71 +546,66 @@ section h2 {
 /* =========================
    Home: Featured Work
    ========================= */
-
-.featured-work {
-  background: transparent;
-}
-
 .featured-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.8rem;
 }
-
 .featured-item {
   background: var(--card);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   border: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
 }
-
 .featured-item img {
   width: 100%;
   height: 220px;
   object-fit: cover;
 }
-
 .featured-item h3 {
   font-size: 1.1rem;
   margin: 1rem 1.2rem 0.4rem;
 }
-
 .featured-item p {
-  margin: 0 1.2rem 1.4rem;
+  margin: 0 1.2rem 1.2rem;
   color: var(--muted);
 }
-
 .featured-link {
-  margin-top: 1.5rem;
+  margin: 0 1.2rem 1.2rem;
+  margin-top: auto;
   text-align: right;
+}
+
+.featured-work h2 {
+  margin-top: -75px;
+}
+
+.faq h2 {
+  margin-top: -50px;
 }
 
 /* =========================
    Home: Mid CTA
    ========================= */
-
 .mid-cta {
   background: linear-gradient(180deg, rgba(243, 238, 233, 0.85), rgba(251, 250, 248, 0));
 }
-
 .mid-cta-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
 }
-
-.mid-cta h2 {
-  margin-bottom: 0.6rem;
-}
-
 .mid-cta p {
   margin: 0;
   color: var(--muted);
   max-width: 620px;
 }
-
 .mid-cta-actions {
   display: flex;
   gap: 0.9rem;
@@ -701,882 +614,255 @@ section h2 {
 }
 
 /* =========================
-   Home: Outcomes
-   ========================= */
-
-.outcomes {
-  background: rgba(243, 238, 233, 0.75);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-}
-
-.outcome-text {
-  max-width: 800px;
-  text-align: left;
-  color: var(--muted);
-  font-size: 1.02rem;
-}
-
-/* =========================
-   Cards: CTA behavior (THE FIX)
-   - All cards are columns
-   - The CTA wrapper goes to the bottom (margin-top:auto)
-   - CTA is centered and not affected by .text-link styling
-   ========================= */
-
-.card,
-.project-card,
-.work-card,
-.package-card,
-.portfolio-item,
-.service-block,
-.faq-item,
-.proof-item,
-.about-card,
-.soft-panel,
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Universal CTA “slot” inside cards */
-.card-cta,
-.package-card p.text-link,
-.service-block .card-cta,
-.portfolio-item .card-cta {
-  margin-top: auto;
-  margin-bottom: 0;
-  padding-top: 16px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* no underline gimmicks; no odd spacing */
-}
-
-/* Make any button inside a card CTA consistent */
-.card-cta .btn-primary,
-.card-cta .btn-secondary,
-.card-cta .btn-outline,
-.package-card p.text-link .btn-primary,
-.package-card p.text-link .btn-secondary,
-.package-card p.text-link .btn-outline {
-  width: min(280px, 100%);
-  text-align: center;
-}
-
-/* IMPORTANT: inside cards, .text-link should behave like a neutral wrapper */
-.package-card .text-link,
-.service-block .text-link,
-.portfolio-item .text-link,
-.case-card .text-link {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.package-card .text-link::after,
-.service-block .text-link::after,
-.portfolio-item .text-link::after,
-.case-card .text-link::after {
-  display: none !important;
-}
-
-/* =========================
    Home: Packages
    ========================= */
-
-.packages {
-  background: transparent;
-}
-
 .package-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.8rem;
   align-items: stretch;
 }
-
-.package-grid-3 {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: stretch;
-}
-
 .package-card {
   background: var(--card);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
   padding: 1.6rem 1.5rem 1.5rem;
   border: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
 }
-
-.package-card h3 {
-  font-size: 1.15rem;
-  margin: 0 0 0.4rem;
-}
-
 .package-card .price {
   font-weight: 800;
   color: var(--accent-2);
   margin-bottom: 0.9rem;
 }
-
 .package-card ul {
   list-style: none;
   padding: 0;
   margin: 0 0 1rem;
 }
-
 .package-card li {
   margin-bottom: 0.5rem;
   color: var(--muted);
 }
 
-.package-card .package-tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin: 0 0 10px;
-  padding: 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.package-card .package-desc {
-  margin: 8px 0 12px;
-  color: var(--muted);
-}
-
-.package-card.featured {
-  border-width: 2px;
-  transform: translateY(-2px);
-}
-
 .packages-actions {
+  text-align: center;
+}
+
+.muted-web {
+  text-align: center;
+}
+
+/* =========================
+   Card CTA behavior (ONE rule)
+   ========================= */
+.card-cta,
+.package-card p.text-link,
+.service-block p.text-link,
+.featured-item p.text-link,
+.case-card p.text-link {
+  margin-top: auto;
+  padding-top: 16px;
   display: flex;
   justify-content: center;
 }
 
-.small-note {
-  margin: 0.25rem 0 1rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-  opacity: 0.9;
-}
-
-/* =========================
-   Home: FAQ
-   ========================= */
-
-.faq {
-  background: rgba(255, 255, 255, 0.65);
-  border-top: 1px solid var(--line);
-  backdrop-filter: blur(10px);
-}
-
-.faq h2 {
-  margin-bottom: 1.4rem;
-}
-
-.faq-item {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: var(--radius);
-  padding: 1.2rem 1.2rem 1rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.faq-item h3 {
-  margin: 0 0 0.6rem;
-  font-size: 1.05rem;
-}
-
-.faq-item p {
-  margin: 0;
-  color: var(--muted);
-}
-
-/* =========================
-   Home: Final CTA
-   ========================= */
-
-.final-cta {
+.package-card .btn-primary,
+.package-card .btn-secondary,
+.package-card .btn-outline,
+.service-block .btn-primary,
+.service-block .btn-secondary,
+.service-block .btn-outline,
+.featured-item .btn-primary,
+.featured-item .btn-secondary,
+.featured-item .btn-outline,
+.case-card .btn-primary,
+.case-card .btn-secondary,
+.case-card .btn-outline {
+  width: min(280px, 100%);
   text-align: center;
-  background: rgba(243, 238, 233, 0.75);
 }
 
-.final-cta p {
-  color: var(--muted);
-  margin-bottom: 1.6rem;
+/* Neutralize fancy underline inside cards */
+.package-card .text-link::after,
+.service-block .text-link::after,
+.featured-item .text-link::after,
+.case-card .text-link::after {
+  display: none !important;
 }
 
-/* =========================
-   Page Hero (Base)
-   ========================= */
-
-.page-hero {
-  background: transparent;
-  border-bottom: 1px solid var(--line);
-  padding: 3rem 0 2rem;
-}
-
-.page-hero h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2rem;
-}
-
-.page-hero p {
-  margin: 0;
-  color: var(--muted);
+.packages h2 {
+  margin-top: -50px;
 }
 
 /* =========================
-   About Page (kept, cleaned)
+   Final CTA — center text + button
    ========================= */
-
-.page-hero.about-hero {
-  background: transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-.page-hero.about-hero::after {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(183, 123, 95, 0.12), transparent 55%),
-    radial-gradient(circle at 80% 30%, rgba(140, 87, 64, 0.1), transparent 55%),
-    radial-gradient(circle at 50% 90%, rgba(231, 212, 200, 0.35), transparent 60%);
-  pointer-events: none;
-  filter: blur(10px);
-}
-
-.page-hero .container {
-  position: relative;
-  z-index: 1;
-}
-
-.kicker {
-  display: inline-flex;
-  gap: 0.5rem;
-  align-items: center;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  color: var(--accent-2);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 0.9rem;
-}
-
-.hero-split {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 2rem;
-  align-items: center;
-  padding: 0.75rem 0 0;
-}
-
-.hero-card {
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: var(--radius-lg);
-  padding: 1.3rem 1.3rem 1.2rem;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(8px);
-}
-
-.hero-card p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.about-wrap {
-  padding-top: 1.2rem;
-  padding-bottom: 3.2rem;
-}
-
-.about-section {
-  margin-top: 1.6rem;
-}
-
-.about-card {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line-soft);
-  box-shadow: var(--shadow-soft);
-  padding: 1.6rem 1.6rem 1.4rem;
-  backdrop-filter: blur(10px);
-}
-
-.about-card h2 {
-  margin-top: 0;
-}
-
-.about-lead {
-  font-size: 1.05rem;
-  color: var(--muted);
-  margin: 0.6rem 0 0;
-}
-
-.about-intro {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 1.6rem;
-  align-items: center;
-  margin: 0;
-}
-
-.about-photo {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  object-fit: cover;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(231, 212, 200, 0.8);
-}
-
-.about-badges {
+.final-cta .container {
+  text-align: center;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.badge {
-  font-size: 0.82rem;
-  color: var(--accent-2);
-  background: rgba(243, 238, 233, 0.55);
-  border: 1px solid rgba(231, 212, 200, 0.95);
-  padding: 0.4rem 0.7rem;
-  border-radius: 999px;
-  letter-spacing: 0.06em;
-}
-
-.about-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  margin-top: 1.2rem;
-}
-
-.soft-panel {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.1rem 0.95rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.soft-panel p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.soft-panel strong {
-  color: var(--text);
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 1.2rem;
-}
-
-.stat {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-  padding: 1rem 1rem 0.9rem;
-  box-shadow: var(--shadow-soft);
-}
-
-.stat .num {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--accent-2);
-  margin: 0 0 0.25rem;
-}
-
-.stat .label {
-  margin: 0;
-  color: var(--muted);
-}
-
-.quote-card {
-  margin-top: 1.2rem;
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: var(--radius-lg);
-  padding: 1.3rem 1.4rem 1.1rem;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
-}
-
-.quote-card p {
-  margin: 0;
-  font-size: 1.02rem;
-  color: var(--text);
-}
-
-.quote-card footer {
-  margin-top: 0.8rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
-.timeline {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0;
-  display: grid;
-  gap: 0.9rem;
-}
-
-.timeline li {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 0.9rem;
-  align-items: start;
-  background: rgba(243, 238, 233, 0.6);
-  border: 1px solid rgba(34, 28, 26, 0.05);
-  border-radius: var(--radius);
-  padding: 0.9rem 1rem;
-}
-
-.step {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  color: var(--accent-2);
-  font-weight: 800;
-}
-
-.timeline h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.02rem;
-}
-.timeline p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.about-actions {
-  margin-top: 1.3rem;
-  display: flex;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-}
-
-.about-actions .btn-secondary {
-  border-color: var(--accent);
+  flex-direction: column;
+  align-items: center;
 }
 
 /* =========================
-   Services
+   Portfolio
    ========================= */
-
-.services-list {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.service-block {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  padding: 1.8rem 1.6rem;
-  border: 1px solid var(--line-soft);
-  margin-bottom: 1.8rem;
-  backdrop-filter: blur(10px);
-}
-
-.service-block .price {
-  font-weight: 800;
-  color: var(--accent-2);
-  margin-bottom: 0.6rem;
-}
-
-.service-block .summary {
-  color: var(--muted);
-  margin-bottom: 0.9rem;
-}
-
-.service-block ul {
-  padding-left: 1.2rem;
-}
-
-.service-block li {
-  margin-bottom: 0.4rem;
-  color: var(--muted);
-}
-
-/* A calm inline “meta” band */
-.service-block .meta {
-  color: var(--muted);
-  margin: 0 0 1rem;
-  padding: 0.7rem 0.9rem;
-  border-radius: 14px;
-  background: rgba(243, 238, 233, 0.65);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-}
-
-/* Deliverables grid */
-.deliverables-grid {
-  margin-top: 0.8rem;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.deliverable {
-  margin: 0;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--line-soft);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
-}
-
-.deliverable img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-}
-
-.deliverable figcaption {
-  padding: 0.75rem 0.9rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-  border-top: 1px solid rgba(241, 231, 223, 0.9);
-}
-
-/* Strategy note block */
-.strategy-note {
-  background: rgba(243, 238, 233, 0.75);
-  border-top: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  text-align: center;
-  padding: 3rem 0;
-}
-
-.strategy-note .container {
-  max-width: 900px;
-}
-
-.strategy-note h2 {
-  margin: 0 0 0.9rem;
-}
-
-.strategy-note p {
-  color: var(--muted);
-  margin: 0 auto 1rem;
-  max-width: 760px;
-}
-
-.strategy-note .btn-secondary {
-  margin-top: 0.8rem;
-  border-color: var(--accent);
-}
-
-/* Fit Filter */
-.fit-filter {
-  padding: 1rem 0 2.5rem;
-}
-.fit-filter .container {
-  max-width: 900px;
-}
-.fit-columns {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  margin-top: 1rem;
-}
-.fit-col h4 {
-  margin: 0 0 0.6rem;
-  color: #2a2523;
-  font-weight: 700;
-  text-align: left;
-}
-.fit-col ul {
-  margin: 0;
-  padding-left: 1.25rem;
-  color: var(--muted);
-  text-align: left;
-  line-height: 1.6;
-}
-.fit-col li + li {
-  margin-top: 0.35rem;
-}
-.fit-note {
-  margin: 1.25rem auto 0;
-  max-width: 760px;
-  color: var(--muted);
-  opacity: 0.95;
-  text-align: left;
-  line-height: 1.6;
-}
-
-.micro-line {
-  font-size: 12px;
-  padding-top: 10px;
-  text-align: center;
-}
-
-/* =========================
-   Add-ons accordion + chevron
-   ========================= */
-
-.addons-grid {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
-}
-
-details.addon {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: 16px;
-  padding: 0.85rem 1rem;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(10px);
-}
-
-details.addon summary {
-  cursor: pointer;
-  list-style: none;
-  font-weight: 800;
-  color: var(--text);
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  position: relative;
-  padding-right: 2rem;
-}
-
-details.addon summary::-webkit-details-marker {
-  display: none;
-}
-
-details.addon summary::after {
-  content: "▾";
-  position: absolute;
-  right: 0.25rem;
-  top: 50%;
-  transform: translateY(-50%) rotate(0deg);
-  font-size: 1rem;
-  color: var(--accent-2);
-  transition: transform 0.2s ease;
-}
-
-details.addon summary:hover {
-  color: var(--accent-2);
-}
-
-details.addon[open] summary::after {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-.addon-price {
-  font-weight: 800;
-  color: var(--accent-2);
-  white-space: nowrap;
-}
-
-.addon-body {
-  margin-top: 0.75rem;
-}
-
-.addon-body ul {
-  margin: 0;
-  padding-left: 1.2rem;
-}
-
-.addon-body li {
-  margin-bottom: 0.4rem;
-  color: var(--muted);
-}
-
-/* Add-Ons → Photography */
-.services-addons .addons-subhead {
-  margin-top: 2.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(231, 212, 200, 0.9);
-  color: var(--muted);
-  font-size: 1.1rem;
-}
-
-.cta-note {
-  text-align: center;
-}
-
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.8rem;
-  margin-top: 1.25rem;
-}
-
-/* =========================
-   Portfolio (also reused by Case Studies)
-   ========================= */
-
-.portfolio-section {
-  padding-top: 2.5rem;
-  padding-bottom: 1rem;
-}
-
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.8rem;
 }
-
 .portfolio-item {
   background: rgba(255, 255, 255, 0.92);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
   padding-bottom: 1.4rem;
   overflow: hidden;
   border: 1px solid var(--line-soft);
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
 }
-
 .portfolio-item img {
   width: 100%;
   height: 220px;
   object-fit: cover;
 }
-
 .portfolio-item h3 {
   margin: 1rem 1.2rem 0.4rem;
   font-size: 1.1rem;
 }
-
 .portfolio-item p {
   margin: 0 1.2rem 0.4rem;
   color: var(--muted);
 }
-
 .portfolio-item .tech {
   font-size: 0.85rem;
   color: var(--accent-2);
   margin-top: auto;
+  text-align: center;
   padding: 0 1.2rem;
 }
 
+/* Portfolio page: 3-up on desktop */
+body.portfolio-page .portfolio-grid {
+  gap: 24px;
+  align-items: stretch;
+}
+
 /* =========================
-   Case Studies
+   PORTFOLIO: action links row (SINGLE SOURCE OF TRUTH)
+   - Mobile: wraps nicely
+   - Desktop: stays in one line
+   - Keeps your current link-row text styling
    ========================= */
 
-.case-wrap {
-  padding-top: 2.5rem;
-  padding-bottom: 2rem;
+body.portfolio-page .portfolio-item .link-row{
+  margin: 12px 1.2rem 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;          /* default: wrap for small screens */
 }
 
-.case-card {
-  padding: 1.4rem 1.4rem 1.2rem;
-}
-
-.case-card h2 {
-  font-size: 1.05rem;
-  margin: 1.1rem 0 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.case-card p {
-  color: var(--muted);
-}
-
-.case-card ul {
-  margin: 0.25rem 0 1rem;
-  padding-left: 1.2rem;
-}
-
-.case-card li {
-  margin: 0.35rem 0;
-  color: var(--muted);
-}
-
-.case-kicker {
+body.portfolio-page .portfolio-item .link-row a{
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(231, 212, 200, 0.9);
+  font-size: 0.73rem;
+  font-weight: 500;
   color: var(--accent-2);
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;       /* keep each link intact */
+}
+
+body.portfolio-page .portfolio-item .link-row a:hover{
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Desktop: keep all links on one line */
+@media (min-width: 768px){
+  body.portfolio-page .portfolio-item .link-row{
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body.portfolio-page .portfolio-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1023px) and (min-width: 640px) {
+  body.portfolio-page .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  body.portfolio-page .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   Services (core blocks)
+   ========================= */
+.service-block {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
+  padding: 1.8rem 1.6rem;
+  border: 1px solid var(--line-soft);
+  margin-bottom: 1.8rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+.service-block .price {
+  font-weight: 800;
+  color: var(--accent-2);
+  margin-bottom: 0.6rem;
+}
+.service-block .summary {
+  color: var(--muted);
   margin-bottom: 0.9rem;
 }
 
-.case-meta {
-  display: grid;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-  color: var(--muted);
-}
-
-.case-meta strong {
-  color: var(--text);
-}
-
-.case-cta {
-  margin-top: 1.1rem;
-  display: flex;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.case-cta a {
-  width: min(280px, 100%);
+.micro-line {
+  margin-top: 10px;
+  text-align: center;
 }
 
 /* =========================
-   Contact
+   Contact (form)
    ========================= */
-
-.contact-section {
-  padding-top: 0.5rem;
-  padding-bottom: 3rem;
-}
-
 .project-form {
   max-width: 640px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.92);
   border-radius: var(--radius);
   padding: 2rem 1.8rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
   border: 1px solid var(--line-soft);
   backdrop-filter: blur(10px);
 }
-
 .project-form label {
   display: block;
   font-size: 0.95rem;
   margin-bottom: 1rem;
 }
-
 .project-form input,
 .project-form textarea,
 .project-form select {
@@ -1590,176 +876,30 @@ details.addon[open] summary::after {
   background: rgba(251, 250, 248, 0.9);
   color: var(--text);
 }
-
 .project-form textarea {
   resize: vertical;
 }
 
-.project-form input:focus,
-.project-form textarea:focus,
-.project-form select:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(183, 123, 95, 0.16);
-}
-
-.addons-fieldset {
-  border: 1px solid rgba(231, 212, 200, 0.9);
-  border-radius: 16px;
-  padding: 0.9rem 1rem;
-  margin-top: 1rem;
-  background: rgba(243, 238, 233, 0.6);
-}
-
-.form-note {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-.addons-fieldset legend {
-  font-weight: 600;
-  padding: 0 0.35rem;
-  color: var(--text-main);
-}
-
-/* Add-ons: stable label + checkbox right */
-.addons-fieldset .check {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  column-gap: 0.9rem;
-  width: 100%;
-  padding: 0.55rem 0.5rem;
-  margin: 0.15rem 0;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.addons-fieldset .check:hover {
-  background: rgba(255, 255, 255, 0.55);
-}
-
-.addons-fieldset .check:focus-within {
-  outline: 3px solid rgba(183, 123, 95, 0.35);
-  outline-offset: 2px;
-}
-
-.addons-fieldset .check__text {
-  grid-column: 1;
-  text-align: left;
-}
-
-.addons-fieldset .check input[type="checkbox"] {
-  grid-column: 2;
-  justify-self: end;
-  margin: 0;
-  width: 18px;
-  height: 18px;
-  accent-color: var(--accent);
-}
-
-/* Contact boundary + expectations */
-.contact-boundary {
-  margin: 1.5rem 0 2.25rem;
-}
-
-.contact-boundary .container {
-  max-width: 900px;
-}
-
-.contact-boundary p {
-  margin: 0 0 0.6rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.contact-expectations {
-  margin: 2.25rem auto 0;
-  max-width: 640px;
-  width: 100%;
-}
-
-.contact-expectations h4 {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.contact-expectations ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1.25rem;
-  color: var(--text-muted);
-}
-
-.contact-expectations li + li {
-  margin-top: 0.35rem;
-}
-
-.expectations-note {
-  margin-top: 0.75rem;
-  color: var(--text-muted);
-  opacity: 0.9;
-}
-
-.start-container {
-  margin-top: -100px;
-}
 /* =========================
-   Wellness Brands (kept)
+   Lightbox
    ========================= */
-
-.wellness-hero {
-  text-align: center;
-}
-
-.wellness-hero .lead {
-  max-width: 48ch;
-  margin: 0.75rem auto 1.25rem;
-  color: var(--text-muted);
-}
-
-.wellness-hero .cta-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.wellness-hero .micro {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.wellness-brands section {
-  padding: 2.5rem 0;
-}
-
-/* =========================
-   Lightbox (kept)
-   ========================= */
-
 .lightbox {
   position: fixed;
   inset: 0;
   display: none;
   z-index: 9999;
 }
-
 .lightbox.is-open {
   display: grid;
   place-items: center;
   padding: 24px;
 }
-
 .lightbox-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.72);
   cursor: zoom-out;
 }
-
 .lightbox-panel {
   position: relative;
   width: 100%;
@@ -1770,7 +910,6 @@ details.addon[open] summary::after {
   background: #111;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
-
 .lightbox-img {
   display: block;
   width: 100%;
@@ -1779,7 +918,6 @@ details.addon[open] summary::after {
   object-fit: contain;
   background: #111;
 }
-
 .lightbox-close {
   position: absolute;
   top: 12px;
@@ -1794,164 +932,13 @@ details.addon[open] summary::after {
   cursor: pointer;
   backdrop-filter: blur(6px);
 }
-
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.22);
 }
 
-
-
-/* (Footer centered block removed to prevent overrides) */
-
 /* =========================
-   Card CTAs — single consistent behavior
-   - No scattered buttons
-   - CTA pins to bottom inside cards
-   - No global .text-link weirdness inside cards
+   Reveal-on-scroll
    ========================= */
-
-/* 1) Any “card-like” component can use this pattern */
-.package-card,
-.service-block,
-.portfolio-item,
-.featured-item,
-.case-card,
-.card,
-.project-card,
-.work-card {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 2) The CTA wrapper gets pinned to bottom */
-.package-card .card-cta,
-.service-block .card-cta,
-.portfolio-item .card-cta,
-.featured-item .card-cta,
-.case-card .card-cta {
-  margin-top: auto;
-  padding-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-/* 3) You currently use <p class="text-link"> as a wrapper.
-      Neutralize ONLY inside cards so the global .text-link can still exist elsewhere. */
-.package-card p.text-link,
-.service-block p.text-link,
-.portfolio-item p.text-link,
-.featured-item p.text-link,
-.case-card p.text-link {
-  margin-top: auto !important;
-  margin-bottom: 0 !important;
-  margin-left: 0 !important;
-  padding-bottom: 0 !important;
-  display: flex;
-  justify-content: center;
-  padding-top: 16px;
-}
-
-/* Remove underline pseudo-element ONLY inside cards */
-.package-card .text-link::after,
-.service-block .text-link::after,
-.portfolio-item .text-link::after,
-.featured-item .text-link::after,
-.case-card .text-link::after {
-  display: none !important;
-}
-
-/* 4) Button sizing consistency inside cards */
-.package-card .btn-primary,
-.package-card .btn-secondary,
-.package-card .btn-outline,
-.service-block .btn-primary,
-.service-block .btn-secondary,
-.service-block .btn-outline,
-.portfolio-item .btn-primary,
-.portfolio-item .btn-secondary,
-.portfolio-item .btn-outline,
-.featured-item .btn-primary,
-.featured-item .btn-secondary,
-.featured-item .btn-outline,
-.case-card .btn-primary,
-.case-card .btn-secondary,
-.case-card .btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 240px;
-  text-align: center;
-}
-
-/* 5) On tiny screens, let buttons be full width */
-@media (max-width: 520px) {
-  .package-card .btn-primary,
-  .package-card .btn-secondary,
-  .package-card .btn-outline,
-  .service-block .btn-primary,
-  .service-block .btn-secondary,
-  .service-block .btn-outline,
-  .portfolio-item .btn-primary,
-  .portfolio-item .btn-secondary,
-  .portfolio-item .btn-outline,
-  .featured-item .btn-primary,
-  .featured-item .btn-secondary,
-  .featured-item .btn-outline,
-  .case-card .btn-primary,
-  .case-card .btn-secondary,
-  .case-card .btn-outline {
-    width: 100%;
-    min-width: 0;
-  }
-}
-
-/* =========================
-   Motion + hover polish (keep once)
-   ========================= */
-
-@media (prefers-reduced-motion: no-preference) {
-  .package-card,
-  .featured-item,
-  .portfolio-item,
-  .service-block,
-  .faq-item,
-  .proof-item,
-  .about-card,
-  .soft-panel,
-  .stat {
-    transition:
-      transform 350ms var(--ease-out),
-      box-shadow 350ms var(--ease-out);
-  }
-
-  .package-card:hover,
-  .featured-item:hover,
-  .portfolio-item:hover,
-  .service-block:hover,
-  .faq-item:hover,
-  .proof-item:hover,
-  .about-card:hover,
-  .soft-panel:hover,
-  .stat:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-float);
-  }
-}
-
-/* =========================
-   Responsive cleanups (remove conflicting duplicates)
-   ========================= */
-
-@media (max-width: 720px) {
-  .contact-expectations {
-    padding: 0 0.25rem;
-  }
-}
-
-/* =========================
-   Reveal-on-scroll (premium, consistent)
-   ========================= */
-
 .reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -1960,17 +947,14 @@ details.addon[open] summary::after {
     transform 520ms var(--ease-out);
   will-change: opacity, transform;
 }
-
 .reveal.is-inview {
   opacity: 1;
   transform: translateY(0);
 }
-
 .reveal.reveal--soft {
   transform: translateY(10px);
   transition-duration: 460ms;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -1980,180 +964,36 @@ details.addon[open] summary::after {
 }
 
 /* =========================
-   Card CTAs — single consistent behavior
-   - No scattered buttons
-   - CTA pins to bottom inside cards
-   - No global .text-link weirdness inside cards
+   Footer — 4-column layout
    ========================= */
-
-/* 1) Any “card-like” component can use this pattern */
-.package-card,
-.service-block,
-.portfolio-item,
-.featured-item,
-.case-card,
-.card,
-.project-card,
-.work-card {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 2) The CTA wrapper gets pinned to bottom */
-.package-card .card-cta,
-.service-block .card-cta,
-.portfolio-item .card-cta,
-.featured-item .card-cta,
-.case-card .card-cta {
-  margin-top: auto;
-  padding-top: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-/* 3) You currently use <p class="text-link"> as a wrapper.
-      Neutralize ONLY inside cards so the global .text-link can still exist elsewhere. */
-.package-card p.text-link,
-.service-block p.text-link,
-.portfolio-item p.text-link,
-.featured-item p.text-link,
-.case-card p.text-link {
-  margin-top: auto !important;
-  margin-bottom: 0 !important;
-  margin-left: 0 !important;
-  padding-bottom: 0 !important;
-  display: flex;
-  justify-content: center;
-  padding-top: 16px;
-}
-
-/* Remove underline pseudo-element ONLY inside cards */
-.package-card .text-link::after,
-.service-block .text-link::after,
-.portfolio-item .text-link::after,
-.featured-item .text-link::after,
-.case-card .text-link::after {
-  display: none !important;
-}
-
-/* 4) Button sizing consistency inside cards */
-.package-card .btn-primary,
-.package-card .btn-secondary,
-.package-card .btn-outline,
-.service-block .btn-primary,
-.service-block .btn-secondary,
-.service-block .btn-outline,
-.portfolio-item .btn-primary,
-.portfolio-item .btn-secondary,
-.portfolio-item .btn-outline,
-.featured-item .btn-primary,
-.featured-item .btn-secondary,
-.featured-item .btn-outline,
-.case-card .btn-primary,
-.case-card .btn-secondary,
-.case-card .btn-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 240px;
-  text-align: center;
-}
-
-/* 5) On tiny screens, let buttons be full width */
-@media (max-width: 520px) {
-  .package-card .btn-primary,
-  .package-card .btn-secondary,
-  .package-card .btn-outline,
-  .service-block .btn-primary,
-  .service-block .btn-secondary,
-  .service-block .btn-outline,
-  .portfolio-item .btn-primary,
-  .portfolio-item .btn-secondary,
-  .portfolio-item .btn-outline,
-  .featured-item .btn-primary,
-  .featured-item .btn-secondary,
-  .featured-item .btn-outline,
-  .case-card .btn-primary,
-  .case-card .btn-secondary,
-  .case-card .btn-outline {
-    width: 100%;
-    min-width: 0;
-  }
-}
-
-/* =========================
-   Motion + hover polish (keep once)
-   ========================= */
-
-@media (prefers-reduced-motion: no-preference) {
-  .package-card,
-  .featured-item,
-  .portfolio-item,
-  .service-block,
-  .faq-item,
-  .proof-item,
-  .about-card,
-  .soft-panel,
-  .stat {
-    transition:
-      transform 350ms var(--ease-out),
-      box-shadow 350ms var(--ease-out);
-  }
-
-  .package-card:hover,
-  .featured-item:hover,
-  .portfolio-item:hover,
-  .service-block:hover,
-  .faq-item:hover,
-  .proof-item:hover,
-  .about-card:hover,
-  .soft-panel:hover,
-  .stat:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-float);
-  }
-}
-
-/* =========================================================
-   Footer — 4-column layout (like your reference)
-   Paste at VERY END of style.css
-   ========================================================= */
-
-.site-footer{
+.site-footer {
   border-top: 1px solid var(--line);
   background: #e6d3bf;
   padding: 56px 0;
 }
-
-.footer-inner{
+.footer-inner {
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
   gap: 56px;
   align-items: start;
   justify-items: start;
 }
-
-/* Brand column */
-.footer-brand{
+.footer-brand {
   max-width: 520px;
 }
-
-.footer-logo{
+.footer-logo {
   max-width: 340px;
   height: auto;
   margin: 0 0 12px;
   display: block;
 }
-
-.footer-tagline{
+.footer-tagline {
   margin: 0;
   max-width: 44ch;
   color: var(--muted);
   line-height: 1.6;
 }
-
-/* Column heads */
-.footer-kicker{
+.footer-kicker {
   margin: 0 0 12px;
   font-size: 0.9rem;
   letter-spacing: 0.12em;
@@ -2161,29 +1001,23 @@ details.addon[open] summary::after {
   color: var(--text);
   font-weight: 700;
 }
-
-/* Lists */
-.footer-list{
+.footer-list {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
   gap: 8px;
 }
-
-.footer-list a{
+.footer-list a {
   color: var(--text);
   text-decoration: none;
   opacity: 0.92;
 }
-
-.footer-list a:hover{
+.footer-list a:hover {
   text-decoration: underline;
   opacity: 1;
 }
-
-/* Footer CTA */
-.footer-cta{
+.footer-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2197,67 +1031,854 @@ details.addon[open] summary::after {
   line-height: 1;
   width: fit-content;
 }
-
 .footer-cta:hover,
-.footer-cta:focus-visible{
+.footer-cta:focus-visible {
   background: var(--accent);
   border-color: var(--accent);
 }
-
-/* Contact column */
-.footer-contact{
+.footer-contact {
   display: grid;
   gap: 12px;
 }
-
-.footer-contact-item{
+.footer-contact-item {
   display: grid;
   gap: 2px;
 }
-
-.footer-contact-label{
+.footer-contact-label {
   font-size: 0.82rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   margin-top: -12px;
 }
-
-.footer-contact-value{
+.footer-contact-value {
   color: var(--text);
   text-decoration: none;
   opacity: 0.95;
+  margin-top: -5px;
+  margin-bottom: 10px;
 }
-
-a.footer-contact-value:hover{
+a.footer-contact-value:hover {
   text-decoration: underline;
   opacity: 1;
 }
-
-/* Meta */
-.footer-meta{
+.footer-meta {
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid rgba(29,27,21,0.12);
+  border-top: 1px solid rgba(29, 27, 21, 0.12);
   color: var(--muted);
 }
+.footer-meta p {
+  margin: 0;
+}
 
-.footer-meta p{ margin: 0; }
-
-/* Responsive */
-@media (max-width: 900px){
-  .footer-inner{
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+/* =========================
+   RESPONSIVE BREAKPOINTS
+   ========================= */
+@media (max-width: 1024px) {
+  .package-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+  .proof-inner {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 520px){
-  .footer-inner{
+@media (min-width: 901px) {
+  .nav-toggle {
+    display: none !important;
+  }
+  .main-nav {
+    display: flex !important;
+    position: static !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1.35rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  /* ✅ show hamburger */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Keep logo from shrinking/disappearing */
+  .logo {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  #logo {
+    height: 52px;
+    width: auto;
+  }
+
+  /* dropdown */
+  .main-nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 10px);
+    background: rgba(230, 211, 191, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    z-index: 1200;
+    box-shadow:
+  0 12px 28px rgba(0, 0, 0, 0.08),
+  0 4px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+
+  .main-nav .btn-nav {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Ensure your hamburger icon animations work (you already have these rules) */
+.nav-toggle {
+  gap: 0.6rem;
+}
+
+.nav-toggle__label {
+  line-height: 1;
+}
+
+  .mid-cta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mid-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    padding-top: 92px;
+  }
+  section {
+    padding: 3rem 0;
+  }
+  .container {
+    padding: 0 1.15rem;
+  }
+  .package-grid {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .footer-inner {
     grid-template-columns: 1fr;
     gap: 22px;
   }
-  .footer-brand{
-    max-width: 100%;
+}
+
+/* =========================================================
+   ABOUT PAGE — matches your target screenshot
+   Works with YOUR HTML exactly as written
+   ========================================================= */
+
+.about-page{
+  --max: 1100px;
+  --gap: 18px;
+  --radius: 18px;
+  --shadow: 0 10px 28px rgba(20,16,14,.08);
+  --border: 1px solid var(--line);
+  --panel: rgba(255,255,255,.62);
+}
+
+/* Contain width like the mock */
+.about-page .container{ max-width: var(--max); }
+
+/* Type cleanup */
+.about-page h1{ font-size: clamp(1.6rem, 2.2vw, 2.05rem); line-height: 1.15; margin: 0 0 10px; }
+.about-page h2{
+  font-size: .92rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.about-page h3{ margin: 0 0 4px; font-size: .98rem; }
+.about-page p{ margin: 0 0 10px; line-height: 1.7; }
+.about-page .about-lead{ color: var(--muted); max-width: 62ch; }
+
+.about-lead {
+  border-top: 1px solid var(--line);
+  padding-top: 5px;
+}
+
+/* ===== HERO ===== */
+.about-page .about-hero{ padding: 22px 0 10px; }
+.about-page .kicker{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255,255,255,.6);
+  border: var(--border);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.about-page .hero-split{
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: var(--gap);
+  align-items: start;
+  margin-top: 12px;
+}
+
+.hero-split h1 {
+  font-size: 20px;
+}
+
+.about-page .hero-card{
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 14px;
+}
+
+.about-page .hero-card p:last-child{ margin-bottom: 0; }
+
+.hero-proof {
+  margin-top: 5px;
+}
+
+/* ===== SECTION WRAP ===== */
+.about-page .about-wrap{ padding: 8px 0 34px; }
+.about-page .about-section{ margin-top: 16px; }
+
+.about-page .about-card{
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px;
+}
+
+/* ===== INTRO (Hi I'm Kayla) ===== */
+.about-page .about-intro{
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.about-page .about-photo{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  border: var(--border);
+  object-fit: cover;
+}
+
+/* badges -> chips */
+.about-page .about-badges{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+
+.about-page .badge{
+  font-size: .78rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: var(--border);
+  border-color: #e3d4ce;
+  background: rgba(255,255,255,.68);
+  color: var(--muted);
+}
+
+/* About buttons */
+.about-page .about-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Make sure these look like real buttons even if globals are messy */
+.about-page .btn-primary,
+.about-page .btn-secondary,
+.about-page .btn-outline{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 650;
+  font-size: .92rem;
+  white-space: nowrap;
+  transition: transform 160ms var(--ease, ease), background 160ms var(--ease, ease), filter 160ms var(--ease, ease);
+}
+
+.about-page .btn-primary{
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid transparent;
+}
+.about-page .btn-primary:hover{ transform: translateY(-1px); filter: brightness(.98); }
+
+.about-page .btn-secondary{
+  background: transparent;
+  color: var(--text);
+  border: var(--border);
+  border-color: #8c5740;
+}
+.about-page .btn-secondary:hover{ transform: translateY(-1px); background: rgba(0,0,0,.03); }
+
+.about-page .btn-outline{
+  background: transparent;
+  color: var(--text);
+  border: var(--border);
+  border-color: #8c5740;
+}
+.about-page .btn-outline:hover{ transform: translateY(-1px); background: rgba(0,0,0,.03); }
+
+/* ===== WHO + WHY GRID ===== */
+.about-page .about-grid-2{
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 12px;
+  align-items: start;
+}
+
+/* WHO I HELP "Fast/Calm/Clean" mini cards */
+.about-page .stats-row{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.about-page .stat{
+  border: var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 12px 12px;
+}
+
+.about-page .stat .num{
+  margin: 0 0 4px;
+  font-weight: 750;
+  color: var(--text);
+}
+.about-page .stat .label{
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Quote card */
+.about-page .quote-card{
+  border: var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 12px 12px;
+  margin-top: 12px;
+}
+
+.about-page .quote-card p{ margin: 0 0 8px; color: var(--muted); }
+.about-page .quote-card footer{ color: var(--muted); font-size: .9rem; }
+
+/* ===== SOFT PANELS (Standout + Outcomes) ===== */
+.about-page .soft-panel{
+  border: var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 12px 12px;
+}
+.about-page .soft-panel p{ margin: 0; color: var(--muted); }
+.about-page .soft-panel strong{ color: var(--text); }
+
+/* Make the 4-up panels actually 2x2 like your screenshot */
+.about-page .about-card .about-grid-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* ===== TIMELINE (How it works) ===== */
+.about-page .timeline{
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.about-page .timeline li{
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: var(--border);
+  background: var(--panel);
+}
+
+.about-page .timeline .step{
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  border: var(--border);
+  background: rgba(255,255,255,.78);
+  color: var(--text);
+  font-weight: 750;
+  font-size: .9rem;
+}
+
+.about-page .timeline p{ margin: 0; color: var(--muted); font-size: .95rem; }
+
+/* Recent work link */
+.about-page .text-link{
+  font-weight: 650;
+  text-decoration: none;
+}
+.about-page .text-link:hover{ text-decoration: underline; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  .about-page .hero-split{ grid-template-columns: 1fr; }
+  .about-page .about-grid-2{ grid-template-columns: 1fr; }
+  .about-page .about-intro{ grid-template-columns: 1fr; }
+  .about-page .stats-row{ grid-template-columns: 1fr; }
+  .about-page .about-card .about-grid-2{ grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   Equal-height cards for About page 2-up grids
+   ========================================================= */
+
+/* Make grid stretch items */
+.about-page .about-grid-2 {
+  align-items: stretch;
+}
+
+/* Force cards to fill grid cell height */
+.about-page .about-grid-2 > .about-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: keep content breathing evenly */
+.about-page .about-grid-2 > .about-card > *:last-child {
+  margin-top: auto;
+}
+
+.about-page .section-intro{
+  color: var(--muted);
+  font-size: .95rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.about-page .muted-note{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+/* =========================================================
+   PORTFOLIO PAGE — add structure so it doesn't feel bare
+   ========================================================= */
+
+.portfolio-hero{
+  padding: 34px 0 18px;
+}
+
+.portfolio-hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255,255,255,.6);
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin: 0 0 12px;
+}
+
+.portfolio-hero h1{
+  margin: 0 0 10px;
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  line-height: 1.12;
+  justify-content: center;
+  text-align: center;
+}
+
+.portfolio-hero .lead{
+  margin: 0 0 16px;
+  /* max-width: 70ch; */
+  color: var(--muted);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.portfolio-hero .hero-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-bottom: 18px;
+  justify-content: center;
+}
+
+/* Services hero: separate secondary guidance link */
+.services-hero .hero-actions .hero-secondary {
+  margin-left: 14px; /* desktop breathing room */
+}
+
+@media (max-width: 640px) {
+  .services-hero .hero-actions .hero-secondary {
+    margin-left: 0;
+    margin-top: 8px;
+    display: inline-block;
   }
+}
+
+/* proof strip */
+.portfolio-hero .proof-row{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.portfolio-hero .proof-card{
+  background: rgba(255,255,255,.62);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 12px 12px;
+}
+
+.portfolio-hero .proof-title{
+  margin: 0 0 6px;
+  font-weight: 750;
+  color: var(--text);
+}
+
+.portfolio-hero .proof-text{
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.6;
+}
+
+/* section heading framing */
+.section-head{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 26px 0 14px;
+}
+
+.section-head h2{
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.section-head .section-sub{
+  margin: 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+/* responsive */
+@media (max-width: 1000px){
+  .portfolio-hero .proof-row{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px){
+  .portfolio-hero{
+    padding: 26px 0 14px;
+  }
+  .portfolio-hero .proof-row{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   MOBILE POLISH OVERRIDES (drop-in at END of style.css)
+   - Kicker closer to header
+   - Smaller/tighter H1 + centered
+   - Buttons centered with spacing
+   - Footer centered only on small screens
+   - About photo smaller on mobile
+   - Mobile header stacks: logo top, hamburger below (centered)
+   - Contact add-ons: checkbox aligned right
+   ========================================================= */
+
+/* ---------- HERO spacing + type (mobile) ---------- */
+@media (max-width: 640px) {
+  /* Pull hero content closer to the fixed header */
+  .hero,
+  .portfolio-hero,
+  .services-hero,
+  .about-page .about-hero {
+    padding-top: 70px !important;
+    padding-bottom: 18px !important;
+  }
+
+  /* Make any “kicker pill” sit closer */
+  .portfolio-hero .kicker,
+  .services-hero .kicker,
+  .about-page .kicker {
+    margin-top: 4px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Smaller, tighter, centered H1 */
+  .hero h1,
+  .portfolio-hero h1,
+  .services-hero h1,
+  .about-page h1 {
+    font-size: clamp(1.55rem, 6vw, 2.05rem) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -0.02em !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Tighten sub text + keep centered */
+  .hero .hero-sub,
+  .portfolio-hero .lead,
+  .services-hero .lead,
+  .about-page .about-lead {
+    text-align: center !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Center ALL hero action buttons with reasonable spacing */
+  .hero-actions,
+  .mid-cta-actions {
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  /* Your portfolio/services hero gap was huge */
+  .portfolio-hero .hero-actions {
+    gap: 12px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Remove the “offset secondary link” behavior on mobile */
+  .services-hero .hero-actions .hero-secondary {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    display: inline-flex !important;
+  }
+}
+/* ---------- MOBILE HEADER: logo full width, hamburger below & centered ---------- */
+@media (max-width: 900px) {
+  .nav-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 0.85rem 1rem 1rem !important;
+  }
+
+  .logo {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  #logo {
+    height: 58px !important;       /* visible but not massive */
+    max-width: 92vw !important;     /* keeps it from overflowing */
+  }
+
+  /* Force hamburger to show and sit under logo */
+  .nav-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+  }
+
+  /* Dropdown should open below the stacked header */
+  .main-nav {
+    top: calc(100% + 8px) !important;
+  }
+}
+
+/* ---------- ABOUT: photo smaller on small screens (not edge-to-edge) ---------- */
+@media (max-width: 900px) {
+  .about-page .about-photo {
+    max-width: 360px;
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+
+  .page-hero container {
+    margin-top: 50px;
+  } 
+}
+@media (max-width: 520px) {
+  .about-page .about-photo {
+    max-width: 300px;
+  }
+}
+
+/* ---------- CONTACT: optional add-ons checkboxes aligned right ---------- */
+/* This is written “defensively” to work with slightly different markup */
+.project-form :where(.addons, .add-ons, .optional-addons, .addons-box, fieldset) label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 12px;
+}
+
+/* If your checkbox is inside the label, this pushes it to the right */
+.project-form :where(.addons, .add-ons, .optional-addons, .addons-box, fieldset) label input[type="checkbox"] {
+  justify-self: end;
+  margin: 0;
+}
+
+/* If your checkbox is NOT inside label (rare), try this too */
+.project-form :where(.addons, .add-ons, .optional-addons, .addons-box) input[type="checkbox"] {
+  margin-left: auto;
+}
+
+/* ---------- FOOTER: center only on small screens ---------- */
+@media (max-width: 520px) {
+  .site-footer .footer-inner {
+    justify-items: center !important;
+    text-align: center !important;
+  }
+
+  .site-footer .footer-logo {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .site-footer .footer-list {
+    justify-items: center;
+  }
+
+  .site-footer .footer-contact {
+    justify-items: center;
+  }
+
+  .site-footer .footer-contact-item {
+    justify-items: center;
+  }
+
+  .site-footer .footer-cta {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* =========================================================
+   FOOTER: tighten vertical spacing (all screens)
+   ========================================================= */
+
+.site-footer .footer-kicker{
+  margin-bottom: 8px; /* was 12 */
+}
+
+.site-footer .footer-list{
+  gap: 6px; /* was 8 */
+}
+
+.site-footer .footer-contact{
+  gap: 10px; /* was 12 */
+}
+
+.site-footer .footer-contact-item{
+  gap: 0px; /* was 2 */
+}
+
+.site-footer .footer-tagline{
+  line-height: 1.5; /* was 1.6 */
+}
+
+.site-footer .footer-meta{
+  margin-top: 10px;   /* was 14 */
+  padding-top: 10px;  /* was 12 */
+}
+
+.site-footer .footer-inner{
+  gap: 44px; /* was 56 — closer columns without feeling cramped */
+}
+
+/* Small screens: a bit tighter still */
+@media (max-width: 520px){
+  .site-footer{
+    padding: 44px 0; /* was 56 */
+  }
+
+  .site-footer .footer-inner{
+    gap: 18px; /* was 22 */
+  }
+}
+
+/* =========================================================
+   FIX: content hiding under fixed header on small screens
+   (header gets taller when stacked)
+   ========================================================= */
+
+@media (max-width: 900px) {
+  main {
+    padding-top: 125px !important; /* was ~92–96px; needs to match stacked header */
+  }
+}
+
+/* Extra safety for very small phones */
+@media (max-width: 520px) {
+  main {
+    padding-top: 100px !important;
+  }
+}
+
+/* Optional: make anchor jumps (and internal section headings) land below header */
+section,
+.hero,
+.portfolio-hero,
+.services-hero,
+.about-page .about-hero {
+  scroll-margin-top: 170px;
 }

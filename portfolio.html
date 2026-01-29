@@ -18,7 +18,7 @@
       href="https://kaylamariecollective.com/portfolio.html"
     />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=20260128-1" />
     <script defer src="assets/js/script.js"></script>
 
     <link rel="preload" as="image" href="images/primaryanchor-wordmark.png" />
@@ -91,7 +91,7 @@
     </script>
   </head>
 
-  <body>
+  <body class="portfolio-page">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Header -->
@@ -146,19 +146,48 @@
 
     <main id="main">
       <!-- Hero -->
-      <section class="page-hero">
-        <div class="container">
-          <h1>Portfolio</h1>
-          <p>
-            Selected builds and product work — clean, calm, conversion-friendly.
-          </p>
-        </div>
-      </section>
+      <section class="portfolio-hero">
+  <div class="container">
+    <p class="kicker">Portfolio</p>
+    <h1>Websites built for calm, clarity, and conversion</h1>
+    <p class="lead">
+      Selected builds and product work — clean structure, thoughtful design, and clear next steps.<br>
+      Each case study shows what changed, why it mattered, and how it supports inquiries.
+    </p>
+
+    <div class="hero-actions">
+      <a href="contact.html" class="btn-primary">Start a Project Inquiry</a>
+      <a href="services.html" class="btn-secondary">See Packages</a>
+    </div>
+
+    <div class="proof-row">
+      <div class="proof-card">
+        <p class="proof-title">Mobile-first</p>
+        <p class="proof-text">Built to feel great on phones — not “shrunk down.”</p>
+      </div>
+      <div class="proof-card">
+        <p class="proof-title">SEO foundations</p>
+        <p class="proof-text">Clean structure, metadata, and crawl-friendly setup.</p>
+      </div>
+      <div class="proof-card">
+        <p class="proof-title">Tracked CTAs</p>
+        <p class="proof-text">Events + click tracking so you know what’s working.</p>
+      </div>
+      <div class="proof-card">
+        <p class="proof-title">Maintainable</p>
+        <p class="proof-text">Simple updates without tech spirals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       <!-- CASE STUDIES -->
       <section class="portfolio-section container">
-        <h2>Featured Case Studies</h2>
-
+<header class="section-head">
+  <h2>Featured Case Studies</h2>
+  <p class="section-sub">2–3 minute reads with before/after decisions, structure, and outcomes.</p>
+</header>
         <div class="portfolio-grid">
           <article class="portfolio-item">
             <img
@@ -179,7 +208,7 @@
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
-            <p class="text-link">
+            <p class="link-row">
               <a
                 href="case-studies/soul-stone.html"
                 data-track="portfolio_case_click"
@@ -187,7 +216,7 @@
               >
                 View case study →
               </a>
-              &nbsp;•&nbsp;
+              <!-- &nbsp;•&nbsp; -->
               <a
                 href="https://www.soulstoneinc.org"
                 target="_blank"
@@ -197,7 +226,7 @@
               >
                 Live site →
               </a>
-              &nbsp;•&nbsp;
+              <!-- &nbsp;•&nbsp; -->
               <a
                 href="contact.html?source=portfolio_soulstone&project_type=strategy&tier=strategic"
                 data-track="portfolio_cta_click"
@@ -227,7 +256,7 @@
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
-            <p class="text-link">
+            <p class="link-row">
               <a
                 href="case-studies/kingdom-woodcraft.html"
                 data-track="portfolio_case_click"
@@ -235,7 +264,7 @@
               >
                 View case study →
               </a>
-              &nbsp;•&nbsp;
+              <!-- &nbsp;•&nbsp; -->
               <a
                 href="https://www.kingdomwoodcrafttn.com"
                 target="_blank"
@@ -245,7 +274,7 @@
               >
                 Live site →
               </a>
-              &nbsp;•&nbsp;
+              <!-- &nbsp;•&nbsp; -->
               <a
                 href="contact.html?source=portfolio_kw&service=website"
                 data-track="portfolio_cta_click"
@@ -259,7 +288,7 @@
           <!-- Kayla Marie Collective -->
           <article class="portfolio-item">
             <img
-              src="images/brandbadge.png"
+              src="/images/creambadge.png"
               alt="Kayla Marie Collective brand mark"
               loading="lazy"
               decoding="async"
@@ -277,7 +306,7 @@
             </p>
             <p class="tech">Tech: HTML, CSS, JavaScript</p>
 
-            <p class="text-link">
+            <p class="link-row">
               <a
                 href="case-studies/kayla-marie-collective.html"
                 data-track="portfolio_case_click"
@@ -285,7 +314,7 @@
               >
                 View case study →
               </a>
-              &nbsp;•&nbsp;
+              <!-- &nbsp;•&nbsp; -->
               <a
                 href="contact.html?source=portfolio_kmc&service=website"
                 data-track="portfolio_cta_click"
@@ -320,7 +349,7 @@
               confident next steps.
             </p>
             <p class="tech">Tech: HTML, CSS</p>
-            <p class="text-link">
+            <p class="webtext-link">
               <a
                 href="https://www.soulstoneinc.org"
                 target="_blank"
@@ -365,7 +394,7 @@
             <p class="tech">Deliverable: Product + sales flow</p>
 
             <!-- OPTIONAL: if you want this to drive product-page inquiries -->
-            <p class="text-link">
+            <p class="digtext-link">
               <a
                 href="contact.html?source=portfolio_sihb&service=product"
                 data-track="portfolio_cta_click"
