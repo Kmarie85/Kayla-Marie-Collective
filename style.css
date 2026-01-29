@@ -1966,7 +1966,7 @@ body.contact .contact-card {
 
 .contact-expectations {
   max-width: 720px;          /* controls line length */
-  margin: 40px auto 0;       /* centers the block */
+  margin: 10px auto 0;       /* centers the block */
   padding: 0 16px;           /* safe breathing room on small screens */
   text-align: left;          /* ensures bullets + text stay left */
 }
