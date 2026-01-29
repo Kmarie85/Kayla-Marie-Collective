@@ -2070,3 +2070,11 @@ body.contact .contact-card {
   transform: translateY(0);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
+.site-header .btn-nav:hover,
+.site-header .btn-nav:focus-visible {
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px rgba(183, 123, 95, 0.25),
+    0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
