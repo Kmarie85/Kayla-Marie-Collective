@@ -1212,6 +1212,103 @@ body.portfolio-page .portfolio-item .link-row a:hover{
   resize: vertical;
 }
 
+/* =========================================================
+   Legal pages (Privacy / Terms) — match KMC card look
+   ========================================================= */
+
+.legal-wrap { padding: 56px 0; }
+
+.legal-header {
+  max-width: 920px;
+  margin: 0 auto 18px;
+}
+
+.legal-meta { margin-top: 10px; }
+
+/* Optional: only if you added section-kicker */
+.section-kicker {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.legal-card {
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+  padding: 28px;
+}
+
+.legal-card p:first-child { margin-top: 0; }
+.legal-card h2:first-of-type { margin-top: 18px; }
+
+.legal-card h2 {
+  margin-top: 26px;
+  margin-bottom: 10px;
+}
+
+.legal-card p { margin: 12px 0; }
+
+.legal-card ul {
+  margin: 10px 0 14px;
+  padding-left: 1.15rem;
+}
+
+.legal-card li { margin: 8px 0; }
+
+.legal-card a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 640px) {
+  .legal-wrap { padding: 36px 0; }
+  .legal-card { padding: 18px; }
+}
+
+/* Kicker (small uppercase label above H1s) */
+.section-kicker {
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+/* Fix for fixed header overlap on legal pages */
+.legal-wrap {
+  /* header height + breathing room */
+  padding-top: calc(var(--header-offset, 96px) + 24px);
+  padding-bottom: 56px;
+}
+
+/* Prevent anchored headings from hiding under fixed header */
+.legal-card h2,
+.legal-card h3 {
+  scroll-margin-top: calc(var(--header-offset, 96px) + 24px);
+}
+
+
 /* =========================
    Lightbox
    ========================= */
@@ -2631,3 +2728,9 @@ html, body {
     gap: 10px; /* was likely 16–24px */
   }
 }
+
+/* Legal pages: keep readable + calm */
+.page-header .kicker { letter-spacing: .08em; text-transform: uppercase; }
+main h2 { margin-top: 28px; }
+main ul { padding-left: 1.1rem; }
+main li { margin: 8px 0; }
