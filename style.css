@@ -2585,13 +2585,13 @@ html, body {
 @media (max-width: 719px) {
   .testimonials-grid {
     grid-auto-flow: column;
-    grid-auto-columns: 92%;
+    grid-auto-columns: 96%;
     overflow-x: auto;
 
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 
-    gap: 16px;
+    gap: 10px;
     padding-bottom: 12px;
 
     /* Key: prevent vertical scroll from “stealing” the swipe */
@@ -2624,4 +2624,10 @@ html, body {
 /* Only show hint on small screens */
 @media (min-width: 720px){
   .testimonials-hint{ display: none; }
+}
+
+@media (max-width: 719px) {
+  .testimonials-grid {
+    gap: 12px; /* was likely 16–24px */
+  }
 }
