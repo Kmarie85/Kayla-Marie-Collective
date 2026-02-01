@@ -2538,7 +2538,7 @@ main#main.contact-page{
   .testimonials-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 10px;
   }
 }
 
@@ -2569,7 +2569,7 @@ html, body {
   .testimonials-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 88%;
+    grid-auto-columns: 96%;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -2628,6 +2628,6 @@ html, body {
 
 @media (max-width: 719px) {
   .testimonials-grid {
-    gap: 12px; /* was likely 16–24px */
+    gap: 10px; /* was likely 16–24px */
   }
 }
