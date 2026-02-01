@@ -1369,6 +1369,24 @@ body.portfolio-page .portfolio-item .link-row a:hover {
   scroll-margin-top: calc(var(--header-offset, 96px) + 24px);
 }
 
+/* =========================================
+   Fixed header offset — legal pages (mobile)
+   ========================================= */
+
+/* If header is fixed, give legal pages extra top padding */
+@media (max-width: 640px) {
+  .legal-wrap {
+    /* bump content down so kicker + H1 are not under the header */
+    padding-top: 96px;
+    margin: 15px 15px;
+  }
+  .legal-header {
+    padding-top: 35px;
+  }
+
+}
+
+
 /* =========================
    Lightbox
    ========================= */
