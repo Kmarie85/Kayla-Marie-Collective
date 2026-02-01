@@ -674,6 +674,239 @@ section h2 {
   margin-top: -50px;
 }
 
+/* Add clearer separation between sections */
+.testimonials{
+  padding-bottom: 90px; /* a touch more breathing room */
+}
+
+/* Give FAQ a consistent top rhythm */
+.faq{
+  padding-top: 70px;
+}
+
+/* Tighten FAQ items so it reads cleaner */
+.faq .faq-item{
+  padding: 18px 0;
+  border-radius: 15px;
+  border-bottom: 1px solid var(--line);
+}
+
+.faq .faq-item h3{
+  margin: 0 0 10px;
+  margin-left: 5PX;
+}
+
+.faq .faq-item p{
+  margin: 0;
+  max-width: 70ch;
+  margin-left: 15px;
+}
+
+/* =========================
+   Testimonials
+   ========================= */
+.testimonials {
+  padding: 40px 0;
+  background: var(--soft);
+}
+
+.testimonials h2 {
+  margin: 10px 0 26px;
+}
+
+.testimonials-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.t-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+}
+
+.t-card blockquote {
+  margin: 0 0 18px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.t-card figcaption strong {
+  display: block;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.t-card figcaption span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+
+.t-card--placeholder {
+  opacity: 0.85;
+  border: 1px dashed rgba(0, 0, 0, 0.14);
+  box-shadow: none;
+}
+
+.t-card:not(.t-card--placeholder) {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+}
+
+.t-card:not(.t-card--placeholder) {
+  border-left: 3px solid var(--accent);
+}
+
+.t-link{
+  display: inline-block;
+  margin-top: 10px;
+  font-size: .95rem;
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+.t-link:hover{
+  text-decoration: underline;
+}
+
+.t-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+@media (hover: hover) {
+  .t-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Mobile: swipe without JS */
+@media (max-width: 719px) {
+  .testimonials-grid {
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .t-card {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 719px) {
+  .testimonials[data-rotate="true"] .testimonials-grid {
+    animation: t-snap-rotate 18s infinite;
+  }
+
+  .testimonials[data-rotate="true"] .testimonials-grid:hover,
+  .testimonials[data-rotate="true"] .testimonials-grid:focus-within {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials[data-rotate="true"] .testimonials-grid {
+    animation: none;
+  }
+}
+
+@keyframes t-snap-rotate {
+  0%, 25%   { transform: translateX(0%); }
+  33%, 58%  { transform: translateX(-100%); }
+  66%, 92%  { transform: translateX(-200%); }
+  100%      { transform: translateX(0%); }
+}
+
+.t-card:not(.t-card--placeholder) {
+  transform: translateY(-2px);
+}
+
+/* =========================
+   Testimonial card hover
+   ========================= */
+
+.t-card {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+@media (hover: hover) {
+  .t-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Keep placeholders quieter */
+@media (hover: hover) {
+  .t-card--placeholder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .t-card {
+    transition: none;
+  }
+}
+
+/* =========================
+   Pill-style section kicker
+   ========================= */
+
+.section-kicker.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  margin-bottom: 18px;
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-kicker.pill span {
+  line-height: 1;
+}
+
 /* =========================
    Home: Mid CTA
    ========================= */
@@ -1589,6 +1822,17 @@ a.footer-contact-value:hover {
 }
 .about-page .text-link:hover{ text-decoration: underline; }
 
+/* Make testimonial span full width on About page */
+.about-page .testimonial-section,
+.about-page .testimonial-card,
+.about-page .about-section.testimonial-section {
+  grid-column: 1 / -1;
+}
+
+.about-page .testimonial-card {
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.1);
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px){
   .about-page .hero-split{ grid-template-columns: 1fr; }
@@ -2266,3 +2510,26 @@ main#main.contact-page{
   }
 }
 
+.testimonial-section {
+  background: var(--soft);
+}
+
+.testimonial-card {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 36px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card p {
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.testimonial-meta {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
