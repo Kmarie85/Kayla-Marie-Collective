@@ -2533,3 +2533,95 @@ main#main.contact-page{
   font-size: 0.9rem;
   color: var(--muted);
 }
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .t-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .t-card--placeholder {
+    display: none;
+  }
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .t-card {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 719px) {
+  .testimonials-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .t-card { scroll-snap-align: start; }
+
+  /* Do NOT hide placeholders if you want swipe */
+  .t-card--placeholder { display: block; }
+}
+
+@media (max-width: 719px) {
+  .testimonials-grid {
+    grid-auto-flow: column;
+    grid-auto-columns: 92%;
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    gap: 16px;
+    padding-bottom: 12px;
+
+    /* Key: prevent vertical scroll from “stealing” the swipe */
+    overscroll-behavior-x: contain;
+    scroll-padding-left: 16px;
+  }
+
+  .t-card {
+    scroll-snap-align: start;
+  }
+}
+
+.testimonials-hint{
+  margin: -10px 0 18px;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+@media (min-width: 720px){
+  .testimonials-hint{ display:none; }
+}
+
+.testimonials-hint{
+  margin: 6px 0 18px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+/* Only show hint on small screens */
+@media (min-width: 720px){
+  .testimonials-hint{ display: none; }
+}
