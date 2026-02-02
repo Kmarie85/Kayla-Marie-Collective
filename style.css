@@ -1258,6 +1258,19 @@ body.portfolio-page .portfolio-item .link-row a:hover {
   resize: vertical;
 }
 
+/* Thank-you page centering */
+.thank-you-page .page-hero {
+  min-height: calc(100vh - var(--header-height, 80px));
+  display: flex;
+  align-items: center;
+}
+
+.container-narrow {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 /* =========================================================
    Legal pages (Privacy / Terms) — match KMC card look
    ========================================================= */
