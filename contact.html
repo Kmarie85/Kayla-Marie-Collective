@@ -188,6 +188,8 @@
             <input type="hidden" id="source_page" name="source_page" value="" />
             <input type="hidden" id="referrer" name="referrer" value="" />
             <input type="hidden" id="tier" name="tier" value="" />
+            <input type="hidden" name="_next" value="https://kaylamariecollective.com/thank-you.html" />
+
 
             <div class="selection-note" id="selectionNote" hidden>
               <p class="form-note" style="margin: 0 0 0.75rem">
@@ -309,68 +311,76 @@
               </label>
             </div>
 
-            <fieldset class="addons-fieldset" id="addonsFieldset">
-              <legend>Optional add-ons (select any)</legend>
-              <p class="form-note" style="margin-top: 0.35rem">
-                Select a project type above to enable relevant add-ons.
-              </p>
+<fieldset class="addons-fieldset">
+  <legend>Optional support areas to consider</legend>
 
-              <label class="check">
-                <span class="check__text"
-                  >Copy structure + clarity support</span
-                >
-                <input type="checkbox" name="addons" value="copy_clarity" />
-              </label>
+  <p class="form-note" style="margin-top: 0.35rem;">
+    These help me understand what may be useful for your project.
+    You are not selecting scope here.
+  </p>
 
-              <label class="check">
-                <span class="check__text">Email capture / waitlist setup</span>
-                <input type="checkbox" name="addons" value="email_capture" />
-              </label>
+  <label class="check">
+    <span class="check__text">Copy clarity & page structure</span>
+    <input type="checkbox" name="interest_areas" value="copy_clarity" />
+  </label>
 
-              <label class="check">
-                <span class="check__text"
-                  >Digital product integration (checkout + delivery)</span
-                >
-                <input
-                  type="checkbox"
-                  name="addons"
-                  value="digital_product_integration"
-                />
-              </label>
+  <label class="check">
+    <span class="check__text">Email list or opt-in setup</span>
+    <input type="checkbox" name="interest_areas" value="email_capture" />
+  </label>
 
-              <label class="check">
-                <span class="check__text">Additional funnel page(s)</span>
-                <input
-                  type="checkbox"
-                  name="addons"
-                  value="extra_funnel_page"
-                />
-              </label>
+  <label class="check">
+    <span class="check__text">Digital product or offer integration</span>
+    <input type="checkbox" name="interest_areas" value="digital_product" />
+  </label>
 
-              <label class="check">
-                <span class="check__text">Post-launch funnel review</span>
-                <input
-                  type="checkbox"
-                  name="addons"
-                  value="post_launch_review"
-                />
-              </label>
+  <label class="check">
+    <span class="check__text">Funnel or multi-step flow</span>
+    <input type="checkbox" name="interest_areas" value="funnel_flow" />
+  </label>
 
-              <label class="check">
-                <span class="check__text">Photography: micro session</span>
-                <input type="checkbox" name="addons" value="photo_micro" />
-              </label>
+  <p class="form-note" style="margin-top: 0.5rem;">
+    If none apply, leave this blank — I’ll guide you.
+  </p>
+</fieldset>
 
-              <label class="check">
-                <span class="check__text">Photography: half-day session</span>
-                <input type="checkbox" name="addons" value="photo_half_day" />
-              </label>
+<fieldset class="addons-fieldset" style="margin-top: 22px;">
+  <legend>Local brand photography (optional)</legend>
 
-              <p class="form-note" style="margin-top: 0.5rem">
-                Add-ons extend scope intentionally. If you’re not sure, leave
-                this blank — I’ll recommend the cleanest next step.
-              </p>
-            </fieldset>
+  <p class="form-note" style="margin-top: 0.35rem;">
+    For select local projects, I offer simple brand photography to support your website
+    with real, grounded imagery. This is always optional.
+  </p>
+
+  <label class="check">
+    <span class="check__text">Yes — I’m open to it</span>
+    <input type="radio" name="photography_interest" value="yes" required />
+  </label>
+
+  <label class="check">
+    <span class="check__text">Maybe — open to guidance</span>
+    <input type="radio" name="photography_interest" value="maybe" />
+  </label>
+
+  <label class="check">
+    <span class="check__text">No — not needed</span>
+    <input type="radio" name="photography_interest" value="no" />
+  </label>
+
+  <label style="margin-top: 0.75rem; display: block;">
+    General location (city + state)
+    <input
+      type="text"
+      name="location_general"
+      placeholder="City + state"
+      autocomplete="address-level2"
+    />
+  </label>
+
+  <p class="form-note" style="margin-top: 0.5rem;">
+    If relevant, I’ll share a short overview and we’ll scope this privately.
+  </p>
+</fieldset>
 
             <label>
               Budget Range (USD) <span aria-hidden="true">*</span>

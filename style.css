@@ -1059,6 +1059,7 @@ section h2 {
 
 .packages h2 {
   margin-top: -50px;
+  
 }
 
 /* =========================
@@ -2380,6 +2381,10 @@ a.footer-contact-value:hover {
   :where(.addons, .add-ons, .optional-addons, .addons-box)
   input[type="checkbox"] {
   margin-left: auto;
+}
+
+.addon-body {
+  margin-top: -10px;
 }
 
 /* ---------- FOOTER: center only on small screens ---------- */
