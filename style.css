@@ -2932,7 +2932,7 @@ main.photography-page .legal-card li::before {
 }
 
 /* soft “photo strip” placeholder (optional block you can add to HTML) */
-main.photography-page .photo-strip {
+/* main.photography-page .photo-strip {
   margin: 12px 0 18px; height: 110px; border-radius: var(--radius);
   border: 1px solid var(--line);
   background:
@@ -2941,7 +2941,93 @@ main.photography-page .photo-strip {
     radial-gradient(700px 220px at 85% 30%, rgba(231,212,200,0.35), transparent 58%),
     rgba(243,238,233,0.55);
   box-shadow: var(--shadow-soft);
+} */
+
+/* =========================
+   Rotating Photo Strip (auto loop) — CLEAN
+   ========================= */
+
+main.photography-page .photo-strip {
+  --strip-h: 160px;            /* <-- change this to make it taller */
+  --strip-w: 240px;            /* image width (auto scales with height) */
+  --strip-gap: 12px;
+
+  margin: 18px 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  position: relative;
+
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.06),
+    0 3px 10px rgba(0, 0, 0, 0.04);
 }
+
+main.photography-page .photo-strip__track {
+  display: flex;
+  gap: var(--strip-gap);
+  padding: 12px;
+  width: max-content;
+  animation: photoStripScroll 34s linear infinite;
+  will-change: transform;
+  align-items: center;
+}
+
+main.photography-page .photo-strip img {
+  height: var(--strip-h);
+  width: var(--strip-w);
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 2px);
+  flex: 0 0 auto;
+  filter: saturate(0.98) contrast(1.02);
+}
+
+/* Pause on hover */
+main.photography-page .photo-strip:hover .photo-strip__track {
+  animation-play-state: paused;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  main.photography-page .photo-strip__track { animation: none; }
+}
+
+@keyframes photoStripScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Edge fade */
+main.photography-page .photo-strip::before,
+main.photography-page .photo-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 56px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+main.photography-page .photo-strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--card), rgba(255,255,255,0));
+}
+
+main.photography-page .photo-strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--card), rgba(255,255,255,0));
+}
+
+/* Mobile tweak */
+@media (max-width: 640px) {
+  main.photography-page .photo-strip {
+    --strip-h: 160px;
+    --strip-w: 210px;
+  }
+}
+
 
 /* =========================
    Rotating Photo Strip (auto loop)
@@ -2969,7 +3055,7 @@ main.photography-page .photo-strip {
 }
 
 .photo-strip img {
-  height: 110px;              /* adjust */
+  height: 140px;              /* adjust */
   width: 165px;               /* adjust */
   object-fit: cover;
   border-radius: calc(var(--radius) - 2px);
