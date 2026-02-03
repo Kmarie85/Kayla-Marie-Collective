@@ -494,7 +494,7 @@
             <li><a href="/privacy-policy.html">Privacy Policy</a></li>
             <li><a href="/terms.html">Terms</a></li>
             <li><a href="/referrals.html" class="footer-subtle">Referrals</a></li>
-            <li><a href="/contact.html?project_type=website&source=footer" class="footer-cta">Start a Project</a></li>
+            <a href="/contact.html?project_type=foundation-website&source=footer" class="footer-cta">Start a Project</a>
           </ul>
         </div>
 
@@ -533,5 +533,49 @@
         expected.
       </p>
     </noscript>
+<script>
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+
+    // Grab params
+    const projectType = (params.get("project_type") || "").trim();
+    const photoInterest = (params.get("photography_interest") || "").trim().toLowerCase();
+    const source = (params.get("source") || "").trim();
+
+    // 1) Set hidden source field (yours exists)
+    const sourceEl = document.getElementById("source");
+    if (sourceEl && source) sourceEl.value = source;
+
+    // 2) Preselect "project_type" dropdown (yours exists)
+    const projectTypeSelect = document.getElementById("project_type");
+    if (projectTypeSelect && projectType) {
+      const optionExists = Array.from(projectTypeSelect.options).some(
+        (o) => (o.value || "") === projectType
+      );
+      if (optionExists) projectTypeSelect.value = projectType;
+    }
+
+    // 3) Preselect photography_interest radios (yours exist)
+    if (photoInterest === "yes" || photoInterest === "maybe" || photoInterest === "no") {
+      const radio = document.querySelector(
+        `input[type="radio"][name="photography_interest"][value="${photoInterest}"]`
+      );
+      if (radio) radio.checked = true;
+    }
+
+    // 4) Optional: update the page hero copy when photography is selected
+    if (projectType === "photography") {
+      const heroH1 = document.querySelector(".page-hero h1");
+      const heroP = document.querySelector(".page-hero p");
+
+      if (heroH1) heroH1.textContent = "Ask About Local Brand Photography";
+      if (heroP)
+        heroP.textContent =
+          "Share a few details about your space and what you need images for. I’ll confirm fit, availability, and next steps.";
+    }
+  })();
+</script>
+
+
   </body>
 </html>
