@@ -2942,3 +2942,79 @@ main.photography-page .photo-strip {
     rgba(243,238,233,0.55);
   box-shadow: var(--shadow-soft);
 }
+
+/* =========================
+   Rotating Photo Strip (auto loop)
+   ========================= */
+
+.photo-strip {
+  margin: 18px 0 18px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  /* subtle depth so it feels intentional */
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.06),
+    0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.photo-strip__track {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  width: max-content;
+  animation: photoStripScroll 34s linear infinite;
+  will-change: transform;
+}
+
+.photo-strip img {
+  height: 110px;              /* adjust */
+  width: 165px;               /* adjust */
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 2px);
+  flex: 0 0 auto;
+  filter: saturate(0.98) contrast(1.02);
+}
+
+/* Pause on hover (nice on desktop, harmless on mobile) */
+.photo-strip:hover .photo-strip__track {
+  animation-play-state: paused;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip__track {
+    animation: none;
+  }
+}
+
+@keyframes photoStripScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.photo-strip {
+  position: relative;
+}
+
+.photo-strip::before,
+.photo-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 46px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.photo-strip::before {
+  left: 0;
+  background: linear-gradient(to right, var(--card), rgba(255,255,255,0));
+}
+
+.photo-strip::after {
+  right: 0;
+  background: linear-gradient(to left, var(--card), rgba(255,255,255,0));
+}
