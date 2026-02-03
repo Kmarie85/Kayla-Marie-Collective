@@ -2916,3 +2916,29 @@ main ul {
 main li {
   margin: 8px 0;
 }
+
+/* =========================
+   PHOTOGRAPHY one-pager polish (scoped)
+   ========================= */
+main.photography-page .legal-card h2 { margin-top: 22px; margin-bottom: 8px; }
+
+main.photography-page .legal-card ul { list-style: none; padding-left: 0; margin: 10px 0 14px; }
+main.photography-page .legal-card li {
+  position: relative; padding-left: 26px; margin: 8px 0; color: var(--muted);
+}
+main.photography-page .legal-card li::before {
+  content: "✦"; position: absolute; left: 0; top: 0.05em;
+  color: var(--accent-2); opacity: 0.9; font-size: 0.95em;
+}
+
+/* soft “photo strip” placeholder (optional block you can add to HTML) */
+main.photography-page .photo-strip {
+  margin: 12px 0 18px; height: 110px; border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0)),
+    radial-gradient(900px 260px at 20% 10%, rgba(183,123,95,0.18), transparent 55%),
+    radial-gradient(700px 220px at 85% 30%, rgba(231,212,200,0.35), transparent 58%),
+    rgba(243,238,233,0.55);
+  box-shadow: var(--shadow-soft);
+}
