@@ -2748,3 +2748,87 @@ body.portfolio-page section.portfolio-section.section-band.band-plum{
     rgba(246, 239, 230, 1) 100%
   ) !important;
 }
+
+/* =========================
+   About hero responsiveness
+   ========================= */
+.about-hero {
+  position: relative;
+  overflow: hidden;
+  /* cap the height so mobile doesn't become 90% image */
+  min-height: clamp(360px, 52vh, 620px);
+  padding: clamp(84px, 12vh, 140px) 0 clamp(28px, 6vh, 60px);
+}
+
+.about-hero .hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.about-hero .hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* adjust the crop focus (tweak this!) */
+  object-position: center 30%;
+  transform: scale(1.02);
+}
+
+/* your fade overlay */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom,
+      rgba(246, 239, 230, 0.0) 0%,
+      rgba(246, 239, 230, 0.35) 45%,
+      rgba(246, 239, 230, 0.85) 78%,
+      rgba(246, 239, 230, 1) 100%
+    );
+}
+
+/* ensure text sits above image + overlay */
+.about-hero > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* mobile: tighter hero so content starts sooner */
+@media (max-width: 640px) {
+  .about-hero {
+    min-height: clamp(300px, 46vh, 440px);
+    padding: 84px 0 28px;
+  }
+  .about-hero .hero-media img {
+    object-position: center 22%;
+  }
+}
+
+/* ===== ABOUT: top image (about-intro) — fix mobile height + crop ===== */
+.about-intro-media{
+  height: clamp(340px, 56vh, 700px); /* less aggressive than 78vh */
+}
+
+.about-intro-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%; /* tweak up/down */
+}
+
+@media (max-width: 640px){
+  .about-intro-media{
+    height: clamp(260px, 42vh, 420px); /* this is the real mobile fix */
+  }
+
+  .about-intro-inner{
+    margin-top: -60px; /* pulls your chip/title up a bit */
+  }
+
+  .about-intro-media img{
+    object-position: center 18%; /* usually better for portraits */
+  }
+}
