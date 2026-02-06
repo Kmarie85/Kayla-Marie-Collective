@@ -436,6 +436,8 @@ section,
   color: var(--bg);
   font-weight: 700;
   box-shadow: 0 12px 30px rgba(195, 132, 39, 0.2);
+    padding: 3px 4px;
+  min-width: fit-content;
 }
 .btn-nav:hover,
 .btn-nav.active {
@@ -1369,6 +1371,9 @@ body.portfolio-page .portfolio-grid--products {
   margin: 0 0 12px;
 }
 
+.bf-card {
+  margin-top: -40px;
+}
 /* =========================
    How it Works grid
    ========================= */
@@ -1872,6 +1877,41 @@ label.check .check__text {
 }
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.22);
+}
+
+.project-form .checks {
+  display: grid;
+  gap: 12px;
+}
+
+/* CONTACT — Branding "Where will this brand be used?" alignment fix */
+.project-form .form-conditional .checks {
+  display: grid;
+  grid-template-columns: 1fr; /* one option per row */
+  gap: 14px;
+}
+
+.project-form .form-conditional .checks label {
+  display: inline-flex;          /* checkbox + text together */
+  align-items: center;
+  justify-content: flex-start;   /* no space-between */
+  gap: 12px;
+  width: auto;                   /* IMPORTANT: prevents two-column spacing */
+  margin: 0;
+  padding: 0;
+}
+
+.project-form .form-conditional .checks input[type="checkbox"] {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.project-form .form-conditional .checks label > input + * {
+  flex: 0 1 auto;
+}
+
+.project-form .form-conditional .checks label {
+  justify-content: flex-start !important;
 }
 
 /* =========================
@@ -3414,4 +3454,123 @@ body.case-page .case-logo {
   .bp-cards {
     grid-template-columns: 1fr;
   }
+}
+
+/* =========================================================
+   Home — Brand Foundations Bridge
+   ========================================================= */
+.brand-foundation-bridge {
+  padding: 48px 0;
+}
+
+.bf-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 28px;
+}
+
+.bf-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .bf-card { padding: 18px; }
+  .bf-actions { gap: 10px; }
+}
+
+/* Contact: conditional blocks */
+.form-conditional {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.form-subhead {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  letter-spacing: -0.01em;
+}
+
+.form-conditional {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.form-subhead {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Skip link should only appear on keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 99999;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  background: var(--plum);
+  color: var(--cream);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* Prevent header overlap on contact hero */
+.contact-hero {
+  padding-top: calc(72px + 24px); /* adjust 72px to your header height */
+}
+
+/* CONTACT – Branding "Where will this brand be used?" (checkbox + text lockup) */
+.project-form .checks {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 14px !important;
+  align-items: start !important;
+  justify-items: start !important;
+}
+
+.project-form .checks label {
+  display: grid !important;
+  grid-template-columns: 22px 1fr !important; /* checkbox | text */
+  align-items: center !important;
+  column-gap: 12px !important;
+
+  width: 100% !important;
+  justify-content: start !important;
+
+  text-align: left !important;
+  margin: 0 !important;
+}
+
+.project-form .checks input[type="checkbox"] {
+  margin: 0 !important;
+  justify-self: start !important;
+}
+
+.project-form .checks label span,
+.project-form .checks label strong,
+.project-form .checks label em {
+  justify-self: start !important;
+  text-align: left !important;
 }
