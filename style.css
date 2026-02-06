@@ -2832,3 +2832,16 @@ body.portfolio-page section.portfolio-section.section-band.band-plum{
     object-position: center 18%; /* usually better for portraits */
   }
 }
+
+/* ABOUT top hero — shift crop so left side stays visible */
+.about-intro-media img{
+  object-position: 25% 18%; /* more left, slightly up */
+}
+
+/* Mobile: keep even more of the left */
+@media (max-width: 640px){
+  .about-intro-media img{
+    object-position: 18% 18%;
+  }
+}
+
