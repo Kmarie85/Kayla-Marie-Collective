@@ -1,6 +1,6 @@
 /* =========================
    KMC — Clean Fixed CSS
-   Palette: PLUM / EVERGREEN / OCHRE / CREAM
+   Palette: PLUM / sage / OCHRE / CREAM
    ========================= */
 
 /* =========================
@@ -45,8 +45,8 @@ p {
   --ink: #1e1418;
 
   --plum: #582236;
-  --evergreen: #305853;
-  --ochre: #c38427; /* CTA + warm accents */
+  --sage: #899269;
+  --ochre: #C78F2F; /* CTA + warm accents */
 
   /* Surfaces */
   --bg: var(--cream);
@@ -61,7 +61,7 @@ p {
   /* Brand usage */
   --accent: var(--ochre);
   --accent-2: var(--plum);
-  --accent-3: var(--evergreen);
+  --accent-3: var(--sage);
 
   /* Lines + depth */
   --line: rgba(88, 34, 54, 0.18);
@@ -220,7 +220,7 @@ section,
    Header / Nav
    ========================= */
 .site-header {
-  background: rgba(213, 204, 192, 0.78);
+  background:#efe4d6;
   border-bottom: 1px solid var(--line);
   position: fixed;
   top: 0;
@@ -331,15 +331,15 @@ section,
   font-size: 0.9rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: rgba(30, 20, 24, 0.7);
+  color: var(--plum);
 }
 .main-nav a:hover,
 .main-nav a.active {
-  color: var(--plum);
+  color: var(--ochre);
 }
 
 .main-nav a.active {
-  background: rgba(88, 34, 54, 0.08);
+  background: var(--plum);
   border-radius: 10px;
   padding: 0.45rem 0.65rem;
 }
@@ -355,11 +355,11 @@ section,
   align-items: center;
   justify-content: center;
 
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 
-  padding: 0.7rem 1.6rem;
+  padding: 0 0.4rem;
   border-radius: 999px;
   cursor: pointer;
 
@@ -396,7 +396,7 @@ section,
 
 .btn-outline {
   background: transparent;
-  color: var(--evergreen);
+  color: #899269;
   border: 2px solid var(--ochre);
 }
 .btn-outline:hover {
@@ -930,15 +930,18 @@ section,
   padding-bottom: 25px;
 }
 
-
 .home-faq-cta {
   margin-top: 14px;
   text-align: left;
 }
 
 @media (max-width: 640px) {
-  .home-faq { padding: 40px 0; }
-  .home-faq-card { padding: 18px; }
+  .home-faq {
+    padding: 40px 0;
+  }
+  .home-faq-card {
+    padding: 18px;
+  }
 }
 
 .home-faq-head h2 {
@@ -962,7 +965,6 @@ section,
     grid-template-columns: 1fr;
   }
 }
-
 
 /* =========================
    Final CTA
@@ -990,19 +992,19 @@ section,
 */
 
 /* ---------- Page hero spacing ---------- */
-body.portfolio-page .portfolio-hero{
+body.portfolio-page .portfolio-hero {
   padding: clamp(3.5rem, 5vw, 5.5rem) 0 clamp(2.25rem, 4vw, 3.25rem);
 }
 
 /* Kicker pill (keep this if you want portfolio to match services/about) */
-body.portfolio-page .portfolio-hero .kicker{
+body.portfolio-page .portfolio-hero .kicker {
   display: inline-flex;
   align-items: center;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
-  background: rgba(255,255,255,0.55);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--line);
   padding: 6px 10px;
   border-radius: 999px;
@@ -1010,13 +1012,13 @@ body.portfolio-page .portfolio-hero .kicker{
 }
 
 /* Lead spacing */
-body.portfolio-page .portfolio-hero .lead{
+body.portfolio-page .portfolio-hero .lead {
   margin-top: 10px;
   max-width: 62ch;
 }
 
 /* Hero buttons spacing */
-body.portfolio-page .portfolio-hero .hero-actions{
+body.portfolio-page .portfolio-hero .hero-actions {
   margin-top: 18px;
   display: flex;
   gap: 12px;
@@ -1024,29 +1026,33 @@ body.portfolio-page .portfolio-hero .hero-actions{
 }
 
 /* ---------- Proof row (hero) ---------- */
-body.portfolio-page .proof-row{
+body.portfolio-page .proof-row {
   margin-top: 18px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
-@media (max-width: 900px){
-  body.portfolio-page .proof-row{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  body.portfolio-page .proof-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-@media (max-width: 520px){
-  body.portfolio-page .proof-row{ grid-template-columns: 1fr; }
+@media (max-width: 520px) {
+  body.portfolio-page .proof-row {
+    grid-template-columns: 1fr;
+  }
 }
 
-body.portfolio-page .proof-card{
-  background: rgba(255,255,255,0.6);
+body.portfolio-page .proof-card {
+  background: rgba(255, 255, 255, 0.6);
   border: 1px solid var(--line-soft);
   border-radius: 14px;
   padding: 12px;
   backdrop-filter: blur(10px);
 }
 
-body.portfolio-page .proof-title{
+body.portfolio-page .proof-title {
   margin: 0 0 6px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -1054,18 +1060,18 @@ body.portfolio-page .proof-title{
   font-size: 0.72rem;
 }
 
-body.portfolio-page .proof-text{
+body.portfolio-page .proof-text {
   margin: 0;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
 /* ---------- Section bands (full-width) ---------- */
-body.portfolio-page .portfolio-section{
+body.portfolio-page .portfolio-section {
   padding-bottom: clamp(3rem, 5vw, 5rem);
 }
 
-body.portfolio-page .portfolio-section.section-band{
+body.portfolio-page .portfolio-section.section-band {
   background: linear-gradient(
     to bottom,
     var(--plum),
@@ -1074,42 +1080,41 @@ body.portfolio-page .portfolio-section.section-band{
   ) !important;
 }
 
-body.portfolio-page .portfolio-section.section-band.muted{
-  background: var(--band-muted, rgba(233,226,220,1));
+body.portfolio-page .portfolio-section.section-band.muted {
+  background: var(--band-muted, rgba(233, 226, 220, 1));
 }
 
-body.portfolio-page .portfolio-section.section-neutral{
+body.portfolio-page .portfolio-section.section-neutral {
   background: transparent;
 }
 
 /* Section header spacing */
-body.portfolio-page .section-head{
+body.portfolio-page .section-head {
   margin-bottom: 18px;
 }
 
-body.portfolio-page .portfolio-section h2{
+body.portfolio-page .portfolio-section h2 {
   margin: 0 0 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-    padding-top: 4px;
-
+  padding-top: 4px;
 }
 
-body.portfolio-page .portfolio-grid--products .portfolio-item img{
+body.portfolio-page .portfolio-grid--products .portfolio-item img {
   height: 260px;
   object-fit: contain;
   background: #fff;
 }
 
 body.portfolio-page .section-sub,
-body.portfolio-page .section-intro{
+body.portfolio-page .section-intro {
   margin: 0;
   color: var(--muted);
   max-width: 72ch;
 }
 
 /* ---------- Portfolio grid ---------- */
-body.portfolio-page .portfolio-grid{
+body.portfolio-page .portfolio-grid {
   margin-top: 22px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1117,15 +1122,19 @@ body.portfolio-page .portfolio-grid{
   align-items: stretch;
 }
 
-@media (max-width: 1024px){
-  body.portfolio-page .portfolio-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 1024px) {
+  body.portfolio-page .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-@media (max-width: 640px){
-  body.portfolio-page .portfolio-grid{ grid-template-columns: 1fr; }
+@media (max-width: 640px) {
+  body.portfolio-page .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------- Card ---------- */
-body.portfolio-page .portfolio-item{
+body.portfolio-page .portfolio-item {
   background: var(--card);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
@@ -1139,7 +1148,7 @@ body.portfolio-page .portfolio-item{
 }
 
 /* Image */
-body.portfolio-page .portfolio-item img{
+body.portfolio-page .portfolio-item img {
   width: 100%;
   height: 220px;
   object-fit: cover;
@@ -1150,42 +1159,42 @@ body.portfolio-page .portfolio-item img{
 }
 
 /* Contain variant */
-body.portfolio-page .portfolio-img-contain{
+body.portfolio-page .portfolio-img-contain {
   object-fit: contain !important;
   background: #fff;
 }
 
 /* Text */
-body.portfolio-page .portfolio-item h3{
+body.portfolio-page .portfolio-item h3 {
   margin: 0 0 10px;
 }
 
-body.portfolio-page .portfolio-item p{
+body.portfolio-page .portfolio-item p {
   margin: 0 0 12px;
   color: var(--muted);
 }
 
 /* Note list */
-body.portfolio-page .portfolio-note .note-list{
+body.portfolio-page .portfolio-note .note-list {
   margin: 6px 0 12px;
   padding-left: 18px;
   color: var(--muted);
 }
 
 /* Soon placeholder */
-body.portfolio-page .portfolio-soon{
+body.portfolio-page .portfolio-soon {
   opacity: 0.65;
 }
 
 /* ---------- Footer pinned to bottom ---------- */
-body.portfolio-page .portfolio-footer{
+body.portfolio-page .portfolio-footer {
   margin-top: auto;
   padding-top: 14px;
   border-top: 1px solid var(--line-soft);
 }
 
 /* Tech line */
-body.portfolio-page .portfolio-footer .tech{
+body.portfolio-page .portfolio-footer .tech {
   margin: 0 0 10px;
   font-size: 0.9rem;
   color: var(--muted);
@@ -1193,7 +1202,7 @@ body.portfolio-page .portfolio-footer .tech{
 }
 
 /* CTA row — SINGLE source of truth (no duplicate conflicting rules) */
-body.portfolio-page .portfolio-footer .link-row{
+body.portfolio-page .portfolio-footer .link-row {
   margin: 0;
   display: flex;
   justify-content: center;
@@ -1201,7 +1210,7 @@ body.portfolio-page .portfolio-footer .link-row{
   flex-wrap: nowrap; /* keep one line on desktop */
 }
 
-body.portfolio-page .portfolio-footer .link-row a{
+body.portfolio-page .portfolio-footer .link-row a {
   display: inline-flex;
   align-items: center;
   font-size: 0.72rem;
@@ -1211,48 +1220,50 @@ body.portfolio-page .portfolio-footer .link-row a{
   letter-spacing: 0.01em;
 }
 
-body.portfolio-page .portfolio-footer .link-row a:hover{
+body.portfolio-page .portfolio-footer .link-row a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
 /* Allow wrapping on small screens */
-@media (max-width: 640px){
-  body.portfolio-page .portfolio-footer .link-row{
+@media (max-width: 640px) {
+  body.portfolio-page .portfolio-footer .link-row {
     flex-wrap: wrap;
   }
 }
 
 /* ---------- Portfolio CTA section ---------- */
-body.portfolio-page .portfolio-cta{
+body.portfolio-page .portfolio-cta {
   padding: clamp(3.5rem, 6vw, 6rem) 0;
   text-align: center;
 }
 
-body.portfolio-page .portfolio-cta .lead{
+body.portfolio-page .portfolio-cta .lead {
   max-width: 70ch;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* ---------- Hover lift (portfolio-only; doesn’t touch other pages) ---------- */
-@media (prefers-reduced-motion: no-preference){
-  body.portfolio-page .portfolio-item{
-    transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
+@media (prefers-reduced-motion: no-preference) {
+  body.portfolio-page .portfolio-item {
+    transition:
+      transform 320ms var(--ease),
+      box-shadow 320ms var(--ease);
   }
-  body.portfolio-page .portfolio-item:hover{
+  body.portfolio-page .portfolio-item:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-float);
   }
 }
 
 /* Digital Products grid: 2-up feels better than 1 lonely card */
-body.portfolio-page .portfolio-grid--products{
+body.portfolio-page .portfolio-grid--products {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-@media (max-width: 900px){
-  body.portfolio-page .portfolio-grid--products{
+@media (max-width: 900px) {
+  body.portfolio-page .portfolio-grid--products {
     grid-template-columns: 1fr;
   }
 }
@@ -1282,14 +1293,19 @@ body.portfolio-page .portfolio-grid--products{
 }
 
 .services-hero .kicker,
+.contact-hero .kicker,
 .portfolio-hero .kicker,
-.about-page .kicker {
+.about-page .kicker,
+.photo-hero .kicker,
+.kmc-hero .kicker,
+.kw-hero .kicker,
+.ss-hero .kicker {
   display: inline-flex;
   align-items: center;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--plum);
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--line);
   padding: 6px 10px;
@@ -1358,13 +1374,11 @@ body.portfolio-page .portfolio-grid--products{
 }
 
 .services-process .service-block {
-
   background: transparent;
   border: 0;
   box-shadow: none;
   padding: 0;
 }
-
 
 .services-process .how-step {
   background: rgba(255, 255, 255, 0.86);
@@ -1390,7 +1404,6 @@ body.portfolio-page .portfolio-grid--products{
     padding: 16px 16px 18px;
   }
 }
-
 
 /* =========================
    Services band (full width)
@@ -1451,7 +1464,7 @@ body.portfolio-page .portfolio-grid--products{
 }
 
 .services-faq .service-block {
-  max-width: 980px;   /* try 920–1000px range */
+  max-width: 980px; /* try 920–1000px range */
   margin-left: auto;
   margin-right: auto;
 }
@@ -1475,14 +1488,14 @@ body.portfolio-page .portfolio-grid--products{
 
 .faq-aside-title {
   font-weight: 700;
-  color:#efe4d6;
+  color: #efe4d6;
   margin: 1rem 0 0.5rem;
   text-align: center;
 }
 
 .faq-aside-text {
   margin: 0;
-  color:#efe4d6;
+  color: #efe4d6;
   line-height: 1.6;
   text-align: center;
 }
@@ -1494,9 +1507,9 @@ body.portfolio-page .portfolio-grid--products{
   margin: 1.4rem auto;
   background: linear-gradient(
     to right,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0.45),
-    rgba(255,255,255,0)
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0)
   );
   border-radius: 999px;
 }
@@ -1516,10 +1529,10 @@ body.portfolio-page .portfolio-grid--products{
   color: var(--plum); /* if you want it inverted */
 }
 
-body.portfolio-page .portfolio-section.section-band.muted{
+body.portfolio-page .portfolio-section.section-band.muted {
   background: linear-gradient(
     to bottom,
-    rgba(48, 88, 83, 0.35),
+    #899269,
     rgba(246, 239, 230, 0.92) 72%,
     rgba(246, 239, 230, 1) 100%
   );
@@ -1542,14 +1555,14 @@ body.portfolio-page .portfolio-section.section-band.muted{
 .bridge-text {
   margin: 0;
   text-align: center;
-  color:#efe4d6;
+  color: #efe4d6;
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 
 .bridge-accent {
-  color:#efe4d6;
+  color: #efe4d6;
   font-weight: 700;
 }
 
@@ -1601,14 +1614,14 @@ body.portfolio-page .portfolio-section.section-band.muted{
 /* =========================
    Contact page polish
    ========================= */
-body.contact-page .contact-hero{
+body.contact-page .contact-hero {
   padding: clamp(3.25rem, 5vw, 4.75rem) 0 1.5rem;
 }
-body.contact-page .contact-hero p{
+body.contact-page .contact-hero p {
   max-width: 70ch;
 }
 
-.contact-boundary{
+.contact-boundary {
   background: linear-gradient(
     180deg,
     rgba(90, 38, 48, 0.85),
@@ -1618,7 +1631,7 @@ body.contact-page .contact-hero p{
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
-.contact-boundary p{
+.contact-boundary p {
   margin: 0;
   text-align: center;
   color: rgba(239, 228, 214, 0.98);
@@ -1626,13 +1639,13 @@ body.contact-page .contact-hero p{
   letter-spacing: 0.01em;
 }
 
-.form-note{
+.form-note {
   font-size: 0.92rem;
   color: var(--muted);
   line-height: 1.55;
 }
 
-.selection-note{
+.selection-note {
   border: 1px dashed rgba(88, 34, 54, 0.26);
   background: rgba(255, 255, 255, 0.55);
   border-radius: 14px;
@@ -1640,14 +1653,14 @@ body.contact-page .contact-hero p{
   margin-bottom: 14px;
 }
 
-.addons-fieldset{
+.addons-fieldset {
   border: 1px solid var(--line-soft);
   background: rgba(255, 255, 255, 0.55);
   border-radius: var(--radius);
   padding: 14px 14px 12px;
   margin: 16px 0 0;
 }
-.addons-fieldset legend{
+.addons-fieldset legend {
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1656,7 +1669,7 @@ body.contact-page .contact-hero p{
   padding: 0 6px;
 }
 
-label.check{
+label.check {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1668,20 +1681,20 @@ label.check{
   cursor: pointer;
   user-select: none;
 }
-label.check input{
+label.check input {
   width: 18px;
   height: 18px;
   margin: 0;
   accent-color: var(--plum);
 }
-label.check .check__text{
+label.check .check__text {
   flex: 1;
 }
 
-.contact-expectations{
+.contact-expectations {
   padding: 1.25rem 0 3rem;
 }
-.contact-expectations .start-container{
+.contact-expectations .start-container {
   max-width: 640px;
   margin: 0 auto;
   background: var(--card);
@@ -1691,20 +1704,20 @@ label.check .check__text{
   border: 1px solid var(--line-soft);
   backdrop-filter: blur(10px);
 }
-.contact-expectations h4{
+.contact-expectations h4 {
   margin: 0 0 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.9rem;
   color: var(--plum);
 }
-.contact-expectations ul{
+.contact-expectations ul {
   margin: 0;
   padding-left: 1.1rem;
   display: grid;
   gap: 8px;
 }
-.contact-expectations .expectations-note{
+.contact-expectations .expectations-note {
   margin-top: 12px;
   color: var(--muted);
 }
@@ -2664,7 +2677,7 @@ a.footer-contact-value:hover {
   }
 }
 
-body.portfolio-page .portfolio-section.section-band{
+body.portfolio-page .portfolio-section.section-band {
   background: linear-gradient(
     to bottom,
     #305853,
@@ -2674,7 +2687,7 @@ body.portfolio-page .portfolio-section.section-band{
 }
 
 /* DIGITAL PRODUCTS — plum */
-body.portfolio-page .portfolio-section.section-band.band-plum{
+body.portfolio-page .portfolio-section.section-band.band-plum {
   background: linear-gradient(
     to bottom,
     var(--plum),
@@ -2689,34 +2702,34 @@ body.portfolio-page .portfolio-section.section-band.band-plum{
    ========================================================= */
 
 /* Shared band spacing */
-body.portfolio-page .portfolio-section.section-band{
+body.portfolio-page .portfolio-section.section-band {
   padding-top: clamp(1.75rem, 3vw, 2.5rem);
   padding-bottom: clamp(3rem, 5vw, 5rem);
 }
 
 /* Make the band headings readable on dark gradients */
 body.portfolio-page .portfolio-section.section-band > .container > h2,
-body.portfolio-page .portfolio-section.section-band .section-head h2{
+body.portfolio-page .portfolio-section.section-band .section-head h2 {
   color: rgba(246, 239, 230, 0.92);
 }
 
 body.portfolio-page .portfolio-section.section-band .section-sub,
-body.portfolio-page .portfolio-section.section-band .section-intro{
+body.portfolio-page .portfolio-section.section-band .section-intro {
   color: rgba(246, 239, 230, 0.78);
 }
 
-/* CASE STUDIES — evergreen band */
-body.portfolio-page .portfolio-section.section-band.band-evergreen{
+/* CASE STUDIES — sage band */
+body.portfolio-page .portfolio-section.section-band.band-sage {
   background: linear-gradient(
     to bottom,
-    var(--evergreen),
+    #899269,
     rgba(246, 239, 230, 0.86) 72%,
     rgba(246, 239, 230, 1) 100%
   );
 }
 
 /* DIGITAL PRODUCTS — plum band */
-body.portfolio-page .portfolio-section.section-band.band-plum{
+body.portfolio-page .portfolio-section.section-band.band-plum {
   background: linear-gradient(
     to bottom,
     var(--plum),
@@ -2729,18 +2742,18 @@ body.portfolio-page .portfolio-section.section-band.band-plum{
    PORTFOLIO — NUCLEAR BAND OVERRIDES (paste at VERY bottom)
    ========================================================= */
 
-/* CASE STUDIES: evergreen */
-body.portfolio-page section.portfolio-section.section-band.band-evergreen{
+/* CASE STUDIES: sage */
+body.portfolio-page section.portfolio-section.section-band.band-sage {
   background: linear-gradient(
     to bottom,
-    var(--evergreen),
+    #899269,
     rgba(246, 239, 230, 0.86) 72%,
     rgba(246, 239, 230, 1) 100%
   ) !important;
 }
 
 /* DIGITAL PRODUCTS: plum */
-body.portfolio-page section.portfolio-section.section-band.band-plum{
+body.portfolio-page section.portfolio-section.section-band.band-plum {
   background: linear-gradient(
     to bottom,
     var(--plum),
@@ -2781,13 +2794,13 @@ body.portfolio-page section.portfolio-section.section-band.band-plum{
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(to bottom,
-      rgba(246, 239, 230, 0.0) 0%,
-      rgba(246, 239, 230, 0.35) 45%,
-      rgba(246, 239, 230, 0.85) 78%,
-      rgba(246, 239, 230, 1) 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    rgba(246, 239, 230, 0) 0%,
+    rgba(246, 239, 230, 0.35) 45%,
+    rgba(246, 239, 230, 0.85) 78%,
+    rgba(246, 239, 230, 1) 100%
+  );
 }
 
 /* ensure text sits above image + overlay */
@@ -2808,40 +2821,291 @@ body.portfolio-page section.portfolio-section.section-band.band-plum{
 }
 
 /* ===== ABOUT: top image (about-intro) — fix mobile height + crop ===== */
-.about-intro-media{
+.about-intro-media {
   height: clamp(340px, 56vh, 700px); /* less aggressive than 78vh */
 }
 
-.about-intro-media img{
+.about-intro-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 25%; /* tweak up/down */
 }
 
-@media (max-width: 640px){
-  .about-intro-media{
+@media (max-width: 640px) {
+  .about-intro-media {
     height: clamp(260px, 42vh, 420px); /* this is the real mobile fix */
   }
 
-  .about-intro-inner{
+  .about-intro-inner {
     margin-top: -60px; /* pulls your chip/title up a bit */
   }
 
-  .about-intro-media img{
+  .about-intro-media img {
     object-position: center 18%; /* usually better for portraits */
   }
 }
 
 /* ABOUT top hero — shift crop so left side stays visible */
-.about-intro-media img{
+.about-intro-media img {
   object-position: 25% 18%; /* more left, slightly up */
 }
 
 /* Mobile: keep even more of the left */
-@media (max-width: 640px){
-  .about-intro-media img{
+@media (max-width: 640px) {
+  .about-intro-media img {
     object-position: 18% 18%;
   }
 }
 
+/* =========================================================
+   KMC — MOBILE RESPONSIVE PATCH ONLY
+   Paste at VERY BOTTOM of your ORIGINAL style.css
+   Goal: keep styling the same, fix mobile spacing + layout
+   ========================================================= */
+
+/* ---------- 1) Global mobile spacing: tighten section padding ---------- */
+/* Your mobile currently feels too tall because section padding jumps. */
+@media (max-width: 640px) {
+  section {
+    padding: 2.1rem 0;
+  } /* tighter than 3rem, still breathable */
+}
+
+/* ---------- 2) Index: "What I Do" yellow box — tighten space above/below ---------- */
+@media (max-width: 640px) {
+  .what-i-do {
+    padding: 1.5rem 0;
+  } /* reduce section height */
+  .package-card-strip {
+    padding: 1.15rem 1.05rem;
+  } /* reduce card padding */
+  .package-card-strip h2 {
+    margin-bottom: 0.5rem;
+  }
+  .package-card-strip .bullet-grid {
+    margin-top: 0.75rem;
+  }
+}
+
+/* ---------- 3) Index: Featured Work — tighten space above heading ---------- */
+@media (max-width: 640px) {
+  .featured-work {
+    padding-top: 1.7rem;
+  }
+  .featured-work h2 {
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* ---------- 4) Index: Testimonials — one card at a time, NOT super tall ---------- */
+@media (max-width: 719px) {
+  .testimonials {
+    padding: 30px 0;
+  } /* slightly tighter section */
+
+  .testimonials-grid {
+    grid-auto-columns: 94%; /* closer to "one at a time" */
+    gap: 12px;
+    padding-bottom: 10px;
+    scroll-padding-left: 1.15rem;
+    scroll-padding-right: 1.15rem;
+  }
+
+  .t-card {
+    padding: 18px; /* reduces height */
+    min-height: unset; /* let content define height */
+  }
+
+  .t-card blockquote {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .t-card figcaption span {
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------- 5) Services: "The process" pill bumped up a bit ---------- */
+@media (max-width: 640px) {
+  .services-process .kicker {
+    margin-bottom: 10px;
+  }
+  .how-it-works .kicker {
+    margin-top: -8px;
+  } /* subtle "bump up" */
+}
+
+/* ---------- 6) Services: FAQ split card — stack on mobile (FAQ first, plum aside second) ---------- */
+@media (max-width: 820px) {
+  .faq-layout {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .faq-questions {
+    order: 1;
+  }
+  .faq-aside {
+    order: 2;
+    transform: none;
+  } /* stop competing / floating */
+}
+
+/* ---------- 7) About: "Best fit" + "Probably not" cards — stack on mobile + slightly tighter ---------- */
+@media (max-width: 820px) {
+  .about-page .two-col {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .about-page .about-who {
+    padding: 36px 0;
+  } /* slightly tighter section */
+  .about-page .pill-row {
+    margin-top: 12px;
+  }
+}
+
+/* ---------- 8) Stronger reveal animation (more noticeable) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+    filter: blur(10px);
+    transition:
+      opacity 800ms var(--ease-out),
+      transform 1000ms var(--ease-out),
+      filter 1000ms var(--ease-out);
+  }
+  .reveal.is-inview {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* =========================================================
+   CASE STUDIES — restore 2-column grid + card styling
+   Paste at VERY BOTTOM of style.css
+   ========================================================= */
+
+body.case-page .case-wrap .portfolio-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  body.case-page .case-wrap .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.case-page .case-wrap .portfolio-item.case-card {
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 18px;
+  backdrop-filter: blur(10px);
+}
+
+/* Case meta spacing */
+body.case-page .case-meta {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 14px;
+  color: var(--muted);
+}
+
+/* CTA rows */
+body.case-page .case-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* Top nav links (Portfolio / Live / Services) */
+body.case-page .case-nav {
+  margin-top: 18px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+body.case-page .case-nav a {
+  font-weight: 650;
+  color: var(--plum);
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+}
+
+body.case-page .case-nav a:hover {
+  color: color-mix(in srgb, var(--plum) 90%, #000);
+  border-bottom-color: currentColor;
+}
+
+/* Case images */
+body.case-page .case-logo {
+  width: 100%;
+  border-radius: calc(var(--radius) - 6px);
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  margin-bottom: 14px;
+}
+
+/* =========================
+   Photography page — photo strip marquee
+   ========================= */
+.photo-strip {
+  display: block;
+  margin: 1.25rem 0 1.75rem;
+  overflow: hidden;              /* hides the looping seam */
+  border-radius: 18px;
+  padding: 0.75rem 0.75rem;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.photo-strip__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 18px);
+  width: max-content;
+  animation: kmc-photo-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.photo-strip img {
+  display: block;
+  flex: 0 0 auto;
+  height: clamp(92px, 16vw, 140px);
+  width: auto;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+/* Smooth infinite loop:
+   Your HTML duplicates Set A + Set B, so -50% moves exactly one set width */
+@keyframes kmc-photo-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Nice UX: pause on hover (desktop) */
+.photo-strip:hover .photo-strip__track {
+  animation-play-state: paused;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip__track {
+    animation: none;
+    transform: none;
+  }
+}
