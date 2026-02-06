@@ -251,6 +251,7 @@
 
       <section class="what-i-do">
         <div class="container">
+          <article class="package-card-strip">
           <h2>What I Do</h2>
           <ul class="bullet-grid">
             <li>
@@ -266,6 +267,7 @@
               right clients reach out.
             </li>
           </ul>
+          </article>
         </div>
       </section>
 
@@ -360,9 +362,9 @@
         <div class="container">
           <h2>Featured Work</h2>
           <div class="featured-grid">
-            <article class="featured-item">
+            <article class="work-card is-logo">
               <img
-                src="images/portfoliopic-2.png"
+                src="images/kwcbio.png"
                 alt="Kingdom Woodcraft TN website preview"
                 loading="lazy"
                 width="640"
@@ -378,9 +380,9 @@
               </div>
             </article>
 
-            <article class="featured-item">
+            <article class="work-card is-cover">
               <img
-                src="images/recscreen.png"
+                src="images/reccover.png"
                 alt="SoulStone Inc. website preview"
                 loading="lazy"
                 width="640"
@@ -396,9 +398,9 @@
               </div>
             </article>
 
-            <article class="featured-item">
+            <article class="work-card is-cover">
               <img
-                src="images/Starsinherbones.png"
+                src="images/servicepic4.png"
                 alt="Stars in Her Bones website preview"
                 loading="lazy"
                 width="640"
@@ -421,7 +423,7 @@
           <div class="section-kicker pill">
             <span>Client Words</span>
           </div>
-          <h2>What it’s like to work together</h2>
+          <h2 class="work-together">What it’s like to work together</h2>
           <p class="testimonials-hint" aria-hidden="true">Swipe for more →</p>
 
           <div class="testimonials-grid" aria-label="Client testimonials">
@@ -472,35 +474,59 @@
         </div>
       </section>
 
-      <section class="faq">
-        <div class="container">
-          <h2>FAQ</h2>
+<section class="home-faq" id="faq">
+  <div class="container">
+    <div class="home-faq-card">
+      <h2>FAQ</h2>
 
-          <div class="faq-item">
-            <h3>Do you offer payment plans?</h3>
+      <p class="home-faq-intro">
+        A calm, clear process — you don’t need everything figured out.
+        I’ll help you make the right decisions without pressure.
+      </p>
+
+      <div class="faq">
+        <details class="faq-item">
+          <summary>Do you offer payment plans?</summary>
+          <div class="faq-answer">
             <p>
               Yes — larger projects can be split into payments so you don’t have
               to wait to move forward.
             </p>
           </div>
+        </details>
 
-          <div class="faq-item">
-            <h3>Can I update it myself?</h3>
+        <details class="faq-item">
+          <summary>Can I update it myself?</summary>
+          <div class="faq-answer">
             <p>
               Yes. You’ll get simple training so you can update text, images,
               and pages without a developer.
             </p>
           </div>
+        </details>
 
-          <div class="faq-item">
-            <h3>What if I don’t have copy or photos?</h3>
+        <details class="faq-item">
+          <summary>What if I don’t have copy or photos?</summary>
+          <div class="faq-answer">
             <p>
-              No problem. I’ll guide you with structure and placeholders so your
-              launch doesn’t stall.
+              No problem. I’ll guide you with structure and placeholders so
+              your launch doesn’t stall.
             </p>
           </div>
-        </div>
-      </section>
+        </details>
+      </div>
+
+      <div class="home-faq-cta">
+        <p class="faq-cta-text">Still have questions?</p>
+        <a href="contact.html" class="faq-cta-link">Contact →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
 
       <section class="final-cta">
         <div class="container">
@@ -523,7 +549,7 @@
         <!-- 1) Brand -->
         <div class="footer-brand">
           <img
-            src="/images/primaryanchor-wordmark.png"
+            src="/images/primaryanchor-wordmark-3.png"
             alt="Kayla Marie Collective"
             class="footer-logo"
             decoding="async"

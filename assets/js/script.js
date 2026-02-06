@@ -32,6 +32,71 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // =========================
+// About split rotator
+// =========================
+(function () {
+  const section = document.querySelector(".about-split");
+  if (!section) return;
+
+  const imgEl = section.querySelector(".about-split__img");
+  const capEl = section.querySelector(".about-split__caption");
+  const dotsWrap = section.querySelector(".about-split__dots");
+  const btnPrev = section.querySelector("[data-prev]");
+  const btnNext = section.querySelector("[data-next]");
+
+  const slides = [
+    { src: "images/tattoopic.png", caption: "That one time that I was a tattoo apprentice. Just another way I found to be creative." },
+    { src: "images/tree.png", caption: "I love nature! One of my favorite places to be. It brings you to life in ways that nothing else does." },
+    { src: "images/girlandhercat.png", caption: "Just a girl and her cat." },
+    { src: "images/nepal.png", caption: "I loved in Nepal for over a year - still one of my favorite places on earth - I call it home." },
+    { src: "images/create.png", caption: "I don't think I can ever be serious." },
+    { src: "images/us5.png", caption: "The love of my life. We started out best friends and fell in love. The best love story I have ever known has been her. She is my favorite, my home, and my forever." },
+    { src: "images/furbabies.png", caption: "The fur babies. Charlie and Luna Binx - changed our lives in all the best ways! They are feisty, goofy, and know how to get their way! They are currently waiting for their treats LOL!" }
+  ];
+
+  let i = 0;
+  let timer = null;
+
+  function renderDots() {
+    dotsWrap.innerHTML = "";
+    slides.forEach((_, idx) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "about-split__dot" + (idx === i ? " is-active" : "");
+      b.setAttribute("aria-label", `Show photo ${idx + 1}`);
+      b.addEventListener("click", () => go(idx, true));
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function go(nextIndex, userAction = false) {
+    i = (nextIndex + slides.length) % slides.length;
+    imgEl.style.opacity = "0";
+    setTimeout(() => {
+      imgEl.src = slides[i].src;
+      capEl.textContent = slides[i].caption;
+      imgEl.style.opacity = "1";
+      renderDots();
+    }, 160);
+
+    if (userAction) restart();
+  }
+
+  function restart() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => go(i + 1), 6500);
+  }
+
+  btnPrev?.addEventListener("click", () => go(i - 1, true));
+  btnNext?.addEventListener("click", () => go(i + 1, true));
+
+  // init
+  imgEl.style.transition = "opacity 200ms ease";
+  go(0);
+  restart();
+})();
+
   /* =========================================================
      SOURCE LABEL (attribution)
   ========================================================= */
@@ -511,4 +576,73 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Escape" && lb.classList.contains("is-open")) close();
     });
   })();
+
+  /* =========================================================
+     ALIVE MOTION (Hero parallax + reveal on scroll)
+  ========================================================= */
+
+  const prefersReduced =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero parallax: updates the CSS vars you already defined in :root
+  (function heroParallax() {
+    if (prefersReduced) return;
+    const hero = qs(".hero");
+    if (!hero) return;
+
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      // Keep it subtle; this should feel like “breathing”, not “moving”.
+      const shift = Math.min(26, y * 0.08);
+      const tilt = Math.max(-1.2, Math.min(1.2, (y - 120) * 0.002));
+      const opacity = Math.max(0.72, 1 - y * 0.0008);
+
+      document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
+      document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
+      document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  })();
+
+  // Auto-tag common blocks as reveal items (so you don't have to sprinkle classes everywhere)
+  (function addRevealClasses() {
+    const candidates = qsa(
+      ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card"
+    );
+    candidates.forEach((el, i) => {
+      if (el.classList.contains("reveal")) return;
+      el.classList.add("reveal");
+      if (i % 2 === 0) el.classList.add("reveal--soft");
+    });
+
+    // Ensure hero copy doesn't start hidden
+    qsa(".hero-text.reveal").forEach((el) => el.classList.add("is-inview"));
+  })();
+
+  // Reveal on scroll using IntersectionObserver
+  (function revealOnScroll() {
+    const items = qsa(".reveal:not(.is-inview)");
+    if (!items.length) return;
+
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      items.forEach((el) => el.classList.add("is-inview"));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-inview");
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    items.forEach((el) => io.observe(el));
+  })();
+
 });
