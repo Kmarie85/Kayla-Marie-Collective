@@ -46,7 +46,7 @@ p {
 
   --plum: #582236;
   --sage: #899269;
-  --ochre: #C78F2F; /* CTA + warm accents */
+  --ochre: #c78f2f; /* CTA + warm accents */
 
   /* Surfaces */
   --bg: var(--cream);
@@ -220,7 +220,7 @@ section,
    Header / Nav
    ========================= */
 .site-header {
-  background:#efe4d6;
+  background: #efe4d6;
   border-bottom: 1px solid var(--line);
   position: fixed;
   top: 0;
@@ -372,13 +372,39 @@ section,
   will-change: transform;
 }
 
-.btn-primary {
+.btn-primary-one {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  padding: 0.75rem 1.25rem; /* use real padding, not 0 */
+  border-radius: 999px;
+  cursor: pointer;
+
+  transition:
+    transform 200ms var(--ease),
+    box-shadow 200ms var(--ease),
+    background-color 200ms var(--ease),
+    color 200ms var(--ease),
+    border-color 200ms var(--ease);
+  will-change: transform;
+}
+
+.btn-primary,
+.btn-primary-one {
   background: var(--ochre);
   color: var(--bg);
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 16px 40px rgba(195, 132, 39, 0.24);
 }
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary-one:hover {
   background: color-mix(in srgb, var(--ochre) 88%, #000);
   transform: translateY(-3px);
   box-shadow: 0 26px 80px rgba(195, 132, 39, 0.3);
@@ -419,6 +445,7 @@ section,
 
 /* Keyboard focus */
 .btn-primary:focus-visible,
+.btn-primary-one:focus-visible,
 .btn-secondary:focus-visible,
 .btn-outline:focus-visible,
 .btn-nav:focus-visible,
@@ -1018,11 +1045,32 @@ body.portfolio-page .portfolio-hero .lead {
 }
 
 /* Hero buttons spacing */
-body.portfolio-page .portfolio-hero .hero-actions {
+body.portfolio-page .portfolio-hero .hero-actions .btn-primary-one {
   margin-top: 18px;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.btn-primary-one {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center only the CTA in the brand bridge section */
+.services-bridge.brand-hero .hero-actions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Keep the button from stretching */
+.services-bridge.brand-hero .btn-primary-one{
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.5rem 0.5rem;
 }
 
 /* ---------- Proof row (hero) ---------- */
@@ -1244,6 +1292,13 @@ body.portfolio-page .portfolio-cta .lead {
   margin-right: auto;
 }
 
+.portfolio-cta h2 {
+  margin-top: -100px;
+}
+
+.portfolio-section h2 {
+  margin-top: -100px;
+}
 /* ---------- Hover lift (portfolio-only; doesn’t touch other pages) ---------- */
 @media (prefers-reduced-motion: no-preference) {
   body.portfolio-page .portfolio-item {
@@ -1299,7 +1354,8 @@ body.portfolio-page .portfolio-grid--products {
 .photo-hero .kicker,
 .kmc-hero .kicker,
 .kw-hero .kicker,
-.ss-hero .kicker {
+.ss-hero .kicker,
+.brand-hero .kicker {
   display: inline-flex;
   align-items: center;
   font-size: 0.72rem;
@@ -3043,7 +3099,9 @@ body.case-page .case-nav a {
   font-weight: 650;
   color: var(--plum);
   border-bottom: 1px solid transparent;
-  transition: border-color 180ms var(--ease), color 180ms var(--ease);
+  transition:
+    border-color 180ms var(--ease),
+    color 180ms var(--ease);
 }
 
 body.case-page .case-nav a:hover {
@@ -3066,7 +3124,7 @@ body.case-page .case-logo {
 .photo-strip {
   display: block;
   margin: 1.25rem 0 1.75rem;
-  overflow: hidden;              /* hides the looping seam */
+  overflow: hidden; /* hides the looping seam */
   border-radius: 18px;
   padding: 0.75rem 0.75rem;
   background: rgba(0, 0, 0, 0.04);
@@ -3093,8 +3151,12 @@ body.case-page .case-logo {
 /* Smooth infinite loop:
    Your HTML duplicates Set A + Set B, so -50% moves exactly one set width */
 @keyframes kmc-photo-marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /* Nice UX: pause on hover (desktop) */
@@ -3107,5 +3169,249 @@ body.case-page .case-logo {
   .photo-strip__track {
     animation: none;
     transform: none;
+  }
+}
+
+/* =========================================================
+   Brand Identity — Tabbed Process + Packages
+   Matches KMC palette + card look
+   ========================================================= */
+
+.brand-process {
+  padding: 64px 0;
+}
+
+.brand-process__header {
+  margin-bottom: 22px;
+}
+
+.bp-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  letter-spacing: -0.01em;
+}
+
+.bp-lead {
+  max-width: 760px;
+  margin: 0.9rem auto 0;
+  color: var(--muted);
+}
+
+.bp-shell {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+/* Tabs */
+.bp-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+  background: rgba(246, 239, 230, 0.6);
+}
+
+.bp-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 14px 12px;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(30, 20, 24, 0.75);
+  cursor: pointer;
+  border-right: 1px solid var(--line-soft);
+  transition:
+    background 180ms var(--ease),
+    color 180ms var(--ease);
+}
+
+.bp-tab:last-child {
+  border-right: 0;
+}
+
+.bp-tab[aria-selected="true"] {
+  background: var(--plum);
+  color: var(--cream);
+}
+
+.bp-tab:focus-visible {
+  outline: 3px solid rgba(195, 143, 47, 0.45);
+  outline-offset: -3px;
+  border-radius: 0;
+}
+
+/* Panels */
+.bp-panelwrap {
+  padding: 22px;
+  background: rgba(246, 239, 230, 0.35);
+}
+
+.bp-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.bp-copy p {
+  color: var(--muted);
+}
+
+.bp-phase {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  color: var(--text);
+}
+
+.bp-bullets {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  color: rgba(30, 20, 24, 0.78);
+}
+.bp-bullets li {
+  margin: 0.35rem 0;
+}
+
+.bp-media {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-soft);
+}
+
+.bp-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Packages */
+.bp-packages {
+  padding-top: 46px;
+}
+
+.bp-packages__header {
+  margin-bottom: 18px;
+}
+
+.bp-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.bp-card {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.bp-card--featured {
+  border-color: rgba(195, 143, 47, 0.55);
+  box-shadow:
+    0 18px 48px rgba(30, 20, 24, 0.12),
+    0 6px 16px rgba(30, 20, 24, 0.06);
+}
+
+.bp-card__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.bp-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.bp-price {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.45rem;
+  color: var(--plum);
+}
+
+.bp-card__desc {
+  margin: 10px 0 14px;
+  color: var(--muted);
+}
+
+.bp-list {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(30, 20, 24, 0.78);
+}
+.bp-list li {
+  margin: 0.35rem 0;
+}
+
+.bp-bestfor {
+  margin: 14px 0 0;
+  color: rgba(30, 20, 24, 0.84);
+}
+
+.bp-bundle {
+  margin: 12px 0 0;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(195, 143, 47, 0.35);
+  background: rgba(195, 143, 47, 0.12);
+  color: rgba(30, 20, 24, 0.82);
+}
+
+.bp-card__cta {
+  margin-top: 16px;
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.bp-footnote {
+  margin: 14px auto 0;
+  max-width: 860px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .bp-grid {
+    grid-template-columns: 1fr;
+  }
+  .bp-media {
+    order: -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .brand-process {
+    padding: 48px 0;
+  }
+
+  .bp-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .bp-panelwrap {
+    padding: 16px;
+  }
+
+  .bp-cards {
+    grid-template-columns: 1fr;
   }
 }

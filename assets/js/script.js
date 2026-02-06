@@ -522,6 +522,57 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
+   Brand Process Tabs (accessible)
+   ========================================================= */
+(function initBrandProcessTabs() {
+  const root = document.querySelector("[data-bp]");
+  if (!root) return;
+
+  const tabs = Array.from(root.querySelectorAll("[data-bp-tab]"));
+  const panels = tabs
+    .map((t) => document.getElementById(`bp-panel-${t.dataset.bpTab}`))
+    .filter(Boolean);
+
+  function activate(idx, focusTab = false) {
+    tabs.forEach((tab, i) => {
+      const selected = i === idx;
+      tab.setAttribute("aria-selected", selected ? "true" : "false");
+      tab.tabIndex = selected ? 0 : -1;
+    });
+
+    panels.forEach((panel, i) => {
+      if (!panel) return;
+      if (i === idx) panel.removeAttribute("hidden");
+      else panel.setAttribute("hidden", "");
+    });
+
+    if (focusTab) tabs[idx]?.focus();
+  }
+
+  tabs.forEach((tab, idx) => {
+    tab.addEventListener("click", () => activate(idx));
+
+    tab.addEventListener("keydown", (e) => {
+      const key = e.key;
+      if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "Home" && key !== "End") return;
+
+      e.preventDefault();
+
+      let next = idx;
+      if (key === "ArrowLeft") next = (idx - 1 + tabs.length) % tabs.length;
+      if (key === "ArrowRight") next = (idx + 1) % tabs.length;
+      if (key === "Home") next = 0;
+      if (key === "End") next = tabs.length - 1;
+
+      activate(next, true);
+    });
+  });
+
+  // Ensure first is active (in case markup changes)
+  activate(0);
+})();
+
+  /* =========================================================
      LIGHTBOX (click-to-zoom)
   ========================================================= */
   (() => {
