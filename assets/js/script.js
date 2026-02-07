@@ -604,7 +604,13 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     LIGHTBOX (click-to-zoom)
+     LIGHTBOX (click-to-zoom) — FIXED
+     Supports BOTH:
+     1) <img data-lightbox ...> (your existing pattern)
+     2) Photography strip buttons: .photo-strip__btn[data-lightbox-src]
+     Close supports BOTH:
+     - data-close (your old selector)
+     - data-lightbox-close (your photography markup)
   ========================================================= */
   (() => {
     const lb = qs("#lightbox");
@@ -613,11 +619,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let lastActiveEl = null;
 
-    const open = (imgEl) => {
-      lastActiveEl = document.activeElement;
+    const openWith = (src, alt = "Preview image") => {
+      if (!src) return;
 
-      const src = imgEl.getAttribute("src");
-      const alt = imgEl.getAttribute("alt") || "Preview image";
+      lastActiveEl = document.activeElement;
 
       lbImg.src = src;
       lbImg.alt = alt;
@@ -627,6 +632,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+    };
+
+    const openFromImg = (imgEl) => {
+      const src = imgEl.getAttribute("src");
+      const alt = imgEl.getAttribute("alt") || "Preview image";
+      openWith(src, alt);
+    };
+
+    const openFromButton = (btn) => {
+      const src = (btn.getAttribute("data-lightbox-src") || "").trim();
+      const img = qs("img", btn);
+      const alt = (img && img.getAttribute("alt")) || btn.getAttribute("aria-label") || "Preview image";
+      openWith(src, alt);
     };
 
     const close = () => {
@@ -643,15 +661,32 @@ document.addEventListener("DOMContentLoaded", () => {
       lastActiveEl = null;
     };
 
+    // OPEN: supports both triggers via delegation
     document.addEventListener("click", (e) => {
+      // 1) Existing pattern: img[data-lightbox]
       const img = e.target.closest("img[data-lightbox]");
-      if (!img) return;
-      if (e.target.closest("a")) return;
-      open(img);
+      if (img) {
+        if (e.target.closest("a")) return; // don't hijack linked images
+        openFromImg(img);
+        return;
+      }
+
+      // 2) Photography strip buttons
+      const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
+      if (btn) {
+        openFromButton(btn);
+        return;
+      }
     });
 
+    // CLOSE: supports both data-close + data-lightbox-close + clicking backdrop
     lb.addEventListener("click", (e) => {
-      if (e.target.closest("[data-close]")) close();
+      if (e.target.closest("[data-close]") || e.target.closest("[data-lightbox-close]")) {
+        close();
+        return;
+      }
+      // clicking backdrop should close if you use .lightbox-backdrop
+      if (e.target.classList && e.target.classList.contains("lightbox-backdrop")) close();
     });
 
     document.addEventListener("keydown", (e) => {

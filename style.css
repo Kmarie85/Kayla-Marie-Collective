@@ -3212,6 +3212,33 @@ body.case-page .case-logo {
   }
 }
 
+/* Photography strip speed controls */
+:root { --photo-strip-speed: 18s; } /* faster than 28s */
+
+.photo-strip__track {
+  animation: kmc-photo-marquee var(--photo-strip-speed) linear infinite;
+}
+
+/* Even faster on mobile */
+@media (max-width: 640px) {
+  :root { --photo-strip-speed: 14s; }
+}
+
+/* Make the clickable buttons behave like plain images */
+.photo-strip__btn {
+  all: unset;
+  display: block;
+  flex: 0 0 auto;
+  cursor: zoom-in;
+}
+
+.photo-strip__btn:focus-visible {
+  outline: 3px solid rgba(195, 143, 47, 0.45);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
+
 /* =========================================================
    Brand Identity — Tabbed Process + Packages
    Matches KMC palette + card look
