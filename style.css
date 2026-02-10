@@ -3742,3 +3742,73 @@ body.portfolio-page .concept-head .kicker--pill {
   color: var(--ink);
 }
 
+/* =========================================================
+   MOBILE FIXES — Client Words cards + section spacing tweaks
+   Drop at the BOTTOM of style.css
+========================================================= */
+@media (max-width: 640px) {
+  /* ---------- 1) "WHAT IT'S LIKE TO WORK TOGETHER" cards ---------- */
+  /* Target the wrapper that holds the 3 testimonial cards */
+  :is(
+    .client-words-grid,
+    .client-words .cards,
+    .client-words .grid,
+    .testimonials-grid,
+    .testimonials .cards,
+    .testimonials .grid,
+    .quote-grid,
+    .quotes-grid
+  ) {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+
+    gap: 16px !important;
+    padding: 6px 16px 12px !important;
+
+    /* kills the “3-column squeeze” */
+    grid-template-columns: none !important;
+  }
+
+  /* Target each card inside that wrapper */
+  :is(
+    .client-words-grid,
+    .client-words .cards,
+    .client-words .grid,
+    .testimonials-grid,
+    .testimonials .cards,
+    .testimonials .grid,
+    .quote-grid,
+    .quotes-grid
+  )
+    > * {
+    flex: 0 0 86% !important;       /* one card mostly fills screen */
+    max-width: 86% !important;
+    scroll-snap-align: start;
+  }
+
+  /* Optional: tighten the inside padding slightly so cards feel less “tall” */
+  :is(.testimonial-card, .quote-card, .client-words-card, .card) {
+    padding: 18px !important;
+  }
+
+  /* ---------- 2) SERVICES: section titles need bumped down a bit ---------- */
+  /* This is a “safe” nudge for headings used as section titles */
+  :is(.services-page, .services, main)
+    :is(h2, h3, .section-title, .section-heading) {
+    scroll-margin-top: 92px; /* helps when jumping via nav/anchors */
+  }
+
+  /* If your section titles are sitting too close to the section above,
+     add top padding to common section wrappers */
+  :is(.section, .band, .panel, .block, section) {
+    padding-top: clamp(18px, 4vw, 28px);
+  }
+
+  /* ---------- 3) PORTFOLIO: "CONCEPT CASE STUDY" card needs bumped down ---------- */
+  :is(.concept-card, .concept-case, .concept-case-study, .case-concept) {
+    margin-top: 18px !important;
+    transform: none !important; /* in case you’re using translateY overlap */
+  }
+}
