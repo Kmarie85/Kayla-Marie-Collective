@@ -3742,73 +3742,133 @@ body.portfolio-page .concept-head .kicker--pill {
   color: var(--ink);
 }
 
-/* =========================================================
-   MOBILE FIXES — Client Words cards + section spacing tweaks
-   Drop at the BOTTOM of style.css
-========================================================= */
+/* =========================
+   MOBILE — Testimonials swipe row
+   ========================= */
 @media (max-width: 640px) {
-  /* ---------- 1) "WHAT IT'S LIKE TO WORK TOGETHER" cards ---------- */
-  /* Target the wrapper that holds the 3 testimonial cards */
-  :is(
-    .client-words-grid,
-    .client-words .cards,
-    .client-words .grid,
-    .testimonials-grid,
-    .testimonials .cards,
-    .testimonials .grid,
-    .quote-grid,
-    .quotes-grid
-  ) {
+  .testimonials .testimonials-hint {
+    display: block;
+    margin: 10px 0 14px;
+  }
+
+  .testimonials .testimonials-grid {
+    /* override your 3-col grid on mobile */
     display: flex !important;
+    grid-template-columns: none !important;
+
+    gap: 14px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
 
-    gap: 16px !important;
-    padding: 6px 16px 12px !important;
-
-    /* kills the “3-column squeeze” */
-    grid-template-columns: none !important;
+    padding: 6px 16px 14px !important;
+    margin: 0 -16px; /* lets the swipe row reach the edges */
   }
 
-  /* Target each card inside that wrapper */
-  :is(
-    .client-words-grid,
-    .client-words .cards,
-    .client-words .grid,
-    .testimonials-grid,
-    .testimonials .cards,
-    .testimonials .grid,
-    .quote-grid,
-    .quotes-grid
-  )
-    > * {
-    flex: 0 0 86% !important;       /* one card mostly fills screen */
-    max-width: 86% !important;
+  .testimonials .t-card {
+    flex: 0 0 88% !important; /* one card at a time */
+    max-width: 88% !important;
     scroll-snap-align: start;
-  }
 
-  /* Optional: tighten the inside padding slightly so cards feel less “tall” */
-  :is(.testimonial-card, .quote-card, .client-words-card, .card) {
+    /* reduce “tallness” */
     padding: 18px !important;
   }
 
-  /* ---------- 2) SERVICES: section titles need bumped down a bit ---------- */
-  /* This is a “safe” nudge for headings used as section titles */
-  :is(.services-page, .services, main)
-    :is(h2, h3, .section-title, .section-heading) {
-    scroll-margin-top: 92px; /* helps when jumping via nav/anchors */
+  .testimonials .t-card blockquote {
+    margin: 0 0 14px !important;
+    line-height: 1.55;
   }
 
-  /* If your section titles are sitting too close to the section above,
-     add top padding to common section wrappers */
-  :is(.section, .band, .panel, .block, section) {
-    padding-top: clamp(18px, 4vw, 28px);
+  .testimonials .t-card figcaption {
+    margin-top: 10px !important;
   }
 
-  /* ---------- 3) PORTFOLIO: "CONCEPT CASE STUDY" card needs bumped down ---------- */
-  :is(.concept-card, .concept-case, .concept-case-study, .case-concept) {
-    margin-top: 18px !important;
-    transform: none !important; /* in case you’re using translateY overlap */
+  .testimonials .t-link {
+    display: inline-block;
+    margin-top: 10px !important;
+  }
+}
+
+/* =========================
+   MOBILE — Services spacing (titles bumped down)
+   ========================= */
+@media (max-width: 640px) {
+  /* more breathing room under the header for the hero */
+  .page-hero.services-hero {
+    padding-top: 28px !important;
+  }
+
+  /* bump section blocks down so headings don’t feel jammed */
+  .services-band {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+
+  /* specifically the section titles you’re using */
+  .services-band .section-title {
+    margin-top: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .services-band .section-subtext {
+    margin-top: 0 !important;
+  }
+
+  /* if you’re jumping to anchors, avoid titles hiding under header */
+  #overview,
+  #find-your-fit,
+  #process {
+    scroll-margin-top: 110px;
+  }
+}
+
+/* =========================
+   MOBILE — Portfolio concept feature bumped down
+   ========================= */
+@media (max-width: 640px) {
+  .concept-feature {
+    margin-top: 22px !important;
+    padding-top: 18px !important;
+  }
+
+  .concept-band {
+    margin-top: 10px !important;
+  }
+
+  .concept-head .section-title {
+    margin-top: 10px !important;
+  }
+}
+
+/* =========================
+   MOBILE — Services spacing (titles bumped down)
+   ========================= */
+@media (max-width: 640px) {
+  /* more breathing room under the header for the hero */
+  .page-hero.services-hero {
+    padding-top: 28px !important;
+  }
+
+  /* bump section blocks down so headings don’t feel jammed */
+  .services-band {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+
+  /* specifically the section titles you’re using */
+  .services-band .section-title {
+    margin-top: 10px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .services-band .section-subtext {
+    margin-top: 0 !important;
+  }
+
+  /* if you’re jumping to anchors, avoid titles hiding under header */
+  #overview,
+  #find-your-fit,
+  #process {
+    scroll-margin-top: 110px;
   }
 }
