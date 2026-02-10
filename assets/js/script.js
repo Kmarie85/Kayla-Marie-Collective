@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (new URLSearchParams(window.location.search).get(key) || "").trim();
+      return (
+        new URLSearchParams(window.location.search).get(key) || ""
+      ).trim();
     } catch {
       return "";
     }
@@ -31,6 +33,49 @@ document.addEventListener("DOMContentLoaded", () => {
       // fail silent
     }
   };
+
+  /* =========================================================
+     PHOTO STRIP MARQUEE — SINGLE SOURCE OF TRUTH (NO GAP)
+     - Requires markup:
+       .photo-strip__track
+         .photo-strip__set (Set A)
+         .photo-strip__set (Set B clone)
+     - Sets --marquee-shift to EXACT px width of Set A
+  ========================================================= */
+  (function setupPhotoStripMarquee() {
+    const strips = document.querySelectorAll(".photo-strip");
+    if (!strips.length) return;
+
+    const computeOne = (strip) => {
+      const trackEl = strip.querySelector(".photo-strip__track");
+      if (!trackEl) return;
+
+      const sets = trackEl.querySelectorAll(".photo-strip__set");
+      if (!sets || sets.length < 2) return;
+
+      const setA = sets[0];
+
+      const w = Math.round(setA.getBoundingClientRect().width);
+      if (!w) return;
+
+      trackEl.style.setProperty("--marquee-shift", `-${w}px`);
+
+      const pxPerSecond = 55; // tweak 45–70
+      const duration = Math.max(14, Math.round(w / pxPerSecond));
+      trackEl.style.animationDuration = `${duration}s`;
+    };
+
+    const computeAll = () => strips.forEach(computeOne);
+
+    requestAnimationFrame(computeAll);
+    window.addEventListener("load", computeAll, { once: true });
+
+    let t;
+    window.addEventListener("resize", () => {
+      clearTimeout(t);
+      t = setTimeout(() => requestAnimationFrame(computeAll), 120);
+    });
+  })();
 
   /* =========================================================
      ABOUT SPLIT ROTATOR
@@ -61,9 +106,12 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         src: "images/nepal.png",
         caption:
-          "I loved in Nepal for over a year - still one of my favorite places on earth - I call it home.",
+          "I lived in Nepal for over a year — still one of my favorite places on earth — I call it home.",
       },
-      { src: "images/create.png", caption: "I don't think I can ever be serious." },
+      {
+        src: "images/create.png",
+        caption: "I don't think I can ever be serious.",
+      },
       {
         src: "images/us5.png",
         caption:
@@ -72,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         src: "images/furbabies.png",
         caption:
-          "The fur babies. Charlie and Luna Binx - changed our lives in all the best ways! They are feisty, goofy, and know how to get their way! They are currently waiting for their treats LOL!",
+          "The fur babies. Charlie and Luna Binx — changed our lives in all the best ways! They are feisty, goofy, and know how to get their way! They are currently waiting for their treats LOL!",
       },
     ];
 
@@ -135,7 +183,9 @@ document.addEventListener("DOMContentLoaded", () => {
      NAV ACTIVE STATES (global)
   ========================================================= */
   (() => {
-    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const path = (
+      window.location.pathname.split("/").pop() || "index.html"
+    ).toLowerCase();
     const nav = qs("[data-nav]");
     if (!nav) return;
 
@@ -143,7 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const href = (a.getAttribute("href") || "").trim();
       if (!href || href.startsWith("http") || href.startsWith("#")) return;
 
-      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+      const file = href
+        .split("?")[0]
+        .split("#")[0]
+        .split("/")
+        .pop()
+        .toLowerCase();
       const isMatch = file === path;
 
       a.classList.toggle("active", isMatch);
@@ -163,13 +218,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const eventName = (el.getAttribute("data-track") || "click").trim();
       const explicitLabel = (el.getAttribute("data-label") || "").trim();
 
-      const textFallback = (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
+      const textFallback = (el.textContent || "")
+        .trim()
+        .replace(/\s+/g, " ")
+        .slice(0, 80);
 
       const href = (el.getAttribute("href") || "").trim();
-      const label = explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
+      const label =
+        explicitLabel ||
+        textFallback ||
+        (href ? `href:${href}` : "") ||
+        "unknown";
 
       const isOutbound =
-        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
+        href &&
+        /^https?:\/\//i.test(href) &&
+        !href.includes(window.location.hostname);
 
       track(eventName, {
         label,
@@ -215,6 +279,369 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
+   PACKAGE QUIZ (full logic in script.js + UX polish)
+   - No extra markup required (injects progress + reset)
+   - IDs required:
+     #packageQuiz, #quizResult, #resultTitle, #resultSummary,
+     #resultDetails, #resultCta, #resultNote
+========================================================= */
+  (() => {
+    const form = qs("#packageQuiz");
+    if (!form) return; // only runs on quiz page
+
+    const result = qs("#quizResult");
+    const title = qs("#resultTitle");
+    const summary = qs("#resultSummary");
+    const details = qs("#resultDetails");
+    const cta = qs("#resultCta");
+    const note = qs("#resultNote");
+
+    if (!result || !title || !summary || !details || !cta || !note) return;
+
+    // Start clean
+    result.hidden = true;
+    cta.hidden = true;
+
+    const score = { foundation: 0, growth: 0, strategic: 0 };
+    const resetScore = () => {
+      score.foundation = 0;
+      score.growth = 0;
+      score.strategic = 0;
+    };
+    const add = (tier, pts) => (score[tier] += pts);
+    const winner = () =>
+      Object.entries(score).sort((a, b) => b[1] - a[1])[0]?.[0] || "growth";
+
+    /* -------------------------
+     1) Progress indicator (5 dots)
+     - Injected under the top form note
+     - Updates on select changes
+  ------------------------- */
+    const selects = Array.from(form.querySelectorAll("select[required]"));
+    const totalSteps = selects.length || 5;
+
+    const makeProgress = () => {
+      const wrap = document.createElement("div");
+      wrap.className = "quiz-progress";
+      wrap.setAttribute("role", "status");
+      wrap.setAttribute("aria-live", "polite");
+      wrap.style.marginTop = "0.75rem";
+
+      const dots = document.createElement("div");
+      dots.className = "quiz-progress__dots";
+      dots.style.display = "flex";
+      dots.style.gap = "8px";
+      dots.style.alignItems = "center";
+
+      const label = document.createElement("div");
+      label.className = "quiz-progress__label small-note";
+      label.style.marginTop = "0.5rem";
+      label.style.opacity = "0.9";
+
+      const dotEls = [];
+      for (let i = 0; i < totalSteps; i++) {
+        const d = document.createElement("span");
+        d.className = "quiz-progress__dot";
+        // Inline styles = zero CSS dependency, but still respects your palette via currentColor
+        d.style.width = "7px";
+        d.style.height = "7px";
+        d.style.borderRadius = "999px";
+        d.style.border = "1px solid currentColor";
+        d.style.opacity = "0.35";
+        d.style.transform = "translateZ(0)";
+        dotEls.push(d);
+        dots.appendChild(d);
+      }
+
+      wrap.appendChild(dots);
+      wrap.appendChild(label);
+
+      return { wrap, dotEls, label };
+    };
+
+    const progress = makeProgress();
+
+    // Insert after the first .form-note if present, else at top of form
+    const firstNote = form.querySelector(".form-note");
+    if (firstNote) firstNote.insertAdjacentElement("afterend", progress.wrap);
+    else form.insertAdjacentElement("afterbegin", progress.wrap);
+
+    const countAnswered = () =>
+      selects.reduce((acc, s) => acc + ((s.value || "").trim() ? 1 : 0), 0);
+
+    const updateProgress = () => {
+      const answered = countAnswered();
+      progress.dotEls.forEach((d, idx) => {
+        const on = idx < answered;
+        d.style.opacity = on ? "0.95" : "0.35";
+        d.style.background = on ? "currentColor" : "transparent";
+      });
+      progress.label.textContent = `${answered}/${totalSteps} answered`;
+    };
+
+    selects.forEach((s) => s.addEventListener("change", updateProgress));
+    updateProgress();
+
+    /* -------------------------
+     2) Result cards
+  ------------------------- */
+    const makeCard = (heading, price, items) => {
+      const el = document.createElement("details");
+      el.className = "addon";
+      el.open = true;
+      el.innerHTML = `
+      <summary>
+        ${heading}
+        <span class="addon-price">${price}</span>
+      </summary>
+      <div class="addon-body">
+        <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+      </div>
+    `;
+      return el;
+    };
+
+    const makeWhy = (items) => {
+      const el = document.createElement("details");
+      el.className = "addon";
+      el.open = true;
+      el.innerHTML = `
+      <summary>Why this recommendation</summary>
+      <div class="addon-body">
+        <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+      </div>
+    `;
+      return el;
+    };
+
+    /* -------------------------
+     3) Reset button (injected)
+  ------------------------- */
+    let resetBtn = null;
+
+    const ensureResetBtn = () => {
+      if (resetBtn) return resetBtn;
+
+      resetBtn = document.createElement("button");
+      resetBtn.type = "button";
+      resetBtn.className = "btn-secondary";
+      resetBtn.textContent = "Reset quiz";
+      resetBtn.style.marginLeft = "0.75rem";
+      resetBtn.style.marginTop = "0.5rem";
+
+      resetBtn.addEventListener("click", () => {
+        // Reset fields
+        form.reset();
+        updateProgress();
+
+        // Hide results
+        details.innerHTML = "";
+        result.hidden = true;
+        cta.hidden = true;
+        note.textContent = "";
+
+        // Reset title/summary to placeholder copy (matches your page vibe)
+        title.textContent = "Your recommendation";
+        summary.innerHTML =
+          "Answer the questions above and click <strong>Get my recommendation</strong>. Your result will appear here with a direct link to continue.";
+
+        // Move focus back to first select
+        const firstSel = selects[0];
+        if (firstSel) firstSel.focus();
+
+        track("package_quiz_reset", { source: sourceLabel });
+      });
+
+      return resetBtn;
+    };
+
+    // Put reset button next to the CTA, inside the same paragraph wrapper if possible
+    const mountResetBtn = () => {
+      const btn = ensureResetBtn();
+      const ctaWrap = cta.closest(".text-link") || cta.parentElement;
+      if (ctaWrap && !ctaWrap.contains(btn)) ctaWrap.appendChild(btn);
+    };
+
+    /* -------------------------
+     4) Scroll only if result is below fold
+  ------------------------- */
+    const isElementInView = (el, pad = 16) => {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top >= pad && r.bottom <= vh - pad;
+    };
+
+    const maybeScrollToResult = () => {
+      // Only scroll if result top is below the visible area (below fold)
+      const r = result.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const belowFold = r.top > vh - 24;
+
+      if (belowFold && !isElementInView(result)) {
+        result.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    /* -------------------------
+     5) Render result
+  ------------------------- */
+    const render = (tier) => {
+      details.innerHTML = "";
+
+      if (tier === "foundation") {
+        title.textContent = "Recommendation: Foundation Website";
+        summary.textContent =
+          "Based on your responses, a Foundation Website is likely the best fit. This tier is designed for clarity, credibility, and a clean path to contact — without unnecessary complexity.";
+
+        details.appendChild(
+          makeCard("Foundation Website", "$1,200 +", [
+            "1–3 custom pages",
+            "Mobile-responsive build",
+            "Basic SEO + contact form",
+            "Domain + hosting connection",
+            "Launch-ready handoff",
+          ]),
+        );
+
+        details.appendChild(
+          makeWhy([
+            "You indicated a smaller page count and a need for clarity over complexity.",
+            "Your primary goal centers on credibility and a clear contact path.",
+            "Advanced tracking and multi-step flows were not a priority based on your responses.",
+            "This tier keeps the build clean and professional without overbuilding.",
+          ]),
+        );
+
+        cta.href =
+          "contact.html?project_type=website&tier=foundation&source=package_quiz";
+        note.textContent =
+          "If your offer becomes more complex or you need stronger conversion flow, the Growth tier may be a better next step.";
+      }
+
+      if (tier === "growth") {
+        title.textContent = "Recommendation: Growth Website (Most Popular)";
+        summary.textContent =
+          "Based on your responses, a Growth Website is likely the best fit. This tier provides stronger structure, clearer calls to action, and light conversion strategy to support consistent inquiries.";
+
+        details.appendChild(
+          makeCard("Growth Website", "$1,800 +", [
+            "4–6 custom pages",
+            "Strategic page flow + CTAs",
+            "GA4 analytics setup",
+            "Email signup integration",
+            "On-page SEO enhancements",
+          ]),
+        );
+
+        details.appendChild(
+          makeWhy([
+            "You indicated a need for stronger structure and guided calls to action.",
+            "Your site needs to support consistent inquiries, not just exist.",
+            "Analytics and email capture mattered, without full funnel complexity.",
+            "This tier balances strategy and simplicity without overbuilding.",
+          ]),
+        );
+
+        cta.href =
+          "contact.html?project_type=website&tier=growth&source=package_quiz";
+        note.textContent =
+          "If your website needs to directly support revenue or more advanced tracking, a Strategic build may be appropriate.";
+      }
+
+      if (tier === "strategic") {
+        title.textContent =
+          "Recommendation: Strategic / Conversion-Led Website";
+        summary.textContent =
+          "Based on your responses, a Strategic / Conversion-Led Website is likely the best fit. This tier is designed for businesses where the website plays an active role in revenue, decision-making, and performance.";
+
+        details.appendChild(
+          makeCard("Strategic / Conversion-Led", "$2,400–$3,200", [
+            "7–10 custom pages",
+            "Conversion mapping + lead flow",
+            "Advanced analytics + event tracking",
+            "Performance + accessibility pass",
+            "Priority planning + support",
+          ]),
+        );
+
+        details.appendChild(
+          makeWhy([
+            "Your responses indicate the website plays an active role in revenue or enrollment.",
+            "Conversion flow, decision points, and tracking are important for this build.",
+            "You selected options that require deeper guidance and performance decisions.",
+            "This tier supports intentional optimization rather than guesswork.",
+          ]),
+        );
+
+        cta.href =
+          "contact.html?project_type=website&tier=strategic&source=package_quiz";
+        note.textContent =
+          "Final scope is always confirmed before work begins to ensure the right level of support.";
+      }
+
+      // Reveal
+      result.hidden = false;
+      cta.hidden = false;
+      mountResetBtn();
+
+      // Only scroll if needed
+      maybeScrollToResult();
+
+      // Track
+      track("package_quiz_result", { label: tier, source: sourceLabel });
+    };
+
+    /* -------------------------
+     Submit handler (scoring)
+  ------------------------- */
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        track("package_quiz_invalid", { source: sourceLabel });
+        return;
+      }
+
+      const data = new FormData(form);
+      const pages = data.get("q_pages");
+      const goal = data.get("q_goal");
+      const tracking = data.get("q_tracking");
+      const email = data.get("q_email");
+      const support = data.get("q_support");
+
+      resetScore();
+
+      // Q1 pages
+      if (pages === "1_3") add("foundation", 3);
+      if (pages === "4_6") add("growth", 3);
+      if (pages === "7_10") add("strategic", 3);
+
+      // Q2 goal
+      if (goal === "credibility") add("foundation", 3);
+      if (goal === "leads") add("growth", 3);
+      if (goal === "revenue") add("strategic", 3);
+
+      // Q3 tracking
+      if (tracking === "basic") add("foundation", 2);
+      if (tracking === "ga4") add("growth", 2);
+      if (tracking === "events") add("strategic", 2);
+
+      // Q4 email
+      if (email === "no") add("foundation", 1);
+      if (email === "yes_basic") add("growth", 2);
+      if (email === "yes_strategic") add("strategic", 2);
+
+      // Q5 support
+      if (support === "hands_off") add("foundation", 1);
+      if (support === "guided") add("growth", 2);
+      if (support === "strategic") add("strategic", 3);
+
+      render(winner());
+    });
+  })();
+
+  /* =========================================================
      SERVICES: ADD-ON ACCORDION TRACKING
   ========================================================= */
   (() => {
@@ -226,7 +653,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!d.open) return;
 
         const summary = d.querySelector("summary");
-        const label = (summary && summary.textContent ? summary.textContent : "addon_open")
+        const label = (
+          summary && summary.textContent ? summary.textContent : "addon_open"
+        )
           .replace(/\s+/g, " ")
           .trim()
           .slice(0, 80);
@@ -250,7 +679,8 @@ document.addEventListener("DOMContentLoaded", () => {
       growth: "growth-website",
       strategic: "strategy",
     };
-    if (tierRaw && tierToProjectType[tierRaw]) return tierToProjectType[tierRaw];
+    if (tierRaw && tierToProjectType[tierRaw])
+      return tierToProjectType[tierRaw];
 
     const allowed = new Set([
       "foundation-website",
@@ -296,21 +726,21 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* =========================================================
-     CONTACT: PREFILL SELECT + PREFILL NOTE + HERO SWAP
-     FIX: never target ".page-hero p" (it hits the kicker)
-     - Targets #contactHeroText if present
-     - If missing, creates it under the H1
+     CONTACT: PREFILL SELECT + NOTE + HERO SWAP
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const select = qs("#project_type", form) || qs("select[name='project_type']", form);
+    const select =
+      qs("#project_type", form) || qs("select[name='project_type']", form);
     if (!select || select.tagName !== "SELECT") return;
 
     const desired = resolveDesiredProjectType();
     if (desired) {
-      const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
+      const opt = Array.from(select.options).find(
+        (o) => safeLower(o.value) === desired,
+      );
       if (opt) {
         select.value = opt.value;
         select.dispatchEvent(new Event("change", { bubbles: true }));
@@ -323,20 +753,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const hero = qs(".page-hero");
     const heroH1 = hero ? qs("h1", hero) : null;
 
-    // Prefer explicit hero text element
     let heroText = qs("#contactHeroText");
-
-    // If it doesn't exist, create it right under the H1 (contact page only)
     if (!heroText && hero && heroH1) {
       heroText = document.createElement("p");
       heroText.id = "contactHeroText";
-      heroText.className = "hero-subcopy"; // harmless if you don't style it
+      heroText.className = "hero-subcopy";
       heroH1.insertAdjacentElement("afterend", heroText);
     }
 
     const updateHero = () => {
       const v = safeLower(select.value);
-
       if (!heroH1 || !heroText) return;
 
       if (v === "photography") {
@@ -346,7 +772,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (v === "brand-identity" || v === "brand-only" || v === "brand-web-prep") {
+      if (
+        v === "brand-identity" ||
+        v === "brand-only" ||
+        v === "brand-web-prep"
+      ) {
         heroH1.textContent = "Start a Branding Project";
         heroText.textContent =
           "Share a few details about your brand and what you need. I’ll review, confirm fit, and follow up with next steps.";
@@ -461,19 +891,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectType = qs("#project_type", form);
 
     const getServiceHint = () =>
-      resolveDesiredProjectType() || safeLower(projectType && projectType.value) || "unknown";
+      resolveDesiredProjectType() ||
+      safeLower(projectType && projectType.value) ||
+      "unknown";
 
-    track("contact_form_view", { source: sourceLabel, service: getServiceHint() });
+    track("contact_form_view", {
+      source: sourceLabel,
+      service: getServiceHint(),
+    });
 
     let started = false;
     const markStarted = () => {
       if (started) return;
       started = true;
-      track("contact_form_start", { source: sourceLabel, service: getServiceHint() });
+      track("contact_form_start", {
+        source: sourceLabel,
+        service: getServiceHint(),
+      });
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea")) markStarted();
+      if (e.target && e.target.matches("input, select, textarea"))
+        markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
@@ -481,17 +920,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!form.checkValidity()) {
         form.reportValidity();
-        track("contact_form_invalid", { source: sourceLabel, service: getServiceHint() });
+        track("contact_form_invalid", {
+          source: sourceLabel,
+          service: getServiceHint(),
+        });
         return;
       }
 
       if (!form.action) {
-        alert("Form action is missing. Please set your form endpoint and try again.");
+        alert(
+          "Form action is missing. Please set your form endpoint and try again.",
+        );
         return;
       }
 
       const serviceHint = getServiceHint();
-      const interest = qsa("input[name='interest_areas']:checked", form).map((cb) => cb.value);
+      const interest = qsa("input[name='interest_areas']:checked", form).map(
+        (cb) => cb.value,
+      );
       const tierVal = ((qs("#tier", form) || {}).value || "").trim();
 
       track("contact_form_submit_attempt", {
@@ -538,7 +984,9 @@ document.addEventListener("DOMContentLoaded", () => {
             tier: tierVal || undefined,
             status: res.status || 0,
           });
-          alert("Something went wrong. Please check your entries and try again.");
+          alert(
+            "Something went wrong. Please check your entries and try again.",
+          );
         }
       } catch {
         track("contact_form_submit_error", {
@@ -585,7 +1033,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tab.addEventListener("keydown", (e) => {
         const key = e.key;
-        if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "Home" && key !== "End")
+        if (
+          key !== "ArrowLeft" &&
+          key !== "ArrowRight" &&
+          key !== "Home" &&
+          key !== "End"
+        )
           return;
 
         e.preventDefault();
@@ -604,13 +1057,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     LIGHTBOX (click-to-zoom) — FIXED
-     Supports BOTH:
-     1) <img data-lightbox ...> (your existing pattern)
-     2) Photography strip buttons: .photo-strip__btn[data-lightbox-src]
-     Close supports BOTH:
-     - data-close (your old selector)
-     - data-lightbox-close (your photography markup)
+     LIGHTBOX (click-to-zoom)
   ========================================================= */
   (() => {
     const lb = qs("#lightbox");
@@ -643,7 +1090,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const openFromButton = (btn) => {
       const src = (btn.getAttribute("data-lightbox-src") || "").trim();
       const img = qs("img", btn);
-      const alt = (img && img.getAttribute("alt")) || btn.getAttribute("aria-label") || "Preview image";
+      const alt =
+        (img && img.getAttribute("alt")) ||
+        btn.getAttribute("aria-label") ||
+        "Preview image";
       openWith(src, alt);
     };
 
@@ -657,21 +1107,19 @@ document.addEventListener("DOMContentLoaded", () => {
       lbImg.src = "";
       lbImg.alt = "";
 
-      if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
+      if (lastActiveEl && typeof lastActiveEl.focus === "function")
+        lastActiveEl.focus();
       lastActiveEl = null;
     };
 
-    // OPEN: supports both triggers via delegation
     document.addEventListener("click", (e) => {
-      // 1) Existing pattern: img[data-lightbox]
       const img = e.target.closest("img[data-lightbox]");
       if (img) {
-        if (e.target.closest("a")) return; // don't hijack linked images
+        if (e.target.closest("a")) return;
         openFromImg(img);
         return;
       }
 
-      // 2) Photography strip buttons
       const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
       if (btn) {
         openFromButton(btn);
@@ -679,14 +1127,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // CLOSE: supports both data-close + data-lightbox-close + clicking backdrop
     lb.addEventListener("click", (e) => {
-      if (e.target.closest("[data-close]") || e.target.closest("[data-lightbox-close]")) {
+      if (
+        e.target.closest("[data-close]") ||
+        e.target.closest("[data-lightbox-close]")
+      ) {
         close();
         return;
       }
-      // clicking backdrop should close if you use .lightbox-backdrop
-      if (e.target.classList && e.target.classList.contains("lightbox-backdrop")) close();
+      if (
+        e.target.classList &&
+        e.target.classList.contains("lightbox-backdrop")
+      )
+        close();
     });
 
     document.addEventListener("keydown", (e) => {
@@ -698,7 +1151,8 @@ document.addEventListener("DOMContentLoaded", () => {
      ALIVE MOTION (Hero parallax + reveal on scroll)
   ========================================================= */
   const prefersReduced =
-    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   (function heroParallax() {
     if (prefersReduced) return;
@@ -713,7 +1167,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
       document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
-      document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
+      document.documentElement.style.setProperty(
+        "--hero-opacity",
+        `${opacity}`,
+      );
     };
 
     onScroll();
@@ -722,7 +1179,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   (function addRevealClasses() {
     const candidates = qsa(
-      ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card"
+      ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card",
     );
     candidates.forEach((el, i) => {
       if (el.classList.contains("reveal")) return;
@@ -750,7 +1207,7 @@ document.addEventListener("DOMContentLoaded", () => {
           io.unobserve(entry.target);
         });
       },
-      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" },
     );
 
     items.forEach((el) => io.observe(el));

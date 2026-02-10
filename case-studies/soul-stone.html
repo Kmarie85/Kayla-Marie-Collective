@@ -6,10 +6,10 @@
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <!-- Primary SEO -->
-    <title>SoulStone Case Study | Kayla Marie Collective</title>
+    <title>Case Study: SoulStone Inc. | Kayla Marie Collective</title>
     <meta
       name="description"
-      content="Featured case study: SoulStone Inc. — a strategy-led, trauma-informed nonprofit website build focused on calm pacing, clear pathways, and mission-aligned structure."
+      content="Case study: SoulStone Inc. — a strategy-led nonprofit website built for calm pacing, clear pathways, and trust-first engagement across multiple audiences."
     />
     <meta name="robots" content="index,follow" />
     <meta name="author" content="Kayla Marie Collective" />
@@ -21,10 +21,13 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kayla Marie Collective" />
-    <meta property="og:title" content="SoulStone Case Study | Kayla Marie Collective" />
+    <meta
+      property="og:title"
+      content="Case Study: SoulStone Inc. | Kayla Marie Collective"
+    />
     <meta
       property="og:description"
-      content="Featured case study: SoulStone Inc. — a strategy-led, trauma-informed nonprofit website build focused on calm pacing, clear pathways, and mission-aligned structure."
+      content="A strategy-led nonprofit website built for calm pacing, clear pathways, and trust-first engagement across multiple audiences."
     />
     <meta
       property="og:url"
@@ -40,17 +43,33 @@
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="SoulStone Case Study | Kayla Marie Collective" />
+    <meta
+      name="twitter:title"
+      content="Case Study: SoulStone Inc. | Kayla Marie Collective"
+    />
     <meta
       name="twitter:description"
-      content="Featured case study: SoulStone Inc. — a strategy-led, trauma-informed nonprofit website build focused on calm pacing, clear pathways, and mission-aligned structure."
+      content="A strategy-led nonprofit website built for calm pacing, clear pathways, and trust-first engagement across multiple audiences."
     />
     <meta
       name="twitter:image"
       content="https://kaylamariecollective.com/images/og-image.jpg"
     />
 
-    <!-- Favicons -->
+    <!-- JSON-LD: CreativeWork -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": "Case Study: SoulStone Inc.",
+        "description": "A strategy-led nonprofit website built for calm pacing, clear pathways, and trust-first engagement across multiple audiences.",
+        "author": { "@type": "Organization", "name": "Kayla Marie Collective" },
+        "publisher": { "@type": "Organization", "name": "Kayla Marie Collective" },
+        "url": "https://kaylamariecollective.com/case-studies/soul-stone.html"
+      }
+    </script>
+
+    <!-- Favicons (keep as-is if these live inside /case-studies/) -->
     <link rel="icon" href="blackfavicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="blackfavicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="blackfavicon-16x16.png" />
@@ -59,22 +78,43 @@
     <meta name="theme-color" content="#000000" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../style.css" />
+    <!-- IMPORTANT: case study pages live in /case-studies/, so use root path for global CSS -->
+    <link rel="stylesheet" href="/style.css" />
 
     <!-- Performance -->
     <link rel="preload" as="image" href="/images/primaryanchor-wordmark.png" />
 
     <!-- Scripts (global) -->
-    <script defer src="../assets/js/script.js"></script>
+    <script defer src="/assets/js/script.js"></script>
+
+    <!-- GA4 -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-DWTK6PGS0W"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-DWTK6PGS0W");
+    </script>
   </head>
 
   <body class="case-page">
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- Header / Nav -->
+    <!-- =========================
+         Header / Nav (matches site)
+         ========================= -->
     <header class="site-header">
       <div class="container nav-container">
-        <a href="/index.html" class="logo" aria-label="Kayla Marie Collective home">
+        <a
+          href="/index.html"
+          class="logo"
+          aria-label="Kayla Marie Collective home"
+        >
           <img
             src="/images/primaryanchor-wordmark.png"
             alt="Kayla Marie Collective"
@@ -95,8 +135,12 @@
           Menu
         </button>
 
-        <nav class="main-nav" id="primary-nav" aria-label="Main navigation" data-nav>
-          <a href="/index.html">Home</a>
+        <nav
+          class="main-nav"
+          id="primary-nav"
+          aria-label="Main navigation"
+          data-nav
+        >
           <a href="/services.html">Services</a>
           <a href="/brand-identity.html">Branding</a>
           <a href="/portfolio.html">Portfolio</a>
@@ -113,231 +157,310 @@
       </div>
     </header>
 
-<main id="main">
-  <!-- Page Hero -->
-  <section class="page-hero ss-hero">
-    <div class="container">
-      <span class="kicker">Featured Case Study</span>
-      <h1>
-        SoulStone Inc. — a strategy-led nonprofit website built for calm pacing,
-        clear pathways, and trust-first engagement
-      </h1>
-      <p>
-        SoulStone needed a trauma-informed site that communicates mission with
-        dignity — without urgency — while supporting multiple audiences with
-        distinct pathways: support, partnerships, donors, and facilitators.
+    <main id="main" class="case-wrap">
+      <!-- =========================
+           Case Hero (match KMC + Serene pattern)
+           ========================= -->
+      <section class="hero ss-hero" aria-label="Case study hero">
+        <div class="container hero-inner">
+          <div class="hero-text reveal">
+            <span class="kicker">Case Study • Featured</span>
+            <h1>SoulStone Inc.</h1>
+            <p class="hero-sub">
+              A strategy-led nonprofit website built for calm pacing, clear pathways, and trust-first engagement —
+              supporting multiple audiences with distinct next steps (support, partnerships, donors, facilitators).
+            </p>
+
+            <div class="hero-cta">
+              <a
+                class="btn-primary-one"
+                href="/contact.html?source=case_soulstone_hero&project_type=strategy&tier=strategic"
+                data-track="case_cta_click"
+                data-label="soulstone_case_hero_request_strategy"
+              >
+                Request a strategy-led build →
+              </a>
+              <a
+                class="btn-secondary"
+                href="/services.html#strategy"
+                data-track="case_nav_click"
+                data-label="soulstone_case_hero_services"
+              >
+                Strategy-led builds →
+              </a>
+              <a
+                class="btn-secondary"
+                href="https://www.soulstoneinc.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="case_live_click"
+                data-label="soulstone_case_hero_live_site"
+              >
+                Live site →
+              </a>
+            </div>
+
+            <p class="small-note" style="margin-top: 14px">
+              Design intent: reduce overwhelm, increase trust, and let people self-select without pressure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           Proof Strip
+           ========================= -->
+      <section class="proof-strip" aria-label="Project highlights">
+        <div class="container">
+          <div class="proof-inner reveal">
+            <div class="proof-item">
+              <p class="proof-kicker">Core need</p>
+              <p class="proof-text">Multiple audiences, one calm structure.</p>
+            </div>
+            <div class="proof-item">
+              <p class="proof-kicker">Approach</p>
+              <p class="proof-text">Pathways + pacing + mission-forward copy.</p>
+            </div>
+            <div class="proof-item">
+              <p class="proof-kicker">Outcome</p>
+              <p class="proof-text">Clear next steps without urgency language.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           Case Grid (2-column)
+           ========================= -->
+      <section aria-label="Case study details">
+        <div class="container">
+          <div class="portfolio-grid reveal">
+            <!-- LEFT: Snapshot -->
+            <article class="portfolio-item case-card">
+              <img
+                src="/images/recscreen.png"
+                alt="SoulStone website preview"
+                loading="lazy"
+                decoding="async"
+                class="case-logo"
+                data-lightbox
+                data-track="case_image_click"
+                data-label="soulstone_case_preview_lightbox"
+              />
+
+              <h2 style="margin-top: 16px">Project snapshot</h2>
+
+              <div class="case-meta">
+                <p><strong>Project type:</strong> Strategy-led nonprofit website</p>
+                <p>
+                  <strong>Role:</strong> Strategy, information architecture, copy, design system, front-end development
+                </p>
+                <p><strong>Status:</strong> Live + responsive + pathway-focused</p>
+              </div>
+
+              <h3 style="margin-top: 14px">Primary outcomes</h3>
+              <ul class="simple-list">
+                <li>
+                  <strong>Calm pacing:</strong> rhythm and spacing reduce cognitive load
+                </li>
+                <li>
+                  <strong>Multiple pathways:</strong> visitors self-select quickly without a wall of text
+                </li>
+                <li>
+                  <strong>Trust-first structure:</strong> information comes before asks
+                </li>
+                <li>
+                  <strong>Clear actions:</strong> options are visible without pressure language
+                </li>
+              </ul>
+
+              <div class="case-cta" style="margin-top: 14px">
+                <a
+                  class="btn-primary-one"
+                  href="/contact.html?source=case_soulstone_left&project_type=strategy&tier=strategic"
+                  data-track="case_cta_click"
+                  data-label="soulstone_case_left_request_strategy"
+                >
+                  Request a strategy-led build →
+                </a>
+                <a
+                  class="btn-secondary"
+                  href="/portfolio.html"
+                  data-track="case_nav_click"
+                  data-label="soulstone_case_left_portfolio"
+                >
+                  Portfolio →
+                </a>
+              </div>
+
+              <p class="text-link" style="margin-top: 12px">
+                Prefer to browse first
+                <a
+                  href="/portfolio.html"
+                  data-track="case_secondary_click"
+                  data-label="soulstone_case_browse_portfolio"
+                  >? See more work →</a
+                >
+              </p>
+            </article>
+
+            <!-- RIGHT: Narrative summary -->
+            <article class="portfolio-item case-card">
+              <h2 style="margin-top: 0">What was built</h2>
+              <p class="summary">
+                A nonprofit site that communicates mission with dignity — without urgency — while supporting distinct
+                visitor needs through clear, separate pathways.
+              </p>
+
+              <h3>Before (what wasn’t working)</h3>
+              <ul class="simple-list">
+                <li>
+                  <strong>Vague nonprofit language:</strong> mission-driven sites often become broad and unclear.
+                </li>
+                <li>
+                  <strong>Pathway overload:</strong> multiple audiences get served poorly when everything feels equal.
+                </li>
+                <li>
+                  <strong>Emotional friction:</strong> dense layouts and urgency tones can push people away.
+                </li>
+                <li>
+                  <strong>Low trust signals:</strong> unclear structure makes visitors hesitate or leave.
+                </li>
+              </ul>
+
+              <h3 style="margin-top: 14px">The goal</h3>
+              <p class="summary">
+                Build a grounded, human nonprofit site that stays
+                <strong>clear, credible, and easy to navigate</strong>
+                — with separate pathways for support, partnerships, donors, and facilitators.
+              </p>
+
+              <h3 style="margin-top: 14px">Constraints built around</h3>
+              <ul class="simple-list">
+                <li><strong>Calm pacing:</strong> reduce overwhelm through rhythm and spacing</li>
+                <li><strong>Multiple audiences:</strong> each visitor type needs a clear next step</li>
+                <li><strong>No urgency tone:</strong> action is offered without pressure</li>
+                <li><strong>Simple upkeep:</strong> stable HTML/CSS foundation, easy to update</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           Narrative Band (Approach / Improvements)
+           ========================= -->
+
+<section class="services-band" aria-label="Case study narrative">
+  <div class="container">
+    <div class="services-band-inner">
+      <h2 class="section-title">The approach</h2>
+      <p class="section-subtext">
+        Calm hierarchy, clear pathways, and grounded copy — designed to invite engagement without urgency and
+        support sensitive work with steady pacing.
       </p>
 
-      <div class="case-nav">
-        <a
-          href="/portfolio.html"
-          data-track="case_nav_click"
-          data-label="soulstone_case_back_to_portfolio"
-        >
-          ← Portfolio
-        </a>
+      <div class="package-grid reveal" style="margin-top: 18px">
+        <article class="package-card">
+          <h3>Regulated browsing</h3>
+          <p class="small-note">Breathable spacing and simple hierarchy to reduce overwhelm.</p>
+        </article>
 
-        <a
-          href="https://www.soulstoneinc.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-track="case_live_click"
-          data-label="soulstone_case_live_site"
-        >
-          Live Site →
-        </a>
+        <article class="package-card">
+          <h3>Audience pathways</h3>
+          <p class="small-note">Support, partnerships, donors, and facilitators can self-select quickly.</p>
+        </article>
 
-        <a
-          href="/services.html"
-          data-track="case_nav_click"
-          data-label="soulstone_case_to_services"
-        >
-          Services →
-        </a>
+        <article class="package-card">
+          <h3>Clean foundation</h3>
+          <p class="small-note">Semantic HTML + custom CSS for accessibility and maintainability.</p>
+        </article>
+      </div>
+
+      <div class="service-block reveal" style="margin-top: 22px">
+        <h2 style="margin-top: 0">What changed</h2>
+        <ul class="simple-list">
+          <li><strong>Designed for calm pacing</strong> with consistent rhythm and scannable sections</li>
+          <li><strong>Built pathways</strong> so visitors can choose a next step without a wall of text</li>
+          <li><strong>Wrote grounded, non-clinical copy</strong> that communicates mission without jargon</li>
+          <li><strong>Kept it maintainable</strong> with a clean structure that can grow over time</li>
+        </ul>
+      </div>
+
+      <!-- Divider BETWEEN the cards -->
+      <div class="case-divider" aria-hidden="true"></div>
+
+      <div class="service-block reassurance reveal">
+        <h2 style="margin-top: 0">After (what improved)</h2>
+        <ul class="simple-list">
+          <li><strong>Clear mission + structure</strong> without pressure language</li>
+          <li><strong>Multiple pathways</strong> that feel simple instead of chaotic</li>
+          <li><strong>More trust</strong> because the site feels consistent and intentional</li>
+          <li><strong>Ready for growth</strong> as programs expand over time</li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <section class="case-wrap">
-    <div class="container">
-      <div class="portfolio-grid">
-        <!-- Left card -->
-        <article class="portfolio-item case-card">
-          <!-- Optional: add an image here when you have it -->
-
-          <img
-            src="/images/recscreen.png"
-            alt="SoulStone website preview"
-            loading="lazy"
-            decoding="async"
-            class="case-logo"
-            data-lightbox
-            data-track="case_image_click"
-            data-label="soulstone_case_preview_lightbox"
-          />
+  </div>
+</section>
 
 
-          <h2>Project Snapshot</h2>
-          <div class="case-meta">
-            <div><strong>Project Type:</strong> Strategy-Led Nonprofit Website</div>
-            <div>
-              <strong>Role:</strong> Strategy, IA, Copy, Design System, Front-End Development
+      <!-- =========================
+           Best Fit + CTA
+           ========================= -->
+      <section aria-label="Best fit package">
+        <div class="container">
+          <div class="service-block reveal">
+            <h2 style="margin-top: 0">Best-fit package</h2>
+            <p class="summary">
+              This is a <strong>Strategy-Led Build</strong>. Information architecture, pacing, and pathway decisions
+              were core to the outcome — not “just more pages.”
+            </p>
+
+            <div class="case-cta" style="margin-top: 14px">
+              <a
+                class="btn-primary-one"
+                href="/contact.html?source=case_soulstone_package&project_type=strategy&tier=strategic"
+                data-track="case_cta_click"
+                data-label="soulstone_case_package_request_strategy"
+              >
+                Request a strategy-led build →
+              </a>
+              <a
+                class="btn-secondary"
+                href="/services.html"
+                data-track="case_cta_click"
+                data-label="soulstone_case_view_services_secondary"
+              >
+                See packages →
+              </a>
+              <a
+                class="btn-secondary"
+                href="/portfolio.html"
+                data-track="case_nav_click"
+                data-label="soulstone_case_to_portfolio"
+              >
+                Portfolio →
+              </a>
             </div>
-            <div><strong>Status:</strong> Live + responsive + user-pathway focused</div>
+
+            <p class="small-note" style="margin-top: 14px">
+              Next case study:
+              <a
+                class="text-link"
+                href="/case-studies/kingdom-woodcraft.html"
+                data-track="case_next_click"
+                data-label="kingdom-woodcraft_case_next_kmc"
+                >Kingdom Woodcraft TN, LLC →</a
+              >
+            </p>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <h2>Primary Outcomes</h2>
-          <ul>
-            <li>
-              <strong>Calm pacing:</strong> spacing + hierarchy reduce cognitive load and overwhelm
-            </li>
-            <li>
-              <strong>Multiple pathways:</strong> different audiences can self-select quickly
-            </li>
-            <li>
-              <strong>Trust-first structure:</strong> information comes before asks (no pressure)
-            </li>
-            <li>
-              <strong>Clear actions:</strong> engagement options are visible without urgency language
-            </li>
-          </ul>
-
-          <div class="case-cta">
-            <a
-              class="btn-primary"
-              href="/contact.html?source=case_soulstone&project_type=strategy&tier=strategic"
-              data-track="case_cta_click"
-              data-label="soulstone_case_request_strategy_led_primary"
-            >
-              Request a strategy-led build
-            </a>
-
-            <a
-              class="btn-secondary"
-              href="/services.html#strategy"
-              data-track="case_cta_click"
-              data-label="soulstone_case_view_strategy_package_secondary"
-            >
-              See Strategy-Led Builds
-            </a>
-          </div>
-
-          <p class="text-link">
-            Prefer to browse first
-            <a
-              href="/portfolio.html"
-              data-track="case_secondary_click"
-              data-label="soulstone_case_browse_portfolio"
-              >? See more work →</a
-            >
-          </p>
-        </article>
-
-        <!-- Right card -->
-        <article class="portfolio-item case-card">
-          <h2>Before (What Wasn’t Working)</h2>
-          <ul>
-            <li>
-              <strong>Too much “nonprofit language.”</strong> Mission-driven sites often become vague and
-              overly broad.
-            </li>
-            <li>
-              <strong>Pathway overload.</strong> Multiple audiences get served poorly when everything feels equal.
-            </li>
-            <li>
-              <strong>Emotional friction.</strong> Urgency, density, and clutter can push people away from sensitive work.
-            </li>
-            <li>
-              <strong>Low trust signals.</strong> If structure isn’t intentional, visitors hesitate or leave.
-            </li>
-          </ul>
-
-          <h2>The Goal</h2>
-          <p>
-            Build a nonprofit site that feels grounded and human while still being
-            <strong>clear, credible, and easy to navigate</strong>
-            — with separate pathways for support, partnerships, and donors.
-          </p>
-
-          <h2>Constraints I Built Around</h2>
-          <ul>
-            <li>
-              <strong>Trauma-informed pacing:</strong> reduce overwhelm through rhythm and spacing.
-            </li>
-            <li>
-              <strong>Multiple audiences:</strong> each visitor type needs a clear “next step.”
-            </li>
-            <li>
-              <strong>No urgency tone:</strong> action is offered without pressure.
-            </li>
-            <li>
-              <strong>Simple upkeep:</strong> stable HTML/CSS foundation, easy to update over time.
-            </li>
-          </ul>
-
-          <h2>What I Changed (The Approach)</h2>
-          <ul>
-            <li>
-              <strong>Designed for regulated browsing</strong> with calm hierarchy and breathable spacing.
-            </li>
-            <li>
-              <strong>Created audience pathways</strong> so users self-select quickly without a wall of text.
-            </li>
-            <li>
-              <strong>Built clean, semantic HTML + custom CSS</strong> for accessibility and long-term maintainability.
-            </li>
-            <li>
-              <strong>Wrote grounded, non-clinical copy</strong> that communicates mission without jargon.
-            </li>
-          </ul>
-
-          <h2>After (What Improved)</h2>
-          <ul>
-            <li><strong>Clear mission + structure</strong> without “pressure language”</li>
-            <li><strong>Multiple pathways</strong> that feel simple instead of chaotic</li>
-            <li><strong>More trust</strong> because the site feels calm, consistent, and intentional</li>
-            <li><strong>Ready for growth</strong> as programs expand over time</li>
-          </ul>
-
-          <h2>Best-Fit Package</h2>
-          <p>
-            This is a <strong>Strategy-Led Build</strong>: information architecture,
-            pacing, and pathway decisions were core to the outcome — not “just more pages.”
-          </p>
-
-          <div class="case-cta">
-            <a
-              class="btn-primary"
-              href="/contact.html?source=case_soulstone&project_type=strategy&tier=strategic"
-              data-track="case_cta_click"
-              data-label="soulstone_case_start_project_primary"
-              >Request a strategy-led build</a
-            >
-            <a
-              class="btn-secondary"
-              href="/services.html"
-              data-track="case_cta_click"
-              data-label="soulstone_case_view_services_secondary"
-              >See Packages</a
-            >
-          </div>
-
-          <p class="text-link">
-            Next case study
-            <a
-              href="/case-studies/kayla-marie-collective.html"
-              data-track="case_next_click"
-              data-label="soulstone_case_next_kmc"
-              >: Kayla Marie Collective →</a
-            >
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-</main>
-
-
+    <!-- =========================
+         Footer (matches site)
+         ========================= -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <!-- 1) Brand -->
@@ -426,11 +549,10 @@
       </div>
     </footer>
 
-    <!-- Lightbox Modal (kept for site-wide consistency) -->
+    <!-- Lightbox -->
     <div class="lightbox" id="lightbox" aria-hidden="true">
       <div class="lightbox-backdrop" data-close></div>
-
-      <div
+      <figure
         class="lightbox-panel"
         role="dialog"
         aria-modal="true"
@@ -442,10 +564,10 @@
           aria-label="Close preview"
           data-close
         >
-          ✕
+          ×
         </button>
         <img class="lightbox-img" id="lightboxImg" alt="" />
-      </div>
+      </figure>
     </div>
 
     <noscript>
