@@ -1030,7 +1030,6 @@ body.portfolio-page .portfolio-grid--products {
   body.portfolio-page .portfolio-grid--products {
     grid-template-columns: 1fr;
   }
-
 } /* ========================= Services ========================= */
 .service-block {
   background: var(--card);
@@ -3617,7 +3616,10 @@ body.portfolio-page .concept-right {
 
 /* CONCEPT FEATURE — remove portfolio-grid top margin so columns align */
 body.portfolio-page section.concept-feature .concept-left .portfolio-grid,
-body.portfolio-page section.concept-feature .concept-left .portfolio-grid--concepts {
+body.portfolio-page
+  section.concept-feature
+  .concept-left
+  .portfolio-grid--concepts {
   margin-top: 0 !important;
 }
 
@@ -3692,12 +3694,7 @@ body.portfolio-page .concept-band {
 }
 
 body.portfolio-page .concept-head {
-  background:
-    linear-gradient(
-      to bottom,
-      #c49c57 5%,
-      rgba(246, 239, 230, 0.9)
-    );
+  background: linear-gradient(to bottom, #c49c57 5%, rgba(246, 239, 230, 0.9));
   border-radius: 18px;
   padding: clamp(20px, 4vw, 28px);
   box-shadow:
@@ -3841,34 +3838,179 @@ body.portfolio-page .concept-head .kicker--pill {
 }
 
 /* =========================
-   MOBILE — Services spacing (titles bumped down)
+   MOBILE — Case study spacing fixes
+   - bump plum band section titles down
+   - remove tiny gap above fixed header
    ========================= */
+
 @media (max-width: 640px) {
-  /* more breathing room under the header for the hero */
-  .page-hero.services-hero {
-    padding-top: 28px !important;
+  /* 1) Remove the tiny top gap above the fixed header */
+  html,
+  body {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
-  /* bump section blocks down so headings don’t feel jammed */
-  .services-band {
-    padding-top: 34px !important;
-    padding-bottom: 34px !important;
+  /* If your header is fixed/sticky with a non-zero top value, force it flush */
+  header,
+  .header,
+  .site-header,
+  .nav,
+  .nav-wrap {
+    top: 0 !important;
   }
 
-  /* specifically the section titles you’re using */
-  .services-band .section-title {
-    margin-top: 10px !important;
-    margin-bottom: 12px !important;
+  /* 2) Case study band titles: add breathing room at top of plum bands */
+  /* This targets the sections that visually look like “bands” without changing layout */
+  .case-study-page section,
+  body[class*="case"] section,
+  body[class*="study"] section {
+    scroll-margin-top: calc(var(--header-offset, 120px) + 14px);
   }
 
-  .services-band .section-subtext {
+  /* Add extra top padding ONLY to band-style sections (common naming patterns) */
+  .case-study-page section[class*="band"],
+  .case-study-page section[class*="stripe"],
+  .case-study-page section[class*="block"],
+  body[class*="case"] section[class*="band"],
+  body[class*="study"] section[class*="band"] {
+    padding-top: calc(1rem + 18px) !important;
+  }
+
+  /* If those band headings are using a specific class, this keeps it tight + consistent */
+  .case-study-page .section-title,
+  .case-study-page h2.section-title,
+  body[class*="case"] .section-title,
+  body[class*="study"] .section-title {
+    margin-top: 0 !important;
+    padding-top: 10px; /* tiny internal nudge so the title never kisses the band edge */
+  }
+}
+
+/* =========================
+   MOBILE — Fix band titles sitting too high
+   (Your .services-band-inner is pulled up with margin-top:-50px)
+   ========================= */
+
+@media (max-width: 640px) {
+  /* Stop pulling the content up inside plum bands on mobile */
+  .services-band-inner {
     margin-top: 0 !important;
   }
 
-  /* if you’re jumping to anchors, avoid titles hiding under header */
-  #overview,
-  #find-your-fit,
-  #process {
-    scroll-margin-top: 110px;
+  /* Give the band a touch more top breathing room (subtle) */
+  .services-band {
+    padding-top: 15px !important; /* was 46px on mobile */
   }
+
+  /* Optional micro-nudge so titles never kiss the top */
+  .services-band .section-title {
+    padding-top: 10px;
+  }
+}
+
+/* =========================
+   MOBILE — Portfolio concept band lift
+   (gold "CONCEPT CASE STUDY" block)
+   ========================= */
+
+@media (max-width: 640px) {
+  body.portfolio-page .concept-band {
+    margin-top: -60px !important; /* was -50px */
+  }
+}
+
+/* =========================
+   MOBILE — Portfolio hero kicker spacing fix
+   ========================= */
+
+@media (max-width: 640px) {
+  /* Reduce excess space above hero content */
+  body.portfolio-page .portfolio-hero {
+    padding-top: calc(var(--header-offset) - 20px) !important;
+  }
+
+  /* Slightly nudge the kicker downward so it clears header cleanly */
+  body.portfolio-page .portfolio-hero .kicker {
+    margin-top: 10px;
+  }
+
+  body.contact-page .contact-hero .kicker {
+    margin-top: 27px;
+  }
+}
+
+/* =========================
+   MOBILE — Center + tighten H1 titles
+   ========================= */
+
+@media (max-width: 640px) {
+  /* Center hero titles */
+  .hero h1,
+  .services-hero h1,
+  .portfolio-hero h1,
+  .brand-hero h1,
+  .about-hero h1,
+  .contact-hero h1 {
+    text-align: center;
+  }
+
+  /* Tighten line spacing */
+  .hero h1,
+  .services-hero h1,
+  .portfolio-hero h1,
+  .brand-hero h1,
+  .about-hero h1 {
+    line-height: 1.15; /* was likely ~1.3–1.4 */
+  }
+
+  /* Reduce vertical spacing between lines */
+  .hero h1 {
+    margin-bottom: 14px;
+  }
+}
+
+/* =========================
+   /services/venues-wineries/
+   Packages section: add outer breathing room so cards don't hug the band edge
+   ========================= */
+
+body.services-page.venues-page #packages .service-block {
+  padding-left: 44px !important;
+  padding-right: 44px !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  
+}
+
+/* Keep it sane on smaller screens */
+@media (max-width: 900px) {
+  body.services-page.venues-page #packages .service-block {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+}
+
+/* =========================
+   /services/venues-wineries/
+   Lighten the recommendation helper line only
+   ========================= */
+
+body.services-page.venues-page #packages > .container > article.service-block > .small-note {
+  color: white; /* softer than default ink */
+  font-weight: 400;
+}
+
+/* =========================
+   /services/venues-wineries/
+   Prevent CTA pills from wrapping arrow to next line
+   ========================= */
+
+body.services-page.venues-page .package-card .btn-secondary {
+  display: inline-flex;          /* keeps text + arrow on one line */
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;           /* prevents wrapping */
+  padding-left: 18px;            /* slightly wider */
+  padding-right: 18px;
 }
