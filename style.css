@@ -4034,3 +4034,207 @@ section.services-band.services-process > .container > article.service-block.how-
     padding-right: 22px !important;
   }
 }
+
+/* =========================
+   FOOTER — Desktop polish
+   ========================= */
+
+.site-footer {
+  border-top: 1px solid rgba(246, 239, 230, 0.18);
+}
+
+.site-footer .footer-inner {
+  display: grid;
+  gap: clamp(18px, 2vw, 34px);
+  padding: clamp(34px, 4vw, 56px) 0;
+  align-items: start;
+}
+
+/* Desktop grid: brand gets real weight */
+@media (min-width: 980px) {
+  .site-footer .footer-inner {
+    grid-template-columns: minmax(300px, 1.35fr) repeat(4, minmax(160px, 0.85fr)) minmax(220px, 1fr);
+    column-gap: clamp(26px, 3vw, 56px);
+    row-gap: 34px;
+  }
+
+  /* Keep everything aligned at top */
+  .site-footer .footer-brand {
+    padding-right: 10px;
+  }
+}
+
+/* Brand block hierarchy */
+.footer-logo {
+  width: min(320px, 100%);
+  height: auto;
+  margin-bottom: 14px;
+}
+
+.footer-tagline {
+  max-width: 40ch;
+  line-height: 1.55;
+  opacity: 0.92;
+  margin-bottom: 16px;
+}
+
+/* Make the copyright area feel intentional */
+.footer-meta {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(246, 239, 230, 0.18);
+  opacity: 0.9;
+}
+
+/* Column labels */
+.footer-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 12px;
+}
+
+/* Link lists: better rhythm */
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.footer-list a {
+  display: inline-block;
+  font-size: 0.96rem;
+  line-height: 1.35;
+  opacity: 0.92;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: opacity 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.footer-list a:hover {
+  opacity: 1;
+  border-bottom-color: rgba(246, 239, 230, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Contact block: compress and align */
+.footer-contact .footer-contact-item {
+  margin: 0 0 14px;
+}
+
+.footer-contact-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  margin-bottom: 4px;
+}
+
+.footer-contact-value {
+  font-size: 0.98rem;
+  opacity: 0.95;
+  line-height: 1.35;
+}
+
+/* Optional: add a soft “card” feel behind columns on desktop only */
+@media (min-width: 980px) {
+  .site-footer .footer-col,
+  .site-footer .footer-contact {
+    padding-top: 4px;
+  }
+}
+
+.footer-cta {
+  display: inline-block;
+  margin-top: 6px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.95;
+  padding: 10px 18px;
+  transition: opacity 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.footer-cta:hover {
+  opacity: 1;
+  border-bottom-color: rgba(246, 239, 230, 0.75);
+  transform: translateY(-1px);
+}
+
+/* FOOTER — stop the huge empty space issue */
+.site-footer,
+.site-footer .footer-inner {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.site-footer {
+  padding: 0 !important; /* we will control padding on footer-inner instead */
+}
+
+/* FOOTER — clean desktop grid */
+.site-footer {
+  border-top: 1px solid rgba(246, 239, 230, 0.18);
+}
+
+.site-footer .container {
+  max-width: 1200px; /* anchor it */
+}
+
+.site-footer .footer-inner {
+  display: grid;
+  align-items: start;
+  align-content: start; /* IMPORTANT: prevents vertical “spread” */
+  gap: 26px;
+  padding: 44px 0; /* balanced, not huge */
+}
+
+@media (min-width: 980px) {
+  .site-footer .footer-inner {
+    grid-template-columns: minmax(320px, 1.35fr) repeat(5, minmax(140px, 0.9fr));
+    column-gap: 44px;
+    row-gap: 28px;
+  }
+}
+
+/* Make sure nothing is centered by accident */
+.site-footer,
+.site-footer * {
+  text-align: left;
+}
+
+.footer-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 12px;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.footer-list a {
+  opacity: 0.92;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: opacity 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.footer-list a:hover {
+  opacity: 1;
+  border-bottom-color: rgba(246, 239, 230, 0.55);
+  transform: translateY(-1px);
+}
