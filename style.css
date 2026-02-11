@@ -4014,3 +4014,23 @@ body.services-page.venues-page .package-card .btn-secondary {
   padding-left: 18px;            /* slightly wider */
   padding-right: 18px;
 }
+
+/* =========================
+   services.html — How it works block
+   Add inner side breathing room so the how-step cards don't hug the band edge
+   ========================= */
+
+section.services-band.services-process > .container > article.service-block.how-it-works#process {
+  padding-left: 44px !important;
+  padding-right: 44px !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/* Keep it comfortable on smaller screens */
+@media (max-width: 900px) {
+  section.services-band.services-process > .container > article.service-block.how-it-works#process {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+}
