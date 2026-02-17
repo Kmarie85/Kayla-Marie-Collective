@@ -17,6 +17,9 @@
     <!-- Your main stylesheet -->
     <link rel="stylesheet" href="style.css" />
 
+    <!-- Your ONLY JS file -->
+    <script src="script.js" defer></script>
+
     <!-- Optional: favicons if you have them -->
     <!-- <link rel="icon" href="/images/favicon.png" /> -->
   </head>
@@ -71,7 +74,6 @@
 
     <!-- =========================
          Main
-         Uses your legal page styling for a clean one-pager
          ========================= -->
     <main id="main" class="legal-wrap photography-page">
       <div class="container">
@@ -90,56 +92,83 @@
             want real, grounded images of their space, work, or offerings — not
             stock photos or overly staged shoots.
           </p>
-<div class="photo-strip" aria-label="Photo strip (click to enlarge)">
-  <div class="photo-strip__track">
-  <div class="photo-strip__set">
-    <!-- Set A -->
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip.png" aria-label="View photo 1">
-      <img src="images/strip.png" alt="Brand photo 1" loading="lazy" decoding="async" />
-    </button>
 
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip1.png" aria-label="View photo 2">
-      <img src="images/strip1.png" alt="Brand photo 2" loading="lazy" decoding="async" />
-    </button>
+          <div class="photo-strip" aria-label="Photo strip (click to enlarge)">
+            <div class="photo-strip__track">
+              <!-- NOTE: Keep ONLY ONE set in HTML. JS will clone it. -->
+              <div class="photo-strip__set">
+                <button
+                  class="photo-strip__btn"
+                  type="button"
+                  data-lightbox-src="images/strip.png"
+                  aria-label="View photo 1"
+                >
+                  <img
+                    src="images/strip.png"
+                    alt="Brand photo 1"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
 
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip2.png" aria-label="View photo 3">
-      <img src="images/strip2.png" alt="Brand photo 3" loading="lazy" decoding="async" />
-    </button>
+                <button
+                  class="photo-strip__btn"
+                  type="button"
+                  data-lightbox-src="images/strip1.png"
+                  aria-label="View photo 2"
+                >
+                  <img
+                    src="images/strip1.png"
+                    alt="Brand photo 2"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
 
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip3.png" aria-label="View photo 4">
-      <img src="images/strip3.png" alt="Brand photo 4" loading="lazy" decoding="async" />
-    </button>
+                <button
+                  class="photo-strip__btn"
+                  type="button"
+                  data-lightbox-src="images/strip2.png"
+                  aria-label="View photo 3"
+                >
+                  <img
+                    src="images/strip2.png"
+                    alt="Brand photo 3"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
 
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip4.png" aria-label="View photo 5">
-      <img src="images/strip4.png" alt="Brand photo 5" loading="lazy" decoding="async" />
-    </button>
+                <button
+                  class="photo-strip__btn"
+                  type="button"
+                  data-lightbox-src="images/strip3.png"
+                  aria-label="View photo 4"
+                >
+                  <img
+                    src="images/strip3.png"
+                    alt="Brand photo 4"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
 
-    <!-- Set B (duplicate for seamless loop) -->
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip.png" aria-label="View photo 1">
-      <img src="images/strip.png" alt="Brand photo 1" loading="lazy" decoding="async" />
-    </button>
-
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip1.png" aria-label="View photo 2">
-      <img src="images/strip1.png" alt="Brand photo 2" loading="lazy" decoding="async" />
-    </button>
-
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip2.png" aria-label="View photo 3">
-      <img src="images/strip2.png" alt="Brand photo 3" loading="lazy" decoding="async" />
-    </button>
-
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip3.png" aria-label="View photo 4">
-      <img src="images/strip3.png" alt="Brand photo 4" loading="lazy" decoding="async" />
-    </button>
-
-    <button class="photo-strip__btn" type="button" data-lightbox-src="images/strip4.png" aria-label="View photo 5">
-      <img src="images/strip4.png" alt="Brand photo 5" loading="lazy" decoding="async" />
-    </button>
-      </div>
-  <div class="photo-strip__set" aria-hidden="true"></div>
-</div>
-</div>  
-
-
+                <button
+                  class="photo-strip__btn"
+                  type="button"
+                  data-lightbox-src="images/strip4.png"
+                  aria-label="View photo 5"
+                >
+                  <img
+                    src="images/strip4.png"
+                    alt="Brand photo 5"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
 
           <p>This is designed to support:</p>
           <ul>
@@ -249,12 +278,6 @@
                 >View website packages</a
               >
             </div>
-
-            <!-- Optional: add if you want a direct email here
-            <p style="margin-top: 14px;">
-              Prefer email? <a href="mailto:hello@kaylamariecollective.com">hello@kaylamariecollective.com</a>
-            </p>
-            -->
           </div>
         </article>
       </div>
@@ -263,178 +286,118 @@
     <!-- =========================
          Footer (matches your site)
          ========================= -->
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <!-- 1) Brand -->
-    <div class="footer-brand">
-      <img
-        src="/images/primaryanchor-wordmark-3.png"
-        alt="Kayla Marie Collective"
-        class="footer-logo"
-        decoding="async"
-      />
-      <p class="footer-tagline">
-        Calm, conversion-focused websites for founders who want clarity and
-        credibility — without the headache.
-      </p>
-      <a class="footer-cta" href="/contact.html">Start a Project →</a>
-      <div class="footer-meta">
-        <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <!-- 1) Brand -->
+        <div class="footer-brand">
+          <img
+            src="/images/primaryanchor-wordmark-3.png"
+            alt="Kayla Marie Collective"
+            class="footer-logo"
+            decoding="async"
+          />
+          <p class="footer-tagline">
+            Calm, conversion-focused websites for founders who want clarity and
+            credibility — without the headache.
+          </p>
+          <a class="footer-cta" href="/contact.html">Start a Project →</a>
+          <div class="footer-meta">
+            <p>© <span id="year">2026</span> Kayla Marie Collective</p>
+          </div>
+        </div>
+
+        <!-- 2) Services -->
+        <div class="footer-col">
+          <p class="footer-kicker">Services</p>
+          <ul class="footer-list">
+            <li>
+              <a href="/services.html#website-design">Strategic Website Builds</a>
+            </li>
+            <li><a href="/brand-identity.html">Brand Identity</a></li>
+            <li><a href="/photography.html">Local Brand Photography</a></li>
+            <li><a href="/website-care.html">Website Care</a></li>
+            <li><a href="/wellness-brands.html">Wellness Websites</a></li>
+          </ul>
+        </div>
+
+        <!-- 3) Work -->
+        <div class="footer-col">
+          <p class="footer-kicker">Work</p>
+          <ul class="footer-list">
+            <li><a href="/portfolio.html">Portfolio</a></li>
+            <li><a href="/portfolio.html#concept-band">Concept Case Study</a></li>
+          </ul>
+        </div>
+
+        <!-- 4) Get Started -->
+        <div class="footer-col">
+          <p class="footer-kicker">Get Started</p>
+          <ul class="footer-list">
+            <li><a href="/package-quiz.html">Package Quiz</a></li>
+            <li><a href="/contact.html">Start A Project</a></li>
+            <li><a href="/referrals.html">Referrals</a></li>
+          </ul>
+        </div>
+
+        <!-- 5) Company -->
+        <div class="footer-col">
+          <p class="footer-kicker">Company</p>
+          <ul class="footer-list">
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms</a></li>
+          </ul>
+        </div>
+
+        <!-- 6) Contact -->
+        <div class="footer-col footer-contact">
+          <p class="footer-kicker">Contact</p>
+
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Email</span>
+            <a
+              href="mailto:contact@kaylamariecollective.com"
+              class="footer-contact-value"
+            >
+              contact@kaylamariecollective.com
+            </a>
+          </div>
+
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Phone</span>
+            <a href="tel:+16145560213" class="footer-contact-value"
+              >614-556-0213</a
+            >
+          </div>
+
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Location</span>
+            <span class="footer-contact-value">Ohio • Remote-friendly</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </footer>
 
-    <!-- 2) Services -->
-    <div class="footer-col">
-      <p class="footer-kicker">Services</p>
-      <ul class="footer-list">
-        <li><a href="/services.html#website-design">Strategic Website Builds</a></li>
-        <li><a href="/brand-identity.html">Brand Identity</a></li>
-        <li><a href="/photography.html">Local Brand Photography</a></li>
-        <li><a href="/website-care.html">Website Care</a></li>
-        <li><a href="/wellness-brands.html">Wellness Websites</a></li>
-      </ul>
-    </div>
-
-    <!-- 3) Work -->
-    <div class="footer-col">
-      <p class="footer-kicker">Work</p>
-      <ul class="footer-list">
-        <li><a href="/portfolio.html">Portfolio</a></li>
-        <li><a href="/portfolio.html#concept-band">Concept Case Study</a></li>
-      </ul>
-    </div>
-
-    <!-- 4) Get Started -->
-    <div class="footer-col">
-      <p class="footer-kicker">Get Started</p>
-      <ul class="footer-list">
-        <li><a href="/package-quiz.html">Package Quiz</a></li>
-        <li><a href="/contact.html">Start A Project</a></li>
-        <li><a href="/referrals.html">Referrals</a></li>
-      </ul>
-    </div>
-
-    <!-- 5) Company -->
-    <div class="footer-col">
-      <p class="footer-kicker">Company</p>
-      <ul class="footer-list">
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-        <li><a href="/terms.html">Terms</a></li>
-      </ul>
-    </div>
-
-    <!-- 6) Contact -->
-    <div class="footer-col footer-contact">
-      <p class="footer-kicker">Contact</p>
-
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">Email</span>
-        <a href="mailto:contact@kaylamariecollective.com" class="footer-contact-value">
-          contact@kaylamariecollective.com
-        </a>
-      </div>
-
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">Phone</span>
-        <a href="tel:+16145560213" class="footer-contact-value">614-556-0213</a>
-      </div>
-
-      <div class="footer-contact-item">
-        <span class="footer-contact-label">Location</span>
-        <span class="footer-contact-value">Ohio • Remote-friendly</span>
-      </div>
-    </div>
-  </div>
-</footer>
-
-
+    <!-- Lightbox markup (HTML only; JS controls it) -->
     <div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="lightbox-backdrop" data-lightbox-close></div>
+      <div class="lightbox-backdrop" data-lightbox-close></div>
 
-  <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Image preview">
-    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close">✕</button>
-    <img class="lightbox-img" id="lightboxImg" alt="" />
-  </div>
-</div>
-    <!-- =========================
-         JS: nav toggle + footer year
-         (Safe even if you already have this elsewhere)
-         ========================= -->
-<script>
-  // Footer year
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // Mobile nav toggle
-  const toggle = document.querySelector("[data-nav-toggle]");
-  const nav = document.querySelector("[data-nav]");
-
-  if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("is-open");
-      toggle.classList.toggle("is-open", isOpen);
-      toggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    nav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        if (nav.classList.contains("is-open")) {
-          nav.classList.remove("is-open");
-          toggle.classList.remove("is-open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      });
-    });
-  }
-
-  // ----------------------------
-  // Photo strip lightbox
-  // ----------------------------
-  const lb = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lightboxImg");
-  const strip = document.querySelector(".photo-strip");
-
-  function openLightbox(src, alt) {
-    if (!lb || !lbImg) return;
-    lbImg.src = src;
-    lbImg.alt = alt || "Preview image";
-    lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeLightbox() {
-    if (!lb || !lbImg) return;
-    lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
-    lbImg.src = "";
-    document.body.style.overflow = "";
-  }
-
-  // Open on button click
-  if (strip) {
-    strip.addEventListener("click", (e) => {
-      const btn = e.target.closest(".photo-strip__btn");
-      if (!btn) return;
-
-      const src = btn.getAttribute("data-lightbox-src");
-      const img = btn.querySelector("img");
-      openLightbox(src, img ? img.alt : "");
-    });
-  }
-
-  // Close on backdrop/close button
-  document.querySelectorAll("[data-lightbox-close]").forEach((el) => {
-    el.addEventListener("click", closeLightbox);
-  });
-
-  // Close on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb && lb.classList.contains("is-open")) {
-      closeLightbox();
-    }
-  });
-</script>
-
+      <div
+        class="lightbox-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image preview"
+      >
+        <button
+          class="lightbox-close"
+          type="button"
+          data-lightbox-close
+          aria-label="Close"
+        >
+          ✕
+        </button>
+        <img class="lightbox-img" id="lightboxImg" alt="" />
+      </div>
+    </div>
   </body>
 </html>

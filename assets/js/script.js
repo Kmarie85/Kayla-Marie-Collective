@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getParam = (key) => {
     try {
-      return (
-        new URLSearchParams(window.location.search).get(key) || ""
-      ).trim();
+      return (new URLSearchParams(window.location.search).get(key) || "").trim();
     } catch {
       return "";
     }
@@ -35,47 +33,198 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* =========================================================
-     PHOTO STRIP MARQUEE — SINGLE SOURCE OF TRUTH (NO GAP)
-     - Requires markup:
-       .photo-strip__track
-         .photo-strip__set (Set A)
-         .photo-strip__set (Set B clone)
-     - Sets --marquee-shift to EXACT px width of Set A
+     PHOTO STRIP — ACTUALLY SEAMLESS (NO GAP)
+     - HTML: keep ONE .photo-strip__set
+     - JS clones enough sets to fill the viewport (2 is NOT always enough)
+     - Distance = width of ONE set (stable loop)
   ========================================================= */
-  (function setupPhotoStripMarquee() {
+  (function photoStripMarqueeSeamless() {
     const strips = document.querySelectorAll(".photo-strip");
     if (!strips.length) return;
 
-    const computeOne = (strip) => {
+    const prefersReduced =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const pxPerSecond = 55; // speed (adjust if you want)
+
+    const waitImages = (root) => {
+      const imgs = Array.from(root.querySelectorAll("img"));
+      if (!imgs.length) return Promise.resolve();
+      return Promise.all(
+        imgs.map(
+          (img) =>
+            new Promise((res) => {
+              if (img.complete) return res();
+              img.addEventListener("load", res, { once: true });
+              img.addEventListener("error", res, { once: true });
+            })
+        )
+      );
+    };
+
+    const rebuild = async (strip) => {
       const trackEl = strip.querySelector(".photo-strip__track");
       if (!trackEl) return;
 
-      const sets = trackEl.querySelectorAll(".photo-strip__set");
-      if (!sets || sets.length < 2) return;
+      const sets = Array.from(trackEl.querySelectorAll(".photo-strip__set"));
+      if (!sets.length) return;
 
       const setA = sets[0];
 
-      const w = Math.round(setA.getBoundingClientRect().width);
-      if (!w) return;
+      // Reduced motion = no cloning, no animation
+      if (prefersReduced) {
+        sets.slice(1).forEach((n) => n.remove());
+        trackEl.style.animation = "none";
+        trackEl.style.transform = "none";
+        trackEl.style.removeProperty("--marquee-distance");
+        trackEl.style.removeProperty("--marquee-duration");
+        return;
+      }
 
-      trackEl.style.setProperty("--marquee-shift", `-${w}px`);
+      // Always start clean: keep only the first set
+      sets.slice(1).forEach((n) => n.remove());
 
-      const pxPerSecond = 55; // tweak 45–70
-      const duration = Math.max(14, Math.round(w / pxPerSecond));
-      trackEl.style.animationDuration = `${duration}s`;
+      // Wait for images so width is real
+      await waitImages(setA);
+
+      // Force measurement after layout settles
+      requestAnimationFrame(() => {
+        const stripW = strip.clientWidth || 0;
+
+        // IMPORTANT: getBoundingClientRect width (more reliable than offsetWidth with transforms)
+        const setW = Math.round(setA.getBoundingClientRect().width);
+
+        if (!setW || setW < 10) return;
+
+        // We need enough repeated sets so there is NEVER a blank area.
+        // Rule: total track width >= strip width + one set width
+        // (so as one set slides out, another is always sliding in)
+        const minTrackW = stripW + setW;
+
+        let trackW = setW; // currently only one set exists
+        let clones = 0;
+
+        while (trackW < minTrackW && clones < 12) {
+          const clone = setA.cloneNode(true);
+          trackEl.appendChild(clone);
+          clones += 1;
+
+          // Update estimate
+          trackW += setW;
+        }
+
+        // Safety: always at least 2 sets
+        if (trackEl.querySelectorAll(".photo-strip__set").length < 2) {
+          trackEl.appendChild(setA.cloneNode(true));
+        }
+
+        // Set animation distance = exactly ONE set width
+        trackEl.style.setProperty("--marquee-distance", `${setW}px`);
+
+        const duration = Math.max(12, Math.round(setW / pxPerSecond));
+        trackEl.style.setProperty("--marquee-duration", `${duration}s`);
+      });
     };
 
-    const computeAll = () => strips.forEach(computeOne);
+    strips.forEach(rebuild);
 
-    requestAnimationFrame(computeAll);
-    window.addEventListener("load", computeAll, { once: true });
-
+    // Rebuild on resize (debounced)
     let t;
     window.addEventListener("resize", () => {
       clearTimeout(t);
-      t = setTimeout(() => requestAnimationFrame(computeAll), 120);
+      t = setTimeout(() => strips.forEach(rebuild), 150);
     });
+
+    // Rebuild when fonts/images/layout shift (more reliable than resize alone)
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => {
+        clearTimeout(t);
+        t = setTimeout(() => strips.forEach(rebuild), 80);
+      });
+      strips.forEach((s) => ro.observe(s));
+    }
   })();
+
+  /* =========================================================
+   LIGHTBOX — WORKS WITH PHOTO STRIP + CLONES
+   - Requires:
+     #lightbox
+     #lightboxImg
+     [data-lightbox-close]
+   - Opens on click of .photo-strip__btn[data-lightbox-src]
+========================================================= */
+(function initLightbox() {
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lightboxImg");
+  if (!lb || !lbImg) return;
+
+  let lastActive = null;
+
+  const open = (src, alt) => {
+    if (!src) return;
+    lastActive = document.activeElement;
+
+    lbImg.src = src;
+    lbImg.alt = alt || "Image preview";
+
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
+
+    // Prevent background scrolling
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  };
+
+  const close = () => {
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
+
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+
+    lbImg.src = "";
+    lbImg.alt = "";
+
+    if (lastActive && typeof lastActive.focus === "function") lastActive.focus();
+    lastActive = null;
+  };
+
+  // CLICK: open from strip buttons (works for clones)
+  document.addEventListener(
+    "click",
+    (e) => {
+      const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const src = (btn.getAttribute("data-lightbox-src") || "").trim();
+        const img = btn.querySelector("img");
+        const alt =
+          (img && img.getAttribute("alt")) ||
+          btn.getAttribute("aria-label") ||
+          "Image preview";
+
+        open(src, alt);
+        return;
+      }
+
+      // Close if backdrop or close button clicked
+      if (e.target.closest("[data-lightbox-close]")) {
+        e.preventDefault();
+        close();
+      }
+    },
+    true // capture phase helps if something else is interfering
+  );
+
+  // ESC: close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+  });
+})();
+
 
   /* =========================================================
      ABOUT SPLIT ROTATOR
@@ -108,10 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         caption:
           "I lived in Nepal for over a year — still one of my favorite places on earth — I call it home.",
       },
-      {
-        src: "images/create.png",
-        caption: "I don't think I can ever be serious.",
-      },
+      { src: "images/create.png", caption: "I don't think I can ever be serious." },
       {
         src: "images/us5.png",
         caption:
@@ -183,9 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
      NAV ACTIVE STATES (global)
   ========================================================= */
   (() => {
-    const path = (
-      window.location.pathname.split("/").pop() || "index.html"
-    ).toLowerCase();
+    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
     const nav = qs("[data-nav]");
     if (!nav) return;
 
@@ -193,12 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const href = (a.getAttribute("href") || "").trim();
       if (!href || href.startsWith("http") || href.startsWith("#")) return;
 
-      const file = href
-        .split("?")[0]
-        .split("#")[0]
-        .split("/")
-        .pop()
-        .toLowerCase();
+      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
       const isMatch = file === path;
 
       a.classList.toggle("active", isMatch);
@@ -218,22 +357,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const eventName = (el.getAttribute("data-track") || "click").trim();
       const explicitLabel = (el.getAttribute("data-label") || "").trim();
 
-      const textFallback = (el.textContent || "")
-        .trim()
-        .replace(/\s+/g, " ")
-        .slice(0, 80);
-
+      const textFallback = (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
       const href = (el.getAttribute("href") || "").trim();
+
       const label =
-        explicitLabel ||
-        textFallback ||
-        (href ? `href:${href}` : "") ||
-        "unknown";
+        explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
 
       const isOutbound =
-        href &&
-        /^https?:\/\//i.test(href) &&
-        !href.includes(window.location.hostname);
+        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
 
       track(eventName, {
         label,
@@ -279,12 +410,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-   PACKAGE QUIZ (full logic in script.js + UX polish)
-   - No extra markup required (injects progress + reset)
-   - IDs required:
-     #packageQuiz, #quizResult, #resultTitle, #resultSummary,
-     #resultDetails, #resultCta, #resultNote
-========================================================= */
+     PACKAGE QUIZ
+  ========================================================= */
   (() => {
     const form = qs("#packageQuiz");
     if (!form) return; // only runs on quiz page
@@ -298,7 +425,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!result || !title || !summary || !details || !cta || !note) return;
 
-    // Start clean
     result.hidden = true;
     cta.hidden = true;
 
@@ -312,11 +438,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const winner = () =>
       Object.entries(score).sort((a, b) => b[1] - a[1])[0]?.[0] || "growth";
 
-    /* -------------------------
-     1) Progress indicator (5 dots)
-     - Injected under the top form note
-     - Updates on select changes
-  ------------------------- */
     const selects = Array.from(form.querySelectorAll("select[required]"));
     const totalSteps = selects.length || 5;
 
@@ -342,7 +463,6 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let i = 0; i < totalSteps; i++) {
         const d = document.createElement("span");
         d.className = "quiz-progress__dot";
-        // Inline styles = zero CSS dependency, but still respects your palette via currentColor
         d.style.width = "7px";
         d.style.height = "7px";
         d.style.borderRadius = "999px";
@@ -361,7 +481,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const progress = makeProgress();
 
-    // Insert after the first .form-note if present, else at top of form
     const firstNote = form.querySelector(".form-note");
     if (firstNote) firstNote.insertAdjacentElement("afterend", progress.wrap);
     else form.insertAdjacentElement("afterbegin", progress.wrap);
@@ -382,9 +501,6 @@ document.addEventListener("DOMContentLoaded", () => {
     selects.forEach((s) => s.addEventListener("change", updateProgress));
     updateProgress();
 
-    /* -------------------------
-     2) Result cards
-  ------------------------- */
     const makeCard = (heading, price, items) => {
       const el = document.createElement("details");
       el.className = "addon";
@@ -414,9 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return el;
     };
 
-    /* -------------------------
-     3) Reset button (injected)
-  ------------------------- */
     let resetBtn = null;
 
     const ensureResetBtn = () => {
@@ -430,22 +543,18 @@ document.addEventListener("DOMContentLoaded", () => {
       resetBtn.style.marginTop = "0.5rem";
 
       resetBtn.addEventListener("click", () => {
-        // Reset fields
         form.reset();
         updateProgress();
 
-        // Hide results
         details.innerHTML = "";
         result.hidden = true;
         cta.hidden = true;
         note.textContent = "";
 
-        // Reset title/summary to placeholder copy (matches your page vibe)
         title.textContent = "Your recommendation";
         summary.innerHTML =
           "Answer the questions above and click <strong>Get my recommendation</strong>. Your result will appear here with a direct link to continue.";
 
-        // Move focus back to first select
         const firstSel = selects[0];
         if (firstSel) firstSel.focus();
 
@@ -455,16 +564,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return resetBtn;
     };
 
-    // Put reset button next to the CTA, inside the same paragraph wrapper if possible
     const mountResetBtn = () => {
       const btn = ensureResetBtn();
       const ctaWrap = cta.closest(".text-link") || cta.parentElement;
       if (ctaWrap && !ctaWrap.contains(btn)) ctaWrap.appendChild(btn);
     };
 
-    /* -------------------------
-     4) Scroll only if result is below fold
-  ------------------------- */
     const isElementInView = (el, pad = 16) => {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -472,7 +577,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const maybeScrollToResult = () => {
-      // Only scroll if result top is below the visible area (below fold)
       const r = result.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const belowFold = r.top > vh - 24;
@@ -482,9 +586,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    /* -------------------------
-     5) Render result
-  ------------------------- */
     const render = (tier) => {
       details.innerHTML = "";
 
@@ -500,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Basic SEO + contact form",
             "Domain + hosting connection",
             "Launch-ready handoff",
-          ]),
+          ])
         );
 
         details.appendChild(
@@ -509,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Your primary goal centers on credibility and a clear contact path.",
             "Advanced tracking and multi-step flows were not a priority based on your responses.",
             "This tier keeps the build clean and professional without overbuilding.",
-          ]),
+          ])
         );
 
         cta.href =
@@ -530,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "GA4 analytics setup",
             "Email signup integration",
             "On-page SEO enhancements",
-          ]),
+          ])
         );
 
         details.appendChild(
@@ -539,7 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Your site needs to support consistent inquiries, not just exist.",
             "Analytics and email capture mattered, without full funnel complexity.",
             "This tier balances strategy and simplicity without overbuilding.",
-          ]),
+          ])
         );
 
         cta.href =
@@ -561,7 +662,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Advanced analytics + event tracking",
             "Performance + accessibility pass",
             "Priority planning + support",
-          ]),
+          ])
         );
 
         details.appendChild(
@@ -570,7 +671,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Conversion flow, decision points, and tracking are important for this build.",
             "You selected options that require deeper guidance and performance decisions.",
             "This tier supports intentional optimization rather than guesswork.",
-          ]),
+          ])
         );
 
         cta.href =
@@ -579,21 +680,15 @@ document.addEventListener("DOMContentLoaded", () => {
           "Final scope is always confirmed before work begins to ensure the right level of support.";
       }
 
-      // Reveal
       result.hidden = false;
       cta.hidden = false;
       mountResetBtn();
 
-      // Only scroll if needed
       maybeScrollToResult();
 
-      // Track
       track("package_quiz_result", { label: tier, source: sourceLabel });
     };
 
-    /* -------------------------
-     Submit handler (scoring)
-  ------------------------- */
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -612,27 +707,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       resetScore();
 
-      // Q1 pages
       if (pages === "1_3") add("foundation", 3);
       if (pages === "4_6") add("growth", 3);
       if (pages === "7_10") add("strategic", 3);
 
-      // Q2 goal
       if (goal === "credibility") add("foundation", 3);
       if (goal === "leads") add("growth", 3);
       if (goal === "revenue") add("strategic", 3);
 
-      // Q3 tracking
       if (tracking === "basic") add("foundation", 2);
       if (tracking === "ga4") add("growth", 2);
       if (tracking === "events") add("strategic", 2);
 
-      // Q4 email
       if (email === "no") add("foundation", 1);
       if (email === "yes_basic") add("growth", 2);
       if (email === "yes_strategic") add("strategic", 2);
 
-      // Q5 support
       if (support === "hands_off") add("foundation", 1);
       if (support === "guided") add("growth", 2);
       if (support === "strategic") add("strategic", 3);
@@ -653,9 +743,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!d.open) return;
 
         const summary = d.querySelector("summary");
-        const label = (
-          summary && summary.textContent ? summary.textContent : "addon_open"
-        )
+        const label = (summary && summary.textContent ? summary.textContent : "addon_open")
           .replace(/\s+/g, " ")
           .trim()
           .slice(0, 80);
@@ -679,8 +767,7 @@ document.addEventListener("DOMContentLoaded", () => {
       growth: "growth-website",
       strategic: "strategy",
     };
-    if (tierRaw && tierToProjectType[tierRaw])
-      return tierToProjectType[tierRaw];
+    if (tierRaw && tierToProjectType[tierRaw]) return tierToProjectType[tierRaw];
 
     const allowed = new Set([
       "foundation-website",
@@ -732,15 +819,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = qs("#contactForm");
     if (!form) return;
 
-    const select =
-      qs("#project_type", form) || qs("select[name='project_type']", form);
+    const select = qs("#project_type", form) || qs("select[name='project_type']", form);
     if (!select || select.tagName !== "SELECT") return;
 
     const desired = resolveDesiredProjectType();
     if (desired) {
-      const opt = Array.from(select.options).find(
-        (o) => safeLower(o.value) === desired,
-      );
+      const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
       if (opt) {
         select.value = opt.value;
         select.dispatchEvent(new Event("change", { bubbles: true }));
@@ -772,11 +856,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (
-        v === "brand-identity" ||
-        v === "brand-only" ||
-        v === "brand-web-prep"
-      ) {
+      if (v === "brand-identity" || v === "brand-only" || v === "brand-web-prep") {
         heroH1.textContent = "Start a Branding Project";
         heroText.textContent =
           "Share a few details about your brand and what you need. I’ll review, confirm fit, and follow up with next steps.";
@@ -895,24 +975,17 @@ document.addEventListener("DOMContentLoaded", () => {
       safeLower(projectType && projectType.value) ||
       "unknown";
 
-    track("contact_form_view", {
-      source: sourceLabel,
-      service: getServiceHint(),
-    });
+    track("contact_form_view", { source: sourceLabel, service: getServiceHint() });
 
     let started = false;
     const markStarted = () => {
       if (started) return;
       started = true;
-      track("contact_form_start", {
-        source: sourceLabel,
-        service: getServiceHint(),
-      });
+      track("contact_form_start", { source: sourceLabel, service: getServiceHint() });
     };
 
     form.addEventListener("focusin", (e) => {
-      if (e.target && e.target.matches("input, select, textarea"))
-        markStarted();
+      if (e.target && e.target.matches("input, select, textarea")) markStarted();
     });
 
     form.addEventListener("submit", async (e) => {
@@ -920,24 +993,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!form.checkValidity()) {
         form.reportValidity();
-        track("contact_form_invalid", {
-          source: sourceLabel,
-          service: getServiceHint(),
-        });
+        track("contact_form_invalid", { source: sourceLabel, service: getServiceHint() });
         return;
       }
 
       if (!form.action) {
-        alert(
-          "Form action is missing. Please set your form endpoint and try again.",
-        );
+        alert("Form action is missing. Please set your form endpoint and try again.");
         return;
       }
 
       const serviceHint = getServiceHint();
-      const interest = qsa("input[name='interest_areas']:checked", form).map(
-        (cb) => cb.value,
-      );
+      const interest = qsa("input[name='interest_areas']:checked", form).map((cb) => cb.value);
       const tierVal = ((qs("#tier", form) || {}).value || "").trim();
 
       track("contact_form_submit_attempt", {
@@ -984,9 +1050,7 @@ document.addEventListener("DOMContentLoaded", () => {
             tier: tierVal || undefined,
             status: res.status || 0,
           });
-          alert(
-            "Something went wrong. Please check your entries and try again.",
-          );
+          alert("Something went wrong. Please check your entries and try again.");
         }
       } catch {
         track("contact_form_submit_error", {
@@ -1033,12 +1097,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tab.addEventListener("keydown", (e) => {
         const key = e.key;
-        if (
-          key !== "ArrowLeft" &&
-          key !== "ArrowRight" &&
-          key !== "Home" &&
-          key !== "End"
-        )
+        if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "Home" && key !== "End")
           return;
 
         e.preventDefault();
@@ -1056,103 +1115,88 @@ document.addEventListener("DOMContentLoaded", () => {
     activate(0);
   })();
 
-  /* =========================================================
-     LIGHTBOX (click-to-zoom)
-  ========================================================= */
-  (() => {
-    const lb = qs("#lightbox");
-    const lbImg = qs("#lightboxImg");
-    if (!lb || !lbImg) return;
+/* =========================================================
+   LIGHTBOX (reliable on moving strips)
+   - Uses pointerdown (works better than click on animated elements)
+========================================================= */
+(() => {
+  const lb = document.querySelector("#lightbox");
+  const lbImg = document.querySelector("#lightboxImg");
+  if (!lb || !lbImg) return;
 
-    let lastActiveEl = null;
+  let lastActiveEl = null;
 
-    const openWith = (src, alt = "Preview image") => {
-      if (!src) return;
+  const openWith = (src, alt = "Preview image") => {
+    if (!src) return;
 
-      lastActiveEl = document.activeElement;
+    lastActiveEl = document.activeElement;
 
-      lbImg.src = src;
-      lbImg.alt = alt;
+    lbImg.src = src;
+    lbImg.alt = alt;
 
-      lb.classList.add("is-open");
-      lb.setAttribute("aria-hidden", "false");
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
 
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
-    };
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  };
 
-    const openFromImg = (imgEl) => {
-      const src = imgEl.getAttribute("src");
-      const alt = imgEl.getAttribute("alt") || "Preview image";
-      openWith(src, alt);
-    };
+  const close = () => {
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
 
-    const openFromButton = (btn) => {
-      const src = (btn.getAttribute("data-lightbox-src") || "").trim();
-      const img = qs("img", btn);
-      const alt =
-        (img && img.getAttribute("alt")) ||
-        btn.getAttribute("aria-label") ||
-        "Preview image";
-      openWith(src, alt);
-    };
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
 
-    const close = () => {
-      lb.classList.remove("is-open");
-      lb.setAttribute("aria-hidden", "true");
+    lbImg.src = "";
+    lbImg.alt = "";
 
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
+    if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
+    lastActiveEl = null;
+  };
 
-      lbImg.src = "";
-      lbImg.alt = "";
-
-      if (lastActiveEl && typeof lastActiveEl.focus === "function")
-        lastActiveEl.focus();
-      lastActiveEl = null;
-    };
-
-    document.addEventListener("click", (e) => {
-      const img = e.target.closest("img[data-lightbox]");
-      if (img) {
-        if (e.target.closest("a")) return;
-        openFromImg(img);
-        return;
-      }
-
+  // Use pointerdown so taps register even while the strip is animating
+  document.addEventListener(
+    "pointerdown",
+    (e) => {
       const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
       if (btn) {
-        openFromButton(btn);
+        e.preventDefault(); // prevents drag/ghost click issues
+        const src = (btn.getAttribute("data-lightbox-src") || "").trim();
+        const img = btn.querySelector("img");
+        const alt =
+          (img && img.getAttribute("alt")) ||
+          btn.getAttribute("aria-label") ||
+          "Preview image";
+        openWith(src, alt);
         return;
       }
-    });
 
-    lb.addEventListener("click", (e) => {
-      if (
-        e.target.closest("[data-close]") ||
-        e.target.closest("[data-lightbox-close]")
-      ) {
+      if (e.target.closest("[data-lightbox-close]")) {
+        e.preventDefault();
         close();
         return;
       }
-      if (
-        e.target.classList &&
-        e.target.classList.contains("lightbox-backdrop")
-      )
-        close();
-    });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && lb.classList.contains("is-open")) close();
-    });
-  })();
+      if (e.target.classList && e.target.classList.contains("lightbox-backdrop")) {
+        e.preventDefault();
+        close();
+      }
+    },
+    { passive: false },
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+  });
+})();
+
 
   /* =========================================================
      ALIVE MOTION (Hero parallax + reveal on scroll)
   ========================================================= */
   const prefersReduced =
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   (function heroParallax() {
     if (prefersReduced) return;
@@ -1167,10 +1211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.documentElement.style.setProperty("--hero-shift", `${shift}px`);
       document.documentElement.style.setProperty("--hero-tilt", `${tilt}deg`);
-      document.documentElement.style.setProperty(
-        "--hero-opacity",
-        `${opacity}`,
-      );
+      document.documentElement.style.setProperty("--hero-opacity", `${opacity}`);
     };
 
     onScroll();
@@ -1179,7 +1220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   (function addRevealClasses() {
     const candidates = qsa(
-      ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card",
+      ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card"
     );
     candidates.forEach((el, i) => {
       if (el.classList.contains("reveal")) return;
@@ -1207,7 +1248,7 @@ document.addEventListener("DOMContentLoaded", () => {
           io.unobserve(entry.target);
         });
       },
-      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
     );
 
     items.forEach((el) => io.observe(el));

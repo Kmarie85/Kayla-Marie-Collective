@@ -1074,41 +1074,63 @@ body.portfolio-page .portfolio-grid--products {
   border-radius: 999px;
   margin: 0 0 12px;
 }
+/* =========================
+   Brand Foundations card fixes (NO nesting)
+   ========================= */
+
 .bf-card {
   margin-top: -40px;
+}
 
-  .service-band .section-title {
-    margin-top: -75px;
-  }
+/* If you meant “when inside bf-card” */
+.bf-card .service-band .section-title {
+  margin-top: -75px;
+}
 
-  .service-block .kicker {
-    display: inline-flex;
-    align-items: center; /* keep text vertically centered */
-    justify-content: center;
-    width: fit-content; /* hug contents */
-    max-width: max-content; /* extra safety */
-    align-self: flex-start; /* stops parent flex/grid stretch */
+/* Kicker pill inside bf-card */
+.bf-card .service-block .kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: max-content;
+  align-self: flex-start;
 
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--plum);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--plum);
 
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    margin: 0 0 12px;
-    padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin: 0 0 12px;
+  padding: 4px 10px;
 
-    white-space: nowrap; /* prevents wrapping */
-  }
+  white-space: nowrap;
+}
 
-  /* FORCE kicker to shrink inside grid/flex parents */
-  .service-block .kicker {
-    grid-column: auto !important;
-    justify-self: start;
-    align-self: flex-start;
-  }
+/* Force kicker to shrink inside grid/flex parents */
+.bf-card .service-block .kicker {
+  grid-column: auto !important;
+  justify-self: start;
+  align-self: flex-start;
+}
+
+.bf-card .service-block {
+  align-items: flex-start;
+}
+
+/* Internal links card kicker — shrink to content */
+.bf-card .service-block.internal-links > .kicker {
+  display: inline-flex !important;
+  width: auto !important;
+  max-width: max-content !important;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
 
   .service-block {
     align-items: flex-start;
@@ -1123,7 +1145,7 @@ body.portfolio-page .portfolio-grid--products {
     justify-content: center;
     white-space: nowrap;
   }
-} /* ========================= How it Works grid ========================= */
+/* ========================= How it Works grid ========================= */
 .how-it-works h2 {
   margin-bottom: 14px;
 }
@@ -1565,87 +1587,41 @@ label.check .check__text {
 .legal-card h2,
 .legal-card h3 {
   scroll-margin-top: calc(var(--header-offset) + 24px);
-} /* ========================= Lightbox ========================= */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  display: none;
-  z-index: 9999;
 }
-.lightbox.is-open {
-  display: grid;
-  place-items: center;
-  padding: 24px;
-}
-.lightbox-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.72);
-  cursor: zoom-out;
-}
-.lightbox-panel {
-  position: relative;
-  width: 100%;
-  max-width: min(1000px, 92vw);
-  max-height: 88vh;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #111;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-}
-.lightbox-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 88vh;
-  object-fit: contain;
-  background: #111;
-}
-.lightbox-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 0;
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-}
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
+
+/* Contact: conditional checkbox alignment (clean + valid) */
 .project-form .checks {
   display: grid;
   gap: 12px;
-} /* CONTACT — Branding "Where will this brand be used?" alignment fix */
+}
+
+/* CONTACT — Branding "Where will this brand be used?" alignment fix */
 .project-form .form-conditional .checks {
   display: grid;
-  grid-template-columns: 1fr; /* one option per row */
+  grid-template-columns: 1fr;
   gap: 14px;
 }
+
 .project-form .form-conditional .checks label {
-  display: inline-flex; /* checkbox + text together */
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-start; /* no space-between */
+  justify-content: flex-start;
   gap: 12px;
-  width: auto; /* IMPORTANT: prevents two-column spacing */
+  width: auto;
   margin: 0;
   padding: 0;
 }
+
 .project-form .form-conditional .checks input[type="checkbox"] {
   margin: 0;
   flex: 0 0 auto;
 }
+
 .project-form .form-conditional .checks label > input + * {
   flex: 0 1 auto;
 }
-.project-form .form-conditional .checks label {
-  justify-content: flex-start !important;
-} /* ========================= Reveal-on-scroll ========================= */
+
+/* ========================= Reveal-on-scroll ========================= */
 .reveal {
   opacity: 0;
   transform: translateY(18px) scale(0.985);
@@ -2976,133 +2952,52 @@ body.case-page .case-logo {
   justify-self: start !important;
   text-align: left !important;
 }
+/* ========================= Lightbox ========================= */
 
-/* ========================================================= PHOTOGRAPHERS PAGE — calm the color overload Put at VERY BOTTOM of style.css ========================================================= */
-/* Make most bands neutral on this page */
-body.photographers-page .services-band {
-  background: var(--bg);
-} /* Keep ONE intentional plum band (your choice: what-we-build) */
-body.photographers-page #what-we-build.services-band {
-  background: linear-gradient(
-    to bottom,
-    var(--plum),
-    rgba(246, 239, 230, 0.9) 72%,
-    rgba(246, 239, 230, 1) 100%
-  );
-} /* Keep your teal process band (already defined on .services-process) */
-body.photographers-page .services-process {
-  /* leave as-is */
-} /* Keep FAQ as ochre but reduce intensity slightly */
-body.photographers-page .services-faq {
-  background: color-mix(in srgb, var(--ochre) 85%, #fff);
-} /* Text colors: if a band is neutral, don’t force cream headings */
-body.photographers-page .services-band .section-title,
-body.photographers-page .services-band .section-subtext {
-  color: var(--text);
-} /* But on the plum band, keep light text */
-body.photographers-page #what-we-build .section-title,
-body.photographers-page #what-we-build .section-subtext {
-  color: #efe4d6;
-} /* Photo strip: ensure the track actually scrolls */
-.photo-strip__track {
-  width: max-content;
-} /* Photographers page: reduce heavy color bands */
-body.photographers-page .services-band {
-  background: var(--cream);
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
 }
-body.photographers-page .services-band .section-title,
-body.photographers-page .services-band .section-subtext {
-  color: var(--plum);
-} /* Keep the booking-flow section green */
-body.photographers-page .services-band.services-process {
-  background: linear-gradient(180deg, #8ca49f 0%, #2a524a 80%);
-}
-body.photographers-page .services-band.services-process h2,
-body.photographers-page .services-band.services-process .kicker,
-body.photographers-page .services-band.services-process .small-note {
-  color: #efe4d6;
-}
-.micro-line {
+
+.lightbox.is-open {
   display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.45;
-}
-.internal-links .simple-list li {
-  padding: 10px 0;
-}
-.internal-links .simple-list li + li {
-  border-top: 1px solid var(--line-soft);
 }
 
-/* =========================================================
-   PHOTO STRIP MARQUEE — SINGLE WORKING VERSION (ALL DUPLICATES DELETED)
-   Requires:
-   .photo-strip__track has TWO .photo-strip__set children (B is clone of A)
-========================================================= */
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+}
 
-.photo-strip {
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  max-width: min(92vw, 980px);
+  max-height: 86vh;
+  margin: 6vh auto 0;
+  border-radius: 16px;
   overflow: hidden;
+  background: #111;
+  padding: 14px;
 }
 
-.photo-strip__track {
-  /* JS sets this to: -<width of Set A>px */
-  --marquee-shift: -50%;
-
-  display: flex;
-  align-items: center;
-
-  /* CRITICAL: no gap here (gap must live inside sets) */
-  gap: 0 !important;
-
-  width: max-content;
-  will-change: transform;
-  animation: kmc-photo-marquee 22s linear infinite;
-}
-
-.photo-strip__set {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding-right: 16px; /* seam spacing between sets */
-}
-
-.photo-strip__btn {
-  all: unset;
+.lightbox-img {
   display: block;
-  flex: 0 0 auto;
-  cursor: zoom-in;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
-.photo-strip__btn img {
-  display: block;
-  height: clamp(92px, 16vw, 140px);
-  width: auto;
-  border-radius: 14px;
-  object-fit: cover;
-  background: #fff;
-  padding: 6px;
-}
-
-@keyframes kmc-photo-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(var(--marquee-shift));
-  }
-}
-
-.photo-strip:hover .photo-strip__track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .photo-strip__track {
-    animation: none;
-    transform: none;
-  }
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  cursor: pointer;
 }
 
 /* Ensure grid items stretch */
@@ -3118,11 +3013,21 @@ body.photographers-page .services-band.services-process .small-note {
 }
 
 /* Force CTA to bottom + center */
+/* Push CTA block to bottom */
 .package-card .cta-stack {
-  margin-top: auto !important;
+  margin-top: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* space between button and micro-line */
+  text-align: center;
 }
+
+/* Make sure micro-line doesn't float weirdly */
+.package-card .cta-stack .micro-line {
+  margin: 0;
+}
+
 
 /* NEXT STEPS – make it a centered card, not a full band */
 .service-block.internal-links {
@@ -4061,16 +3966,30 @@ section.services-band.services-process
 @media (min-width: 980px) {
   .site-footer .footer-inner {
     grid-template-columns:
-      minmax(300px, 1.35fr) repeat(4, minmax(160px, 0.85fr))
+      minmax(340px, 1.2fr)
+      repeat(4, minmax(160px, 1fr))
       minmax(220px, 1fr);
-    column-gap: clamp(26px, 3vw, 56px);
-    row-gap: 34px;
-  }
 
-  /* Keep everything aligned at top */
-  .site-footer .footer-brand {
-    padding-right: 10px;
+    column-gap: clamp(28px, 4vw, 60px);
+    row-gap: 28px;
+
+    justify-content: center;
   }
+}
+
+@media (min-width: 980px) {
+  .site-footer .footer-col,
+  .site-footer .footer-contact {
+    padding-top: 10px;
+  }
+}
+
+.site-footer .footer-brand {
+  max-width: 420px;
+}
+
+.site-footer .container {
+  max-width: 1100px;
 }
 
 /* Brand block hierarchy */
@@ -4252,4 +4171,255 @@ section.services-band.services-process
 .footer-list a:hover {
   opacity: 1;
   transform: translateY(-1px);
+}
+
+/* =========================================
+   PHOTO STRIP — FINAL (NO GAP, NO DRIFT)
+   Replace your old HARD OVERRIDE block
+   ========================================= */
+
+.photo-strip {
+  overflow: hidden !important;
+}
+
+.photo-strip .photo-strip__track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  width: max-content !important;
+  gap: 0 !important;
+  will-change: transform !important;
+
+  /* JS controls these */
+  animation-name: kmc-photo-marquee !important;
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  animation-duration: var(--marquee-duration, 22s) !important;
+}
+
+.photo-strip .photo-strip__set {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: var(--strip-gap, 16px) !important;
+  flex: 0 0 auto !important;
+
+  /* IMPORTANT: seam lives on EVERY set (no first-child special case) */
+  padding-right: var(--strip-gap, 16px) !important;
+}
+
+.photo-strip .photo-strip__btn {
+  all: unset !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  cursor: zoom-in !important;
+}
+
+.photo-strip .photo-strip__btn img {
+  display: block !important;
+  height: clamp(92px, 16vw, 140px) !important;
+  width: auto !important;
+  border-radius: 14px !important;
+  object-fit: cover !important;
+  background: #fff !important;
+  padding: 6px !important;
+}
+
+@keyframes kmc-photo-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--marquee-distance, 1000px)), 0, 0);
+  }
+}
+
+.photo-strip:hover .photo-strip__track {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip .photo-strip__track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* =========================
+   PHOTO STRIP — STABLE SIZE + SEAMLESS LOOP
+   ========================= */
+
+.photo-strip {
+  overflow: hidden;
+  width: 100%;
+}
+
+.photo-strip__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: photoMarquee var(--marquee-duration, 22s) linear infinite;
+}
+
+/* Each set must shrink-wrap its content */
+.photo-strip__set {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 16px;
+  padding-right: 16px; /* seam */
+}
+
+/* Each item */
+.photo-strip__btn {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Image sizing: fixed height so they NEVER blow up */
+.photo-strip__btn img {
+  height: 94px;
+  width: auto;
+  display: block;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+/* Adjust for larger screens */
+@media (min-width: 900px) {
+  .photo-strip__btn img {
+    height: 110px;
+  }
+}
+
+@keyframes photoMarquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--marquee-distance, 600px)), 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip__track {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Ensure photo strip items can actually be clicked */
+.photo-strip,
+.photo-strip__track,
+.photo-strip__set {
+  pointer-events: auto;
+}
+
+.photo-strip__btn,
+.photo-strip__btn * {
+  pointer-events: auto;
+}
+
+.photo-strip__btn {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* =========================
+   LIGHTBOX (required)
+   ========================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.lightbox.is-open {
+  display: block;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.lightbox-panel {
+  position: relative;
+  max-width: min(92vw, 1100px);
+  max-height: 86vh;
+  margin: 6vh auto 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+}
+
+.lightbox-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 86vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Make sure nothing blocks clicks on the strip */
+.photo-strip,
+.photo-strip__track,
+.photo-strip__set,
+.photo-strip__btn {
+  pointer-events: auto;
+}
+
+.photo-strip__btn {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 5;
+}
+
+/* If any strip overlays exist, they must not eat clicks */
+.photo-strip::before,
+.photo-strip::after,
+.photo-strip__track::before,
+.photo-strip__track::after {
+  pointer-events: none;
+}
+
+/* === FORCE strip to accept clicks even if something earlier disables it === */
+.photo-strip,
+.photo-strip * {
+  pointer-events: auto !important;
+}
+
+.photo-strip__btn {
+  cursor: pointer !important;
+  touch-action: manipulation !important;
+}
+
+/* === FORCE lightbox visible when open (even if other CSS fights it) === */
+#lightbox.is-open {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
