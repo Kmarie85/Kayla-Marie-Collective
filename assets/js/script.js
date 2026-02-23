@@ -779,7 +779,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "brand-only",
       "brand-web-prep",
       "photography",
-      "wellness_essentials",
+      "wellness_starter",
       "wellness_growth",
       "not_sure",
     ]);
@@ -802,7 +802,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "brand-web-prep": "brand-web-prep",
       brand_web_prep: "brand-web-prep",
       photography: "photography",
-      wellness_essentials: "wellness_essentials",
+      wellness_starter: "wellness_starter",
       wellness_growth: "wellness_growth",
     };
 
