@@ -1668,109 +1668,8 @@ label.check .check__text {
     transform: translateY(-8px);
     box-shadow: var(--shadow-float);
   }
-} /* ========================= Footer — 4-column layout (PLUM) ========================= */
-.site-footer {
-  border-top: 1px solid rgba(246, 239, 230, 0.18);
-  background: var(--plum);
-  color: var(--bg);
-  padding: 56px 0;
-}
-.footer-inner {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
-  gap: 44px;
-  align-items: start;
-  justify-items: start;
-}
-.footer-brand {
-  max-width: 520px;
-}
-.footer-logo {
-  max-width: 340px;
-  height: auto;
-  margin: 0 0 12px;
-  display: block;
-}
-.footer-tagline {
-  margin: 0;
-  max-width: 44ch;
-  color: rgba(246, 239, 230, 0.82);
-  line-height: 1.5;
-}
-.footer-kicker {
-  margin: 0 0 8px;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--bg);
-  font-weight: 800;
-}
-.footer-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 6px;
-}
-.footer-list a {
-  color: rgba(246, 239, 230, 0.82);
-}
-.footer-list a:hover {
-  color: var(--bg);
-  text-decoration: underline;
-}
-.footer-contact {
-  display: grid;
-  gap: 10px;
-}
-.footer-contact-item {
-  display: grid;
-  gap: 0;
-}
-.footer-contact-label {
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(246, 239, 230, 0.72);
-  margin-top: -10px; /* tightens label/value spacing */
-}
-.footer-contact-value {
-  color: rgba(246, 239, 230, 0.88);
-  margin-top: -4px; /* tightens label/value spacing */
-  margin-bottom: 8px; /* consistent rhythm */
-}
-a.footer-contact-value:hover {
-  text-decoration: underline;
-  color: var(--bg);
-}
-.footer-meta {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(246, 239, 230, 0.18);
-  color: rgba(246, 239, 230, 0.72);
-}
-.footer-meta p {
-  margin: 0;
-} /* Footer CTA */
-.footer-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 9px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: var(--ochre);
-  color: var(--bg) !important;
-  font-weight: 750;
-  line-height: 1;
-  width: fit-content;
-  box-shadow: 0 14px 34px rgba(195, 132, 39, 0.2);
-}
-.footer-cta:hover,
-.footer-cta:focus-visible {
-  background: color-mix(in srgb, var(--ochre) 88%, #000);
-  border-color: rgba(0, 0, 0, 0.12);
-} /* ========================================================= ABOUT PAGE — the version in your screenshots Full-width image intro + plum story band + blue why + mustard proof + steps ========================================================= */
+} 
+/* ========================================================= ABOUT PAGE — the version in your screenshots Full-width image intro + plum story band + blue why + mustard proof + steps ========================================================= */
 .about-page {
   background: var(--bg);
 } /* Full-width intro image */
@@ -3973,232 +3872,6 @@ section.services-band.services-process
   align-self: center;     /* centers horizontally */
 }
 
-/* =========================
-   FOOTER — Desktop polish
-   ========================= */
-
-.site-footer {
-  border-top: 1px solid rgba(246, 239, 230, 0.18);
-}
-
-.site-footer .footer-inner {
-  display: grid;
-  gap: clamp(18px, 2vw, 34px);
-  padding: clamp(34px, 4vw, 56px) 0;
-  align-items: start;
-}
-
-/* Desktop grid: brand gets real weight */
-@media (min-width: 980px) {
-  .site-footer .footer-inner {
-    grid-template-columns:
-      minmax(340px, 1.2fr)
-      repeat(4, minmax(160px, 1fr))
-      minmax(220px, 1fr);
-
-    column-gap: clamp(28px, 4vw, 60px);
-    row-gap: 28px;
-
-    justify-content: center;
-  }
-}
-
-@media (min-width: 980px) {
-  .site-footer .footer-col,
-  .site-footer .footer-contact {
-    padding-top: 10px;
-  }
-}
-
-.site-footer .footer-brand {
-  max-width: 420px;
-}
-
-.site-footer .container {
-  max-width: 1100px;
-}
-
-/* Brand block hierarchy */
-.footer-logo {
-  width: min(320px, 100%);
-  height: auto;
-  margin-bottom: 14px;
-}
-
-.footer-tagline {
-  max-width: 40ch;
-  line-height: 1.55;
-  opacity: 0.92;
-  margin-bottom: 16px;
-}
-
-/* Make the copyright area feel intentional */
-.footer-meta {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(246, 239, 230, 0.18);
-  opacity: 0.9;
-}
-
-/* Column labels */
-.footer-kicker {
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  margin: 0 0 12px;
-}
-
-/* Link lists: better rhythm */
-.footer-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.footer-list a {
-  display: inline-block;
-  font-size: 0.96rem;
-  line-height: 1.35;
-  opacity: 0.92;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition:
-    opacity 160ms ease,
-    border-color 160ms ease,
-    transform 160ms ease;
-}
-
-.footer-list a:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-/* Contact block: compress and align */
-.footer-contact .footer-contact-item {
-  margin: 0 0 14px;
-}
-
-.footer-contact-label {
-  display: block;
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.72;
-  margin-bottom: 4px;
-}
-
-.footer-contact-value {
-  font-size: 0.98rem;
-  opacity: 0.95;
-  line-height: 1.35;
-}
-
-/* Optional: add a soft “card” feel behind columns on desktop only */
-@media (min-width: 980px) {
-  .site-footer .footer-col,
-  .site-footer .footer-contact {
-    padding-top: 4px;
-  }
-}
-
-.footer-cta {
-  display: inline-block;
-  margin-top: 6px;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  opacity: 0.95;
-  padding: 10px 18px;
-  transition:
-    opacity 160ms ease,
-    border-color 160ms ease,
-    transform 160ms ease;
-}
-
-.footer-cta:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-/* FOOTER — stop the huge empty space issue */
-.site-footer,
-.site-footer .footer-inner {
-  min-height: 0 !important;
-  height: auto !important;
-}
-
-.site-footer {
-  padding: 0 !important; /* we will control padding on footer-inner instead */
-}
-
-/* FOOTER — clean desktop grid */
-.site-footer {
-  border-top: 1px solid rgba(246, 239, 230, 0.18);
-}
-
-.site-footer .container {
-  max-width: 1200px; /* anchor it */
-}
-
-.site-footer .footer-inner {
-  display: grid;
-  align-items: start;
-  align-content: start; /* IMPORTANT: prevents vertical “spread” */
-  gap: 26px;
-  padding: 44px 0; /* balanced, not huge */
-}
-
-@media (min-width: 980px) {
-  .site-footer .footer-inner {
-    grid-template-columns: minmax(320px, 1.35fr) repeat(5, minmax(140px, 0.9fr));
-    column-gap: 44px;
-    row-gap: 28px;
-  }
-}
-
-/* Make sure nothing is centered by accident */
-.site-footer,
-.site-footer * {
-  text-align: left;
-}
-
-.footer-kicker {
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  margin: 0 0 12px;
-}
-
-.footer-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.footer-list a {
-  opacity: 0.92;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition:
-    opacity 160ms ease,
-    border-color 160ms ease,
-    transform 160ms ease;
-}
-
-.footer-list a:hover {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
 /* =========================================
    PHOTO STRIP — FINAL (NO GAP, NO DRIFT)
    Replace your old HARD OVERRIDE block
@@ -4448,4 +4121,165 @@ section.services-band.services-process
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto !important;
+}
+
+/* =========================================================
+   FOOTER — Centered Brand Top + Link Grid Bottom (like your screenshot)
+   Paste at VERY BOTTOM of style.css
+========================================================= */
+
+.site-footer.footer--centered {
+  background: var(--plum);
+  color: var(--bg);
+  border-top: 1px solid rgba(246, 239, 230, 0.18);
+  padding: 0 !important;
+}
+
+.site-footer.footer--centered .container {
+  max-width: 1100px;
+}
+
+/* TOP: centered brand block */
+.site-footer.footer--centered .footer-top {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  padding: 34px 0 18px;
+}
+
+.site-footer.footer--centered .footer-logo {
+  width: min(520px, 92%);
+  height: auto;
+  margin: 0 0 12px;
+  display: block;
+}
+
+.site-footer.footer--centered .footer-tagline {
+  margin: 0 0 14px;
+  max-width: 60ch;
+  color: rgba(246, 239, 230, 0.82);
+  line-height: 1.5;
+}
+
+.site-footer.footer--centered .footer-cta {
+  margin-top: 2px;
+}
+
+.site-footer.footer--centered .footer-meta {
+  margin-top: 14px;
+  padding-top: 12px;
+  width: min(820px, 92%);
+  border-top: 1px solid rgba(246, 239, 230, 0.18);
+  color: rgba(246, 239, 230, 0.72);
+}
+
+.site-footer.footer--centered .footer-meta p {
+  margin: 0;
+}
+
+/* Divider between top + bottom */
+.site-footer.footer--centered .footer-divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(246, 239, 230, 0.12);
+}
+
+/* BOTTOM: 5-column link grid */
+.site-footer.footer--centered .footer-links {
+  display: grid;
+  gap: 22px;
+  padding: 20px 0 34px;
+  align-items: start;
+}
+
+/* Desktop */
+@media (min-width: 980px) {
+  .site-footer.footer--centered .footer-links {
+    grid-template-columns: repeat(4, minmax(160px, 1fr)) minmax(220px, 1.2fr);
+    column-gap: 44px;
+  }
+}
+
+/* Kicker + lists keep your existing vibe but tighter */
+.site-footer.footer--centered .footer-kicker {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bg);
+  font-weight: 800;
+  opacity: 0.92;
+}
+
+.site-footer.footer--centered .footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.site-footer.footer--centered .footer-list a {
+  color: rgba(246, 239, 230, 0.82);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: opacity 160ms ease, border-color 160ms ease, transform 160ms ease, color 160ms ease;
+  opacity: 0.92;
+}
+
+.site-footer.footer--centered .footer-list a:hover {
+  opacity: 1;
+  color: var(--bg);
+  border-bottom-color: rgba(246, 239, 230, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Contact formatting */
+.site-footer.footer--centered .footer-contact {
+  display: grid;
+  gap: 12px;
+}
+
+.site-footer.footer--centered .footer-contact-item {
+  display: grid;
+  gap: 3px;
+}
+
+.site-footer.footer--centered .footer-contact-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 239, 230, 0.68);
+  margin: 0 !important;
+}
+
+.site-footer.footer--centered .footer-contact-value {
+  color: rgba(246, 239, 230, 0.88);
+  line-height: 1.35;
+  margin: 0 !important;
+}
+
+.site-footer.footer--centered a.footer-contact-value:hover {
+  color: var(--bg);
+  text-decoration: underline;
+}
+
+/* Mobile: stack + center like your screenshot */
+@media (max-width: 520px) {
+  .site-footer.footer--centered .footer-links {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 18px 0 28px;
+    gap: 16px;
+  }
+
+  .site-footer.footer--centered .footer-list {
+    justify-items: center;
+  }
+
+  .site-footer.footer--centered .footer-contact {
+    justify-items: center;
+  }
 }
