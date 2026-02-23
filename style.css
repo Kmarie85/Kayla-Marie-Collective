@@ -3947,6 +3947,32 @@ section.services-band.services-process
   }
 }
 
+/* ===============================
+   Package Cards – Button Alignment
+   =============================== */
+
+.package-grid {
+  display: grid;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.package-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.package-card ul {
+  margin-bottom: 1.25rem;
+}
+
+.package-card .btn,
+.package-card .btn-outline {
+  margin-top: auto;       /* pushes button to bottom */
+  align-self: center;     /* centers horizontally */
+}
+
 /* =========================
    FOOTER — Desktop polish
    ========================= */
