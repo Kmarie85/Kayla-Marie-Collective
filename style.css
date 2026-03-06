@@ -4283,3 +4283,21 @@ section.services-band.services-process
     justify-items: center;
   }
 }
+/* FOOTER — tighten height */
+.site-footer.footer--centered .footer-top {
+  padding: 22px 0 12px;
+}
+
+.site-footer.footer--centered .footer-links {
+  padding: 14px 0 20px;
+  gap: 16px;
+}
+
+.site-footer.footer--centered .footer-logo {
+  width: min(420px, 92%);
+  margin-bottom: 10px;
+}
+
+.site-footer.footer--centered .footer-tagline {
+  margin-bottom: 10px;
+}
