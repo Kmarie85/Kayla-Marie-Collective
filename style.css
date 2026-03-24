@@ -1011,6 +1011,10 @@ body.portfolio-page .portfolio-cta .lead {
 }
 .portfolio-section h2 {
   margin-top: -100px;
+.portfolio-page btn-secondary {
+  justify-content: center;
+}
+
 } /* ---------- Hover lift (portfolio-only; doesn’t touch other pages) ---------- */
 @media (prefers-reduced-motion: no-preference) {
   body.portfolio-page .portfolio-item {
@@ -4819,4 +4823,118 @@ section.services-band.services-process
   content: "•";
   margin-right: 6px;
   opacity: .45;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.work-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: cover;
+}
+
+.digprod {
+  color: #efe4d6;
+}
+
+.masonry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.cs-gallery .masonry {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+
+  max-width: 900px;   /* controls overall width */
+  margin: 0 auto;     /* THIS centers the entire block */
+}
+
+.masonry-item img {
+  width: 100%;
+  height: 180px; /* adjust 160–200 depending on feel */
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .cs-gallery .masonry {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-gallery .masonry-item img {
+    height: 260px;
+  }
+}
+
+/* ===== Born Motherhood / case study gallery hard reset ===== */
+.case-page .cs-gallery .masonry {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 16px !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  max-width: 1400px !important;
+  margin: 18px auto 0 !important;
+}
+
+.case-page .cs-gallery .masonry-item {
+  flex: 0 0 calc(25% - 12px) !important;
+  width: calc(25% - 12px) !important;
+  max-width: calc(25% - 12px) !important;
+  min-width: 0 !important;
+  display: block !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+}
+
+.case-page .cs-gallery .masonry-item img {
+  display: block !important;
+  width: 100% !important;
+  height: 170px !important;
+  object-fit: cover !important;
+  border-radius: 14px !important;
+}
+
+/* kill any old masonry/grid span behavior */
+.case-page .cs-gallery .masonry-item,
+.case-page .cs-gallery .masonry-item:nth-child(n) {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  break-inside: auto !important;
+}
+
+/* tablet */
+@media (max-width: 1100px) {
+  .case-page .cs-gallery .masonry {
+    flex-wrap: wrap !important;
+  }
+
+  .case-page .cs-gallery .masonry-item {
+    flex: 0 0 calc(50% - 8px) !important;
+    width: calc(50% - 8px) !important;
+    max-width: calc(50% - 8px) !important;
+  }
+}
+
+/* mobile */
+@media (max-width: 640px) {
+  .case-page .cs-gallery .masonry-item {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .case-page .cs-gallery .masonry-item img {
+    height: 220px !important;
+  }
 }
