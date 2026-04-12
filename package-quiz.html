@@ -123,200 +123,116 @@
       </div>
     </header>
 
-    <main id="main">
-      <!-- Hero (matches site rhythm) -->
-      <section class="page-hero quiz-hero">
-        <div class="container">
-          <p class="kicker">Decision Helper</p>
-          <h1>Website Package Quiz</h1>
-          <p>
-            Answer five quick questions to clarify scope and priorities. You’ll
-            get a recommendation plus a direct link to start your inquiry with
-            the tier preselected.
+<main id="main">
+  <!-- Hero -->
+  <section class="page-hero quiz-hero">
+    <div class="container">
+      <p class="kicker">Decision Helper</p>
+      <h1>Website Project Quiz</h1>
+      <p>
+        Answer five quick questions to clarify what you need. You’ll get a
+        recommendation and a direct path to start your project.
+      </p>
+
+      <div class="case-nav quiz-nav">
+        <a href="/services.html#website-design">← Services</a>
+        <a href="/portfolio.html">Portfolio →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="quiz-band">
+    <div class="container">
+      <div class="quiz-grid">
+        <aside class="service-block quiz-help">
+          <h2 style="margin-top: 0">How this works</h2>
+          <ul class="simple-list">
+            <li><strong>Pick what’s true right now</strong></li>
+            <li><strong>Get a clear recommendation</strong></li>
+            <li><strong>Continue with it preselected</strong></li>
+          </ul>
+
+          <p class="small-note">
+            This is just a starting point — we’ll confirm scope before anything
+            is finalized.
           </p>
+        </aside>
 
-          <div class="case-nav quiz-nav">
-            <a href="/services.html#website-design">← Services</a>
-            <a href="/portfolio.html">Portfolio →</a>
-          </div>
+        <div class="quiz-main">
+          <form id="packageQuiz" class="project-form" novalidate>
+
+            <label>
+              1) Do you already have a website?
+              <select name="q_existing" required>
+                <option value="">Select one</option>
+                <option value="yes">Yes — but it needs work</option>
+                <option value="no">No — starting fresh</option>
+              </select>
+            </label>
+
+            <label>
+              2) How complex is what you need?
+              <select name="q_scope" required>
+                <option value="">Select one</option>
+                <option value="simple">Simple and clear</option>
+                <option value="standard">A full site with structure</option>
+                <option value="advanced">More custom / layered</option>
+              </select>
+            </label>
+
+            <label>
+              3) What does this site need to do?
+              <select name="q_goal" required>
+                <option value="">Select one</option>
+                <option value="credibility">Look professional + build trust</option>
+                <option value="leads">Bring in consistent inquiries</option>
+                <option value="conversion">Actively drive bookings or sales</option>
+              </select>
+            </label>
+
+            <label>
+              4) How much guidance do you want?
+              <select name="q_support" required>
+                <option value="">Select one</option>
+                <option value="light">Keep it simple</option>
+                <option value="guided">Some structure + guidance</option>
+                <option value="high">More strategy + input</option>
+              </select>
+            </label>
+
+            <label>
+              5) Do you expect custom features or integrations?
+              <select name="q_custom" required>
+                <option value="">Select one</option>
+                <option value="no">No</option>
+                <option value="some">Maybe a few</option>
+                <option value="yes">Yes — likely</option>
+              </select>
+            </label>
+
+            <button type="submit" class="btn-primary">
+              Get my recommendation →
+            </button>
+          </form>
         </div>
-      </section>
+      </div>
 
-      <section class="quiz-band" aria-label="Website package quiz">
-        <div class="container">
-          <div class="quiz-grid">
-            <!-- Left: context card (matches your service-block vibe) -->
-            <aside class="service-block quiz-help">
-              <h2 style="margin-top: 0">How this works</h2>
-              <ul class="simple-list">
-                <li>
-                  <strong>Pick what’s true today</strong> (no perfect answers).
-                </li>
-                <li>
-                  <strong>Get a tier + why</strong> (so it doesn’t feel random).
-                </li>
-                <li>
-                  <strong>Continue to inquiry</strong> with the tier
-                  preselected.
-                </li>
-              </ul>
+      <!-- RESULT -->
+      <div id="quizResult" class="service-block" hidden>
+        <h2 id="resultTitle"></h2>
+        <p id="resultSummary"></p>
 
-              <p class="small-note" style="margin: 0.75rem 0 0">
-                <strong>Not a commitment.</strong> Final scope is confirmed
-                before anything is finalized.
-              </p>
-
-              <p class="text-link" style="margin-top: 0.75rem">
-                Prefer to browse first
-                <a href="/services.html#website-design">? See packages →</a>
-              </p>
-            </aside>
-
-            <!-- Right: your existing form (same IDs/classes) -->
-            <div class="quiz-main">
-              <form id="packageQuiz" class="project-form" novalidate>
-                <p class="form-note" style="margin-top: 0">
-                  Choose the option that most closely reflects your current
-                  needs. There are no right or wrong answers.
-                </p>
-
-                <label>
-                  1) How many pages do you realistically need right now?
-                  <select name="q_pages" required>
-                    <option value="">Select one</option>
-                    <option value="1_3">1–3 pages (simple + clear)</option>
-                    <option value="4_6">
-                      4–6 pages (full site with structure)
-                    </option>
-                    <option value="7_10">
-                      7–10 pages (multi-offer / deeper content)
-                    </option>
-                  </select>
-                </label>
-
-                <label>
-                  2) What is the primary role your website needs to play?
-                  <select name="q_goal" required>
-                    <option value="">Select one</option>
-                    <option value="credibility">
-                      Credibility and a clear contact path
-                    </option>
-                    <option value="leads">
-                      Consistent inquiries with guided calls to action
-                    </option>
-                    <option value="revenue">
-                      Directly supporting revenue (bookings, sales, enrollment)
-                    </option>
-                  </select>
-                </label>
-
-                <label>
-                  3) How important is measurement and insight for this site?
-                  <select name="q_tracking" required>
-                    <option value="">Select one</option>
-                    <option value="basic">Not a priority right now</option>
-                    <option value="ga4">
-                      Basic visibility (analytics installed)
-                    </option>
-                    <option value="events">
-                      Conversion-level insight (events and actions tracked)
-                    </option>
-                  </select>
-                </label>
-
-                <label>
-                  4) Do you need email capture built into the site?
-                  <select name="q_email" required>
-                    <option value="">Select one</option>
-                    <option value="no">No</option>
-                    <option value="yes_basic">
-                      Yes (a simple integration)
-                    </option>
-                    <option value="yes_strategic">
-                      Yes, as part of a guided flow
-                    </option>
-                  </select>
-                </label>
-
-                <label>
-                  5) Which level of guidance would be most helpful?
-                  <select name="q_support" required>
-                    <option value="">Select one</option>
-                    <option value="hands_off">
-                      I want a clean, guided build with minimal back-and-forth
-                    </option>
-                    <option value="guided">
-                      I want structure and light collaboration
-                    </option>
-                    <option value="strategic">
-                      I want strategic input on flow, decisions, and conversions
-                    </option>
-                  </select>
-                </label>
-
-                <p class="small-note" style="margin: 0.75rem 0 0.25rem">
-                  5 questions • ~60 seconds • We’ll recommend the best-fit tier.
-                </p>
-
-                <p class="text-link" style="margin-top: 0.75rem">
-                  <button
-                    type="submit"
-                    class="btn-primary"
-                    data-track="quiz_submit_click"
-                    data-label="package_quiz_submit"
-                  >
-                    Get my recommendation →
-                  </button>
-                </p>
-
-                <p class="form-note" style="margin-bottom: 0">
-                  You’ll receive a recommendation and a direct link to continue
-                  to the project inquiry with the tier preselected.
-                </p>
-              </form>
-            </div>
-          </div>
-
-          <!-- Result (payoff card) -->
-          <div
-            id="quizResult"
-            class="service-block"
-            style="margin-top: 1.25rem"
-            hidden
-          >
-            <h2 id="resultTitle">Your recommendation</h2>
-
-            <p class="summary" id="resultSummary">
-              Answer the questions above and click
-              <strong>Get my recommendation</strong>. Your result will appear
-              here with a direct link to continue.
-            </p>
-
-            <div class="addons-grid" id="resultDetails"></div>
-
-            <p class="text-link" style="margin-top: 1rem">
-              <a
-                id="resultCta"
-                class="btn-secondary"
-                href="contact.html?project_type=website&source=quiz_result"
-                data-track="services_cta_click"
-                data-label="quiz_result_start_inquiry"
-                hidden
-              >
-                Continue to Project Inquiry →
-              </a>
-            </p>
-
-            <p class="form-note" style="margin-top: 0.25rem">
-              You’ll have a chance to confirm scope and ask questions before
-              anything is finalized.
-            </p>
-
-            <p class="small-note" id="resultNote"></p>
-          </div>
-        </div>
-      </section>
-    </main>
+        <a
+          id="resultCta"
+          class="btn-secondary"
+          href="#"
+        >
+          Continue to Project Inquiry →
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer class="site-footer footer--centered">
   <div class="container">

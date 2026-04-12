@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const safeLower = (v) => (v == null ? "" : String(v)).trim().toLowerCase();
 
-  // Unified tracking wrapper (doesn't throw if GA blocked)
   const track = (eventName, params = {}) => {
     try {
       if (typeof window.gtag === "function") {
@@ -33,10 +32,106 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* =========================================================
-     PHOTO STRIP — ACTUALLY SEAMLESS (NO GAP)
-     - HTML: keep ONE .photo-strip__set
-     - JS clones enough sets to fill the viewport (2 is NOT always enough)
-     - Distance = width of ONE set (stable loop)
+     SOURCE LABEL
+  ========================================================= */
+  const sourceLabel =
+    getParam("source") ||
+    (getParam("type") ? `type_${safeLower(getParam("type"))}` : "") ||
+    "direct";
+
+  /* =========================================================
+     FOOTER YEAR
+  ========================================================= */
+  (() => {
+    const yearEl = qs("#year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+
+  /* =========================================================
+     NAV ACTIVE STATES
+  ========================================================= */
+  (() => {
+    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const nav = qs("[data-nav]");
+    if (!nav) return;
+
+    qsa("a[href]", nav).forEach((a) => {
+      const href = (a.getAttribute("href") || "").trim();
+      if (!href || href.startsWith("http") || href.startsWith("#")) return;
+
+      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
+      const isMatch = file === path;
+
+      a.classList.toggle("active", isMatch);
+      if (isMatch) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+  })();
+
+  /* =========================================================
+     GA CLICK TRACKING
+  ========================================================= */
+  (() => {
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest("[data-track]");
+      if (!el) return;
+
+      const eventName = (el.getAttribute("data-track") || "click").trim();
+      const explicitLabel = (el.getAttribute("data-label") || "").trim();
+      const textFallback = (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
+      const href = (el.getAttribute("href") || "").trim();
+
+      const label =
+        explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
+
+      const isOutbound =
+        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
+
+      track(eventName, {
+        label,
+        outbound: !!isOutbound,
+        link_url: isOutbound ? href : undefined,
+        source: sourceLabel,
+      });
+    });
+  })();
+
+  /* =========================================================
+     MOBILE NAV TOGGLE
+  ========================================================= */
+  (() => {
+    const toggle = qs("[data-nav-toggle]");
+    const nav = qs("[data-nav]");
+    if (!toggle || !nav) return;
+
+    const setOpen = (open) => {
+      toggle.classList.toggle("is-open", open);
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.classList.contains("is-open");
+      setOpen(!isOpen);
+    });
+
+    nav.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+      if (window.matchMedia("(max-width: 900px)").matches) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 901px)").matches) setOpen(false);
+    });
+  })();
+
+  /* =========================================================
+     PHOTO STRIP — SEAMLESS MARQUEE
   ========================================================= */
   (function photoStripMarqueeSeamless() {
     const strips = document.querySelectorAll(".photo-strip");
@@ -46,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const pxPerSecond = 55; // speed (adjust if you want)
+    const pxPerSecond = 55;
 
     const waitImages = (root) => {
       const imgs = Array.from(root.querySelectorAll("img"));
@@ -72,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const setA = sets[0];
 
-      // Reduced motion = no cloning, no animation
       if (prefersReduced) {
         sets.slice(1).forEach((n) => n.remove());
         trackEl.style.animation = "none";
@@ -82,46 +176,31 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Always start clean: keep only the first set
       sets.slice(1).forEach((n) => n.remove());
-
-      // Wait for images so width is real
       await waitImages(setA);
 
-      // Force measurement after layout settles
       requestAnimationFrame(() => {
         const stripW = strip.clientWidth || 0;
-
-        // IMPORTANT: getBoundingClientRect width (more reliable than offsetWidth with transforms)
         const setW = Math.round(setA.getBoundingClientRect().width);
 
         if (!setW || setW < 10) return;
 
-        // We need enough repeated sets so there is NEVER a blank area.
-        // Rule: total track width >= strip width + one set width
-        // (so as one set slides out, another is always sliding in)
         const minTrackW = stripW + setW;
-
-        let trackW = setW; // currently only one set exists
+        let trackW = setW;
         let clones = 0;
 
         while (trackW < minTrackW && clones < 12) {
           const clone = setA.cloneNode(true);
           trackEl.appendChild(clone);
           clones += 1;
-
-          // Update estimate
           trackW += setW;
         }
 
-        // Safety: always at least 2 sets
         if (trackEl.querySelectorAll(".photo-strip__set").length < 2) {
           trackEl.appendChild(setA.cloneNode(true));
         }
 
-        // Set animation distance = exactly ONE set width
         trackEl.style.setProperty("--marquee-distance", `${setW}px`);
-
         const duration = Math.max(12, Math.round(setW / pxPerSecond));
         trackEl.style.setProperty("--marquee-duration", `${duration}s`);
       });
@@ -129,14 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     strips.forEach(rebuild);
 
-    // Rebuild on resize (debounced)
     let t;
     window.addEventListener("resize", () => {
       clearTimeout(t);
       t = setTimeout(() => strips.forEach(rebuild), 150);
     });
 
-    // Rebuild when fonts/images/layout shift (more reliable than resize alone)
     if ("ResizeObserver" in window) {
       const ro = new ResizeObserver(() => {
         clearTimeout(t);
@@ -147,97 +224,92 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-   LIGHTBOX — WORKS WITH PHOTO STRIP + CLONES
-   - Requires:
-     #lightbox
-     #lightboxImg
-     [data-lightbox-close]
-   - Opens on click of .photo-strip__btn[data-lightbox-src]
-========================================================= */
-(function initLightbox() {
-  const lb = document.getElementById("lightbox");
-  const lbImg = document.getElementById("lightboxImg");
-  if (!lb || !lbImg) return;
+     LIGHTBOX
+  ========================================================= */
+  (function initLightbox() {
+    const lb = qs("#lightbox");
+    const lbImg = qs("#lightboxImg");
+    if (!lb || !lbImg) return;
 
-  let lastActive = null;
+    let lastActiveEl = null;
 
-  const open = (src, alt) => {
-    if (!src) return;
-    lastActive = document.activeElement;
+    const openWith = (src, alt = "Preview image") => {
+      if (!src) return;
 
-    lbImg.src = src;
-    lbImg.alt = alt || "Image preview";
+      lastActiveEl = document.activeElement;
+      lbImg.src = src;
+      lbImg.alt = alt;
 
-    lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
 
-    // Prevent background scrolling
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-  };
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    };
 
-  const close = () => {
-    lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
+    const close = () => {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
 
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
 
-    lbImg.src = "";
-    lbImg.alt = "";
+      lbImg.src = "";
+      lbImg.alt = "";
 
-    if (lastActive && typeof lastActive.focus === "function") lastActive.focus();
-    lastActive = null;
-  };
-
-  // CLICK: open from strip buttons (works for clones)
-  document.addEventListener(
-    "click",
-    (e) => {
-      const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
-      if (btn) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const src = (btn.getAttribute("data-lightbox-src") || "").trim();
-        const img = btn.querySelector("img");
-        const alt =
-          (img && img.getAttribute("alt")) ||
-          btn.getAttribute("aria-label") ||
-          "Image preview";
-
-        open(src, alt);
-        return;
+      if (lastActiveEl && typeof lastActiveEl.focus === "function") {
+        lastActiveEl.focus();
       }
+      lastActiveEl = null;
+    };
 
-      // Close if backdrop or close button clicked
-      if (e.target.closest("[data-lightbox-close]")) {
-        e.preventDefault();
-        close();
-      }
-    },
-    true // capture phase helps if something else is interfering
-  );
+    document.addEventListener(
+      "pointerdown",
+      (e) => {
+        const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
+        if (btn) {
+          e.preventDefault();
+          const src = (btn.getAttribute("data-lightbox-src") || "").trim();
+          const img = btn.querySelector("img");
+          const alt =
+            (img && img.getAttribute("alt")) ||
+            btn.getAttribute("aria-label") ||
+            "Preview image";
+          openWith(src, alt);
+          return;
+        }
 
-  // ESC: close
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
-  });
-})();
+        if (e.target.closest("[data-lightbox-close]")) {
+          e.preventDefault();
+          close();
+          return;
+        }
 
+        if (e.target.classList && e.target.classList.contains("lightbox-backdrop")) {
+          e.preventDefault();
+          close();
+        }
+      },
+      { passive: false }
+    );
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+    });
+  })();
 
   /* =========================================================
      ABOUT SPLIT ROTATOR
   ========================================================= */
-  (function () {
-    const section = document.querySelector(".about-split");
+  (function initAboutSplitRotator() {
+    const section = qs(".about-split");
     if (!section) return;
 
-    const imgEl = section.querySelector(".about-split__img");
-    const capEl = section.querySelector(".about-split__caption");
-    const dotsWrap = section.querySelector(".about-split__dots");
-    const btnPrev = section.querySelector("[data-prev]");
-    const btnNext = section.querySelector("[data-next]");
+    const imgEl = qs(".about-split__img", section);
+    const capEl = qs(".about-split__caption", section);
+    const dotsWrap = qs(".about-split__dots", section);
+    const btnPrev = qs("[data-prev]", section);
+    const btnNext = qs("[data-next]", section);
     if (!imgEl || !capEl || !dotsWrap) return;
 
     const slides = [
@@ -312,109 +384,15 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     SOURCE LABEL (attribution)
-  ========================================================= */
-  const sourceLabel =
-    getParam("source") ||
-    (getParam("type") ? `type_${safeLower(getParam("type"))}` : "") ||
-    "direct";
-
-  /* =========================================================
-     FOOTER YEAR (global)
-  ========================================================= */
-  const yearEl = qs("#year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  /* =========================================================
-     NAV ACTIVE STATES (global)
-  ========================================================= */
-  (() => {
-    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-    const nav = qs("[data-nav]");
-    if (!nav) return;
-
-    qsa("a[href]", nav).forEach((a) => {
-      const href = (a.getAttribute("href") || "").trim();
-      if (!href || href.startsWith("http") || href.startsWith("#")) return;
-
-      const file = href.split("?")[0].split("#")[0].split("/").pop().toLowerCase();
-      const isMatch = file === path;
-
-      a.classList.toggle("active", isMatch);
-      if (isMatch) a.setAttribute("aria-current", "page");
-      else a.removeAttribute("aria-current");
-    });
-  })();
-
-  /* =========================================================
-     GA CLICK TRACKING (global)
-  ========================================================= */
-  (() => {
-    document.addEventListener("click", (e) => {
-      const el = e.target.closest("[data-track]");
-      if (!el) return;
-
-      const eventName = (el.getAttribute("data-track") || "click").trim();
-      const explicitLabel = (el.getAttribute("data-label") || "").trim();
-
-      const textFallback = (el.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
-      const href = (el.getAttribute("href") || "").trim();
-
-      const label =
-        explicitLabel || textFallback || (href ? `href:${href}` : "") || "unknown";
-
-      const isOutbound =
-        href && /^https?:\/\//i.test(href) && !href.includes(window.location.hostname);
-
-      track(eventName, {
-        label,
-        outbound: !!isOutbound,
-        link_url: isOutbound ? href : undefined,
-        source: sourceLabel,
-      });
-    });
-  })();
-
-  /* =========================================================
-     MOBILE NAV TOGGLE (global)
-  ========================================================= */
-  (() => {
-    const toggle = qs("[data-nav-toggle]");
-    const nav = qs("[data-nav]");
-    if (!toggle || !nav) return;
-
-    const setOpen = (open) => {
-      toggle.classList.toggle("is-open", open);
-      nav.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    };
-
-    toggle.addEventListener("click", () => {
-      const isOpen = toggle.classList.contains("is-open");
-      setOpen(!isOpen);
-    });
-
-    nav.addEventListener("click", (e) => {
-      const link = e.target.closest("a");
-      if (!link) return;
-      if (window.matchMedia("(max-width: 900px)").matches) setOpen(false);
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setOpen(false);
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.matchMedia("(min-width: 901px)").matches) setOpen(false);
-    });
-  })();
-
-  /* =========================================================
      PACKAGE QUIZ
+     Supports the updated offer structure:
+     - Website Reset
+     - Custom Website Build
+     - Premium Website Build
   ========================================================= */
   (() => {
     const form = qs("#packageQuiz");
-    if (!form) return; // only runs on quiz page
+    if (!form) return;
 
     const result = qs("#quizResult");
     const title = qs("#resultTitle");
@@ -423,23 +401,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const cta = qs("#resultCta");
     const note = qs("#resultNote");
 
-    if (!result || !title || !summary || !details || !cta || !note) return;
+    if (!result || !title || !summary || !cta) return;
 
     result.hidden = true;
-    cta.hidden = true;
+    if ("hidden" in cta) cta.hidden = true;
 
-    const score = { foundation: 0, growth: 0, strategic: 0 };
-    const resetScore = () => {
-      score.foundation = 0;
-      score.growth = 0;
-      score.strategic = 0;
-    };
-    const add = (tier, pts) => (score[tier] += pts);
-    const winner = () =>
-      Object.entries(score).sort((a, b) => b[1] - a[1])[0]?.[0] || "growth";
-
-    const selects = Array.from(form.querySelectorAll("select[required]"));
-    const totalSteps = selects.length || 5;
+    const requiredSelects = Array.from(form.querySelectorAll("select[required]"));
+    const totalSteps = requiredSelects.length || 5;
 
     const makeProgress = () => {
       const wrap = document.createElement("div");
@@ -468,25 +436,22 @@ document.addEventListener("DOMContentLoaded", () => {
         d.style.borderRadius = "999px";
         d.style.border = "1px solid currentColor";
         d.style.opacity = "0.35";
-        d.style.transform = "translateZ(0)";
         dotEls.push(d);
         dots.appendChild(d);
       }
 
       wrap.appendChild(dots);
       wrap.appendChild(label);
-
       return { wrap, dotEls, label };
     };
 
     const progress = makeProgress();
-
     const firstNote = form.querySelector(".form-note");
     if (firstNote) firstNote.insertAdjacentElement("afterend", progress.wrap);
     else form.insertAdjacentElement("afterbegin", progress.wrap);
 
     const countAnswered = () =>
-      selects.reduce((acc, s) => acc + ((s.value || "").trim() ? 1 : 0), 0);
+      requiredSelects.reduce((acc, s) => acc + ((s.value || "").trim() ? 1 : 0), 0);
 
     const updateProgress = () => {
       const answered = countAnswered();
@@ -498,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
       progress.label.textContent = `${answered}/${totalSteps} answered`;
     };
 
-    selects.forEach((s) => s.addEventListener("change", updateProgress));
+    requiredSelects.forEach((s) => s.addEventListener("change", updateProgress));
     updateProgress();
 
     const makeCard = (heading, price, items) => {
@@ -506,14 +471,14 @@ document.addEventListener("DOMContentLoaded", () => {
       el.className = "addon";
       el.open = true;
       el.innerHTML = `
-      <summary>
-        ${heading}
-        <span class="addon-price">${price}</span>
-      </summary>
-      <div class="addon-body">
-        <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
-      </div>
-    `;
+        <summary>
+          ${heading}
+          <span class="addon-price">${price}</span>
+        </summary>
+        <div class="addon-body">
+          <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+        </div>
+      `;
       return el;
     };
 
@@ -522,11 +487,11 @@ document.addEventListener("DOMContentLoaded", () => {
       el.className = "addon";
       el.open = true;
       el.innerHTML = `
-      <summary>Why this recommendation</summary>
-      <div class="addon-body">
-        <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
-      </div>
-    `;
+        <summary>Why this recommendation</summary>
+        <div class="addon-body">
+          <ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>
+        </div>
+      `;
       return el;
     };
 
@@ -546,16 +511,16 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
         updateProgress();
 
-        details.innerHTML = "";
+        if (details) details.innerHTML = "";
         result.hidden = true;
-        cta.hidden = true;
-        note.textContent = "";
+        if ("hidden" in cta) cta.hidden = true;
+        if (note) note.textContent = "";
 
         title.textContent = "Your recommendation";
         summary.innerHTML =
           "Answer the questions above and click <strong>Get my recommendation</strong>. Your result will appear here with a direct link to continue.";
 
-        const firstSel = selects[0];
+        const firstSel = requiredSelects[0];
         if (firstSel) firstSel.focus();
 
         track("package_quiz_reset", { source: sourceLabel });
@@ -587,106 +552,170 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const render = (tier) => {
-      details.innerHTML = "";
+      if (details) details.innerHTML = "";
 
-      if (tier === "foundation") {
-        title.textContent = "Recommendation: Foundation Website";
+      if (tier === "website-reset") {
+        title.textContent = "Recommendation: Website Reset";
         summary.textContent =
-          "Based on your responses, a Foundation Website is likely the best fit. This tier is designed for clarity, credibility, and a clean path to contact — without unnecessary complexity.";
+          "Based on your answers, a Website Reset looks like the best fit. This is the right choice when you already have a site, but it feels unclear, outdated, or not fully aligned with your business anymore.";
 
-        details.appendChild(
-          makeCard("Foundation Website", "$1,200 +", [
-            "1–3 custom pages",
-            "Mobile-responsive build",
-            "Basic SEO + contact form",
-            "Domain + hosting connection",
-            "Launch-ready handoff",
-          ])
-        );
+        if (details) {
+          details.appendChild(
+            makeCard("Website Reset", "Starting at $1,400", [
+              "Refinement of an existing website",
+              "Clearer structure and stronger page flow",
+              "Mobile-friendly updates",
+              "Call-to-action cleanup",
+              "Foundational SEO improvements",
+              "Launch support",
+            ])
+          );
 
-        details.appendChild(
-          makeWhy([
-            "You indicated a smaller page count and a need for clarity over complexity.",
-            "Your primary goal centers on credibility and a clear contact path.",
-            "Advanced tracking and multi-step flows were not a priority based on your responses.",
-            "This tier keeps the build clean and professional without overbuilding.",
-          ])
-        );
+          details.appendChild(
+            makeWhy([
+              "You already have a website in place.",
+              "Your project sounds more like refinement than a full rebuild from scratch.",
+              "You need stronger clarity and structure without overcomplicating the scope.",
+            ])
+          );
+        }
 
         cta.href =
-          "contact.html?project_type=website&tier=foundation&source=package_quiz";
-        note.textContent =
-          "If your offer becomes more complex or you need stronger conversion flow, the Growth tier may be a better next step.";
+          "/contact.html?project_type=website-reset&source=package_quiz&tier=website-reset";
+
+        if (note) {
+          note.textContent =
+            "If the scope grows or your current site is too limited to build from, a Custom Website Build may be the better direction.";
+        }
       }
 
-      if (tier === "growth") {
-        title.textContent = "Recommendation: Growth Website (Most Popular)";
+      if (tier === "custom-website-build") {
+        title.textContent = "Recommendation: Custom Website Build";
         summary.textContent =
-          "Based on your responses, a Growth Website is likely the best fit. This tier provides stronger structure, clearer calls to action, and light conversion strategy to support consistent inquiries.";
+          "Based on your answers, a Custom Website Build is likely the best fit. This is ideal when you need a full site built from the ground up with clear structure, thoughtful design, and conversion in mind.";
 
-        details.appendChild(
-          makeCard("Growth Website", "$1,800 +", [
-            "4–6 custom pages",
-            "Strategic page flow + CTAs",
-            "GA4 analytics setup",
-            "Email signup integration",
-            "On-page SEO enhancements",
-          ])
-        );
+        if (details) {
+          details.appendChild(
+            makeCard("Custom Website Build", "Starting at $1,800", [
+              "Custom build from the ground up",
+              "Clear page structure and user flow",
+              "Mobile-first, conversion-focused layout",
+              "Foundational SEO + analytics setup",
+              "Inquiry flow support",
+              "Launch readiness support",
+            ])
+          );
 
-        details.appendChild(
-          makeWhy([
-            "You indicated a need for stronger structure and guided calls to action.",
-            "Your site needs to support consistent inquiries, not just exist.",
-            "Analytics and email capture mattered, without full funnel complexity.",
-            "This tier balances strategy and simplicity without overbuilding.",
-          ])
-        );
+          details.appendChild(
+            makeWhy([
+              "You need more than a simple cleanup.",
+              "Your site needs structure, guidance, and a stronger path to action.",
+              "Your project calls for a clean custom build without the deeper complexity of a premium scope.",
+            ])
+          );
+        }
 
         cta.href =
-          "contact.html?project_type=website&tier=growth&source=package_quiz";
-        note.textContent =
-          "If your website needs to directly support revenue or more advanced tracking, a Strategic build may be appropriate.";
+          "/contact.html?project_type=custom-website-build&source=package_quiz&tier=custom-website-build";
+
+        if (note) {
+          note.textContent =
+            "If your project needs more advanced customization, layered strategy, or custom integrations, a Premium Website Build may be a better fit.";
+        }
       }
 
-      if (tier === "strategic") {
-        title.textContent =
-          "Recommendation: Strategic / Conversion-Led Website";
+      if (tier === "premium-website-build") {
+        title.textContent = "Recommendation: Premium Website Build";
         summary.textContent =
-          "Based on your responses, a Strategic / Conversion-Led Website is likely the best fit. This tier is designed for businesses where the website plays an active role in revenue, decision-making, and performance.";
+          "Based on your answers, a Premium Website Build looks like the best fit. This is for projects that need deeper planning, more customization, and a more layered build experience.";
 
-        details.appendChild(
-          makeCard("Strategic / Conversion-Led", "$2,400–$3,200", [
-            "7–10 custom pages",
-            "Conversion mapping + lead flow",
-            "Advanced analytics + event tracking",
-            "Performance + accessibility pass",
-            "Priority planning + support",
-          ])
-        );
+        if (details) {
+          details.appendChild(
+            makeCard("Premium Website Build", "Starting at $2,200+", [
+              "More custom layout and structure",
+              "Deeper strategy and planning support",
+              "Advanced integrations when needed",
+              "Higher-touch project guidance",
+              "Post-launch guidance",
+              "Priority support",
+            ])
+          );
 
-        details.appendChild(
-          makeWhy([
-            "Your responses indicate the website plays an active role in revenue or enrollment.",
-            "Conversion flow, decision points, and tracking are important for this build.",
-            "You selected options that require deeper guidance and performance decisions.",
-            "This tier supports intentional optimization rather than guesswork.",
-          ])
-        );
+          details.appendChild(
+            makeWhy([
+              "Your project sounds more custom and layered than a standard build.",
+              "You want stronger input on strategy, structure, or decision-making.",
+              "Your scope likely includes added flexibility, integration needs, or a more tailored experience.",
+            ])
+          );
+        }
 
         cta.href =
-          "contact.html?project_type=website&tier=strategic&source=package_quiz";
-        note.textContent =
-          "Final scope is always confirmed before work begins to ensure the right level of support.";
+          "/contact.html?project_type=premium-website-build&source=package_quiz&tier=premium-website-build";
+
+        if (note) {
+          note.textContent =
+            "Final scope is always confirmed before anything is booked so the level of support matches what you actually need.";
+        }
       }
 
       result.hidden = false;
-      cta.hidden = false;
+      if ("hidden" in cta) cta.hidden = false;
       mountResetBtn();
-
       maybeScrollToResult();
 
       track("package_quiz_result", { label: tier, source: sourceLabel });
+    };
+
+    const getQuizResult = () => {
+      const qExisting = safeLower(
+        form.elements.q_existing?.value || form.elements.q_existing_site?.value || ""
+      );
+      const qScope = safeLower(
+        form.elements.q_scope?.value || form.elements.q_pages?.value || ""
+      );
+      const qGoal = safeLower(form.elements.q_goal?.value || "");
+      const qSupport = safeLower(form.elements.q_support?.value || "");
+      const qCustom = safeLower(
+        form.elements.q_custom?.value || form.elements.q_tracking?.value || ""
+      );
+
+      let premiumPoints = 0;
+      let customPoints = 0;
+      let resetPoints = 0;
+
+      if (qExisting === "yes") resetPoints += 3;
+      if (qExisting === "no") customPoints += 2;
+
+      if (qScope === "simple" || qScope === "1_3") resetPoints += 2;
+      if (qScope === "standard" || qScope === "4_6") customPoints += 3;
+      if (qScope === "advanced" || qScope === "7_10") premiumPoints += 3;
+
+      if (qGoal === "credibility") resetPoints += 1;
+      if (qGoal === "leads") customPoints += 2;
+      if (qGoal === "conversion" || qGoal === "revenue") premiumPoints += 2;
+
+      if (qSupport === "light" || qSupport === "hands_off") resetPoints += 1;
+      if (qSupport === "guided") customPoints += 2;
+      if (qSupport === "high" || qSupport === "strategic") premiumPoints += 3;
+
+      if (qCustom === "no" || qCustom === "basic") resetPoints += 1;
+      if (qCustom === "some" || qCustom === "ga4") customPoints += 1;
+      if (qCustom === "yes" || qCustom === "events") premiumPoints += 2;
+
+      if (qExisting === "yes" && (qScope === "simple" || qScope === "1_3")) {
+        return "website-reset";
+      }
+
+      if (premiumPoints >= customPoints && premiumPoints >= resetPoints) {
+        return "premium-website-build";
+      }
+
+      if (customPoints >= resetPoints) {
+        return "custom-website-build";
+      }
+
+      return "website-reset";
     };
 
     form.addEventListener("submit", (e) => {
@@ -698,36 +727,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const data = new FormData(form);
-      const pages = data.get("q_pages");
-      const goal = data.get("q_goal");
-      const tracking = data.get("q_tracking");
-      const email = data.get("q_email");
-      const support = data.get("q_support");
-
-      resetScore();
-
-      if (pages === "1_3") add("foundation", 3);
-      if (pages === "4_6") add("growth", 3);
-      if (pages === "7_10") add("strategic", 3);
-
-      if (goal === "credibility") add("foundation", 3);
-      if (goal === "leads") add("growth", 3);
-      if (goal === "revenue") add("strategic", 3);
-
-      if (tracking === "basic") add("foundation", 2);
-      if (tracking === "ga4") add("growth", 2);
-      if (tracking === "events") add("strategic", 2);
-
-      if (email === "no") add("foundation", 1);
-      if (email === "yes_basic") add("growth", 2);
-      if (email === "yes_strategic") add("strategic", 2);
-
-      if (support === "hands_off") add("foundation", 1);
-      if (support === "guided") add("growth", 2);
-      if (support === "strategic") add("strategic", 3);
-
-      render(winner());
+      render(getQuizResult());
     });
   })();
 
@@ -754,56 +754,62 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: PROJECT TYPE RESOLUTION (URL → dropdown)
+     CONTACT: PROJECT TYPE RESOLUTION
   ========================================================= */
   const resolveDesiredProjectType = () => {
     const projectTypeRaw = safeLower(getParam("project_type"));
-    const serviceRaw = safeLower(getParam("service")); // legacy
-    const typeRaw = safeLower(getParam("type")); // legacy
-    const tierRaw = safeLower(getParam("tier")); // optional helper
+    const serviceRaw = safeLower(getParam("service"));
+    const typeRaw = safeLower(getParam("type"));
+    const tierRaw = safeLower(getParam("tier"));
 
     const tierToProjectType = {
-      foundation: "foundation-website",
-      growth: "growth-website",
-      strategic: "strategy",
+      "website-reset": "website-reset",
+      "custom-website-build": "custom-website-build",
+      "premium-website-build": "premium-website-build",
+      foundation: "website-reset",
+      growth: "custom-website-build",
+      strategic: "premium-website-build",
+      premium: "premium-website-build",
     };
+
     if (tierRaw && tierToProjectType[tierRaw]) return tierToProjectType[tierRaw];
 
     const allowed = new Set([
-      "foundation-website",
-      "growth-website",
-      "strategy",
+      "website-reset",
+      "custom-website-build",
+      "premium-website-build",
       "product",
       "funnel",
-      "brand-identity",
       "brand-only",
       "brand-web-prep",
       "photography",
-      "wellness_starter",
-      "wellness_growth",
       "not_sure",
     ]);
 
     if (projectTypeRaw && allowed.has(projectTypeRaw)) return projectTypeRaw;
 
     const legacyMap = {
-      website: "foundation-website",
-      standard: "foundation-website",
+      website: "custom-website-build",
+      standard: "custom-website-build",
       clarity_call: "not_sure",
       "clarity-call": "not_sure",
-      strategy: "strategy",
+      strategy: "premium-website-build",
+      premium: "premium-website-build",
+      foundation: "website-reset",
+      growth: "custom-website-build",
+      strategic: "premium-website-build",
+      reset: "website-reset",
       product: "product",
       funnel: "funnel",
-      brand: "brand-identity",
-      brand_identity: "brand-identity",
-      "brand-identity": "brand-identity",
+      brand: "brand-only",
+      brand_identity: "brand-only",
+      "brand-identity": "brand-only",
       "brand-only": "brand-only",
       brand_only: "brand-only",
       "brand-web-prep": "brand-web-prep",
       brand_web_prep: "brand-web-prep",
       photography: "photography",
-      wellness_starter: "wellness_starter",
-      wellness_growth: "wellness_growth",
+      not_sure: "not_sure",
     };
 
     if (serviceRaw && legacyMap[serviceRaw]) return legacyMap[serviceRaw];
@@ -813,7 +819,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* =========================================================
-     CONTACT: PREFILL SELECT + NOTE + HERO SWAP
+     CONTACT: PREFILL SELECT + HERO SWAP
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -827,7 +833,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const opt = Array.from(select.options).find((o) => safeLower(o.value) === desired);
       if (opt) {
         select.value = opt.value;
-        select.dispatchEvent(new Event("change", { bubbles: true }));
       }
     }
 
@@ -856,10 +861,31 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (v === "brand-identity" || v === "brand-only" || v === "brand-web-prep") {
+      if (v === "brand-only" || v === "brand-web-prep") {
         heroH1.textContent = "Start a Branding Project";
         heroText.textContent =
-          "Share a few details about your brand and what you need. I’ll review, confirm fit, and follow up with next steps.";
+          "Share a few details about your brand and where you need clarity. I’ll review, confirm fit, and follow up with next steps.";
+        return;
+      }
+
+      if (v === "website-reset") {
+        heroH1.textContent = "Start a Website Reset";
+        heroText.textContent =
+          "Tell me what feels off in your current site. I’ll review what needs work, confirm fit, and follow up with the cleanest next step.";
+        return;
+      }
+
+      if (v === "custom-website-build") {
+        heroH1.textContent = "Start a Custom Website Build";
+        heroText.textContent =
+          "Share what you’re building from the ground up. I’ll review your goals, confirm fit, and follow up with next steps or a quote.";
+        return;
+      }
+
+      if (v === "premium-website-build") {
+        heroH1.textContent = "Start a Premium Website Build";
+        heroText.textContent =
+          "Share a few details about the kind of support and customization you need. I’ll review scope, confirm fit, and follow up with next steps.";
         return;
       }
 
@@ -869,7 +895,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     updateHero();
-
     select.addEventListener("change", () => {
       if (note) note.hidden = !safeLower(select.value);
       updateHero();
@@ -877,7 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: PREFILL HIDDEN FIELDS (source/source_page/referrer/tier)
+     CONTACT: PREFILL HIDDEN FIELDS
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -889,32 +914,50 @@ document.addEventListener("DOMContentLoaded", () => {
     const tierInput = qs("#tier", form);
 
     if (sourceInput) sourceInput.value = sourceLabel;
-    if (sourcePageInput) sourcePageInput.value = window.location.href;
+    if (sourcePageInput) sourcePageInput.value = window.location.pathname || "/contact.html";
     if (referrerInput) referrerInput.value = document.referrer || "";
 
     const tierRaw = safeLower(getParam("tier"));
-    const allowed = new Set(["foundation", "growth", "strategic"]);
-    if (tierInput && tierRaw && allowed.has(tierRaw)) tierInput.value = tierRaw;
+    const allowed = new Set([
+      "website-reset",
+      "custom-website-build",
+      "premium-website-build",
+      "foundation",
+      "growth",
+      "strategic",
+    ]);
+
+    if (tierInput && tierRaw && allowed.has(tierRaw)) {
+      const map = {
+        foundation: "website-reset",
+        growth: "custom-website-build",
+        strategic: "premium-website-build",
+      };
+      tierInput.value = map[tierRaw] || tierRaw;
+    }
   })();
 
   /* =========================================================
-     CONTACT: SHOW SELECTED TIER NOTE
+     CONTACT: SHOW SELECTED NOTE
   ========================================================= */
   (() => {
     const note = qs("#selectionNote");
     const text = qs("#selectionText");
     if (!note || !text) return;
 
+    const projectType = resolveDesiredProjectType();
     const tier = safeLower(getParam("tier"));
-    if (!tier) return;
 
     const labelMap = {
-      foundation: "Foundation Website",
-      growth: "Growth Website",
-      strategic: "Premium Website",
+      "website-reset": "Website Reset",
+      "custom-website-build": "Custom Website Build",
+      "premium-website-build": "Premium Website Build",
+      foundation: "Website Reset",
+      growth: "Custom Website Build",
+      strategic: "Premium Website Build",
     };
 
-    const label = labelMap[tier];
+    const label = labelMap[projectType] || labelMap[tier];
     if (!label) return;
 
     text.textContent = label;
@@ -922,7 +965,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: CONDITIONAL SECTIONS (data-show-for)
+     CONTACT: CONDITIONAL SECTIONS
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -953,8 +996,8 @@ document.addEventListener("DOMContentLoaded", () => {
         setEnabled(section, !!show);
       });
 
-      const focus = qs("#strategy_focus", form);
-      if (focus) focus.required = current === "strategy";
+      const premiumFocus = qs("#premium_focus", form);
+      if (premiumFocus) premiumFocus.required = current === "premium-website-build";
     };
 
     apply();
@@ -962,7 +1005,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     CONTACT: SUBMIT HANDLING + ATTRIBUTION (Formspree + GA events)
+     CONTACT: SUBMIT HANDLING + ATTRIBUTION
   ========================================================= */
   (() => {
     const form = qs("#contactForm");
@@ -1065,10 +1108,10 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /* =========================================================
-     Brand Process Tabs (accessible)
+     BRAND PROCESS TABS
   ========================================================= */
   (function initBrandProcessTabs() {
-    const root = document.querySelector("[data-bp]");
+    const root = qs("[data-bp]");
     if (!root) return;
 
     const tabs = Array.from(root.querySelectorAll("[data-bp-tab]"));
@@ -1097,8 +1140,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       tab.addEventListener("keydown", (e) => {
         const key = e.key;
-        if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "Home" && key !== "End")
+        if (key !== "ArrowLeft" && key !== "ArrowRight" && key !== "Home" && key !== "End") {
           return;
+        }
 
         e.preventDefault();
 
@@ -1115,85 +1159,8 @@ document.addEventListener("DOMContentLoaded", () => {
     activate(0);
   })();
 
-/* =========================================================
-   LIGHTBOX (reliable on moving strips)
-   - Uses pointerdown (works better than click on animated elements)
-========================================================= */
-(() => {
-  const lb = document.querySelector("#lightbox");
-  const lbImg = document.querySelector("#lightboxImg");
-  if (!lb || !lbImg) return;
-
-  let lastActiveEl = null;
-
-  const openWith = (src, alt = "Preview image") => {
-    if (!src) return;
-
-    lastActiveEl = document.activeElement;
-
-    lbImg.src = src;
-    lbImg.alt = alt;
-
-    lb.classList.add("is-open");
-    lb.setAttribute("aria-hidden", "false");
-
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-  };
-
-  const close = () => {
-    lb.classList.remove("is-open");
-    lb.setAttribute("aria-hidden", "true");
-
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
-
-    lbImg.src = "";
-    lbImg.alt = "";
-
-    if (lastActiveEl && typeof lastActiveEl.focus === "function") lastActiveEl.focus();
-    lastActiveEl = null;
-  };
-
-  // Use pointerdown so taps register even while the strip is animating
-  document.addEventListener(
-    "pointerdown",
-    (e) => {
-      const btn = e.target.closest(".photo-strip__btn[data-lightbox-src]");
-      if (btn) {
-        e.preventDefault(); // prevents drag/ghost click issues
-        const src = (btn.getAttribute("data-lightbox-src") || "").trim();
-        const img = btn.querySelector("img");
-        const alt =
-          (img && img.getAttribute("alt")) ||
-          btn.getAttribute("aria-label") ||
-          "Preview image";
-        openWith(src, alt);
-        return;
-      }
-
-      if (e.target.closest("[data-lightbox-close]")) {
-        e.preventDefault();
-        close();
-        return;
-      }
-
-      if (e.target.classList && e.target.classList.contains("lightbox-backdrop")) {
-        e.preventDefault();
-        close();
-      }
-    },
-    { passive: false },
-  );
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) close();
-  });
-})();
-
-
   /* =========================================================
-     ALIVE MOTION (Hero parallax + reveal on scroll)
+     MOTION
   ========================================================= */
   const prefersReduced =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1222,6 +1189,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const candidates = qsa(
       ".section-header, .hero-text, .proof-item, .package-card, .service-block, .featured-item, .testimonial-card, .faq-item, .case-card, .legal-card"
     );
+
     candidates.forEach((el, i) => {
       if (el.classList.contains("reveal")) return;
       el.classList.add("reveal");
