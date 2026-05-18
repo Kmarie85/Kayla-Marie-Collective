@@ -141,7 +141,7 @@
           <p class="kicker">Contact</p>
           <h1 id="contactHeroTitle">Start a Website Project</h1>
           <p id="contactHeroText" class="hero-subcopy">
-            Share a few details about what you’re building. I’ll review your goals, confirm fit, and follow up with next steps or a quote.
+            Share a few details about what you’re building. I’ll review your goals, confirm fit, and follow up with the cleanest next step or a scoped recommendation.
           </p>
         </div>
       </section>
@@ -401,7 +401,7 @@
                     Deeper strategy + planning support
                   </option>
                   <option value="full_custom_experience">
-                    A more tailored, high-touch website build
+                    A more tailored, strategy-led website build
                   </option>
                   <option value="not_sure">
                     Not sure — I want your recommendation
@@ -518,11 +518,15 @@
               Budget Range (USD) <span aria-hidden="true">*</span>
               <select name="budget" required>
                 <option value="">Select one</option>
-                <option value="1400-1800">$1,400 – $1,800</option>
-                <option value="1800-3000">$1,800 – $3,000</option>
-                <option value="3000-5000">$3,000 – $5,000</option>
-                <option value="5000+">$5,000+</option>
+                <option value="under-1500">Under $1,500</option>
+                <option value="1500-2500">$1,500 – $2,500</option>
+                <option value="2500-5000">$2,500 – $5,000</option>
+                <option value="5000-plus">$5,000+</option>
+                <option value="not-sure">Not sure yet</option>
               </select>
+              <span class="form-note">
+                This helps me recommend the right scope. Larger strategy-led projects are quoted individually.
+              </span>
             </label>
 
             <label>
@@ -612,7 +616,7 @@
               <li><a href="/brand-identity.html">Brand Identity</a></li>
               <li><a href="/photography.html">Local Brand Photography</a></li>
               <li><a href="/website-care.html">Website Care</a></li>
-              <li><a href="/wellness-brands.html">Wellness Websites</a></li>
+              <li><a href="/services/wellness/">Wellness Websites</a></li>
             </ul>
           </div>
 
@@ -789,7 +793,7 @@
           if (val === "custom-website-build") {
             h1.textContent = "Start a Custom Website Build";
             p.textContent =
-              "Share what you’re building from the ground up. I’ll review your goals, confirm fit, and follow up with next steps or a quote.";
+              "Share what you’re building from the ground up. I’ll review your goals, confirm fit, and follow up with the cleanest next step or a scoped recommendation.";
             return;
           }
 
@@ -802,7 +806,7 @@
 
           h1.textContent = "Start a Website Project";
           p.textContent =
-            "Share a few details about what you’re building. I’ll review your goals, confirm fit, and follow up with next steps or a quote.";
+            "Share a few details about what you’re building. I’ll review your goals, confirm fit, and follow up with the cleanest next step or a scoped recommendation.";
         }
 
         if (projectTypeSelect) {
