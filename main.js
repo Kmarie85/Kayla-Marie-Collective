@@ -23,6 +23,15 @@ const revealSelectors = [
   ".about-background__content",
   ".personal-note__content",
   ".personal-note__card",
+  ".strategy-design__intro",
+  ".strategy-design__card",
+  ".strategy-design__panel",
+  ".life-collage__header",
+  ".life-collage__copy",
+  ".life-collage__images-wrap",
+  ".why-background-matters__intro",
+  ".why-background-matters__cards article",
+  ".belief-grid article",
   ".about-cta__container",
 
   ".contact-hero__container",
@@ -47,22 +56,73 @@ const revealSelectors = [
 
 const revealElements = document.querySelectorAll(revealSelectors.join(","));
 
-const revealOnScroll = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealOnScroll.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.14,
-  }
-);
+if ("IntersectionObserver" in window) {
+  const revealOnScroll = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealOnScroll.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.14,
+    }
+  );
 
-revealElements.forEach((element, index) => {
-  element.classList.add("reveal");
-  element.style.transitionDelay = `${Math.min(index * 35, 280)}ms`;
-  revealOnScroll.observe(element);
-});
+  revealElements.forEach((element, index) => {
+    element.classList.add("reveal");
+    element.style.transitionDelay = `${Math.min(index * 35, 280)}ms`;
+    revealOnScroll.observe(element);
+  });
+} else {
+  revealElements.forEach((element) => {
+    element.classList.add("is-visible");
+  });
+}
+
+/* CONTACT FORM — FORMSPREE */
+
+const contactForm = document.getElementById("project-inquiry-form");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: contactForm.method,
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        window.location.href = "thank-you.html";
+      } else {
+        alert(
+          "Something went wrong. Please email contact@kaylamariecollective.com directly."
+        );
+
+        submitButton.textContent = originalButtonText;
+        submitButton.disabled = false;
+      }
+    } catch (error) {
+      alert(
+        "Something went wrong. Please email contact@kaylamariecollective.com directly."
+      );
+
+      submitButton.textContent = originalButtonText;
+      submitButton.disabled = false;
+    }
+  });
+}
