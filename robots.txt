@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://kaylamariecollective.com/sitemap.xml
