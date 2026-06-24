@@ -711,8 +711,52 @@
     padding: 88px 0;
   }
 
+  @media (max-width: 760px) {
+  .hero__content,
+  .problem-section__content,
+  .about-preview__content,
+  .why-kmc__content,
+  .testimonials__intro,
+  .final-cta,
+  .section-header,
+  .container {
+    text-align: center;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  span,
+  .section-eyebrow {
+    text-align: center;
+  }
+
+  .hero__actions,
+  .actions,
+  .testimonial-actions,
+  .testimonials-actions,
+  .final-cta__actions {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__actions,
+  .final-cta__actions {
+    flex-direction: column;
+  }
+
+  .btn,
+  .text-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
   .hero h1 {
     font-size: clamp(3.5rem, 16vw, 5.5rem);
+    text-align: center;
   }
 
   .hero__visual,
