@@ -409,6 +409,11 @@
 }
 
 @media (max-width: 760px) {
+  .launch-support__container,
+  .launch-support__list {
+    grid-template-columns: 1fr;
+  }
+
   .launch-support {
     padding: 88px 0;
   }
@@ -423,7 +428,6 @@
     margin: 36px auto 0;
   }
 }
-
 
 .text-link {
   display: inline-block;
