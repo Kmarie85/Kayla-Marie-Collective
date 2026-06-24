@@ -318,18 +318,38 @@ a {
   margin: 0;
 }
 
+#footer-logo {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
 /* RESPONSIVE */
+
+/* TABLET */
 
 @media (max-width: 850px) {
   .site-footer__top {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
 
   .site-footer__middle,
   .site-footer__bottom {
     flex-direction: column;
+    gap: 24px;
+  }
+
+  .site-footer__links {
+    justify-content: center;
+  }
+
+  .site-footer__contact {
+    text-align: center;
   }
 }
+
+/* MOBILE */
 
 @media (max-width: 760px) {
   .site-header__inner {
@@ -340,6 +360,55 @@ a {
     justify-content: center;
     flex-wrap: wrap;
     gap: 18px;
+  }
+
+  /* Footer */
+
+  .site-footer {
+    padding: 70px 0 32px;
+  }
+
+  .site-footer__brand,
+  .site-footer__cta,
+  .site-footer__middle,
+  .site-footer__bottom {
+    text-align: center;
+  }
+
+  .site-footer__brand p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .site-footer__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .site-footer__links {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .site-footer__contact {
+    text-align: center;
+  }
+
+  .site-footer__bottom {
+    align-items: center;
+    text-align: center;
+  }
+
+  #footer-logo {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 300px;
+  }
+
+    #logo {
+    max-width: 320px;
+    height: auto;
   }
 }
 

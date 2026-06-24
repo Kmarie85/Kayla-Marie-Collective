@@ -680,26 +680,141 @@
   margin-top: 36px;
 }
 
+/* TESTIMONIAL GRID BASE */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 62px;
+  align-items: stretch;
+}
+
+.testimonial-card {
+  height: 100%;
+}
+
+.testimonial-card__quote p {
+  font-size: clamp(1.6rem, 2.1vw, 2.45rem);
+  line-height: 1.16;
+}
+
+.testimonial-actions,
+.testimonials-actions {
+  margin-top: 42px;
+  text-align: center;
+}
+
+.testimonial-card .btn,
+.testimonial-card .text-link {
+  margin-top: 20px;
+  color: var(--coral);
+}
+
+/* TABLET */
 @media (max-width: 1000px) {
   .hero__container,
   .problem-section__container,
   .about-preview__container,
   .why-kmc__container {
     grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .hero__content,
+  .problem-section__intro,
+  .about-preview__content,
+  .how-i-help__intro,
+  .client-stories__intro,
+  .why-kmc__content,
+  .objections__intro,
+  .process__intro,
+  .testimonials__intro,
+  .final-cta__container {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .hero h1,
+  .hero h2,
+  .hero__description,
+  .problem-section h2,
+  .problem-section__intro p,
+  .about-preview h2,
+  .about-preview p,
+  .how-i-help h2,
+  .how-i-help__intro p,
+  .client-stories h2,
+  .client-stories__intro p,
+  .why-kmc h2,
+  .why-kmc__content p,
+  .objections h2,
+  .objections__intro p,
+  .process h2,
+  .process__intro p,
+  .testimonials h2,
+  .final-cta h2,
+  .final-cta p {
+    text-align: center;
+  }
+
+  .hero__actions,
+  .hero__trust,
+  .testimonial-actions,
+  .testimonials-actions {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .how-i-help h2 {
+    width: auto;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero__visual {
-    min-height: 560px;
+    min-height: 620px;
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-preview__visual {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .process__steps {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
+/* SMALL TABLET */
+@media (max-width: 900px) {
+  .problem-grid,
+  .help-grid,
+  .story-grid,
+  .objections__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-card--wide {
+    grid-column: auto;
+  }
+}
+
+/* MOBILE */
 @media (max-width: 760px) {
   .hero,
-  .problem-section,
   .about-preview,
   .how-i-help,
   .client-stories,
@@ -708,70 +823,144 @@
   .process,
   .testimonials,
   .final-cta {
-    padding: 88px 0;
+    padding: 78px 0;
   }
 
-  @media (max-width: 760px) {
-  .hero__content,
-  .problem-section__content,
-  .about-preview__content,
-  .why-kmc__content,
-  .testimonials__intro,
-  .final-cta,
-  .section-header,
-  .container {
+  .problem-section {
+    padding-top: 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-top: 50px;
+    padding-bottom: 75px;
+  }
+
+  .hero__container,
+  .problem-section__container,
+  .about-preview__container,
+  .why-kmc__container {
+    gap: 46px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+    line-height: 0.88;
+    max-width: 100%;
+  }
+
+  .hero h2 {
+    font-size: clamp(1.65rem, 8vw, 2.45rem);
+    line-height: 1.05;
+  }
+
+  .problem-section h2,
+  .why-kmc h2,
+  .testimonials h2,
+  .about-preview h2,
+  .how-i-help h2,
+  .client-stories h2,
+  .objections h2,
+  .process h2,
+  .final-cta h2 {
+    font-size: clamp(2.75rem, 13vw, 4.35rem);
+    line-height: 0.95;
+    max-width: 100%;
+  }
+
+  .section-eyebrow,
+  .hero__description,
+  .problem-section__intro p,
+  .about-preview p:not(.section-eyebrow),
+  .how-i-help__intro p:last-child,
+  .client-stories__intro p:last-child,
+  .why-kmc__content p:not(.section-eyebrow),
+  .objections__intro p:last-child,
+  .process__intro p:last-child,
+  .final-cta p:not(.section-eyebrow),
+  .testimonial-card__author span {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  h1,
-  h2,
-  h3,
-  p,
-  span,
-  .section-eyebrow {
-    text-align: center;
-  }
+    .objections__intro p:last-child,
+    .process__intro p:last-child {
+      margin-bottom: -40px;
+    }
 
-  .hero__actions,
-  .actions,
-  .testimonial-actions,
-  .testimonials-actions,
-  .final-cta__actions {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .hero__actions,
-  .final-cta__actions {
+  .hero__actions {
     flex-direction: column;
+    align-items: center;
+    gap: 14px;
   }
 
-  .btn,
+  .hero__actions .btn,
+  .final-cta .btn,
+  .testimonial-actions .btn,
   .text-link {
     margin-left: auto;
     margin-right: auto;
   }
-}
 
-  .hero h1 {
-    font-size: clamp(3.5rem, 16vw, 5.5rem);
+  .hero__trust {
+    justify-content: center;
+  }
+
+  .hero__trust span {
     text-align: center;
   }
 
-  .hero__visual,
+  .hero__visual {
+    min-height: 570px;
+  }
+
+  .hero__image--main {
+    top: 0;
+    right: 0;
+    width: 82%;
+    height: 420px;
+  }
+
+  .hero__image--accent {
+    left: 0;
+    bottom: 118px;
+    width: 48%;
+    height: 230px;
+    border-width: 8px;
+  }
+
+  .hero__testimonial {
+    right: 50%;
+    bottom: 12px;
+    transform: translateX(50%);
+    width: min(72%, 340px);
+    padding: 8px 22px;
+    text-align: center;
+  }
+
+  .hero__testimonial p {
+    font-size: clamp(1.55rem, 2vw, 2.25rem);
+    text-align: center;
+  }
+
+  .hero__testimonial span {
+    text-align: center;
+  }
+
   .about-preview__visual {
     min-height: 500px;
   }
 
-  .hero__image--main,
   .about-preview__image--main {
     width: 82%;
+    height: 390px;
   }
 
-  .hero__image--accent,
   .about-preview__image--accent {
     width: 50%;
+    height: 250px;
+    border-width: 8px;
   }
 
   .problem-grid,
@@ -782,56 +971,96 @@
     grid-template-columns: 1fr;
   }
 
-  .story-card--wide {
-    grid-column: auto;
-  }
-
+  .problem-card,
+  .why-kmc__item,
   .story-card,
   .testimonial-card,
   .help-card,
-  .objection-card {
-    padding: 32px;
+  .objection-card,
+  .process-step {
+    padding: 30px 24px;
+    text-align: center;
   }
-}
 
-@media (max-width: 760px) {
+  .problem-card span,
+  .why-kmc__item span,
+  .process-step span,
+  .help-card span,
+  .story-card__tag {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   .testimonial-card {
-    padding: 34px 24px;
+    margin-top: 0;
   }
 
   .testimonial-card__quote p {
-    font-size: 1.45rem;
+    font-size: clamp(1.35rem, 6.2vw, 1.75rem);
+    text-align: center;
+  }
+
+  .testimonial-card__author {
+    padding-top: 30px;
+    text-align: center;
+  }
+
+  .testimonial-card__author h3 {
+    text-align: center;
+  }
+
+  .testimonial-actions {
+    display: flex;
+    justify-content: center;
   }
 }
 
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 62px;
-}
-
-.testimonial-card {
-  height: 100%;
-}
-
-@media (max-width: 900px) {
-  .testimonials-grid {
-    grid-template-columns: 1fr;
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .hero,
+  .problem-section,
+  .about-preview,
+  .how-i-help,
+  .client-stories,
+  .why-kmc,
+  .objections,
+  .process,
+  .testimonials,
+  .final-cta {
+    padding: 68px 0;
   }
-}
 
-.testimonial-card__quote p {
-  font-size: clamp(1.6rem, 2.1vw, 2.45rem);
-  line-height: 1.16;
-}
+  .hero {
+    padding-top: 60px;
+    padding-bottom: 105px;
+  }
 
-.testimonials-actions {
-  margin-top: 42px;
-  text-align: center;
-}
+  .hero__visual {
+    min-height: 520px;
+  }
 
-.testimonial-card .btn,
-.testimonial-card .text-link {
-  margin-top: 20px;
-  color: var(--coral);
+  .hero__image--main {
+    height: 365px;
+  }
+
+  .hero__image--accent {
+    bottom: 112px;
+    height: 205px;
+  }
+
+  .hero__testimonial {
+    bottom: 0;
+    width: 94%;
+  }
+
+  .problem-card,
+  .why-kmc__item,
+  .story-card,
+  .testimonial-card,
+  .help-card,
+  .objection-card,
+  .process-step {
+    padding: 28px 20px;
+  }
 }
