@@ -1064,3 +1064,52 @@
     padding: 28px 20px;
   }
 }
+
+@media (max-width: 760px) {
+  /* 1. Push hero testimony card down a little */
+  .hero__testimonial {
+    bottom: -18px;
+  }
+
+  /* 3 + 4. Push these section cards up some */
+  .objections__intro,
+  .process__intro {
+    margin-bottom: 42px;
+  }
+
+  .objections__intro p:last-child,
+  .process__intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 5. Fix How I Help heading going off to the right */
+  .how-i-help__intro {
+    overflow: hidden;
+  }
+
+  .how-i-help h2 {
+    width: auto;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* 6. Center spans inside cards/trust badges */
+  .hero__trust {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero__trust span,
+  .problem-card span,
+  .why-kmc__item span,
+  .process-step span,
+  .help-card span {
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+}

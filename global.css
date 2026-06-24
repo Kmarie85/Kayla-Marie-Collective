@@ -430,3 +430,26 @@ a {
     transition: none;
   }
 }
+
+@media (max-width: 760px) {
+  .site-footer__middle {
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer__links {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer__links a {
+    text-align: center;
+  }
+
+  .site-footer__contact {
+    width: 100%;
+    text-align: center;
+  }
+}
