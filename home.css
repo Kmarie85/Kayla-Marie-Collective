@@ -969,3 +969,23 @@
     text-align: center;
   }
 }
+
+@media (max-width: 760px) {
+
+  .services-proof__quote {
+    width: 75%;
+    margin-left: auto;
+    margin-right: 0;
+    padding: 22px;
+  }
+
+  .services-proof__quote p {
+    font-size: 1.9rem;
+    line-height: 1.1;
+  }
+
+  .services-proof__quote cite {
+    margin-top: 18px;
+  }
+
+}
