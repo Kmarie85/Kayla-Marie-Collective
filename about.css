@@ -759,79 +759,162 @@
   }
 }
 
+/* =========================
+   ABOUT PAGE MOBILE
+========================= */
+
 @media (max-width: 700px) {
-  .about-hero,
-  .about-journey,
-  .about-story,
-  .strategy-before-design,
-  .why-background-matters,
-  .beliefs,
-  .about-cta {
-    padding: 88px 0;
+
+  /* HERO */
+  .about-hero {
+    min-height: auto;
+    padding: 110px 0 90px;
+    text-align: center;
   }
 
-  .about-hero {
-    min-height: 720px;
-    background:
-      linear-gradient(
-        90deg,
-        rgba(95, 31, 56, 0.98) 0%,
-        rgba(95, 31, 56, 0.9) 48%,
-        rgba(17, 26, 55, 0.55) 100%
-      ),
-      url("static/images/Untitled_Artwork 104.png");
-    background-size: cover;
-    background-position: 70% center;
-    background-repeat: no-repeat;
+  .about-hero__container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-hero__content {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .about-hero .section-eyebrow {
+    justify-content: center;
+    text-align: center;
   }
 
   .about-hero h1 {
-    font-size: clamp(3.4rem, 16vw, 5.4rem);
+    margin: 0 auto 24px;
+    max-width: 100%;
   }
 
-  .about-story__note,
-  .timeline-grid article,
-  .belief-grid article,
-  .why-background-matters__cards article {
-    padding: 28px;
+  .about-hero p:not(.section-eyebrow) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
   }
 
+  /* UNIVERSAL SECTION CENTERING */
 
-  .strategy-before-design__intro {
-    margin-bottom: 42px;
+  .section-eyebrow {
+    justify-content: center;
+    text-align: center;
   }
 
-  .strategy-before-design__intro h2 {
-    font-size: clamp(3.2rem, 14vw, 5rem);
+  .section-intro,
+  .about-story__content,
+  .strategy-before-design__intro,
+  .life-collage__header,
+  .why-background-matters__intro,
+  .about-cta__container {
+    text-align: center;
+  }
+
+  .section-intro h2,
+  .about-story h2,
+  .strategy-before-design__intro h2,
+  .life-collage__header h2,
+  .why-background-matters h2,
+  .about-cta h2 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-intro p,
+  .about-story__content p,
+  .strategy-before-design__intro p,
+  .life-collage__header p,
+  .why-background-matters__intro p,
+  .about-cta p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* JOURNEY */
+
+  .timeline-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* STORY */
+
+  .about-story__container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .about-story__note {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  /* STRATEGY */
+
+  .strategy-before-design__container {
+    text-align: center;
   }
 
   .strategy-tabs__nav {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .strategy-tabs__button {
-    padding: 20px 22px;
-    font-size: 1.45rem;
+    width: 100%;
   }
 
-  .strategy-tabs__button:hover,
-  .strategy-tabs__button.is-active {
-    transform: none;
+  /* LIFE COLLAGE */
+
+  .life-collage__header {
+    text-align: center;
   }
 
-  .strategy-tabs__panel {
-    min-height: auto;
-    padding: 36px 30px 70px;
-    border-radius: 28px;
+  .life-collage__container {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .strategy-tabs__panel h3 {
-    font-size: clamp(2.55rem, 12vw, 4rem);
+  .life-collage__copy {
+    text-align: center;
   }
 
-  .strategy-tabs__panel::after {
-    right: 24px;
-    bottom: 18px;
-    font-size: 4.8rem;
+  .life-collage__caption {
+    text-align: center;
   }
+
+  /* DIFFERENCE SECTION */
+
+  .why-background-matters__container {
+    text-align: center;
+  }
+
+  .why-background-matters__cards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* BELIEFS */
+
+  .belief-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  /* CTA */
+
+  .about-cta__container {
+    text-align: center;
+  }
+
+  .about-cta .btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
