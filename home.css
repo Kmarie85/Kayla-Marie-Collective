@@ -602,9 +602,14 @@
 .testimonial-card {
   position: relative;
   z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
   max-width: 920px;
   margin: 0 auto;
   padding: 58px;
+
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.085);
   border: 1px solid rgba(255, 248, 239, 0.14);
@@ -621,7 +626,8 @@
 
 
 .testimonial-card__author {
-  margin-top: 36px;
+  margin-top: auto;
+  padding-top: 40px;
 }
 
 .testimonial-card__author h3 {
@@ -637,6 +643,10 @@
   display: block;
   margin-top: 7px;
   color: rgba(255, 248, 239, 0.7);
+}
+
+.testimonial-actions {
+  margin-top: 28px;
 }
 
 .final-cta {
@@ -779,4 +789,5 @@
 .testimonial-card .btn,
 .testimonial-card .text-link {
   margin-top: 20px;
+  color: var(--coral);
 }
