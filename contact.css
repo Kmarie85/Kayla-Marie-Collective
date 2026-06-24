@@ -526,3 +526,57 @@
     width: 100%;
   }
 }
+
+@media (max-width: 700px) {
+  /* Reduce space between copy and form */
+  .contact-main__container {
+    gap: 32px;
+  }
+
+  .contact-main__content {
+    padding-top: 48px;
+    text-align: center;
+  }
+
+  .contact-form {
+    margin-top: 0;
+  }
+
+  /* Center headings + eyebrows */
+  .contact-main .section-eyebrow,
+  .contact-proof .section-eyebrow,
+  .contact-faq .section-eyebrow,
+  .contact-cta .section-eyebrow {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .contact-main h2,
+  .contact-proof h2,
+  .contact-faq h2,
+  .contact-cta h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-main__content > p:not(.section-eyebrow),
+  .contact-proof__content,
+  .contact-cta p:not(.section-eyebrow) {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Center cards below the intro */
+  .contact-steps article,
+  .contact-faq__grid article {
+    text-align: center;
+  }
+
+  .contact-steps span,
+  .contact-faq__grid span {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
