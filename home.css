@@ -358,8 +358,8 @@
 }
 
 .how-i-help h2 {
-    font-size: clamp(3.35rem, 4.4vw, 5.7rem);
-    width: 1400px;
+  font-size: clamp(3.35rem, 4.4vw, 5.7rem);
+  width: 1400px;
 }
 
 .how-i-help__intro,
@@ -370,9 +370,9 @@
 }
 
 .client-stories__intro {
-    margin-bottom: 70px;
-    max-width: 1400px;
-    text-align: center;
+  margin-bottom: 70px;
+  max-width: 1400px;
+  text-align: center;
 }
 
 .client-stories__intro h2 {
@@ -623,7 +623,6 @@
   line-height: 1.15;
   color: var(--cream);
 }
-
 
 .testimonial-card__author {
   margin-top: auto;
@@ -879,7 +878,7 @@
 
   .hero {
     padding-top: 60px;
-    padding-bottom: 105px;
+    padding-bottom: 75px;
   }
 
   .hero__visual {
@@ -916,6 +915,24 @@
   .hero__testimonial {
     bottom: -18px;
     margin-left: 50px;
+    width: 72%;
+    right: 0;
+    left: auto;
+    bottom: 24px;
+    transform: none;
+    padding: 22px 24px;
+    text-align: left;
+  }
+
+  .hero__testimonial p {
+    font-size: 1.1rem;
+    line-height: 1.12;
+    text-align: center;
+  }
+
+  .hero__testimonial span {
+    text-align: center;
+    font-size: 0.78rem;
   }
 
   /* 3 + 4. Push these section cards up some */
@@ -968,24 +985,4 @@
     margin-right: auto;
     text-align: center;
   }
-}
-
-@media (max-width: 760px) {
-
-  .services-proof__quote {
-    width: 75%;
-    margin-left: auto;
-    margin-right: 0;
-    padding: 22px;
-  }
-
-  .services-proof__quote p {
-    font-size: 1.9rem;
-    line-height: 1.1;
-  }
-
-  .services-proof__quote cite {
-    margin-top: 18px;
-  }
-
 }
