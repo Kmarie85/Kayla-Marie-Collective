@@ -915,12 +915,14 @@
   /* 1. Push hero testimony card down a little */
   .hero__testimonial {
     bottom: -18px;
+    margin-left: 50px;
   }
 
   /* 3 + 4. Push these section cards up some */
   .objections__intro,
   .process__intro {
     margin-bottom: 42px;
+    margin-bottom: 50px;
   }
 
   .objections__intro p:last-child,
@@ -938,6 +940,14 @@
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+  }
+
+  .process {
+    margin-top: -75px;
+  }
+
+  .process-step h3 {
     text-align: center;
   }
 
