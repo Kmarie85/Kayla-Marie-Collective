@@ -530,7 +530,7 @@
 @media (max-width: 700px) {
   /* Reduce space between copy and form */
   .contact-main__container {
-    gap: 32px;
+    gap: 25px;
   }
 
   .contact-main__content {
