@@ -800,6 +800,10 @@
 
 /* SMALL TABLET */
 @media (max-width: 900px) {
+  .path-grid,
+  .packages-grid,
+  .process-grid,
+  .fit-grid,
   .problem-grid,
   .help-grid,
   .story-grid,
@@ -813,206 +817,134 @@
 }
 
 /* MOBILE */
+/* MOBILE SERVICES FIXES */
 @media (max-width: 760px) {
-  .hero,
-  .about-preview,
-  .how-i-help,
-  .client-stories,
-  .why-kmc,
-  .objections,
-  .process,
-  .testimonials,
-  .final-cta {
-    padding: 78px 0;
+  .services-hero,
+  .services-story,
+  .services-path,
+  .packages,
+  .services-process,
+  .launch-support,
+  .services-belief,
+  .services-proof,
+  .services-fit,
+  .services-faq,
+  .services-cta {
+    padding: 72px 0;
   }
 
-  .problem-section {
-    padding-top: 0;
-  }
-
-  .hero {
-    min-height: auto;
-    padding-top: 50px;
-    padding-bottom: 75px;
-  }
-
-  .hero__container,
-  .problem-section__container,
-  .about-preview__container,
-  .why-kmc__container {
-    gap: 46px;
-  }
-
-  .hero h1 {
-    font-size: clamp(3.2rem, 15vw, 5rem);
-    line-height: 0.88;
-    max-width: 100%;
-  }
-
-  .hero h2 {
-    font-size: clamp(1.65rem, 8vw, 2.45rem);
-    line-height: 1.05;
-  }
-
-  .problem-section h2,
-  .why-kmc h2,
-  .testimonials h2,
-  .about-preview h2,
-  .how-i-help h2,
-  .client-stories h2,
-  .objections h2,
-  .process h2,
-  .final-cta h2 {
-    font-size: clamp(2.75rem, 13vw, 4.35rem);
+  .services-hero h1,
+  .services-story h2,
+  .services-path h2,
+  .packages h2,
+  .services-process h2,
+  .launch-support h2,
+  .services-belief h2,
+  .services-proof h2,
+  .services-fit h2,
+  .services-faq h2,
+  .services-cta h2 {
+    font-size: clamp(2.9rem, 12vw, 4.25rem);
     line-height: 0.95;
+    letter-spacing: -0.04em;
+    text-align: center;
     max-width: 100%;
   }
 
   .section-eyebrow,
-  .hero__description,
-  .problem-section__intro p,
-  .about-preview p:not(.section-eyebrow),
-  .how-i-help__intro p:last-child,
-  .client-stories__intro p:last-child,
-  .why-kmc__content p:not(.section-eyebrow),
-  .objections__intro p:last-child,
-  .process__intro p:last-child,
-  .final-cta p:not(.section-eyebrow),
-  .testimonial-card__author span {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-    .objections__intro p:last-child,
-    .process__intro p:last-child {
-      margin-bottom: -40px;
-    }
-
-  .hero__actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .hero__actions .btn,
-  .final-cta .btn,
-  .testimonial-actions .btn,
-  .text-link {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero__trust {
-    justify-content: center;
-  }
-
-  .hero__trust span {
+  .services-hero p,
+  .services-story__copy p,
+  .services-path__intro p,
+  .packages__intro p,
+  .services-process__intro p,
+  .launch-support__content p,
+  .services-belief__copy p,
+  .services-fit__intro p,
+  .services-faq__intro p,
+  .services-cta p {
     text-align: center;
   }
 
-  .hero__visual {
-    min-height: 570px;
+  .services-story__container,
+  .services-belief__container,
+  .services-proof__container,
+  .services-faq__container,
+  .launch-support__container {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 
-  .hero__image--main {
-    top: 0;
-    right: 0;
-    width: 82%;
-    height: 420px;
-  }
-
-  .hero__image--accent {
-    left: 0;
-    bottom: 118px;
-    width: 48%;
-    height: 230px;
-    border-width: 8px;
-  }
-
-  .hero__testimonial {
-    right: 50%;
-    bottom: 12px;
-    transform: translateX(50%);
-    width: min(72%, 340px);
-    padding: 8px 22px;
-    text-align: center;
-  }
-
-  .hero__testimonial p {
-    font-size: clamp(1.55rem, 2vw, 2.25rem);
-    text-align: center;
-  }
-
-  .hero__testimonial span {
-    text-align: center;
-  }
-
-  .about-preview__visual {
-    min-height: 500px;
-  }
-
-  .about-preview__image--main {
-    width: 82%;
-    height: 390px;
-  }
-
-  .about-preview__image--accent {
-    width: 50%;
-    height: 250px;
-    border-width: 8px;
-  }
-
-  .problem-grid,
-  .help-grid,
-  .story-grid,
-  .objections__grid,
-  .process__steps {
+  .path-grid,
+  .packages-grid,
+  .process-grid,
+  .fit-grid,
+  .launch-support__list {
     grid-template-columns: 1fr;
   }
 
-  .problem-card,
-  .why-kmc__item,
-  .story-card,
-  .testimonial-card,
-  .help-card,
-  .objection-card,
-  .process-step {
+  .path-card,
+  .package-card,
+  .process-card,
+  .fit-card,
+  .faq-item,
+  .launch-support__list article,
+  .services-story__copy {
     padding: 30px 24px;
     text-align: center;
   }
 
-  .problem-card span,
-  .why-kmc__item span,
-  .process-step span,
-  .help-card span,
-  .story-card__tag {
+  .path-card span,
+  .process-card span,
+  .launch-support__list span {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
   }
 
-  .testimonial-card {
-    margin-top: 0;
+  .package-card ul {
+    text-align: left;
+    max-width: 310px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .testimonial-card__quote p {
-    font-size: clamp(1.35rem, 6.2vw, 1.75rem);
+  .services-hero .hero__actions,
+  .launch-support .btn,
+  .services-cta .btn,
+  .package-card .btn,
+  .package-card .text-link {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .services-hero .hero__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .package-card--featured,
+  .process-card:nth-child(even),
+  .fit-card:nth-child(even) {
+    transform: none;
+  }
+
+  .services-proof__quote {
+    transform: none;
+    padding: 34px 26px;
     text-align: center;
   }
 
-  .testimonial-card__author {
-    padding-top: 30px;
-    text-align: center;
+  .services-proof__quote p {
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.05;
   }
 
-  .testimonial-card__author h3 {
-    text-align: center;
+  .services-faq__intro {
+    position: static;
   }
 
-  .testimonial-actions {
-    display: flex;
-    justify-content: center;
+  .faq-list {
+    gap: 22px;
   }
 }
 
