@@ -800,10 +800,6 @@
 
 /* SMALL TABLET */
 @media (max-width: 900px) {
-  .path-grid,
-  .packages-grid,
-  .process-grid,
-  .fit-grid,
   .problem-grid,
   .help-grid,
   .story-grid,
@@ -817,134 +813,52 @@
 }
 
 /* MOBILE */
-/* MOBILE SERVICES FIXES */
 @media (max-width: 760px) {
-  .services-hero,
-  .services-story,
-  .services-path,
-  .packages,
-  .services-process,
-  .launch-support,
-  .services-belief,
-  .services-proof,
-  .services-fit,
-  .services-faq,
-  .services-cta {
-    padding: 72px 0;
+  /* 1. Push hero testimony card down a little */
+  .hero__testimonial {
+    bottom: -18px;
   }
 
-  .services-hero h1,
-  .services-story h2,
-  .services-path h2,
-  .packages h2,
-  .services-process h2,
-  .launch-support h2,
-  .services-belief h2,
-  .services-proof h2,
-  .services-fit h2,
-  .services-faq h2,
-  .services-cta h2 {
-    font-size: clamp(2.9rem, 12vw, 4.25rem);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    text-align: center;
+  /* 3 + 4. Push these section cards up some */
+  .objections__intro,
+  .process__intro {
+    margin-bottom: 42px;
+  }
+
+  .objections__intro p:last-child,
+  .process__intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 5. Fix How I Help heading going off to the right */
+  .how-i-help__intro {
+    overflow: hidden;
+  }
+
+  .how-i-help h2 {
+    width: auto;
     max-width: 100%;
-  }
-
-  .section-eyebrow,
-  .services-hero p,
-  .services-story__copy p,
-  .services-path__intro p,
-  .packages__intro p,
-  .services-process__intro p,
-  .launch-support__content p,
-  .services-belief__copy p,
-  .services-fit__intro p,
-  .services-faq__intro p,
-  .services-cta p {
-    text-align: center;
-  }
-
-  .services-story__container,
-  .services-belief__container,
-  .services-proof__container,
-  .services-faq__container,
-  .launch-support__container {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .path-grid,
-  .packages-grid,
-  .process-grid,
-  .fit-grid,
-  .launch-support__list {
-    grid-template-columns: 1fr;
-  }
-
-  .path-card,
-  .package-card,
-  .process-card,
-  .fit-card,
-  .faq-item,
-  .launch-support__list article,
-  .services-story__copy {
-    padding: 30px 24px;
-    text-align: center;
-  }
-
-  .path-card span,
-  .process-card span,
-  .launch-support__list span {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
   }
 
-  .package-card ul {
-    text-align: left;
-    max-width: 310px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .services-hero .hero__actions,
-  .launch-support .btn,
-  .services-cta .btn,
-  .package-card .btn,
-  .package-card .text-link {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .services-hero .hero__actions {
-    flex-direction: column;
+  /* 6. Center spans inside cards/trust badges */
+  .hero__trust {
+    justify-content: center;
     align-items: center;
   }
 
-  .package-card--featured,
-  .process-card:nth-child(even),
-  .fit-card:nth-child(even) {
-    transform: none;
-  }
-
-  .services-proof__quote {
-    transform: none;
-    padding: 34px 26px;
+  .hero__trust span,
+  .problem-card span,
+  .why-kmc__item span,
+  .process-step span,
+  .help-card span {
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
-  }
-
-  .services-proof__quote p {
-    font-size: clamp(2rem, 10vw, 3rem);
-    line-height: 1.05;
-  }
-
-  .services-faq__intro {
-    position: static;
-  }
-
-  .faq-list {
-    gap: 22px;
   }
 }
 

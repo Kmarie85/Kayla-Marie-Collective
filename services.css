@@ -513,51 +513,20 @@
 
 }
 
-@media (max-width: 1000px) {
-  .services-story__container,
-  .services-belief__container,
-  .services-proof__container,
-  .services-faq__container {
+@media (max-width: 900px) {
+  .path-grid,
+  .packages-grid,
+  .process-grid,
+  .fit-grid {
     grid-template-columns: 1fr;
-    gap: 42px;
   }
 }
 
-@media (max-width: 760px) {
-  .services-hero,
-  .services-story,
-  .services-path,
-  .packages,
-  .services-process,
-  .launch-support,
-  .services-belief,
-  .services-proof,
-  .services-fit,
-  .services-faq,
-  .services-cta {
-    padding: 88px 0;
-  }
-
-  .services-hero h1 {
-    font-size: clamp(3.45rem, 15vw, 5.5rem);
-  }
-
-  .path-card,
-  .package-card,
-  .process-card,
-  .faq-item {
-    padding: 32px;
-  }
-
-  .services-faq__intro {
-    position: relative;
-    top: auto;
-  }
-
-  .services-proof__quote {
-    padding: 30px;
-    transform: none;
-  }
+  .path-grid,
+  .packages-grid,
+  .process-grid,
+  .fit-grid {
+    grid-template-columns: 1fr;
 }
 /* PROCESS */
 
